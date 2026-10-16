@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 from typing import List, Optional, Tuple
 from bs4 import BeautifulSoup
@@ -52,7 +53,6 @@ def parse_devpost_dates(date_str: Optional[str]) -> Tuple[Optional[str], Optiona
     for fmt in ["%b %d, %Y", "%B %d, %Y"]:
         try:
             start_dt = datetime.strptime(f"{start_str}, {end_dt.year}", fmt)
-            # If start month is after end month, start year might be previous year
             if start_dt > end_dt:
                 start_dt = start_dt.replace(year=end_dt.year - 1)
             return start_dt.strftime("%Y-%m-%d"), end_iso
@@ -60,6 +60,34 @@ def parse_devpost_dates(date_str: Optional[str]) -> Tuple[Optional[str], Optiona
             pass
 
     return None, end_iso
+
+
+def extract_devpost_prize(item: dict) -> str:
+    """Extract prize amount from item, title, or non-cash counts. Fallback to N/A."""
+    title = item.get("title", "")
+    prize_raw = item.get("prize_amount")
+    prize = None
+    if prize_raw:
+        prize = BeautifulSoup(str(prize_raw), "html.parser").get_text(strip=True)
+
+    clean_num = re.sub(r"[^\d]", "", prize or "")
+    is_zero_or_empty = (not clean_num or clean_num == "0" or prize == "$0")
+
+    # Extract prize mentioned in title, e.g. ($100k+ in prizes!) or ($40,000 in prizes)
+    title_match = re.search(r"\(([\$€£][0-9kKmM\+,\.]+(?:\s*(?:in\s*)?prizes?)?[^\)]*)\)", title, re.IGNORECASE)
+    if not title_match:
+        title_match = re.search(r"([\$€£][0-9kKmM\+,\.]+\+?(?:\s+in\s+prizes)?)", title, re.IGNORECASE)
+
+    if is_zero_or_empty:
+        if title_match:
+            return title_match.group(1).rstrip("! ")
+        prizes_counts = item.get("prizes_counts")
+        other_prizes = prizes_counts.get("other", 0) if isinstance(prizes_counts, dict) else 0
+        if other_prizes > 0:
+            return f"{other_prizes} non-cash prize(s)"
+        return "N/A"
+
+    return prize if prize else "N/A"
 
 
 class DevpostScraper(BaseScraper):
@@ -90,13 +118,7 @@ class DevpostScraper(BaseScraper):
                 if not title or not url:
                     continue
 
-                # Prize extraction & tag strip
-                prize_raw = item.get("prize_amount")
-                prize = None
-                if prize_raw:
-                    prize = BeautifulSoup(str(prize_raw), "html.parser").get_text(strip=True)
-
-                # Organizer
+                prize = extract_devpost_prize(item)
                 organizer = item.get("organization_name")
 
                 # Location & Online status
@@ -136,3 +158,4 @@ class DevpostScraper(BaseScraper):
                 events.append(event)
 
         return events
+
