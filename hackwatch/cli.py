@@ -17,6 +17,21 @@ def get_available_scrapers():
     except ImportError:
         pass
     try:
+        from hackwatch.scrapers.eventbrite import EventbriteScraper
+        scrapers.append(EventbriteScraper())
+    except ImportError:
+        pass
+    try:
+        from hackwatch.scrapers.gdg import GDGScraper
+        scrapers.append(GDGScraper())
+    except ImportError:
+        pass
+    try:
+        from hackwatch.scrapers.josa import JOSAScraper
+        scrapers.append(JOSAScraper())
+    except ImportError:
+        pass
+    try:
         from hackwatch.scrapers.manual import ManualScraper
         scrapers.append(ManualScraper())
     except ImportError:
