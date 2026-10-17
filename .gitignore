@@ -2,6 +2,7 @@ __pycache__/
 *.pyc
 .venv/
 hackwatch.db
+docs/events.json
 *.egg-info/
 dist/
 build/

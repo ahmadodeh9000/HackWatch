@@ -7,6 +7,8 @@ HackWatch tracks tech events and hackathons with a focus on Jordan: online event
 ![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
 
+🌐 **Live site:** https://ahmadodeh9000.github.io/HackWatch/
+
 ---
 
 ## ✨ Features
@@ -18,7 +20,7 @@ HackWatch tracks tech events and hackathons with a focus on Jordan: online event
 - **Local-first** — All data stored in a single `hackwatch.db` SQLite file
 - **Manual events** — Add your own events via YAML or the interactive prompt
 - **Search** — Full-text keyword search across titles, organizers, locations, and descriptions
-- **CLI commands** — Also supports traditional CLI via `python -m hackwatch.cli`
+- **CLI commands** — Also supports traditional CLI via `python3 -m hackwatch.cli`
 
 ---
 
@@ -87,22 +89,25 @@ python3 hackwatch.py
 
 ```bash
 # Fetch events from all sources
-python -m hackwatch.cli fetch
+python3 -m hackwatch.cli fetch
 
 # Fetch from a specific source
-python -m hackwatch.cli fetch --source devpost
+python3 -m hackwatch.cli fetch --source devpost
 
 # List upcoming events
-python -m hackwatch.cli list
+python3 -m hackwatch.cli list
 
 # List all events (including past)
-python -m hackwatch.cli list --all
+python3 -m hackwatch.cli list --all
 
 # Show only new events from last fetch
-python -m hackwatch.cli list --new
+python3 -m hackwatch.cli list --new
 
 # Add a manual event interactively
-python -m hackwatch.cli add
+python3 -m hackwatch.cli add
+
+# Export upcoming events to JSON
+python3 -m hackwatch.cli export --out events.json
 ```
 
 ---

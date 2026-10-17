@@ -1,3 +1,4 @@
+import json
 import typer
 from typing import Optional
 from pathlib import Path
@@ -141,6 +142,39 @@ def list_events(
         typer.echo(f"- [{ev.source}] {ev.title}{extra_str}")
         typer.echo(f"  Dates: {date_str} | Loc: {loc}")
         typer.echo(f"  URL: {ev.url}")
+
+
+@app.command()
+def export(
+    out: Path = typer.Option(Path("events.json"), "--out", "-o", help="Output JSON file path"),
+    db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database"),
+):
+    """Export upcoming events to a JSON file."""
+    conn = db.get_connection(db_path)
+    db.init_db(conn)
+
+    events = db.get_events(conn, show_all=False)
+
+    records = [
+        {
+            "title": ev.title,
+            "url": ev.url,
+            "source": ev.source,
+            "start_date": ev.start_date,
+            "end_date": ev.end_date,
+            "location": ev.location,
+            "organizer": ev.organizer,
+            "prize": ev.prize,
+            "description": ev.description,
+            "is_online": ev.is_online,
+        }
+        for ev in events
+    ]
+
+    with open(out, "w", encoding="utf-8") as f:
+        json.dump(records, f, indent=2, ensure_ascii=False)
+
+    typer.echo(f"Exported {len(records)} events to {out}")
 
 
 if __name__ == "__main__":

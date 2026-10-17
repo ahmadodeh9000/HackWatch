@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HackWatch - Hackathons & dev events in Jordan</title>
+<meta name="description" content="Never miss a hackathon in Jordan. Online events worldwide, in-person events in Jordan. Open source.">
+<meta property="og:title" content="HackWatch - Hackathons & dev events in Jordan">
+<meta property="og:description" content="Online events worldwide, in-person events in Jordan. Student clubs can add events with 5 lines of YAML.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HackWatch - Hackathons & dev events in Jordan">
+<meta name="twitter:description" content="Online events worldwide, in-person events in Jordan. Open source.">
+<style>
+:root{
+  --bg:#faf8f5; --surface:#ffffff; --text:#1f2430; --muted:#5d6475; --border:#e8e3db;
+  --accent:#4f46e5; --accent-ink:#ffffff; --accent-soft:#eceafe;
+  --green-bg:#dcf5e5; --green-fg:#17653a;
+  --amber-bg:#fdecc8; --amber-fg:#8a5300;
+  --blue-bg:#dbeafe; --blue-fg:#1e4fa3;
+  --gray-bg:#ebe8e2; --gray-fg:#555;
+  --shadow:0 2px 10px rgba(40,30,10,.07); --shadow-lift:0 10px 28px rgba(40,30,10,.13);
+  --radius:16px;
+  --src-devpost:#d9ecff; --src-devpost-fg:#1b4f8a;
+  --src-eventbrite:#ffe3d1; --src-eventbrite-fg:#9a3d0a;
+  --src-gdg:#dcf5e5; --src-gdg-fg:#17653a;
+  --src-josa:#f1e1ff; --src-josa-fg:#6b2aa0;
+  --src-manual:#fff0b8; --src-manual-fg:#7a5a00;
+  --src-other:#ebe8e2; --src-other-fg:#555;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#15161c; --surface:#1e2029; --text:#eceef4; --muted:#a3a9ba; --border:#2c2f3b;
+    --accent:#8b85ff; --accent-ink:#12121a; --accent-soft:#2a2850;
+    --green-bg:#16402a; --green-fg:#8ee0ae;
+    --amber-bg:#4a3510; --amber-fg:#ffd27a;
+    --blue-bg:#1a3358; --blue-fg:#9cc4ff;
+    --gray-bg:#2b2e39; --gray-fg:#b5bacb;
+    --shadow:0 2px 10px rgba(0,0,0,.35); --shadow-lift:0 10px 28px rgba(0,0,0,.5);
+    --src-devpost:#183556; --src-devpost-fg:#9cc9ff;
+    --src-eventbrite:#4a2812; --src-eventbrite-fg:#ffb98a;
+    --src-gdg:#16402a; --src-gdg-fg:#8ee0ae;
+    --src-josa:#3a1f56; --src-josa-fg:#d8b2ff;
+    --src-manual:#463a10; --src-manual-fg:#ffe07a;
+    --src-other:#2b2e39; --src-other-fg:#b5bacb;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+
+/* hero */
+.hero{padding:56px 0 36px;text-align:center}
+.hero h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.1;margin:0 0 12px;letter-spacing:-.02em}
+.hero p{margin:0 auto 24px;max-width:560px;color:var(--muted);font-size:1.1rem}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:12px 22px;border-radius:999px;font-weight:600;text-decoration:none;border:2px solid var(--accent);cursor:pointer;font-size:1rem;font-family:inherit}
+.btn.primary{background:var(--accent);color:var(--accent-ink)}
+.btn.secondary{background:transparent;color:var(--accent)}
+.btn:hover{transform:translateY(-1px)}
+
+/* controls */
+.controls{position:sticky;top:0;z-index:10;background:var(--bg);padding:12px 0 8px;border-bottom:1px solid var(--border)}
+.search{width:100%;padding:14px 18px;border-radius:999px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:1rem;font-family:inherit}
+.search:focus{border-color:var(--accent);outline:none}
+.row{display:flex;align-items:center;gap:8px;margin-top:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.row .label{flex:none;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);min-width:64px}
+.chip{flex:none;padding:7px 14px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-size:.92rem;font-family:inherit}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.meta{display:flex;justify-content:space-between;align-items:center;margin:14px 0 6px;color:var(--muted);font-size:.95rem}
+.clear{background:none;border:none;color:var(--accent);font-weight:600;cursor:pointer;font-size:.95rem;font-family:inherit;display:none}
+.clear.show{display:inline}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:18px;padding:12px 0 40px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;transition:transform .18s,box-shadow .18s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+.top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.card h3{margin:0;font-size:1.12rem;line-height:1.3}
+.org{margin:0;color:var(--muted);font-size:.92rem}
+.pill{display:inline-block;padding:3px 11px;border-radius:999px;font-size:.78rem;font-weight:700;white-space:nowrap}
+.pill.upcoming{background:var(--green-bg);color:var(--green-fg)}
+.pill.soon{background:var(--amber-bg);color:var(--amber-fg)}
+.pill.ongoing{background:var(--blue-bg);color:var(--blue-fg)}
+.pill.tba{background:var(--gray-bg);color:var(--gray-fg)}
+.pill.fmt{background:var(--accent-soft);color:var(--accent)}
+.pill.prize{background:var(--amber-bg);color:var(--amber-fg)}
+.pill.src{text-transform:uppercase;letter-spacing:.04em;font-size:.72rem}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.info{margin:0;color:var(--muted);font-size:.93rem}
+.desc{margin:0;font-size:.93rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;color:var(--text);opacity:.9}
+.card .btn{margin-top:auto;text-align:center;padding:9px 16px;font-size:.95rem}
+
+/* states */
+.state{text-align:center;padding:48px 16px;color:var(--muted);font-size:1.1rem;grid-column:1/-1}
+.state .emoji{display:block;font-size:2.4rem;margin-bottom:8px}
+
+/* sections */
+section.block{padding:36px 0}
+section.block h2{margin:0 0 8px;font-size:1.6rem}
+section.block>.wrap>p{color:var(--muted);margin:0 0 18px}
+.callout{background:var(--accent-soft);border-radius:var(--radius);padding:24px;border:1px solid var(--border)}
+pre{margin:0 0 16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;overflow-x:auto;font:.9rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--text)}
+.codewrap{position:relative}
+.copy{position:absolute;top:8px;right:8px;padding:5px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:.8rem;font-family:inherit}
+footer{padding:32px 0 48px;text-align:center;color:var(--muted);font-size:.92rem;border-top:1px solid var(--border)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.card:hover,.btn:hover{transform:none}}
+@media (max-width:520px){.hero{padding:36px 0 24px}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>Never miss a hackathon in Jordan 🇯🇴</h1>
+    <p>Online events worldwide · In-person events in Jordan only. Updated daily.</p>
+    <div class="btns">
+      <a class="btn primary" href="#events">Browse events</a>
+      <a class="btn secondary" href="#add">Add your club's event</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="controls">
+    <div class="wrap">
+      <input id="search" class="search" type="search" placeholder="Search events, organizers, locations..." aria-label="Search events" autocomplete="off">
+      <div class="row" id="rowSource" role="group" aria-label="Filter by source"><span class="label">Source</span></div>
+      <div class="row" id="rowFormat" role="group" aria-label="Filter by format"><span class="label">Format</span></div>
+      <div class="row" id="rowStatus" role="group" aria-label="Filter by status"><span class="label">Status</span></div>
+    </div>
+  </div>
+
+  <div class="wrap" id="events">
+    <div class="meta">
+      <span id="count" aria-live="polite">Loading events...</span>
+      <button id="clear" class="clear" type="button">Clear filters</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <section class="block" id="add">
+    <div class="wrap">
+      <h2>Add your club's event</h2>
+      <p>Running a hackathon or workshop? Add five lines and it shows up here after the next update.</p>
+      <div class="callout">
+        <div class="codewrap">
+<pre id="yaml">- title: My Club Hackathon
+  url: https://example.com
+  dates: 2026-11-01 to 2026-11-03
+  location: Amman, Jordan
+  organizer: My Club
+  prize: $500</pre>
+          <button class="copy" id="copyBtn" type="button">Copy</button>
+        </div>
+        <a class="btn primary" id="editLink" href="#" target="_blank" rel="noopener">Add it on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="cli">
+    <div class="wrap">
+      <h2>Prefer your terminal?</h2>
+      <p>HackWatch is open source. Run the same dashboard locally.</p>
+<pre>git clone https://github.com/ahmadodeh9000/HackWatch.git
+cd HackWatch
+pip install -r requirements.txt
+python3 hackwatch.py</pre>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    Open source on <a id="repoLink" href="#">GitHub</a> · <span id="updated"></span>
+  </div>
+</footer>
+
+<script>
+const GITHUB_USER = "ahmadodeh9000";
+const REPO = "HackWatch";
+const REPO_URL = `https://github.com/${GITHUB_USER}/${REPO}`;
+document.getElementById("repoLink").href = REPO_URL;
+document.getElementById("editLink").href = `${REPO_URL}/edit/main/manual_events.yaml`;
+
+const state = {events:[], q:"", source:"all", format:"all", status:"all"};
+const KNOWN_SRC = ["devpost","eventbrite","gdg","josa","manual"];
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function parseDate(s){
+  if(!s) return null;
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(s));
+  return m ? new Date(+m[1], +m[2]-1, +m[3]) : null;
+}
+function today(){ const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); }
+function dayDiff(a,b){ return Math.round((b-a)/86400000); }
+function plural(n,w){ return `${n} ${w}${n===1?"":"s"}`; }
+function isFakePrize(p){
+  if(p == null) return true;
+  const t = String(p).trim().toLowerCase();
+  return !t || ["n/a","na","-","tbd","none","null","unknown"].includes(t);
+}
+
+function enrich(ev){
+  const t = today();
+  const s = parseDate(ev.start_date);
+  const e = parseDate(ev.end_date) || s;
+  let status, label, key, rank;
+  if(!s){ status="tba"; label="Date TBA"; key=Infinity; rank=2; }
+  else if(e < t){ return null; }
+  else if(s > t){
+    const d = dayDiff(t,s);
+    status = d < 7 ? "soon" : "upcoming";
+    label = d === 1 ? "Tomorrow" : `in ${plural(d,"day")}`;
+    key = s.getTime(); rank = 0;
+  } else {
+    const d = dayDiff(t,e);
+    status = "ongoing";
+    label = d === 0 ? "Ends today" : `Ongoing · ends in ${plural(d,"day")}`;
+    key = e.getTime(); rank = 1;
+  }
+  return {...ev, _status:status, _label:label, _key:key, _rank:rank};
+}
+
+function fmtRange(ev){
+  const a = ev.start_date, b = ev.end_date;
+  if(!a) return "Date to be announced";
+  return b && b !== a ? `${a} → ${b}` : a;
+}
+
+function matches(ev){
+  if(state.source !== "all" && ev.source !== state.source) return false;
+  if(state.format === "online" && !ev.is_online) return false;
+  if(state.format === "inperson" && ev.is_online) return false;
+  if(state.status === "upcoming" && !(ev._status === "upcoming" || ev._status === "soon")) return false;
+  if(state.status === "ongoing" && ev._status !== "ongoing") return false;
+  if(state.q){
+    const hay = [ev.title, ev.organizer, ev.location, ev.description].join(" ").toLowerCase();
+    return state.q.split(/\s+/).filter(Boolean).every(w => hay.includes(w));
+  }
+  return true;
+}
+
+function card(ev){
+  const src = KNOWN_SRC.includes(ev.source) ? ev.source : "other";
+  const prize = isFakePrize(ev.prize) ? "" : `<span class="pill prize">🏆 ${esc(ev.prize)}</span>`;
+  const org = ev.organizer ? `<p class="org">by ${esc(ev.organizer)}</p>` : "";
+  const desc = ev.description ? `<p class="desc">${esc(ev.description)}</p>` : "";
+  const url = /^https?:\/\//i.test(ev.url || "") ? esc(ev.url) : "#";
+  return `<article class="card">
+    <div class="top"><h3>${esc(ev.title)}</h3><span class="pill ${ev._status}">${esc(ev._label)}</span></div>
+    ${org}
+    <div class="tags">
+      <span class="pill fmt">${ev.is_online ? "🌐 Online" : "📍 In-person"}</span>
+      <span class="pill src" style="background:var(--src-${src});color:var(--src-${src}-fg)">${esc(ev.source || "other")}</span>
+      ${prize}
+    </div>
+    <p class="info">📅 ${esc(fmtRange(ev))}</p>
+    <p class="info">📍 ${esc(ev.location || "Location TBA")}</p>
+    ${desc}
+    <a class="btn primary" href="${url}" target="_blank" rel="noopener">View event</a>
+  </article>`;
+}
+
+function render(){
+  const list = state.events.filter(matches);
+  const grid = $("grid");
+  if(!list.length){
+    grid.innerHTML = `<div class="state"><span class="emoji">🔍</span>No events match yet - try clearing filters</div>`;
+  } else {
+    grid.innerHTML = list.map(card).join("");
+  }
+  $("count").textContent = `Showing ${plural(list.length,"event")}`;
+  const active = state.q || state.source!=="all" || state.format!=="all" || state.status!=="all";
+  $("clear").classList.toggle("show", !!active);
+}
+
+function chips(rowId, key, options){
+  const row = $(rowId);
+  row.querySelectorAll(".chip").forEach(n => n.remove());
+  options.forEach(([val,label]) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "chip"; b.textContent = label;
+    b.setAttribute("aria-pressed", state[key] === val);
+    b.addEventListener("click", () => { state[key] = val; syncChips(); render(); });
+    b.dataset.key = key; b.dataset.val = val;
+    row.appendChild(b);
+  });
+}
+function syncChips(){
+  document.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", state[b.dataset.key] === b.dataset.val));
+}
+
+function setup(){
+  const sources = [...new Set(state.events.map(e => e.source).filter(Boolean))].sort();
+  chips("rowSource","source",[["all","All"],...sources.map(s => [s, s])]);
+  chips("rowFormat","format",[["all","All"],["online","Online"],["inperson","In-person"]]);
+  chips("rowStatus","status",[["all","All"],["upcoming","Upcoming"],["ongoing","Ongoing"]]);
+}
+
+$("search").addEventListener("input", e => { state.q = e.target.value.trim().toLowerCase(); render(); });
+$("clear").addEventListener("click", () => {
+  state.q=""; state.source="all"; state.format="all"; state.status="all";
+  $("search").value=""; syncChips(); render();
+});
+$("copyBtn").addEventListener("click", async () => {
+  const b = $("copyBtn");
+  try{ await navigator.clipboard.writeText($("yaml").textContent); b.textContent = "Copied ✓"; }
+  catch(_){ b.textContent = "Press Ctrl+C"; }
+  setTimeout(() => b.textContent = "Copy", 1800);
+});
+
+async function load(){
+  try{
+    const res = await fetch("events.json", {cache:"no-store"});
+    if(!res.ok) throw new Error(res.status);
+    const lm = res.headers.get("Last-Modified");
+    const data = await res.json();
+    state.events = data.map(enrich).filter(Boolean)
+      .sort((a,b) => a._rank - b._rank || a._key - b._key || String(a.title).localeCompare(String(b.title)));
+    const when = lm ? new Date(lm) : new Date();
+    $("updated").textContent = "Last updated " + when.toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"});
+    setup(); render();
+  }catch(err){
+    $("count").textContent = "";
+    $("grid").innerHTML = `<div class="state"><span class="emoji">😕</span>Couldn't load events - refresh to try again</div>`;
+  }
+}
+load();
+</script>
+</body>
+</html>
