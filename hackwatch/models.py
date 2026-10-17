@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional
 import hashlib
+from hackwatch.countries import to_iso2
 
 
 @dataclass
@@ -16,12 +17,15 @@ class Event:
     location: Optional[str] = None
     is_online: bool = False
     description: Optional[str] = None
+    country: Optional[str] = None
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
     first_seen_run_id: Optional[int] = None
     id: Optional[str] = None
 
     def __post_init__(self):
+        if not self.country:
+            self.country = to_iso2(self.location)
         if not self.id:
             # Deterministic ID generated from source and normalized URL
             norm_url = self.url.strip().rstrip("/").lower()

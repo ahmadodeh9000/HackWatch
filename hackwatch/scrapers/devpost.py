@@ -36,6 +36,15 @@ def parse_devpost_dates(date_str: Optional[str]) -> Tuple[Optional[str], Optiona
         except ValueError:
             pass
 
+    if not end_dt and start_str:
+        month = start_str.split()[0]
+        for fmt in date_formats:
+            try:
+                end_dt = datetime.strptime(f"{month} {end_str}", fmt)
+                break
+            except ValueError:
+                pass
+
     if not end_dt:
         return None, None
 

@@ -3,6 +3,7 @@ from datetime import datetime, date
 from pathlib import Path
 from typing import List, Optional
 from hackwatch.models import Event
+from hackwatch.filters import is_relevant
 
 DEFAULT_DB_PATH = Path("hackwatch.db")
 
@@ -33,6 +34,7 @@ def init_db(conn: sqlite3.Connection) -> None:
                 start_date TEXT,
                 end_date TEXT,
                 location TEXT,
+                country TEXT,
                 is_online INTEGER DEFAULT 0,
                 description TEXT,
                 first_seen_run_id INTEGER,
@@ -55,18 +57,20 @@ def get_latest_fetch_run_id(conn: sqlite3.Connection) -> Optional[int]:
     return row[0] if row and row[0] is not None else None
 
 
-def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] = None) -> None:
+def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] = None) -> bool:
+    if not is_relevant(event):
+        return False
     with conn:
         conn.execute("""
             INSERT INTO events (
                 id, title, url, source, organizer, prize,
                 registration_deadline, start_date, end_date,
-                location, is_online, description, first_seen_run_id,
+                location, country, is_online, description, first_seen_run_id,
                 created_at, updated_at
             ) VALUES (
                 :id, :title, :url, :source, :organizer, :prize,
                 :registration_deadline, :start_date, :end_date,
-                :location, :is_online, :description, :first_seen_run_id,
+                :location, :country, :is_online, :description, :first_seen_run_id,
                 CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
             )
             ON CONFLICT(url) DO UPDATE SET
@@ -78,6 +82,7 @@ def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] =
                 start_date = excluded.start_date,
                 end_date = excluded.end_date,
                 location = excluded.location,
+                country = excluded.country,
                 is_online = excluded.is_online,
                 description = excluded.description,
                 updated_at = CURRENT_TIMESTAMP;
@@ -92,16 +97,20 @@ def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] =
             "start_date": event.start_date,
             "end_date": event.end_date,
             "location": event.location,
+            "country": event.country,
             "is_online": 1 if event.is_online else 0,
             "description": event.description,
             "first_seen_run_id": run_id
         })
+    return True
 
 
 def get_events(
     conn: sqlite3.Connection,
     only_new: bool = False,
-    show_all: bool = False
+    show_all: bool = False,
+    country: Optional[str] = None,
+    include_online: bool = True,
 ) -> List[Event]:
     query = "SELECT * FROM events WHERE 1=1"
     params = {}
@@ -126,6 +135,10 @@ def get_events(
         """
         params["today"] = today_str
 
+    if country:
+        query += " AND (country = :country" + (" OR is_online = 1)" if include_online else ")")
+        params["country"] = country.upper()
+
     query += " ORDER BY COALESCE(start_date, registration_deadline, created_at) ASC"
 
     cursor = conn.execute(query, params)
@@ -143,6 +156,7 @@ def get_events(
             start_date=row["start_date"],
             end_date=row["end_date"],
             location=row["location"],
+            country=row["country"],
             is_online=bool(row["is_online"]),
             description=row["description"],
             created_at=row["created_at"],

@@ -5,38 +5,9 @@ import yaml
 
 from hackwatch import db
 from hackwatch.models import Event
+from hackwatch.scrapers import get_available_scrapers
 
 app = typer.Typer(help="HackWatch: Track hackathons and developer events.")
-
-
-def get_available_scrapers():
-    scrapers = []
-    try:
-        from hackwatch.scrapers.devpost import DevpostScraper
-        scrapers.append(DevpostScraper())
-    except ImportError:
-        pass
-    try:
-        from hackwatch.scrapers.eventbrite import EventbriteScraper
-        scrapers.append(EventbriteScraper())
-    except ImportError:
-        pass
-    try:
-        from hackwatch.scrapers.gdg import GDGScraper
-        scrapers.append(GDGScraper())
-    except ImportError:
-        pass
-    try:
-        from hackwatch.scrapers.josa import JOSAScraper
-        scrapers.append(JOSAScraper())
-    except ImportError:
-        pass
-    try:
-        from hackwatch.scrapers.manual import ManualScraper
-        scrapers.append(ManualScraper())
-    except ImportError:
-        pass
-    return scrapers
 
 
 @app.command()
@@ -68,10 +39,12 @@ def fetch(
         typer.echo(f"Fetching from {scraper.name}...")
         try:
             events = scraper.fetch()
+            kept = 0
             for event in events:
-                db.upsert_event(conn, event, run_id=run_id)
-            total_fetched += len(events)
-            typer.echo(f"[{scraper.name}] OK: fetched {len(events)} events.")
+                if db.upsert_event(conn, event, run_id=run_id):
+                    kept += 1
+            total_fetched += kept
+            typer.echo(f"[{scraper.name}] OK: kept {kept} of {len(events)} events.")
         except Exception as exc:
             typer.echo(f"[{scraper.name}] ERROR: {exc}")
 
@@ -138,13 +111,21 @@ def add(
 def list_events(
     new: bool = typer.Option(False, "--new", help="Show only events first seen in the last fetch"),
     show_all: bool = typer.Option(False, "--all", help="Show all events, including past events"),
+    country: Optional[str] = typer.Option(None, "--country", help="Filter events by country"),
+    no_online: bool = typer.Option(False, "--no-online", help="Exclude online events"),
     db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database")
 ):
     """List tracked events."""
     conn = db.get_connection(db_path)
     db.init_db(conn)
 
-    events = db.get_events(conn, only_new=new, show_all=show_all)
+    events = db.get_events(
+        conn,
+        only_new=new,
+        show_all=show_all,
+        country=country,
+        include_online=not no_online,
+    )
     if not events:
         typer.echo("No events found.")
         return

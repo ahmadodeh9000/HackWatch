@@ -6,3 +6,5 @@ hackwatch.db
 dist/
 build/
 .DS_Store
+settings.json
+settings.json

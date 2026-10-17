@@ -12,4 +12,31 @@ __all__ = [
     "EventbriteScraper",
     "GDGScraper",
     "JOSAScraper",
+    "get_available_scrapers",
 ]
+
+
+def get_available_scrapers():
+    scrapers = []
+    try:
+        scrapers.append(DevpostScraper())
+    except Exception:
+        pass
+    try:
+        scrapers.append(EventbriteScraper())
+    except Exception:
+        pass
+    try:
+        scrapers.append(GDGScraper())
+    except Exception:
+        pass
+    try:
+        scrapers.append(JOSAScraper())
+    except Exception:
+        pass
+    try:
+        scrapers.append(ManualScraper())
+    except Exception:
+        pass
+    return scrapers
+
