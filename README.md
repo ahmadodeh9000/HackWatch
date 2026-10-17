@@ -24,13 +24,25 @@ HackWatch tracks tech events and hackathons with a focus on Jordan: online event
 
 ## 🚀 Quick Start
 
-### 1. Install dependencies
+### 1. Make a Virtual Environment 
+
+```bash
+python3 -m venv venv
+```
+
+### 2. Activate it
+
+```bash
+source venv/bin/activate
+```
+
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Launch the interactive dashboard
+### 4. Launch the interactive dashboard
 
 ```bash
 python3 hackwatch.py
