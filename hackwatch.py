@@ -28,65 +28,6 @@ console = Console()
 
 # ─── Constants ──────────────────────────────────────────────────────────────
 DB_PATH = Path("hackwatch.db")
-SETTINGS_PATH = Path("settings.json")
-
-
-def load_settings():
-    try:
-        return json.loads(SETTINGS_PATH.read_text(encoding="utf-8"))
-    except Exception:
-        return {}
-
-
-SETTINGS = load_settings()
-
-
-def save_settings():
-    SETTINGS_PATH.write_text(json.dumps(SETTINGS), encoding="utf-8")
-
-
-def current_country():
-    return SETTINGS.get("country")
-
-
-def include_online():
-    return SETTINGS.get("include_online", True)
-
-
-def cf():
-    """Country filter kwargs for db.get_events."""
-    return {"country": current_country(), "include_online": include_online()}
-
-
-def country_name(code):
-    try:
-        import pycountry
-        c = pycountry.countries.get(alpha_2=code)
-        return c.name if c else code
-    except Exception:
-        return code
-
-
-def resolve_country(text):
-    text = (text or "").strip()
-    if not text:
-        return None
-    import pycountry
-    if len(text) == 2:
-        c = pycountry.countries.get(alpha_2=text.upper())
-        if c:
-            return c.alpha_2
-    try:
-        return pycountry.countries.lookup(text).alpha_2
-    except LookupError:
-        return pycountry.countries.search_fuzzy(text)[0].alpha_2
-
-
-def country_label():
-    code = current_country()
-    if not code:
-        return "🌍 All countries"
-    return "🌍 " + country_name(code) + (" (+ online)" if include_online() else " (in-person only)")
 
 LOGO = r"""
  ██╗  ██╗ █████╗  ██████╗██╗  ██╗██╗    ██╗ █████╗ ████████╗ ██████╗██╗  ██╗
@@ -180,7 +121,6 @@ def show_menu():
         ("4", "📊  Dashboard",          "Quick stats overview"),
         ("5", "➕  Add Manual Event",   "Add an event to manual_events.yaml"),
         ("6", "🔍  Search Events",      "Search events by keyword"),
-        ("7", "🌍  Select Country",     "Choose which country's events to show"),
         ("0", "🚪  Exit",               "Quit HackWatch"),
     ]
     table = Table(
@@ -194,7 +134,7 @@ def show_menu():
     for key, action, desc in menu_items:
         table.add_row(key, action, desc)
 
-    console.print(Panel(table, title="[bold bright_white]  Main Menu  [/]", subtitle="[dim]" + country_label() + "[/dim]", border_style="bright_blue", expand=False))
+    console.print(Panel(table, title="[bold bright_white]  Main Menu  [/]", border_style="bright_blue", expand=False))
 
 
 def display_events_table(events: list[Event], title: str = "Events"):
@@ -304,7 +244,7 @@ def display_event_detail(ev: Event, idx: int):
 def action_browse(show_all: bool = False):
     """Browse all upcoming events with the ability to inspect details."""
     conn = get_connection()
-    events = db.get_events(conn, only_new=False, show_all=show_all, **cf())
+    events = db.get_events(conn, only_new=False, show_all=show_all)
 
     label = "All Events (including past)" if show_all else "Upcoming Events"
     display_events_table(events, title=label)
@@ -372,7 +312,7 @@ def action_fetch():
 def action_new_events():
     """Show events first seen in the latest fetch run."""
     conn = get_connection()
-    events = db.get_events(conn, only_new=True, show_all=True, **cf())
+    events = db.get_events(conn, only_new=True, show_all=True)
     display_events_table(events, title="🆕 Newly Discovered Events")
 
     if events:
@@ -394,9 +334,9 @@ def action_new_events():
 def action_dashboard():
     """Show a quick stats overview."""
     conn = get_connection()
-    all_events = db.get_events(conn, show_all=True, **cf())
-    upcoming = db.get_events(conn, show_all=False, **cf())
-    new_events = db.get_events(conn, only_new=True, show_all=True, **cf())
+    all_events = db.get_events(conn, show_all=True)
+    upcoming = db.get_events(conn, show_all=False)
+    new_events = db.get_events(conn, only_new=True, show_all=True)
 
     # Count by source
     source_counts: dict[str, int] = {}
@@ -518,7 +458,7 @@ def action_search():
         return
 
     conn = get_connection()
-    all_events = db.get_events(conn, show_all=True, **cf())
+    all_events = db.get_events(conn, show_all=True)
     kw = keyword.strip().lower()
 
     matches = [
@@ -549,31 +489,6 @@ def action_search():
 
 
 # ─── Main Loop ──────────────────────────────────────────────────────────────
-
-def action_select_country():
-    """Choose which country's events to show (saved for next time)."""
-    console.print(Panel("[bold]Select Country[/]", border_style="bright_cyan"))
-    console.print("Current: " + country_label())
-    console.print("[dim]Type a country name or 2-letter code (e.g. Jordan, JO, US). Type 'all' for every country.[/]")
-    text = Prompt.ask("[bold]Country[/]", default="")
-    if not text.strip():
-        return
-    if text.strip().lower() == "all":
-        SETTINGS["country"] = None
-    else:
-        try:
-            code = resolve_country(text)
-        except Exception as exc:
-            console.print(f"[red]{exc}[/red]")
-            return
-        if not code:
-            console.print("[red]Could not find that country.[/red]")
-            return
-        SETTINGS["country"] = code
-        SETTINGS["include_online"] = Confirm.ask("Also show online events from anywhere?", default=include_online())
-    save_settings()
-    console.print("[bright_green]Saved:[/] " + country_label())
-
 
 def main():
     try:
@@ -618,12 +533,6 @@ def main():
                 clear_screen()
                 show_header()
                 action_search()
-                Prompt.ask("\n[dim]Press Enter to continue…[/]", default="")
-
-            elif choice == "7":
-                clear_screen()
-                show_header()
-                action_select_country()
                 Prompt.ask("\n[dim]Press Enter to continue…[/]", default="")
 
             elif choice == "0":

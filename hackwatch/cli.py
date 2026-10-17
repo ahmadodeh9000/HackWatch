@@ -111,8 +111,6 @@ def add(
 def list_events(
     new: bool = typer.Option(False, "--new", help="Show only events first seen in the last fetch"),
     show_all: bool = typer.Option(False, "--all", help="Show all events, including past events"),
-    country: Optional[str] = typer.Option(None, "--country", help="Filter events by country"),
-    no_online: bool = typer.Option(False, "--no-online", help="Exclude online events"),
     db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database")
 ):
     """List tracked events."""
@@ -123,8 +121,6 @@ def list_events(
         conn,
         only_new=new,
         show_all=show_all,
-        country=country,
-        include_online=not no_online,
     )
     if not events:
         typer.echo("No events found.")

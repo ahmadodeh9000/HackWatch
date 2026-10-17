@@ -1,8 +1,8 @@
 # 🔍 HackWatch
 
-**Local-first hackathon & developer event aggregator for your terminal.**
+**Jordan-focused hackathon & developer event aggregator for your terminal.**
 
-HackWatch scrapes upcoming hackathons and tech events from multiple sources, stores them in a local SQLite database, and lets you browse everything through a beautiful interactive terminal dashboard.
+HackWatch tracks tech events and hackathons with a focus on Jordan: online events worldwide are included, while in-person events are filtered strictly to Jordan. It scrapes upcoming events from multiple sources, stores them in a local SQLite database, and lets you browse everything through an interactive terminal dashboard.
 
 ![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
@@ -11,6 +11,7 @@ HackWatch scrapes upcoming hackathons and tech events from multiple sources, sto
 
 ## ✨ Features
 
+- **Jordan-focused** — Online events worldwide are tracked; in-person events only in Jordan
 - **Multi-source scraping** — Devpost, Eventbrite, Google Developer Groups, JOSA, and manual YAML entries
 - **Interactive dashboard** — Rich terminal UI with color-coded sources, urgency indicators, and event details
 - **Smart date handling** — Events sorted by date, past events hidden by default, countdown indicators
