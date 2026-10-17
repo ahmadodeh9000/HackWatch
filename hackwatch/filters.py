@@ -15,8 +15,9 @@ def _parse(d):
 
 
 def is_in_jordan(event) -> bool:
-    if (event.country or "").upper() == "JO":
-        return True
+    country = (event.country or "").upper()
+    if country:  # a detected country always wins ("Jordan, MN, US" is not Jordan)
+        return country == "JO"
     return bool(JORDAN_RE.search(event.location or ""))
 
 
