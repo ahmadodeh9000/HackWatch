@@ -5,10 +5,14 @@ from pathlib import Path
 import yaml
 
 from hackwatch import db
-from hackwatch.models import Event, VALID_EVENT_TYPES, validate_event_type
+from hackwatch.models import (
+    Event, VALID_EVENT_TYPES, VALID_MODES, VALID_SCOPES,
+    validate_event_type, validate_mode, validate_scope,
+)
 from hackwatch.scrapers import get_available_scrapers
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.manual import load_manual_yaml, parse_manual_dates
+from hackwatch.taxonomy import normalize_tags
 
 app = typer.Typer(help="HackWatch: Track hackathons and developer events.")
 
@@ -56,13 +60,17 @@ def apply_source_defaults(event: Event, scraper: BaseScraper) -> None:
         event.scope = scraper.default_scope
 
 
-def make_manual_entry(title, url, dates, location, organizer, event_type) -> dict:
-    """Build a manual_events.yaml entry, raising ValueError on bad input."""
+def make_manual_entry(title, url, dates, location, organizer, event_type,
+                      mode=None, tags=None, scope=None) -> dict:
+    """Build a manual_events.yaml entry, raising ValueError on bad input.
+
+    mode, tags and scope are only written when given, to keep the YAML short.
+    """
     if not (title or "").strip() or not (url or "").strip():
         raise ValueError("title and url are required")
     dates = (dates or "").strip() or None
     parse_manual_dates(dates)  # raises on non-ISO dates
-    return {
+    entry = {
         "title": title.strip(),
         "url": url.strip(),
         "dates": dates,
@@ -70,6 +78,25 @@ def make_manual_entry(title, url, dates, location, organizer, event_type) -> dic
         "organizer": (organizer or "").strip() or None,
         "type": validate_event_type(event_type),
     }
+    if (mode or "").strip():
+        entry["mode"] = validate_mode(mode)
+    tag_list = normalize_tags(tags, strict=True)
+    if tag_list:
+        entry["tags"] = tag_list
+    if (scope or "").strip():
+        entry["scope"] = validate_scope(scope)
+    return entry
+
+
+def _check_choice(value: Optional[str], validator) -> Optional[str]:
+    """Validate an optional CLI value, exiting with a readable error."""
+    if value is None:
+        return None
+    try:
+        return validator(value)
+    except ValueError as exc:
+        typer.echo(f"Error: {exc}")
+        raise typer.Exit(code=1)
 
 
 def save_manual_entry(entry: dict, yaml_file: Path) -> bool:
@@ -138,6 +165,9 @@ def add(
     location: Optional[str] = typer.Option(None, "--location", "-l", help="Event location"),
     organizer: Optional[str] = typer.Option(None, "--organizer", "-o", help="Event organizer"),
     event_type: Optional[str] = typer.Option(None, "--type", help=f"Event type ({', '.join(VALID_EVENT_TYPES)}); default: other"),
+    mode: Optional[str] = typer.Option(None, "--mode", help=f"{' | '.join(VALID_MODES)} (default: from location)"),
+    tags: Optional[str] = typer.Option(None, "--tags", help="Comma-separated tags from taxonomy.yaml, e.g. 'ai,web'"),
+    scope: Optional[str] = typer.Option(None, "--scope", help=f"{' | '.join(VALID_SCOPES)} (default: jordan)"),
     yaml_file: Path = typer.Option(Path("manual_events.yaml"), "--file", help="Path to manual YAML file"),
 ):
     """Add a manual event to manual_events.yaml (prompts if options omitted)."""
@@ -155,7 +185,7 @@ def add(
         event_type = typer.prompt(f"Type ({', '.join(VALID_EVENT_TYPES)})", default="other")
 
     try:
-        entry = make_manual_entry(title, url, dates, location, organizer, event_type)
+        entry = make_manual_entry(title, url, dates, location, organizer, event_type, mode, tags, scope)
     except ValueError as exc:
         typer.echo(f"Error: {exc}")
         raise typer.Exit(code=1)
@@ -172,6 +202,9 @@ def list_events(
     new: bool = typer.Option(False, "--new", help="Show only events first seen in the last fetch"),
     show_all: bool = typer.Option(False, "--all", help="Show all events, including past events"),
     event_type: Optional[str] = typer.Option(None, "--type", help=f"Filter by event type ({', '.join(VALID_EVENT_TYPES)})"),
+    tag: Optional[List[str]] = typer.Option(None, "--tag", help="Filter by tag (repeat to require several)"),
+    mode: Optional[str] = typer.Option(None, "--mode", help=f"Filter by mode ({', '.join(VALID_MODES)})"),
+    scope: Optional[str] = typer.Option(None, "--scope", help=f"Filter by scope ({', '.join(VALID_SCOPES)})"),
     db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database")
 ):
     """List tracked events."""
@@ -182,7 +215,10 @@ def list_events(
         conn,
         only_new=new,
         show_all=show_all,
-        event_type=event_type,
+        event_type=_check_choice(event_type, validate_event_type),
+        tags=_check_choice(tag, lambda t: normalize_tags(t, strict=True)),
+        mode=_check_choice(mode, validate_mode),
+        scope=_check_choice(scope, validate_scope),
     )
     if not events:
         typer.echo("No events found.")
@@ -203,7 +239,9 @@ def list_events(
         extra_str = f" ({', '.join(extra)})" if extra else ""
 
         typer.echo(f"- [{ev.source}] {ev.title}{extra_str}")
-        typer.echo(f"  Type: {ev.type} | Dates: {date_str} | Loc: {loc}")
+        typer.echo(f"  Type: {ev.type} | Mode: {ev.mode} | Scope: {ev.scope} | Dates: {date_str} | Loc: {loc}")
+        if ev.tags:
+            typer.echo(f"  Tags: {', '.join(ev.tags)}")
         typer.echo(f"  URL: {ev.url}")
 
 

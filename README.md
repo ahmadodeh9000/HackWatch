@@ -103,12 +103,33 @@ python3 -m hackwatch.cli list --all
 # Show only new events from last fetch
 python3 -m hackwatch.cli list --new
 
+# Filter by type, tag, mode or scope (see "Event fields" below)
+python3 -m hackwatch.cli list --type competition --tag robotics
+python3 -m hackwatch.cli list --mode hybrid --scope jordan
+
 # Add a manual event interactively
 python3 -m hackwatch.cli add
+
+# ...or with flags
+python3 -m hackwatch.cli add -t "Robot Sumo Cup" -u https://example.com/sumo -d 2026-12-05 \
+  -l "Irbid, Jordan" -o "IEEE JUST" --type competition --mode in-person --tags robotics,sumo,ieee
 
 # Export upcoming events to JSON
 python3 -m hackwatch.cli export --out events.json
 ```
+
+---
+
+## 🏷️ Event fields
+
+| Field | Values | Notes |
+|-------|--------|-------|
+| `type` | `hackathon`, `competition`, `conference`, `workshop`, `meetup`, `other` | `contest` is accepted as `competition`. Unknown or missing → `other`. Devpost events default to `hackathon`. |
+| `mode` | `in-person`, `online`, `hybrid` | Default comes from the location (`Online` → `online`). Hybrid events count as online for filtering. |
+| `tags` | ids from [`taxonomy.yaml`](taxonomy.yaml), e.g. `ai`, `ctf`, `cp`, `robotics`, `sumo`, `ieee` | Aliases work (`cybersecurity` → `security`). Unknown tags are an error in `manual_events.yaml`. |
+| `scope` | `jordan`, `worldwide` | Set per source (Devpost: worldwide; Eventbrite, GDG, JOSA, manual: jordan). Can be overridden per event. |
+
+The JSON export still includes the old `is_online` flag (`true` for online and hybrid) so older versions of the site keep working.
 
 ---
 
@@ -119,11 +140,17 @@ HackWatch/
 ├── hackwatch.py              ← Interactive dashboard entry point
 ├── requirements.txt          ← Python dependencies
 ├── manual_events.yaml        ← Manually added events (YAML)
+├── taxonomy.yaml             ← Allowed event tags and their aliases
+├── SOURCES.md                ← Status of every event source
+├── scripts/                  ← Fixture recorder, CI export check
+├── tests/                    ← pytest suite (offline, recorded fixtures)
 ├── hackwatch.db              ← SQLite database (auto-created)
 └── hackwatch/
     ├── __init__.py
     ├── cli.py                ← Typer CLI commands
-    ├── models.py             ← Event dataclass
+    ├── models.py             ← Event dataclass, type/mode/scope values
+    ├── taxonomy.py           ← Loads taxonomy.yaml, normalises tags
+    ├── filters.py            ← Which events are kept (Jordan / tech)
     ├── db.py                 ← SQLite database layer
     └── scrapers/
         ├── __init__.py
@@ -169,8 +196,15 @@ Add events directly to `manual_events.yaml`:
   location: Amman, Jordan
   organizer: My Org
   prize: $5000
-  type: hackathon   # hackathon | competition | conference | workshop | meetup | other (default: other; "contest" = competition)
+  type: hackathon        # hackathon | competition | conference | workshop | meetup | other
+  mode: in-person        # in-person | online | hybrid (optional; default from location)
+  tags: [ai, web]        # optional, from taxonomy.yaml
+  scope: jordan          # optional: jordan (default) | worldwide
+  registration_deadline: 2026-10-25   # optional
 ```
+
+Dates must be ISO (`YYYY-MM-DD`). Use either `dates:` (one date, or `start to end`) or `start_date:` / `end_date:`.
+An invalid entry stops the import with an error that names the entry and the field.
 
 Then run **Fetch** (option 2) to import them into the database.
 

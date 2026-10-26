@@ -22,7 +22,7 @@ from rich import box
 
 from hackwatch import db
 from hackwatch.cli import make_manual_entry, run_fetch, save_manual_entry
-from hackwatch.models import Event, VALID_EVENT_TYPES
+from hackwatch.models import Event, VALID_EVENT_TYPES, VALID_MODES
 from hackwatch.scrapers import get_available_scrapers
 
 console = Console()
@@ -410,10 +410,13 @@ def action_add_manual():
     location = Prompt.ask("[bold]Location[/]", default="Online")
     organizer = Prompt.ask("[bold]Organizer[/]", default="")
     event_type = Prompt.ask("[bold]Type[/]", choices=list(VALID_EVENT_TYPES), default="other")
+    mode = Prompt.ask(f"[bold]Mode[/] [dim]({' / '.join(VALID_MODES)}, blank = from location)[/]",
+                      choices=["", *VALID_MODES], default="", show_choices=False)
+    tags = Prompt.ask("[bold]Tags[/] [dim](comma-separated, see taxonomy.yaml)[/]", default="")
 
     yaml_path = Path("manual_events.yaml")
     try:
-        entry = make_manual_entry(title, url, dates, location, organizer, event_type)
+        entry = make_manual_entry(title, url, dates, location, organizer, event_type, mode, tags)
     except ValueError as exc:
         console.print(Panel(f"[bold red]Not saved:[/] {exc}", border_style="red"))
         return

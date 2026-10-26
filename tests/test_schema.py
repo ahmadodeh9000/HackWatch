@@ -213,8 +213,11 @@ def test_migration_sets_scope(tmp_path):
     raw.executescript(OLD_SCHEMA)
     raw.execute("INSERT INTO events (id, title, url, source, is_online) VALUES ('1', 'D', 'https://d', 'devpost', 1)")
     raw.execute("INSERT INTO events (id, title, url, source, country) VALUES ('2', 'G', 'https://g', 'gdg', 'JO')")
+    raw.execute("INSERT INTO events (id, title, url, source, is_online) VALUES ('3', 'EO', 'https://eo', 'eventbrite', 1)")
+    raw.execute("INSERT INTO events (id, title, url, source, country) VALUES ('4', 'EJ', 'https://ej', 'eventbrite', 'JO')")
     raw.commit()
     raw.close()
     conn = db.get_connection(path)
     db.init_db(conn)
-    assert {e.title: e.scope for e in db.get_events(conn, show_all=True)} == {"D": "worldwide", "G": "jordan"}
+    assert {e.title: e.scope for e in db.get_events(conn, show_all=True)} == {
+        "D": "worldwide", "G": "jordan", "EO": "worldwide", "EJ": "jordan"}

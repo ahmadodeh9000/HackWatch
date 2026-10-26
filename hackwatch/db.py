@@ -63,8 +63,10 @@ def migrate(conn: sqlite3.Connection) -> None:
         conn.execute("ALTER TABLE events ADD COLUMN tags TEXT NOT NULL DEFAULT '[]';")
     if "scope" not in existing_cols:
         conn.execute("ALTER TABLE events ADD COLUMN scope TEXT;")
+    # Same defaults as the scrapers, except Eventbrite: old databases may hold
+    # online Eventbrite events from anywhere, so those go by country.
     conn.execute("UPDATE events SET scope = CASE WHEN source = 'devpost' THEN 'worldwide' "
-                 "WHEN country = 'JO' OR source IN ('gdg', 'josa', 'manual', 'eventbrite') THEN 'jordan' "
+                 "WHEN source IN ('gdg', 'josa', 'manual') OR country = 'JO' THEN 'jordan' "
                  "ELSE 'worldwide' END WHERE scope IS NULL;")
     conn.execute("UPDATE events SET mode = CASE is_online WHEN 1 THEN 'online' ELSE 'in-person' END "
                  "WHERE mode IS NULL;")
@@ -145,7 +147,11 @@ def get_events(
     country: Optional[str] = None,
     include_online: bool = True,
     event_type: Optional[str] = None,
+    tags: Optional[List[str]] = None,
+    mode: Optional[str] = None,
+    scope: Optional[str] = None,
 ) -> List[Event]:
+    """Query events; tags matches events that have *all* the given tags."""
     query = "SELECT * FROM events WHERE 1=1"
     params = {}
 
@@ -176,6 +182,18 @@ def get_events(
     if event_type:
         query += " AND type = :event_type"
         params["event_type"] = event_type.lower()
+
+    for i, tag in enumerate(tags or []):
+        query += f" AND EXISTS (SELECT 1 FROM json_each(events.tags) WHERE value = :tag{i})"
+        params[f"tag{i}"] = tag
+
+    if mode:
+        query += " AND mode = :mode"
+        params["mode"] = mode
+
+    if scope:
+        query += " AND scope = :scope"
+        params["scope"] = scope
 
     query += " ORDER BY COALESCE(start_date, registration_deadline, created_at) ASC"
 
