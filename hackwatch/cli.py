@@ -60,7 +60,8 @@ def run_fetch(
                 result = FetchResult(scraper.name, 0, 0, note=(
                     f"returned nothing; kept its {stored} stored events in case the source is broken"))
             else:
-                kept, removed = db.replace_source_events(conn, scraper.name, events, run_id=run_id)
+                kept, removed = db.replace_source_events(conn, scraper.name, events, run_id=run_id,
+                                                         require_tech=scraper.require_tech_keywords)
                 result = FetchResult(scraper.name, kept, len(events), removed=removed)
         except Exception as exc:
             result = FetchResult(scraper.name, 0, 0, error=str(exc))

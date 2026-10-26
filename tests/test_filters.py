@@ -44,9 +44,10 @@ def test_in_person_outside_jordan_dropped():
     assert not filters.is_relevant(ev("Python Meetup", online=False, location="Berlin, Germany"))
 
 
-def test_tech_only_sources_skip_keyword_check():
-    assert filters.is_relevant(ev("Mastering Research Papers", source="gdg",
-                                  online=False, location="Zarqa, Jordan"))
+def test_keyword_check_only_when_source_requires_it():
+    research = ev("Mastering Research Papers", source="gdg", online=False, location="Zarqa, Jordan")
+    assert filters.is_relevant(research)
+    assert not filters.is_relevant(research, require_tech=True)
 
 
 def test_gdg_fixture_events_all_kept(replay, frozen_today, configured):
@@ -59,7 +60,9 @@ def test_gdg_fixture_events_all_kept(replay, frozen_today, configured):
 def test_eventbrite_fixture_keeps_jordan_tech_events(replay, frozen_today, configured):
     replay("eventbrite")
     frozen_today(filters)
-    kept = {e.title for e in configured("eventbrite").fetch() if filters.is_relevant(e)}
+    scraper = configured("eventbrite")
+    assert scraper.require_tech_keywords
+    kept = {e.title for e in scraper.fetch() if filters.is_relevant(e, scraper.require_tech_keywords)}
     assert "AI & Digital Transformation Conference 2026  Range Event Managment" in kept
     assert "Cybersecurity & Data Protection Forum 2027 Range Event Management" in kept
     assert "Costume Party 2026" not in kept

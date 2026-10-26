@@ -6,6 +6,7 @@
 #   default_type  used when neither the event nor inference sets a type
 #   default_tags  added to every event from this source
 #   allowed_types limits which types inference may pick for this source
+#   require_tech_keywords  true = keep only events with a tech keyword (general listings)
 #   options       passed to the scraper's constructor (names must match its arguments)
 #
 # Status, numbers and failed sources: see SOURCES.md.
@@ -23,6 +24,7 @@ sources:
   - name: eventbrite
     enabled: true
     scope: jordan
+    require_tech_keywords: true   # lists everything, incl. parties and sales meetings
     options:
       # Jordan only: online Eventbrite searches were mostly generic webinars.
       # As of 2026-10 Eventbrite returns the same ~10 Jordan events for any term.

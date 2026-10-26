@@ -77,7 +77,7 @@ def main(selected):
             events = scraper.fetch()
             entry["raw"] = len(events)
             for ev in events:
-                bucket = "kept" if is_relevant(ev) else "dropped"
+                bucket = "kept" if is_relevant(ev, scraper.require_tech_keywords) else "dropped"
                 entry[bucket].append({
                     "title": ev.title, "start": ev.start_date, "online": ev.is_online,
                     "location": ev.location, "country": ev.country,

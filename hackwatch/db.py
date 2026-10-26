@@ -156,7 +156,7 @@ def count_observations(conn: sqlite3.Connection, source: str) -> int:
 
 
 def replace_source_events(conn: sqlite3.Connection, source: str, events: List[Event],
-                          run_id: Optional[int] = None) -> Tuple[int, int]:
+                          run_id: Optional[int] = None, require_tech: bool = False) -> Tuple[int, int]:
     """Store what `source` listed this run and forget what it no longer lists.
 
     Only call this for a source that fetched successfully. Returns (kept, removed);
@@ -165,7 +165,7 @@ def replace_source_events(conn: sqlite3.Connection, source: str, events: List[Ev
     keys = set()
     with conn:
         for event in events:
-            if is_relevant(event):
+            if is_relevant(event, require_tech):
                 _write_observation(conn, _prepare(event), run_id)
                 keys.add(normalize_url(event.url))
         stale = [row["url_key"] for row in conn.execute(
@@ -211,9 +211,10 @@ def rebuild_events(conn: sqlite3.Connection) -> int:
     return len(merged)
 
 
-def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] = None) -> bool:
+def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] = None,
+                 require_tech: bool = False) -> bool:
     """Add or update one listing (without removing anything) and re-merge. Returns False if filtered out."""
-    if not is_relevant(event):
+    if not is_relevant(event, require_tech):
         return False
     with conn:
         _write_observation(conn, _prepare(event), run_id)

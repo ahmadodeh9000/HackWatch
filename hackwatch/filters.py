@@ -24,8 +24,6 @@ TECH_RE = re.compile(
     re.I,
 )
 
-# Sources that only list tech events, so every event is kept without a keyword check.
-TECH_ONLY_SOURCES = {"devpost", "gdg", "josa", "manual"}
 MAX_DAYS_AHEAD = 365
 
 
@@ -47,8 +45,13 @@ def is_tech_related(event) -> bool:
     return bool(TECH_RE.search(f"{event.title or ''} {event.description or ''}"))
 
 
-def is_relevant(event) -> bool:
-    """Online/hybrid events from anywhere are kept; in-person events only if they are in Jordan."""
+def is_relevant(event, require_tech: bool = False) -> bool:
+    """Online/hybrid events from anywhere are kept; in-person events only if they are in Jordan.
+
+    require_tech: also demand a tech keyword. Set per source in sources.yaml
+    (require_tech_keywords) for general listings like Eventbrite; sources that
+    only list tech/engineering events don't need it.
+    """
     if event.source == "manual":
         return True
     if "tbd" in (event.title or "").lower():
@@ -58,6 +61,6 @@ def is_relevant(event) -> bool:
         return False
     if event.mode == "in-person" and not is_in_jordan(event):
         return False
-    if event.source not in TECH_ONLY_SOURCES:
+    if require_tech:
         return is_tech_related(event)
     return True

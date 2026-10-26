@@ -20,6 +20,8 @@ class BaseScraper(abc.ABC):
     default_scope: Optional[str] = None
     # If set, type inference may only pick from these (e.g. Devpost: hackathon, competition).
     allowed_types: Optional[List[str]] = None
+    # Keep only events with a tech keyword (for general listings like Eventbrite).
+    require_tech_keywords: bool = False
 
     timeout_seconds: float = 60.0
 
