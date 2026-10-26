@@ -155,3 +155,20 @@ def test_user_agent_is_honest():
     ua = DevpostScraper().session.headers["User-Agent"]
     assert ua == DEFAULT_USER_AGENT
     assert ua.startswith("HackWatch/") and "github.com/ahmadodeh9000/HackWatch" in ua
+
+
+def test_requests_have_a_timeout(monkeypatch):
+    seen = {}
+    scraper = DevpostScraper(delay_seconds=0)
+
+    class Resp:
+        def raise_for_status(self):
+            pass
+
+    def fake(method, url, **kwargs):
+        seen.update(kwargs)
+        return Resp()
+
+    monkeypatch.setattr(scraper.session, "request", fake)
+    scraper.get("https://example.com")
+    assert seen["timeout"] == 60.0

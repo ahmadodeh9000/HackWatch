@@ -21,6 +21,8 @@ class BaseScraper(abc.ABC):
     # If set, type inference may only pick from these (e.g. Devpost: hackathon, competition).
     allowed_types: Optional[List[str]] = None
 
+    timeout_seconds: float = 60.0
+
     def __init__(self, delay_seconds: float = 2.0):
         self.delay_seconds = delay_seconds
         self.last_request_time: float = 0.0
@@ -36,6 +38,8 @@ class BaseScraper(abc.ABC):
         elapsed = time.time() - self.last_request_time
         if self.last_request_time > 0 and elapsed < self.delay_seconds:
             time.sleep(self.delay_seconds - elapsed)
+        # Never wait forever on a stuck site: the daily CI job would hang.
+        kwargs.setdefault("timeout", self.timeout_seconds)
         resp = self.session.request(method, url, **kwargs)
         self.last_request_time = time.time()
         resp.raise_for_status()
