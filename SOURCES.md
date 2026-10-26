@@ -15,7 +15,7 @@ Eventbrite and GDG rows were updated after Phase 1 (same day); the rest are the 
 | Source | Method | Requests | Raw | Kept | Status | Notes |
 |---|---|---|---|---|---|---|
 | Devpost | JSON API `devpost.com/api/hackathons` | 2 | 18 | 18 | ✅ Works | Only first 2 pages (9/page) of 175 total. All 18 were online. All had already started; they show because submissions end in the future. |
-| Eventbrite | HTML search pages, JSON-LD `ItemList` | 16 | 163 | 150 | ✅ Works (noisy) | Phase 1: 8 tech terms × (Jordan, online). Was 26 raw / 11 kept with "hackathon" only. Jordan returns the same ~10 events for every term. 145 of the kept events are worldwide online webinars, many only loosely tech. |
+| Eventbrite | HTML search pages, JSON-LD `ItemList` | 8 | 11 | 5 | ✅ Works | **Jordan only**: 8 tech terms on `/d/jordan/<term>/`. Eventbrite returns the same ~10 Jordan events for every term. Online searches were dropped (see below). |
 | GDG (gdg.community.dev) | JSON API, 8 Jordan chapter IDs + 1 detail call per upcoming event | 12 | 4 | 4 | ✅ Works | Was 0 kept before the Phase 1 filter fix. Only 3 of 8 chapters had anything upcoming. |
 | JOSA (josa.ngo/events) | HTML, `div.preview` cards | 1 | 5 | 5 | ✅ Works | Page lists recent events; all 5 were already past on the run date, so the site shows none. Year is guessed (current year first). |
 | Manual (`manual_events.yaml`) | Local YAML | 0 | 1 | 1 | ✅ Works | Only the example entry. Dates aren't validated. |
@@ -23,7 +23,7 @@ Eventbrite and GDG rows were updated after Phase 1 (same day); the rest are the 
 ### Sample kept titles
 
 - **Devpost:** Nebius x NVIDIA Global AI Hackathon · PayPal AI Hackathon · OpenCV AI Competition 2026
-- **Eventbrite:** Krifth Developer Hackathon · Lexsi – AI safety and alignment Hackathon · NASA Space Apps Challenge 2026 Boston
+- **Eventbrite:** AI & Digital Transformation Conference 2026 · Cybersecurity & Data Protection Forum 2027 · Pocket Gamer Connects Jordan 2026
 - **JOSA:** Hacktoberfest 2026 Amman · JOSA Workshop | Introduction to PCB Design · JOSA Treasure Hunt v2.0
 - **Manual:** Amman AI Hackathon (Example)
 
@@ -43,10 +43,18 @@ After Phase 1, Eventbrite still drops Costume Party, Entrepreneurship & Startup 
 
 ### Data-quality issues seen in this run
 
-- Eventbrite marks some in-person events as online (e.g. "NASA Space Apps Challenge 2026 Boston", "…Singapore"), because the organiser set `OnlineEventAttendanceMode`. We trust the source.
+- (Online searches only, now removed) Eventbrite marked some in-person events as online (e.g. "NASA Space Apps Challenge 2026 Boston", "…Singapore"), because the organiser set `OnlineEventAttendanceMode`. We trust the source.
 - Eventbrite returns events years in the past ("eyad alabade", 2014-05-12); nothing filters past events before storing.
 - GDG returns the same "Flutter Bootcamp" twice (two dated sessions with different URLs).
 - No scraper sets an event type, so every scraped event (conferences and workshops too) would get the default `hackathon`.
+
+### Why Eventbrite online searches were dropped
+
+With 8 tech terms searched online, Eventbrite added 145 worldwide "online"
+events, mostly generic webinars ("Remote Tech Sales Refresh", "UK Tech Nation
+Visa Office Hour", "AI Governance for Leaders"). They buried the Jordan events
+and were hard to filter by keyword. Worldwide online events now come only from
+purpose-built feeds (Devpost, and later CTFtime and Codeforces).
 
 ## Tried and failed
 

@@ -7,20 +7,17 @@ from hackwatch.models import Event
 from hackwatch.scrapers.base import BaseScraper
 
 
-# Searched in both Jordan and online; results are de-duplicated by URL and
-# filters.is_tech_related drops non-tech events. (As of 2026-10 Eventbrite returns
-# the same ~10 Jordan events for any term, and /d/jordan/all-events/ returns
-# fewer, so the term pages are the safest way to get everything.)
-# "workshop" is left out: online it returned almost only writing/wellness sessions.
+# Jordan only. Worldwide online events come from purpose-built feeds (Devpost,
+# CTFtime, Codeforces): Eventbrite's online search is mostly generic webinars.
+# Results are de-duplicated by URL and filters.is_tech_related drops non-tech
+# events. (As of 2026-10 Eventbrite returns the same ~10 Jordan events for any
+# term, and /d/jordan/all-events/ returns fewer, so the term pages are the
+# safest way to get everything.)
 SEARCH_TERMS = [
     "hackathon", "tech", "ai", "programming", "robotics",
     "cybersecurity", "data-science", "developer",
 ]
-DEFAULT_SEARCH_URLS = [
-    f"https://www.eventbrite.com/d/{place}/{term}/"
-    for place in ("jordan", "online")
-    for term in SEARCH_TERMS
-]
+DEFAULT_SEARCH_URLS = [f"https://www.eventbrite.com/d/jordan/{term}/" for term in SEARCH_TERMS]
 
 
 def clean_eventbrite_url(url: str) -> str:

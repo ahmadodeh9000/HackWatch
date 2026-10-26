@@ -38,18 +38,15 @@ def test_devpost_date_formats():
     assert parse_devpost_dates(None) == (None, None)
 
 
-def test_eventbrite_parses_online_and_jordan_pages(replay):
+def test_eventbrite_parses_jordan_pages(replay):
     replay("eventbrite")
     events = EventbriteScraper(delay_seconds=0).fetch()
 
-    assert len(events) == 163  # 8 terms x (jordan + online), de-duplicated by URL
-    titles = by_title(events)
-    online = titles["Krifth Developer Hackathon"]
-    assert online.is_online and online.start_date == "2026-10-29"
-    assert "?" not in online.url  # tracking params stripped
+    assert len(events) == 11  # 8 Jordan term pages, de-duplicated by URL
+    assert not any(e.is_online for e in events)
 
-    amman = titles["Pocket Gamer Connects Jordan 2026"]
-    assert not amman.is_online
+    amman = by_title(events)["Pocket Gamer Connects Jordan 2026"]
+    assert "?" not in amman.url  # tracking params stripped
     assert amman.country == "JO"
     assert amman.location == "Abdali Boulevard, Amman, Jordan"
     assert (amman.start_date, amman.end_date) == ("2026-11-07", "2026-11-08")

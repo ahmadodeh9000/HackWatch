@@ -61,5 +61,5 @@ def test_eventbrite_fixture_keeps_jordan_tech_events(replay, frozen_today):
     frozen_today(filters)
     kept = {e.title for e in EventbriteScraper(delay_seconds=0).fetch() if filters.is_relevant(e)}
     assert "AI & Digital Transformation Conference 2026  Range Event Managment" in kept
-    assert "Krifth Developer Hackathon" in kept
+    assert "Cybersecurity & Data Protection Forum 2027 Range Event Management" in kept
     assert "Costume Party 2026" not in kept
