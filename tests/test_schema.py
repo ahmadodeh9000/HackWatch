@@ -5,6 +5,7 @@ import pytest
 
 from hackwatch import cli, db
 from hackwatch.models import Event, validate_event_type
+from hackwatch.scrapers.base import BaseScraper
 
 # The events table as created before Phase 2 (no type/mode/tags/scope columns).
 OLD_SCHEMA = """
@@ -39,11 +40,12 @@ def test_unset_type_stays_none_until_defaults():
     assert Event(title="t", url="https://x", source="gdg").type is None
 
 
-class FakeScraper:
+class FakeScraper(BaseScraper):
     name = "devpost"
     default_type = "hackathon"
 
     def __init__(self, events):
+        super().__init__(delay_seconds=0)
         self.events = events
 
     def fetch(self):
@@ -138,3 +140,37 @@ def test_manual_mode_field(tmp_path):
     path.write_text("- title: H\n  url: https://h\n  mode: maybe\n")
     with pytest.raises(ManualEventError, match="mode must be one of"):
         ManualScraper(yaml_path=path).fetch()
+
+
+def test_tags_are_normalised_against_taxonomy():
+    ev = Event(title="t", url="https://x", source="gdg", tags=["Cybersecurity", "CTF", "security", "ML"])
+    assert ev.tags == ["security", "ctf", "ai"]
+
+
+def test_unknown_scraped_tag_is_dropped_with_warning():
+    with pytest.warns(UserWarning, match="unknown tag"):
+        ev = Event(title="t", url="https://x", source="gdg", tags=["ai", "basket-weaving"])
+    assert ev.tags == ["ai"]
+
+
+def test_manual_unknown_tag_is_an_error(tmp_path):
+    from hackwatch.scrapers.manual import ManualEventError, ManualScraper
+    path = tmp_path / "m.yaml"
+    path.write_text("- title: H\n  url: https://h\n  tags: [robotics, sumo]\n")
+    assert ManualScraper(yaml_path=path).fetch()[0].tags == ["robotics", "sumo"]
+    path.write_text("- title: H\n  url: https://h\n  tags: robotics, juggling\n")
+    with pytest.raises(ManualEventError, match="unknown tag"):
+        ManualScraper(yaml_path=path).fetch()
+
+
+def test_source_default_tags_are_added_and_stored(tmp_path):
+    class GDG(FakeScraper):
+        name = "gdg"
+        default_type = None
+        default_tags = ["gdg"]
+
+    conn = db.get_connection(tmp_path / "t.db")
+    db.init_db(conn)
+    ev = Event(title="Flutter", url="https://f", source="gdg", location="Amman, Jordan", tags=["mobile"])
+    cli.run_fetch(conn, [GDG([ev])])
+    assert db.get_events(conn, show_all=True)[0].tags == ["mobile", "gdg"]

@@ -3,12 +3,12 @@ import yaml
 
 from hackwatch import cli, db
 from hackwatch.models import Event
+from hackwatch.scrapers.base import BaseScraper
 
 
-class FakeScraper:
-    default_type = None
-
+class FakeScraper(BaseScraper):
     def __init__(self, name, events=None, error=None):
+        super().__init__(delay_seconds=0)
         self.name, self.events, self.error = name, events or [], error
 
     def fetch(self):

@@ -14,6 +14,8 @@ class BaseScraper(abc.ABC):
     name: str = "base"
     # Applied by cli.run_fetch to events that don't set their own type.
     default_type: Optional[str] = None
+    # Added by cli.run_fetch to every event from this scraper.
+    default_tags: List[str] = []
 
     def __init__(self, delay_seconds: float = 2.0):
         self.delay_seconds = delay_seconds

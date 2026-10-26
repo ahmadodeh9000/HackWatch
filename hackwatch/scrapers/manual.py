@@ -6,6 +6,7 @@ import yaml
 
 from hackwatch.models import Event, validate_event_type, validate_mode
 from hackwatch.scrapers.base import BaseScraper
+from hackwatch.taxonomy import normalize_tags
 
 DEFAULT_MANUAL_YAML = Path("manual_events.yaml")
 ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
@@ -101,6 +102,7 @@ def parse_manual_item(item: dict) -> Event:
         location=location,
         is_online=is_online,
         mode=mode,
+        tags=normalize_tags(item.get("tags"), strict=True),
         description=item.get("description"),
         type=validate_event_type(item["type"]) if item.get("type") else None,
     )

@@ -51,6 +51,7 @@ def apply_source_defaults(event: Event, scraper: BaseScraper) -> None:
     """Fill fields the event left unset with the scraper's defaults."""
     if event.type is None:
         event.type = scraper.default_type
+    event.tags = event.tags + [t for t in scraper.default_tags if t not in event.tags]
 
 
 def make_manual_entry(title, url, dates, location, organizer, event_type) -> dict:
@@ -228,6 +229,7 @@ def export(
             "prize": ev.prize,
             "description": ev.description,
             "mode": ev.mode,
+            "tags": ev.tags,
             "is_online": ev.is_online,  # legacy, = mode != "in-person"; kept for the current site
         }
         for ev in events

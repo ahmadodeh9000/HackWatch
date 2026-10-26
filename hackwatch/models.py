@@ -1,8 +1,9 @@
-from dataclasses import dataclass
-from typing import Optional
+from dataclasses import dataclass, field
+from typing import List, Optional
 import hashlib
 import warnings
 from hackwatch.countries import to_iso2
+from hackwatch.taxonomy import normalize_tags
 
 VALID_EVENT_TYPES = ("hackathon", "competition", "conference", "workshop", "meetup", "other")
 TYPE_ALIASES = {"contest": "competition"}
@@ -59,6 +60,8 @@ class Event:
     # None = not set by the source; run_fetch applies the scraper's default_type,
     # and anything still unset is stored as DEFAULT_EVENT_TYPE.
     type: Optional[str] = None
+    # Tag ids from taxonomy.yaml; unknown tags are dropped with a warning.
+    tags: List[str] = field(default_factory=list)
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
     first_seen_run_id: Optional[int] = None
@@ -72,6 +75,7 @@ class Event:
             self.mode = "online" if self.is_online else "in-person"
         if self.type is not None:
             self.type = validate_event_type(self.type)
+        self.tags = normalize_tags(self.tags)
         if not self.country:
             self.country = to_iso2(self.location)
         if not self.id:

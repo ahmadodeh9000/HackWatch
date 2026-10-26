@@ -1,0 +1,27 @@
+# Controlled vocabulary for event tags.
+#
+# Only the tag ids below are allowed on events. An alias is another spelling
+# that is accepted and stored as the tag id (e.g. "cybersecurity" -> security).
+# Phase 3 adds keyword rules here for inferring tags from titles.
+tags:
+  ai:            {label: AI & ML, aliases: [ml, machine-learning, artificial-intelligence, genai]}
+  web:           {label: Web, aliases: [web-dev, frontend, backend]}
+  mobile:        {label: Mobile, aliases: [android, ios, flutter]}
+  cloud:         {label: Cloud, aliases: [devops]}
+  security:      {label: Security, aliases: [cybersecurity, cyber, infosec]}
+  ctf:           {label: CTF, aliases: [capture-the-flag]}
+  cp:            {label: Competitive programming, aliases: [competitive-programming, icpc]}
+  data:          {label: Data, aliases: [data-science, analytics]}
+  robotics:      {label: Robotics, aliases: [robot]}
+  sumo:          {label: Robot sumo, aliases: [robot-sumo]}
+  line-follower: {label: Line follower, aliases: [line-following]}
+  embedded:      {label: Embedded & electronics, aliases: [electronics, pcb, arduino, hardware]}
+  iot:           {label: IoT}
+  game-dev:      {label: Game dev, aliases: [gamedev, games, game-jam]}
+  blockchain:    {label: Blockchain, aliases: [web3, crypto]}
+  open-source:   {label: Open source, aliases: [opensource, oss]}
+  design:        {label: Design & UX, aliases: [ux, ui]}
+  startup:       {label: Startups}
+  ieee:          {label: IEEE}
+  gdg:           {label: GDG}
+  josa:          {label: JOSA}
