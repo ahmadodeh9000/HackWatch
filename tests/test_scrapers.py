@@ -148,3 +148,10 @@ def test_eventbrite_mixed_attendance_is_hybrid(monkeypatch):
     (ev,) = scraper.fetch()
     assert ev.mode == "hybrid" and ev.is_online
     assert ev.location == "HTU, Amman, Jordan"
+
+
+def test_user_agent_is_honest():
+    from hackwatch.scrapers.base import DEFAULT_USER_AGENT
+    ua = DevpostScraper().session.headers["User-Agent"]
+    assert ua == DEFAULT_USER_AGENT
+    assert ua.startswith("HackWatch/") and "github.com/ahmadodeh9000/HackWatch" in ua

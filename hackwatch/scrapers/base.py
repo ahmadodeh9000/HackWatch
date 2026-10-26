@@ -2,12 +2,11 @@ import abc
 import time
 from typing import List, Optional
 import requests
+from hackwatch import __version__
 from hackwatch.models import Event
 
-DEFAULT_USER_AGENT = (
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
-)
+# Say honestly who we are and where to find us, so site owners can get in touch.
+DEFAULT_USER_AGENT = f"HackWatch/{__version__} (+https://github.com/ahmadodeh9000/HackWatch)"
 
 
 class BaseScraper(abc.ABC):
