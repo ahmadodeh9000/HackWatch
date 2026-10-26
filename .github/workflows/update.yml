@@ -32,16 +32,25 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Run tests (offline, recorded fixtures)
+        run: python -m pytest -q
 
       - name: Fetch events (scraper failures are non-fatal)
         run: python -m hackwatch.cli fetch || true
 
       - name: Export events to docs/events.json
         run: python -m hackwatch.cli export --out docs/events.json
+
+      - name: Refuse to deploy an empty or shrunken export
+        run: >
+          python scripts/check_export.py docs/events.json
+          --previous https://ahmadodeh9000.github.io/HackWatch/events.json
+          --min-ratio 0.5
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
