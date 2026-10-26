@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HackWatch - Hackathons & dev events in Jordan</title>
-<meta name="description" content="Never miss a hackathon in Jordan. Online events worldwide, in-person events in Jordan. Open source.">
-<meta property="og:title" content="HackWatch - Hackathons & dev events in Jordan">
+<title>HackWatch - Tech & engineering events in Jordan</title>
+<meta name="description" content="Never miss a tech or engineering event in Jordan. Online events worldwide, in-person events in Jordan. Open source.">
+<meta property="og:title" content="HackWatch - Tech & engineering events in Jordan">
 <meta property="og:description" content="Online events worldwide, in-person events in Jordan. Student clubs can add events with 5 lines of YAML.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ahmadodeh9000.github.io/HackWatch/">
@@ -15,7 +15,7 @@
 <meta property="og:image:alt" content="HACKWATCH terminal banner">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ahmadodeh9000.github.io/HackWatch/og.png">
-<meta name="twitter:title" content="HackWatch - Hackathons & dev events in Jordan">
+<meta name="twitter:title" content="HackWatch - Tech & engineering events in Jordan">
 <meta name="twitter:description" content="Online events worldwide, in-person events in Jordan. Open source.">
 <style>
 :root{
@@ -33,6 +33,11 @@
   --src-josa:#f1e1ff; --src-josa-fg:#6b2aa0;
   --src-manual:#fff0b8; --src-manual-fg:#7a5a00;
   --src-other:#ebe8e2; --src-other-fg:#555;
+  --type-hackathon:#e0f2fe; --type-hackathon-fg:#075985;
+  --type-contest:#fce7f3; --type-contest-fg:#9d174d;
+  --type-conference:#f3e8ff; --type-conference-fg:#6b21a8;
+  --type-workshop:#dcfce7; --type-workshop-fg:#166534;
+  --type-meetup:#fff7ed; --type-meetup-fg:#9a3412;
 }
 @media (prefers-color-scheme:dark){
   :root{
@@ -49,6 +54,11 @@
     --src-josa:#3a1f56; --src-josa-fg:#d8b2ff;
     --src-manual:#463a10; --src-manual-fg:#ffe07a;
     --src-other:#2b2e39; --src-other-fg:#b5bacb;
+  --type-hackathon:#0c4a6e; --type-hackathon-fg:#7dd3fc;
+  --type-contest:#500724; --type-contest-fg:#f9a8d4;
+  --type-conference:#3b0764; --type-conference-fg:#d8b4fe;
+  --type-workshop:#14532d; --type-workshop-fg:#86efac;
+  --type-meetup:#431407; --type-meetup-fg:#fdba74;
   }
 }
 *{box-sizing:border-box}
@@ -121,7 +131,7 @@ footer{padding:32px 0 48px;text-align:center;color:var(--muted);font-size:.92rem
 
 <header class="hero">
   <div class="wrap">
-    <h1>Never miss a hackathon in Jordan 🇯🇴</h1>
+    <h1>Never miss a tech or engineering event in Jordan 🇯🇴</h1>
     <p>Online events worldwide · In-person events in Jordan only. Updated daily.</p>
     <div class="btns">
       <a class="btn primary" href="#events">Browse events</a>
@@ -137,6 +147,7 @@ footer{padding:32px 0 48px;text-align:center;color:var(--muted);font-size:.92rem
       <div class="row" id="rowSource" role="group" aria-label="Filter by source"><span class="label">Source</span></div>
       <div class="row" id="rowFormat" role="group" aria-label="Filter by format"><span class="label">Format</span></div>
       <div class="row" id="rowStatus" role="group" aria-label="Filter by status"><span class="label">Status</span></div>
+      <div class="row" id="rowType" role="group" aria-label="Filter by type"><span class="label">Type</span></div>
     </div>
   </div>
 
@@ -151,7 +162,7 @@ footer{padding:32px 0 48px;text-align:center;color:var(--muted);font-size:.92rem
   <section class="block" id="add">
     <div class="wrap">
       <h2>Add your club's event</h2>
-      <p>Running a hackathon or workshop? Add five lines and it shows up here after the next update.</p>
+      <p>Running a hackathon, workshop or other event? Add five lines and it shows up here after the next update.</p>
       <div class="callout">
         <div class="codewrap">
 <pre id="yaml">- title: My Club Hackathon
@@ -159,7 +170,8 @@ footer{padding:32px 0 48px;text-align:center;color:var(--muted);font-size:.92rem
   dates: 2026-11-01 to 2026-11-03
   location: Amman, Jordan
   organizer: My Club
-  prize: $500</pre>
+  prize: $500
+  type: hackathon   # hackathon | contest | conference | workshop | meetup</pre>
           <button class="copy" id="copyBtn" type="button">Copy</button>
         </div>
         <a class="btn primary" id="editLink" href="#" target="_blank" rel="noopener">Add it on GitHub</a>
@@ -192,7 +204,7 @@ const REPO_URL = `https://github.com/${GITHUB_USER}/${REPO}`;
 document.getElementById("repoLink").href = REPO_URL;
 document.getElementById("editLink").href = `${REPO_URL}/edit/main/manual_events.yaml`;
 
-const state = {events:[], q:"", source:"all", format:"all", status:"all"};
+const state = {events:[], q:"", source:"all", format:"all", status:"all", type:"all"};
 const KNOWN_SRC = ["devpost","eventbrite","gdg","josa","manual"];
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -244,6 +256,7 @@ function matches(ev){
   if(state.format === "inperson" && ev.is_online) return false;
   if(state.status === "upcoming" && !(ev._status === "upcoming" || ev._status === "soon")) return false;
   if(state.status === "ongoing" && ev._status !== "ongoing") return false;
+  if(state.type !== "all" && (ev.type||"hackathon") !== state.type) return false;
   if(state.q){
     const hay = [ev.title, ev.organizer, ev.location, ev.description].join(" ").toLowerCase();
     return state.q.split(/\s+/).filter(Boolean).every(w => hay.includes(w));
@@ -263,6 +276,7 @@ function card(ev){
     <div class="tags">
       <span class="pill fmt">${ev.is_online ? "🌐 Online" : "📍 In-person"}</span>
       <span class="pill src" style="background:var(--src-${src});color:var(--src-${src}-fg)">${esc(ev.source || "other")}</span>
+      <span class="pill" style="background:var(--type-${ev.type||'hackathon'});color:var(--type-${ev.type||'hackathon'}-fg)">${esc(ev.type||'hackathon')}</span>
       ${prize}
     </div>
     <p class="info">📅 ${esc(fmtRange(ev))}</p>
@@ -281,7 +295,7 @@ function render(){
     grid.innerHTML = list.map(card).join("");
   }
   $("count").textContent = `Showing ${plural(list.length,"event")}`;
-  const active = state.q || state.source!=="all" || state.format!=="all" || state.status!=="all";
+  const active = state.q || state.source!=="all" || state.format!=="all" || state.status!=="all" || state.type!=="all";
   $("clear").classList.toggle("show", !!active);
 }
 
@@ -306,11 +320,13 @@ function setup(){
   chips("rowSource","source",[["all","All"],...sources.map(s => [s, s])]);
   chips("rowFormat","format",[["all","All"],["online","Online"],["inperson","In-person"]]);
   chips("rowStatus","status",[["all","All"],["upcoming","Upcoming"],["ongoing","Ongoing"]]);
+  const types = [...new Set(state.events.map(e => e.type||"hackathon"))].sort();
+  chips("rowType","type",[["all","All"],...types.map(t => [t, t.charAt(0).toUpperCase()+t.slice(1)])]);
 }
 
 $("search").addEventListener("input", e => { state.q = e.target.value.trim().toLowerCase(); render(); });
 $("clear").addEventListener("click", () => {
-  state.q=""; state.source="all"; state.format="all"; state.status="all";
+  state.q=""; state.source="all"; state.format="all"; state.status="all"; state.type="all";
   $("search").value=""; syncChips(); render();
 });
 $("copyBtn").addEventListener("click", async () => {

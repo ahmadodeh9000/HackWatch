@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 import yaml
 
-from hackwatch.models import Event
+from hackwatch.models import Event, validate_event_type
 from hackwatch.scrapers.base import BaseScraper
 
 DEFAULT_MANUAL_YAML = Path("manual_events.yaml")
@@ -75,7 +75,8 @@ class ManualScraper(BaseScraper):
                 end_date=end_date,
                 location=location,
                 is_online=is_online,
-                description=item.get("description")
+                description=item.get("description"),
+                type=validate_event_type(item.get("type")),
             ))
 
         return events

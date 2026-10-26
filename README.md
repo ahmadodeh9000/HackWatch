@@ -1,8 +1,8 @@
 # 🔍 HackWatch
 
-**Jordan-focused hackathon & developer event aggregator for your terminal.**
+**Jordan-focused tech & engineering event aggregator for your terminal.**
 
-HackWatch tracks tech events and hackathons with a focus on Jordan: online events worldwide are included, while in-person events are filtered strictly to Jordan. It scrapes upcoming events from multiple sources, stores them in a local SQLite database, and lets you browse everything through an interactive terminal dashboard.
+HackWatch tracks tech and engineering events (hackathons, contests, conferences, workshops, meetups) with a focus on Jordan: online events worldwide are included, while in-person events are filtered strictly to Jordan. It scrapes upcoming events from multiple sources, stores them in a local SQLite database, and lets you browse everything through an interactive terminal dashboard.
 
 ![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
@@ -169,6 +169,7 @@ Add events directly to `manual_events.yaml`:
   location: Amman, Jordan
   organizer: My Org
   prize: $5000
+  type: hackathon   # hackathon | contest | conference | workshop | meetup (default: hackathon)
 ```
 
 Then run **Fetch** (option 2) to import them into the database.

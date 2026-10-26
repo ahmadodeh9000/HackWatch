@@ -5,7 +5,7 @@ from pathlib import Path
 import yaml
 
 from hackwatch import db
-from hackwatch.models import Event
+from hackwatch.models import Event, VALID_EVENT_TYPES, validate_event_type
 from hackwatch.scrapers import get_available_scrapers
 
 app = typer.Typer(help="HackWatch: Track hackathons and developer events.")
@@ -59,6 +59,7 @@ def add(
     dates: Optional[str] = typer.Option(None, "--dates", "-d", help="Event dates (e.g. 2026-11-01 to 2026-11-03)"),
     location: Optional[str] = typer.Option(None, "--location", "-l", help="Event location"),
     organizer: Optional[str] = typer.Option(None, "--organizer", "-o", help="Event organizer"),
+    event_type: Optional[str] = typer.Option(None, "--type", help=f"Event type ({', '.join(sorted(VALID_EVENT_TYPES))}); default: hackathon"),
     yaml_file: Path = typer.Option(Path("manual_events.yaml"), "--file", help="Path to manual YAML file"),
 ):
     """Add a manual event to manual_events.yaml (prompts if options omitted)."""
@@ -72,6 +73,13 @@ def add(
         location = typer.prompt("Location", default="Online")
     if not organizer:
         organizer = typer.prompt("Organizer", default="")
+    if not event_type:
+        event_type = typer.prompt(f"Type ({', '.join(sorted(VALID_EVENT_TYPES))})", default="hackathon")
+
+    # Validate the type value
+    validated_type = validate_event_type(event_type)
+    if validated_type != (event_type or "").strip().lower():
+        typer.echo(f"Warning: unknown type '{event_type}', using 'hackathon'.")
 
     existing_events = []
     if yaml_file.exists():
@@ -88,6 +96,7 @@ def add(
         "dates": dates.strip() if dates else None,
         "location": location.strip() if location else "Online",
         "organizer": organizer.strip() if organizer else None,
+        "type": validated_type,
     }
 
     # Upsert in YAML by URL
@@ -112,6 +121,7 @@ def add(
 def list_events(
     new: bool = typer.Option(False, "--new", help="Show only events first seen in the last fetch"),
     show_all: bool = typer.Option(False, "--all", help="Show all events, including past events"),
+    event_type: Optional[str] = typer.Option(None, "--type", help="Filter by event type (hackathon, contest, conference, workshop, meetup)"),
     db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database")
 ):
     """List tracked events."""
@@ -122,6 +132,7 @@ def list_events(
         conn,
         only_new=new,
         show_all=show_all,
+        event_type=event_type,
     )
     if not events:
         typer.echo("No events found.")
@@ -140,7 +151,7 @@ def list_events(
         extra_str = f" ({', '.join(extra)})" if extra else ""
 
         typer.echo(f"- [{ev.source}] {ev.title}{extra_str}")
-        typer.echo(f"  Dates: {date_str} | Loc: {loc}")
+        typer.echo(f"  Type: {ev.type} | Dates: {date_str} | Loc: {loc}")
         typer.echo(f"  URL: {ev.url}")
 
 
@@ -160,6 +171,7 @@ def export(
             "title": ev.title,
             "url": ev.url,
             "source": ev.source,
+            "type": ev.type,
             "start_date": ev.start_date,
             "end_date": ev.end_date,
             "location": ev.location,

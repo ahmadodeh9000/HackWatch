@@ -2,7 +2,7 @@ import sqlite3
 from datetime import datetime, date
 from pathlib import Path
 from typing import List, Optional
-from hackwatch.models import Event
+from hackwatch.models import Event, validate_event_type
 from hackwatch.filters import is_relevant
 
 DEFAULT_DB_PATH = Path("hackwatch.db")
@@ -43,6 +43,10 @@ def init_db(conn: sqlite3.Connection) -> None:
                 FOREIGN KEY (first_seen_run_id) REFERENCES fetch_runs(id)
             );
         """)
+        # Migrate: add `type` column to existing databases that predate this field
+        existing_cols = {row[1] for row in conn.execute("PRAGMA table_info(events)")}
+        if "type" not in existing_cols:
+            conn.execute("ALTER TABLE events ADD COLUMN type TEXT NOT NULL DEFAULT 'hackathon';")
 
 
 def create_fetch_run(conn: sqlite3.Connection) -> int:
@@ -65,12 +69,12 @@ def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] =
             INSERT INTO events (
                 id, title, url, source, organizer, prize,
                 registration_deadline, start_date, end_date,
-                location, country, is_online, description, first_seen_run_id,
+                location, country, is_online, description, type, first_seen_run_id,
                 created_at, updated_at
             ) VALUES (
                 :id, :title, :url, :source, :organizer, :prize,
                 :registration_deadline, :start_date, :end_date,
-                :location, :country, :is_online, :description, :first_seen_run_id,
+                :location, :country, :is_online, :description, :type, :first_seen_run_id,
                 CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
             )
             ON CONFLICT(url) DO UPDATE SET
@@ -85,6 +89,7 @@ def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] =
                 country = excluded.country,
                 is_online = excluded.is_online,
                 description = excluded.description,
+                type = excluded.type,
                 updated_at = CURRENT_TIMESTAMP;
         """, {
             "id": event.id,
@@ -100,6 +105,7 @@ def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] =
             "country": event.country,
             "is_online": 1 if event.is_online else 0,
             "description": event.description,
+            "type": event.type,
             "first_seen_run_id": run_id
         })
     return True
@@ -111,6 +117,7 @@ def get_events(
     show_all: bool = False,
     country: Optional[str] = None,
     include_online: bool = True,
+    event_type: Optional[str] = None,
 ) -> List[Event]:
     query = "SELECT * FROM events WHERE 1=1"
     params = {}
@@ -139,6 +146,10 @@ def get_events(
         query += " AND (country = :country" + (" OR is_online = 1)" if include_online else ")")
         params["country"] = country.upper()
 
+    if event_type:
+        query += " AND type = :event_type"
+        params["event_type"] = event_type.lower()
+
     query += " ORDER BY COALESCE(start_date, registration_deadline, created_at) ASC"
 
     cursor = conn.execute(query, params)
@@ -159,6 +170,7 @@ def get_events(
             country=row["country"],
             is_online=bool(row["is_online"]),
             description=row["description"],
+            type=row["type"] if "type" in row.keys() else "hackathon",
             created_at=row["created_at"],
             updated_at=row["updated_at"],
             first_seen_run_id=row["first_seen_run_id"]
