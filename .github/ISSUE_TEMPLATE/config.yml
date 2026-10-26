@@ -1,0 +1,7 @@
+# Opening an issue starts with the event form; other issues (bugs, ideas) are
+# still possible through the "Open a blank issue" link.
+blank_issues_enabled: true
+contact_links:
+  - name: "Browse events / تصفح الفعاليات"
+    url: https://ahmadodeh9000.github.io/HackWatch/
+    about: "See what's already listed before submitting. / تحقق من الفعاليات الموجودة قبل الإضافة."

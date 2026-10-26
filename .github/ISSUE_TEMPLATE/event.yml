@@ -1,0 +1,98 @@
+name: "Submit an event / أضف فعالية"
+description: "Add a tech or engineering event in Jordan (or online) to HackWatch. / أضف فعالية تقنية أو هندسية في الأردن (أو عن بعد)."
+title: "[Event] "
+labels: ["event submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing an event! A maintainer will review it; once approved, a bot opens a pull request and it appears on the site after the next daily update.
+        شكراً لمشاركة الفعالية! سيراجعها أحد المشرفين، وبعد الموافقة تُضاف تلقائياً وتظهر على الموقع بعد التحديث اليومي التالي.
+
+        **Dates must be written as YYYY-MM-DD**, e.g. 2026-11-15. / **اكتب التواريخ بصيغة YYYY-MM-DD**، مثل 2026-11-15.
+  - type: input
+    id: title
+    attributes:
+      label: "Event title / اسم الفعالية"
+      placeholder: "IEEE Robot Sumo Cup 2026"
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: "Event link / رابط الفعالية"
+      description: "Registration or info page (not an Instagram/Facebook post if a website exists). / صفحة التسجيل أو المعلومات."
+      placeholder: "https://..."
+    validations:
+      required: true
+  - type: input
+    id: start_date
+    attributes:
+      label: "Start date / تاريخ البدء"
+      placeholder: "2026-11-15"
+    validations:
+      required: true
+  - type: input
+    id: end_date
+    attributes:
+      label: "End date / تاريخ الانتهاء"
+      description: "Leave empty for a one-day event. / اتركه فارغاً إذا كانت الفعالية ليوم واحد."
+      placeholder: "2026-11-16"
+    validations:
+      required: false
+  - type: dropdown
+    id: mode
+    attributes:
+      label: "Format / طريقة الحضور"
+      options:
+        - "In-person / حضوري"
+        - "Online / عن بعد"
+        - "Hybrid / مدمج"
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: "City and venue / المدينة والمكان"
+      description: "For in-person or hybrid events, e.g. \"PSUT, Amman\". Leave empty if online. / للفعاليات الحضورية، مثل \"جامعة الأميرة سمية، عمّان\"."
+      placeholder: "Hijjawi Faculty, Irbid"
+    validations:
+      required: false
+  - type: input
+    id: organizer
+    attributes:
+      label: "Organizer / الجهة المنظمة"
+      placeholder: "IEEE YU Student Branch"
+    validations:
+      required: true
+  - type: dropdown
+    id: type
+    attributes:
+      label: "Event type / نوع الفعالية"
+      options:
+        - "Hackathon / هاكاثون"
+        - "Competition / مسابقة"
+        - "Conference / مؤتمر"
+        - "Workshop / ورشة عمل"
+        - "Meetup / لقاء"
+        - "Other / أخرى"
+    validations:
+      required: true
+  - type: input
+    id: tags
+    attributes:
+      label: "Tags / الوسوم"
+      description: >-
+        Optional, comma-separated, from this list / اختياري، مفصولة بفواصل من هذه القائمة:
+        ai, web, mobile, cloud, security, ctf, cp, data, robotics, sumo, line-follower, embedded,
+        iot, game-dev, ar-vr, blockchain, open-source, design, startup, ieee, gdg, josa
+      placeholder: "robotics, sumo, ieee"
+    validations:
+      required: false
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description / الوصف"
+      description: "A few sentences: who it's for, prizes, how to register. / بضع جمل: لمن الفعالية، الجوائز، طريقة التسجيل."
+    validations:
+      required: false
