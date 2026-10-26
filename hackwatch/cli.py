@@ -35,6 +35,8 @@ def run_fetch(
             on_start(scraper.name)
         try:
             events = scraper.fetch()
+            for event in events:
+                apply_source_defaults(event, scraper)
             kept = sum(1 for event in events if db.upsert_event(conn, event, run_id=run_id))
             result = (scraper.name, kept, len(events), None)
         except Exception as exc:
@@ -43,6 +45,12 @@ def run_fetch(
         if on_result:
             on_result(*result)
     return run_id, results
+
+
+def apply_source_defaults(event: Event, scraper: BaseScraper) -> None:
+    """Fill fields the event left unset with the scraper's defaults."""
+    if event.type is None:
+        event.type = scraper.default_type
 
 
 def make_manual_entry(title, url, dates, location, organizer, event_type) -> dict:
@@ -126,7 +134,7 @@ def add(
     dates: Optional[str] = typer.Option(None, "--dates", "-d", help="Event dates (e.g. 2026-11-01 to 2026-11-03)"),
     location: Optional[str] = typer.Option(None, "--location", "-l", help="Event location"),
     organizer: Optional[str] = typer.Option(None, "--organizer", "-o", help="Event organizer"),
-    event_type: Optional[str] = typer.Option(None, "--type", help=f"Event type ({', '.join(sorted(VALID_EVENT_TYPES))}); default: hackathon"),
+    event_type: Optional[str] = typer.Option(None, "--type", help=f"Event type ({', '.join(VALID_EVENT_TYPES)}); default: other"),
     yaml_file: Path = typer.Option(Path("manual_events.yaml"), "--file", help="Path to manual YAML file"),
 ):
     """Add a manual event to manual_events.yaml (prompts if options omitted)."""
@@ -141,15 +149,15 @@ def add(
     if not organizer:
         organizer = typer.prompt("Organizer", default="")
     if not event_type:
-        event_type = typer.prompt(f"Type ({', '.join(sorted(VALID_EVENT_TYPES))})", default="hackathon")
+        event_type = typer.prompt(f"Type ({', '.join(VALID_EVENT_TYPES)})", default="other")
 
     try:
         entry = make_manual_entry(title, url, dates, location, organizer, event_type)
     except ValueError as exc:
         typer.echo(f"Error: {exc}")
         raise typer.Exit(code=1)
-    if entry["type"] != (event_type or "").strip().lower():
-        typer.echo(f"Warning: unknown type '{event_type}', using '{entry['type']}'.")
+    if entry["type"] == "other" and (event_type or "").strip().lower() not in ("", "other"):
+        typer.echo(f"Warning: unknown type '{event_type}', using 'other'.")
 
     updated = save_manual_entry(entry, yaml_file)
     action = "Updated" if updated else "Saved"
@@ -160,7 +168,7 @@ def add(
 def list_events(
     new: bool = typer.Option(False, "--new", help="Show only events first seen in the last fetch"),
     show_all: bool = typer.Option(False, "--all", help="Show all events, including past events"),
-    event_type: Optional[str] = typer.Option(None, "--type", help="Filter by event type (hackathon, contest, conference, workshop, meetup)"),
+    event_type: Optional[str] = typer.Option(None, "--type", help=f"Filter by event type ({', '.join(VALID_EVENT_TYPES)})"),
     db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database")
 ):
     """List tracked events."""

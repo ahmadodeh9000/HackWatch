@@ -1,18 +1,20 @@
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
 import hashlib
 import warnings
 from hackwatch.countries import to_iso2
 
-VALID_EVENT_TYPES = {"hackathon", "contest", "conference", "workshop", "meetup"}
-DEFAULT_EVENT_TYPE = "hackathon"
+VALID_EVENT_TYPES = ("hackathon", "competition", "conference", "workshop", "meetup", "other")
+TYPE_ALIASES = {"contest": "competition"}
+DEFAULT_EVENT_TYPE = "other"
 
 
 def validate_event_type(value: Optional[str]) -> str:
-    """Return a valid event type, defaulting to 'hackathon' with a warning on unknown values."""
-    if value is None:
+    """Return a valid event type: aliases are mapped, unknown values become 'other' (with a warning)."""
+    if value is None or not str(value).strip():
         return DEFAULT_EVENT_TYPE
-    v = value.strip().lower()
+    v = str(value).strip().lower()
+    v = TYPE_ALIASES.get(v, v)
     if v in VALID_EVENT_TYPES:
         return v
     warnings.warn(
@@ -37,15 +39,17 @@ class Event:
     is_online: bool = False
     description: Optional[str] = None
     country: Optional[str] = None
-    type: str = DEFAULT_EVENT_TYPE
+    # None = not set by the source; run_fetch applies the scraper's default_type,
+    # and anything still unset is stored as DEFAULT_EVENT_TYPE.
+    type: Optional[str] = None
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
     first_seen_run_id: Optional[int] = None
     id: Optional[str] = None
 
     def __post_init__(self):
-        # Validate and normalise event type
-        self.type = validate_event_type(self.type)
+        if self.type is not None:
+            self.type = validate_event_type(self.type)
         if not self.country:
             self.country = to_iso2(self.location)
         if not self.id:

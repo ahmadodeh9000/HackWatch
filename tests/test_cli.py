@@ -6,6 +6,8 @@ from hackwatch.models import Event
 
 
 class FakeScraper:
+    default_type = None
+
     def __init__(self, name, events=None, error=None):
         self.name, self.events, self.error = name, events or [], error
 

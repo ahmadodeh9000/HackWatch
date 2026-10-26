@@ -2,7 +2,7 @@ import sqlite3
 from datetime import datetime, date
 from pathlib import Path
 from typing import List, Optional
-from hackwatch.models import Event, validate_event_type
+from hackwatch.models import DEFAULT_EVENT_TYPE, Event
 from hackwatch.filters import is_relevant
 
 DEFAULT_DB_PATH = Path("hackwatch.db")
@@ -37,16 +37,22 @@ def init_db(conn: sqlite3.Connection) -> None:
                 country TEXT,
                 is_online INTEGER DEFAULT 0,
                 description TEXT,
+                type TEXT NOT NULL DEFAULT 'other',
                 first_seen_run_id INTEGER,
                 created_at TEXT DEFAULT CURRENT_TIMESTAMP,
                 updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
                 FOREIGN KEY (first_seen_run_id) REFERENCES fetch_runs(id)
             );
         """)
-        # Migrate: add `type` column to existing databases that predate this field
-        existing_cols = {row[1] for row in conn.execute("PRAGMA table_info(events)")}
-        if "type" not in existing_cols:
-            conn.execute("ALTER TABLE events ADD COLUMN type TEXT NOT NULL DEFAULT 'hackathon';")
+        migrate(conn)
+
+
+def migrate(conn: sqlite3.Connection) -> None:
+    """Bring databases created by older versions up to the current schema."""
+    existing_cols = {row[1] for row in conn.execute("PRAGMA table_info(events)")}
+    if "type" not in existing_cols:
+        conn.execute("ALTER TABLE events ADD COLUMN type TEXT NOT NULL DEFAULT 'other';")
+    conn.execute("UPDATE events SET type = 'competition' WHERE type = 'contest';")
 
 
 def create_fetch_run(conn: sqlite3.Connection) -> int:
@@ -105,7 +111,7 @@ def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] =
             "country": event.country,
             "is_online": 1 if event.is_online else 0,
             "description": event.description,
-            "type": event.type,
+            "type": event.type or DEFAULT_EVENT_TYPE,
             "first_seen_run_id": run_id
         })
     return True
@@ -170,7 +176,7 @@ def get_events(
             country=row["country"],
             is_online=bool(row["is_online"]),
             description=row["description"],
-            type=row["type"] if "type" in row.keys() else "hackathon",
+            type=row["type"],
             created_at=row["created_at"],
             updated_at=row["updated_at"],
             first_seen_run_id=row["first_seen_run_id"]

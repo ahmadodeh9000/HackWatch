@@ -169,7 +169,7 @@ Add events directly to `manual_events.yaml`:
   location: Amman, Jordan
   organizer: My Org
   prize: $5000
-  type: hackathon   # hackathon | contest | conference | workshop | meetup (default: hackathon)
+  type: hackathon   # hackathon | competition | conference | workshop | meetup | other (default: other; "contest" = competition)
 ```
 
 Then run **Fetch** (option 2) to import them into the database.

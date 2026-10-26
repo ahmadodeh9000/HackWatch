@@ -34,7 +34,8 @@
   --src-manual:#fff0b8; --src-manual-fg:#7a5a00;
   --src-other:#ebe8e2; --src-other-fg:#555;
   --type-hackathon:#e0f2fe; --type-hackathon-fg:#075985;
-  --type-contest:#fce7f3; --type-contest-fg:#9d174d;
+  --type-competition:#fce7f3; --type-competition-fg:#9d174d;
+  --type-other:#ebe8e2; --type-other-fg:#555;
   --type-conference:#f3e8ff; --type-conference-fg:#6b21a8;
   --type-workshop:#dcfce7; --type-workshop-fg:#166534;
   --type-meetup:#fff7ed; --type-meetup-fg:#9a3412;
@@ -55,7 +56,8 @@
     --src-manual:#463a10; --src-manual-fg:#ffe07a;
     --src-other:#2b2e39; --src-other-fg:#b5bacb;
   --type-hackathon:#0c4a6e; --type-hackathon-fg:#7dd3fc;
-  --type-contest:#500724; --type-contest-fg:#f9a8d4;
+  --type-competition:#500724; --type-competition-fg:#f9a8d4;
+  --type-other:#2b2e39; --type-other-fg:#b5bacb;
   --type-conference:#3b0764; --type-conference-fg:#d8b4fe;
   --type-workshop:#14532d; --type-workshop-fg:#86efac;
   --type-meetup:#431407; --type-meetup-fg:#fdba74;
@@ -171,7 +173,7 @@ footer{padding:32px 0 48px;text-align:center;color:var(--muted);font-size:.92rem
   location: Amman, Jordan
   organizer: My Club
   prize: $500
-  type: hackathon   # hackathon | contest | conference | workshop | meetup</pre>
+  type: hackathon   # hackathon | competition | conference | workshop | meetup | other</pre>
           <button class="copy" id="copyBtn" type="button">Copy</button>
         </div>
         <a class="btn primary" id="editLink" href="#" target="_blank" rel="noopener">Add it on GitHub</a>
@@ -256,7 +258,7 @@ function matches(ev){
   if(state.format === "inperson" && ev.is_online) return false;
   if(state.status === "upcoming" && !(ev._status === "upcoming" || ev._status === "soon")) return false;
   if(state.status === "ongoing" && ev._status !== "ongoing") return false;
-  if(state.type !== "all" && (ev.type||"hackathon") !== state.type) return false;
+  if(state.type !== "all" && (ev.type||"other") !== state.type) return false;
   if(state.q){
     const hay = [ev.title, ev.organizer, ev.location, ev.description].join(" ").toLowerCase();
     return state.q.split(/\s+/).filter(Boolean).every(w => hay.includes(w));
@@ -276,7 +278,7 @@ function card(ev){
     <div class="tags">
       <span class="pill fmt">${ev.is_online ? "🌐 Online" : "📍 In-person"}</span>
       <span class="pill src" style="background:var(--src-${src});color:var(--src-${src}-fg)">${esc(ev.source || "other")}</span>
-      <span class="pill" style="background:var(--type-${ev.type||'hackathon'});color:var(--type-${ev.type||'hackathon'}-fg)">${esc(ev.type||'hackathon')}</span>
+      <span class="pill" style="background:var(--type-${ev.type||'other'});color:var(--type-${ev.type||'other'}-fg)">${esc(ev.type||'other')}</span>
       ${prize}
     </div>
     <p class="info">📅 ${esc(fmtRange(ev))}</p>
@@ -320,7 +322,7 @@ function setup(){
   chips("rowSource","source",[["all","All"],...sources.map(s => [s, s])]);
   chips("rowFormat","format",[["all","All"],["online","Online"],["inperson","In-person"]]);
   chips("rowStatus","status",[["all","All"],["upcoming","Upcoming"],["ongoing","Ongoing"]]);
-  const types = [...new Set(state.events.map(e => e.type||"hackathon"))].sort();
+  const types = [...new Set(state.events.map(e => e.type||"other"))].sort();
   chips("rowType","type",[["all","All"],...types.map(t => [t, t.charAt(0).toUpperCase()+t.slice(1)])]);
 }
 

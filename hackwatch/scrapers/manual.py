@@ -100,7 +100,7 @@ def parse_manual_item(item: dict) -> Event:
         location=location,
         is_online=is_online,
         description=item.get("description"),
-        type=validate_event_type(item.get("type")),
+        type=validate_event_type(item["type"]) if item.get("type") else None,
     )
 
 

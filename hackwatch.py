@@ -402,7 +402,7 @@ def action_add_manual():
     dates = Prompt.ask("[bold]Dates[/] [dim](e.g. 2026-11-01 to 2026-11-03)[/]", default="")
     location = Prompt.ask("[bold]Location[/]", default="Online")
     organizer = Prompt.ask("[bold]Organizer[/]", default="")
-    event_type = Prompt.ask("[bold]Type[/]", choices=sorted(VALID_EVENT_TYPES), default="hackathon")
+    event_type = Prompt.ask("[bold]Type[/]", choices=list(VALID_EVENT_TYPES), default="other")
 
     yaml_path = Path("manual_events.yaml")
     try:
