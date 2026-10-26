@@ -11,6 +11,7 @@ DEFAULT_USER_AGENT = f"HackWatch/{__version__} (+https://github.com/ahmadodeh900
 
 class BaseScraper(abc.ABC):
     name: str = "base"
+    # The defaults below are set per source from sources.yaml (see hackwatch/sources.py).
     # Applied by cli.run_fetch to events that don't set their own type.
     default_type: Optional[str] = None
     # Added by cli.run_fetch to every event from this scraper.

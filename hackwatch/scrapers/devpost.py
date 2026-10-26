@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 from hackwatch.models import Event
 from hackwatch.scrapers.base import BaseScraper
+from hackwatch.scrapers.registry import register
 
 
 def parse_devpost_dates(date_str: Optional[str]) -> Tuple[Optional[str], Optional[str]]:
@@ -99,11 +100,8 @@ def extract_devpost_prize(item: dict) -> str:
     return prize if prize else "N/A"
 
 
+@register("devpost")
 class DevpostScraper(BaseScraper):
-    name: str = "devpost"
-    default_scope = "worldwide"
-    default_type = "hackathon"
-
     def __init__(self, max_pages: int = 2, delay_seconds: float = 2.0):
         super().__init__(delay_seconds=delay_seconds)
         self.max_pages = max_pages

@@ -1,0 +1,56 @@
+# Event sources. Each entry:
+#   name          unique id, shown as the event's "source"
+#   scraper       which scraper class to use (defaults to name); see hackwatch/scrapers/registry.py
+#   enabled       false skips it in `fetch`
+#   scope         jordan | worldwide (an event can override it)
+#   default_type  used when neither the event nor inference sets a type
+#   default_tags  added to every event from this source
+#   options       passed to the scraper's constructor (names must match its arguments)
+#
+# Status, numbers and failed sources: see SOURCES.md.
+sources:
+  - name: devpost
+    enabled: true
+    scope: worldwide
+    default_type: hackathon
+    options:
+      max_pages: 2
+
+  - name: eventbrite
+    enabled: true
+    scope: jordan
+    options:
+      # Jordan only: online Eventbrite searches were mostly generic webinars.
+      # As of 2026-10 Eventbrite returns the same ~10 Jordan events for any term.
+      places: [jordan]
+      search_terms: [hackathon, tech, ai, programming, robotics, cybersecurity, data-science, developer]
+
+  - name: gdg
+    enabled: true
+    scope: jordan
+    default_tags: [gdg]
+    options:
+      # gdg.community.dev chapter ids (URLs checked to load). Irbid and Zarqa have no
+      # city chapters; the JUST Irbid campus chapter was removed (404).
+      chapter_ids:
+        - 558    # GDG Amman
+        - 2637   # GDG on Campus Princess Sumaya University for Technology (Amman)
+        - 2643   # GDG on Campus Zarqa University
+        - 2739   # GDG on Campus Hashemite University (Zarqa)
+        - 2702   # GDG on Campus Al-Hussein Technical University (Amman)
+        - 2800   # GDG on Campus Al-Zaytoonah University (Amman)
+        - 2655   # GDG on Campus Applied Science Private University (Amman)
+        - 2654   # GDG on Campus Al-Balqa' Applied University (Salt)
+
+  - name: josa
+    enabled: true
+    scope: jordan
+    default_tags: [josa, open-source]
+    options:
+      events_url: https://josa.ngo/events
+
+  - name: manual
+    enabled: true
+    scope: jordan
+    options:
+      yaml_path: manual_events.yaml

@@ -8,6 +8,7 @@ import yaml
 
 from hackwatch.models import Event, validate_event_type, validate_mode, validate_scope
 from hackwatch.scrapers.base import BaseScraper
+from hackwatch.scrapers.registry import register
 from hackwatch.taxonomy import normalize_tags
 
 DEFAULT_MANUAL_YAML = Path("manual_events.yaml")
@@ -156,13 +157,11 @@ def report_error(path: Path, message: str) -> None:
         print(f"ERROR {path}: {message}", file=sys.stderr)
 
 
+@register("manual")
 class ManualScraper(BaseScraper):
-    name: str = "manual"
-    default_scope = "jordan"
-
     def __init__(self, yaml_path: Path = DEFAULT_MANUAL_YAML):
         super().__init__(delay_seconds=0.0)
-        self.yaml_path = yaml_path
+        self.yaml_path = Path(yaml_path)
 
     def fetch(self) -> List[Event]:
         """Import valid entries; invalid ones are skipped with an error each.

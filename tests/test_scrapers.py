@@ -19,9 +19,9 @@ def by_title(events):
     return {e.title: e for e in events}
 
 
-def test_devpost_parses_api_pages(replay):
+def test_devpost_parses_api_pages(replay, configured):
     replay("devpost")
-    events = DevpostScraper(delay_seconds=0).fetch()
+    events = configured("devpost").fetch()
 
     assert len(events) == 18  # 2 pages x 9 per page
     ev = by_title(events)["Nebius x NVIDIA Global AI Hackathon"]
@@ -38,9 +38,9 @@ def test_devpost_date_formats():
     assert parse_devpost_dates(None) == (None, None)
 
 
-def test_eventbrite_parses_jordan_pages(replay):
+def test_eventbrite_parses_jordan_pages(replay, configured):
     replay("eventbrite")
-    events = EventbriteScraper(delay_seconds=0).fetch()
+    events = configured("eventbrite").fetch()
 
     assert len(events) == 11  # 8 Jordan term pages, de-duplicated by URL
     assert not any(e.is_online for e in events)
@@ -52,10 +52,10 @@ def test_eventbrite_parses_jordan_pages(replay):
     assert (amman.start_date, amman.end_date) == ("2026-11-07", "2026-11-08")
 
 
-def test_gdg_parses_jordan_chapters(replay, frozen_today):
+def test_gdg_parses_jordan_chapters(replay, frozen_today, configured):
     replay("gdg")
     frozen_today(gdg)
-    events = GDGScraper(delay_seconds=0).fetch()
+    events = configured("gdg").fetch()
 
     # Past events are skipped, so only upcoming ones remain.
     assert sorted(e.title for e in events) == [
@@ -70,10 +70,10 @@ def test_gdg_parses_jordan_chapters(replay, frozen_today):
     assert devfest.country == "JO" and not devfest.is_online
 
 
-def test_josa_parses_event_previews(replay, frozen_today):
+def test_josa_parses_event_previews(replay, frozen_today, configured):
     replay("josa")
     frozen_today(josa)
-    events = JOSAScraper(delay_seconds=0).fetch()
+    events = configured("josa").fetch()
 
     assert len(events) == 5
     ev = by_title(events)["Hacktoberfest 2026 Amman"]

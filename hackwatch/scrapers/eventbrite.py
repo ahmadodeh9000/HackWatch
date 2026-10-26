@@ -5,19 +5,7 @@ from bs4 import BeautifulSoup
 
 from hackwatch.models import Event
 from hackwatch.scrapers.base import BaseScraper
-
-
-# Jordan only. Worldwide online events come from purpose-built feeds (Devpost,
-# CTFtime, Codeforces): Eventbrite's online search is mostly generic webinars.
-# Results are de-duplicated by URL and filters.is_tech_related drops non-tech
-# events. (As of 2026-10 Eventbrite returns the same ~10 Jordan events for any
-# term, and /d/jordan/all-events/ returns fewer, so the term pages are the
-# safest way to get everything.)
-SEARCH_TERMS = [
-    "hackathon", "tech", "ai", "programming", "robotics",
-    "cybersecurity", "data-science", "developer",
-]
-DEFAULT_SEARCH_URLS = [f"https://www.eventbrite.com/d/jordan/{term}/" for term in SEARCH_TERMS]
+from hackwatch.scrapers.registry import register
 
 
 def clean_eventbrite_url(url: str) -> str:
@@ -26,24 +14,28 @@ def clean_eventbrite_url(url: str) -> str:
     return urlunparse((parsed.scheme, parsed.netloc, parsed.path, "", "", ""))
 
 
+@register("eventbrite")
 class EventbriteScraper(BaseScraper):
-    name: str = "eventbrite"
-    default_scope = "jordan"
-
     def __init__(
         self,
-        search_url: Optional[str] = None,
+        search_terms: Optional[List[str]] = None,
+        places: Optional[List[str]] = None,
         search_urls: Optional[List[str]] = None,
         delay_seconds: float = 2.0,
     ):
+        """Search https://www.eventbrite.com/d/<place>/<term>/ for every place x term,
+        or exactly the given search_urls."""
         super().__init__(delay_seconds=delay_seconds)
         if search_urls:
-            self.search_urls = search_urls
-        elif search_url:
-            self.search_urls = [search_url]
+            self.search_urls = list(search_urls)
+        elif search_terms:
+            self.search_urls = [
+                f"https://www.eventbrite.com/d/{place}/{term}/"
+                for place in (places or ["jordan"])
+                for term in search_terms
+            ]
         else:
-            self.search_urls = list(DEFAULT_SEARCH_URLS)
-        self.search_url = self.search_urls[0]
+            raise ValueError("eventbrite needs search_terms or search_urls")
 
     def fetch(self) -> List[Event]:
         events: List[Event] = []

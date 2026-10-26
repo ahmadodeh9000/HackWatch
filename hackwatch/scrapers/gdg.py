@@ -2,38 +2,11 @@ from datetime import datetime
 from typing import List, Optional
 from hackwatch.models import Event
 from hackwatch.scrapers.base import BaseScraper
-
-# Verified Jordan GDG chapters (URLs confirmed to load):
-# - GDG Amman: https://gdg.community.dev/gdg-amman/ (558)
-# - Zarqa chapters:
-#   * GDG on Campus Zarqa University: https://gdg.community.dev/gdg-on-campus-zarqa-university-zarqa-jordan/ (2643)
-#   * GDG on Campus Hashemite University: https://gdg.community.dev/gdg-on-campus-hashemite-university-zarqa-jordan/ (2739)
-# - University chapters in Amman:
-#   * GDG on Campus PSUT: https://gdg.community.dev/gdg-on-campus-princess-sumaya-university-for-technology-amman-jordan/ (2637)
-#   * GDG on Campus HTU: https://gdg.community.dev/gdg-on-campus-al-hussein-technical-university-amman-jordan/ (2702)
-#   * GDG on Campus Al-Zaytoonah University: https://gdg.community.dev/gdg-on-campus-al-zaytoonah-university-of-jordan-amman-jordan/ (2800)
-#   * GDG on Campus Applied Science Private University: https://gdg.community.dev/gdg-on-campus-applied-science-private-university-amman-jordan/ (2655)
-# - Salt / Balqa:
-#   * GDG on Campus Al-Balqa' Applied University: https://gdg.community.dev/gdg-on-campus-al-balqa-applied-university-salt-jordan/ (2654)
-# (Note: City chapters for Irbid and Zarqa do not exist on gdg.community.dev; JUST Irbid chapter was removed/404s).
-
-JORDAN_CHAPTER_IDS = [
-    558,
-    2637,
-    2643,
-    2739,
-    2702,
-    2800,
-    2655,
-    2654,
-]
+from hackwatch.scrapers.registry import register
 
 
+@register("gdg")
 class GDGScraper(BaseScraper):
-    name: str = "gdg"
-    default_scope = "jordan"
-    default_tags = ["gdg"]
-
     def __init__(
         self,
         api_url: Optional[str] = None,
@@ -42,7 +15,9 @@ class GDGScraper(BaseScraper):
     ):
         super().__init__(delay_seconds=delay_seconds)
         self.api_url = api_url
-        self.chapter_ids = chapter_ids if chapter_ids is not None else JORDAN_CHAPTER_IDS
+        if not api_url and not chapter_ids:
+            raise ValueError("gdg needs chapter_ids (or api_url)")
+        self.chapter_ids = chapter_ids or []
 
     def fetch(self) -> List[Event]:
         events: List[Event] = []

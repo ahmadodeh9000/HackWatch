@@ -83,3 +83,17 @@ def frozen_today(monkeypatch):
                 monkeypatch.setattr(mod, "datetime", FrozenDatetime)
 
     return activate
+
+
+@pytest.fixture
+def configured():
+    """configured("gdg") builds that source's scraper from the real sources.yaml, without delays."""
+    from hackwatch.sources import build_scraper, load_sources
+
+    def build(name: str):
+        (config,) = [c for c in load_sources() if c.name == name]
+        scraper = build_scraper(config)
+        scraper.delay_seconds = 0
+        return scraper
+
+    return build

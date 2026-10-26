@@ -140,6 +140,7 @@ HackWatch/
 ├── hackwatch.py              ← Interactive dashboard entry point
 ├── requirements.txt          ← Python dependencies
 ├── manual_events.yaml        ← Manually added events (YAML)
+├── sources.yaml              ← Which sources run, their scope/defaults/options
 ├── taxonomy.yaml             ← Allowed event tags and their aliases
 ├── SOURCES.md                ← Status of every event source
 ├── scripts/                  ← Fixture recorder, CI export check
@@ -151,10 +152,12 @@ HackWatch/
     ├── models.py             ← Event dataclass, type/mode/scope values
     ├── taxonomy.py           ← Loads taxonomy.yaml, normalises tags
     ├── filters.py            ← Which events are kept (Jordan / tech)
+    ├── sources.py            ← Loads sources.yaml, builds scrapers
     ├── db.py                 ← SQLite database layer
     └── scrapers/
         ├── __init__.py
         ├── base.py           ← BaseScraper (rate-limited HTTP)
+        ├── registry.py       ← @register("name") scraper registry
         ├── devpost.py        ← Devpost API scraper
         ├── eventbrite.py     ← Eventbrite LD+JSON scraper
         ├── gdg.py            ← Google Developer Groups API
@@ -166,22 +169,40 @@ HackWatch/
 
 ## 🔧 Adding a New Scraper
 
-1. Create a new file in `hackwatch/scrapers/` (e.g. `mysource.py`)
-2. Subclass `BaseScraper` and implement `fetch() -> List[Event]`
-3. Register it in `hackwatch/scrapers/__init__.py`
-4. Add it to `get_available_scrapers()` in both `cli.py` and `hackwatch.py`
+1. Create `hackwatch/scrapers/mysource.py` with a `BaseScraper` subclass, registered by name.
+   Constructor arguments become the source's `options` in `sources.yaml`.
+2. Import the module in `hackwatch/scrapers/__init__.py` so it registers.
+3. Add an entry to [`sources.yaml`](sources.yaml) with its `scope` and any `default_type`, `default_tags` and `options`.
+4. Record fixtures (`python scripts/record_fixtures.py mysource`) and add offline tests.
 
 ```python
-from hackwatch.scrapers.base import BaseScraper
 from hackwatch.models import Event
+from hackwatch.scrapers.base import BaseScraper
+from hackwatch.scrapers.registry import register
 
+
+@register("mysource")
 class MySourceScraper(BaseScraper):
-    name = "mysource"
+    def __init__(self, url: str, delay_seconds: float = 2.0):
+        super().__init__(delay_seconds=delay_seconds)
+        self.url = url
 
     def fetch(self) -> list[Event]:
-        # Your scraping logic here
+        resp = self.get(self.url)  # rate-limited, honest User-Agent
         return [Event(title="...", url="...", source=self.name)]
 ```
+
+```yaml
+# sources.yaml
+  - name: mysource
+    enabled: true
+    scope: jordan
+    default_tags: [ai]
+    options:
+      url: https://example.com/events
+```
+
+To turn a source off, set `enabled: false`. `fetch --source mysource` still runs it.
 
 ---
 

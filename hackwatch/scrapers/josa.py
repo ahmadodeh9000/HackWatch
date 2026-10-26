@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 
 from hackwatch.models import Event
 from hackwatch.scrapers.base import BaseScraper
+from hackwatch.scrapers.registry import register
 
 
 def infer_year(day: int, month_name: str, today: date) -> Optional[date]:
@@ -26,11 +27,8 @@ def infer_year(day: int, month_name: str, today: date) -> Optional[date]:
     return min(candidates, key=lambda d: abs((d - today).days))
 
 
+@register("josa")
 class JOSAScraper(BaseScraper):
-    name: str = "josa"
-    default_scope = "jordan"
-    default_tags = ["josa", "open-source"]
-
     def __init__(self, events_url: str = "https://josa.ngo/events", delay_seconds: float = 2.0):
         super().__init__(delay_seconds=delay_seconds)
         self.events_url = events_url

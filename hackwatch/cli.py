@@ -123,14 +123,15 @@ def save_manual_entry(entry: dict, yaml_file: Path) -> bool:
 
 @app.command()
 def fetch(
-    source: Optional[str] = typer.Option(None, "--source", "-s", help="Filter scraper by name (e.g. devpost, manual)"),
+    source: Optional[str] = typer.Option(None, "--source", "-s", help="Only this source from sources.yaml (runs even if disabled)"),
     db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database")
 ):
     """Fetch events from scrapers and update the database."""
     conn = db.get_connection(db_path)
     db.init_db(conn)
 
-    all_scrapers = get_available_scrapers()
+    # Naming a source runs it even if it's disabled in sources.yaml.
+    all_scrapers = get_available_scrapers(include_disabled=bool(source))
     if source:
         scrapers = [s for s in all_scrapers if s.name.lower() == source.lower()]
         if not scrapers:

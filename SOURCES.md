@@ -72,7 +72,7 @@ Instagram and Facebook are also out of scope by project rule.
 
 These were described as existing in earlier notes, but **do not exist** in the code:
 
-- `sources.yaml`: scrapers are hard-coded in `hackwatch/scrapers/__init__.py`.
+- ~~`sources.yaml`~~: added in Phase 3. Each source's scope, defaults and options now live there.
 - An IEEE vTools scraper.
 - Event type inference. The `type` field itself only exists as uncommitted
   work in progress (as of 2026-10-26); it is set by hand in YAML and defaults to `hackathon`.
