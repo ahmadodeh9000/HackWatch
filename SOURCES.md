@@ -10,11 +10,13 @@ date is in the past.
 
 ## Active scrapers
 
+Eventbrite and GDG rows were updated after Phase 1 (same day); the rest are the Phase 0 baseline.
+
 | Source | Method | Requests | Raw | Kept | Status | Notes |
 |---|---|---|---|---|---|---|
 | Devpost | JSON API `devpost.com/api/hackathons` | 2 | 18 | 18 | ✅ Works | Only first 2 pages (9/page) of 175 total. All 18 were online. All had already started; they show because submissions end in the future. |
-| Eventbrite | HTML search pages, JSON-LD `ItemList` | 2 | 26 | 11 | ⚠️ Works, filter too strict | Searches only "hackathon" in `online` + `jordan`. 15 dropped, all by the hackathon-keyword filter, incl. real Amman tech events. |
-| GDG (gdg.community.dev) | JSON API, 8 Jordan chapter IDs + 1 detail call per upcoming event | 12 | 4 | **0** | ❌ Filter drops everything | All 4 upcoming events dropped by the hackathon-keyword filter. Only 3 of 8 chapters had anything upcoming. |
+| Eventbrite | HTML search pages, JSON-LD `ItemList` | 16 | 163 | 150 | ✅ Works (noisy) | Phase 1: 8 tech terms × (Jordan, online). Was 26 raw / 11 kept with "hackathon" only. Jordan returns the same ~10 events for every term. 145 of the kept events are worldwide online webinars, many only loosely tech. |
+| GDG (gdg.community.dev) | JSON API, 8 Jordan chapter IDs + 1 detail call per upcoming event | 12 | 4 | 4 | ✅ Works | Was 0 kept before the Phase 1 filter fix. Only 3 of 8 chapters had anything upcoming. |
 | JOSA (josa.ngo/events) | HTML, `div.preview` cards | 1 | 5 | 5 | ✅ Works | Page lists recent events; all 5 were already past on the run date, so the site shows none. Year is guessed (current year first). |
 | Manual (`manual_events.yaml`) | Local YAML | 0 | 1 | 1 | ✅ Works | Only the example entry. Dates aren't validated. |
 
@@ -27,14 +29,17 @@ date is in the past.
 
 ### Sample dropped titles (and why)
 
-All drops in this run came from one rule: for `gdg` and `eventbrite`,
-`is_relevant` requires a hackathon-style keyword (`HACK_RE`) in the title or
-description.
+In the Phase 0 baseline, all drops came from one rule: for `gdg` and
+`eventbrite`, `is_relevant` required a hackathon-style keyword (`HACK_RE`).
+Phase 1 replaced it with a tech-keyword check (`filters.is_tech_related`) for
+non-tech-only sources. These were dropped at baseline:
 
 - **GDG:** DevFest Amman 2026 · 🚀 Flutter Bootcamp: Learn App Development (×2, PSUT) · Mastering Research Papers (Zarqa)
 - **Eventbrite, in Jordan:** AI & Digital Transformation Conference 2026 · Cybersecurity & Data Protection Forum 2027 · Pocket Gamer Connects Jordan 2026
 - **Eventbrite, online:** Huawei Ireland Tech Arena 2026 · Find a Cofounder…
 - **Correctly dropped, but by luck:** Costume Party 2026 (Amman) · "eyad alabade" (a 2014 junk listing) · IE University sales meetings
+
+After Phase 1, Eventbrite still drops Costume Party, Entrepreneurship & Startup Growth Summit, Aqaba Blue and the IE one-to-one meeting. One known false positive is kept: "IE Masterclass: Globalization trends… AI opportunities".
 
 ### Data-quality issues seen in this run
 
