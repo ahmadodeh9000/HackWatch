@@ -1,5 +1,3 @@
-- title: Amman AI Hackathon (Example)
-  url: https://example.com
-  dates: 2026-11-15 to 2026-11-17
-  location: Amman, Jordan
-  organizer: Example
+# Community-submitted events. Most are added by the bot after a maintainer approves a
+# "Submit an event" issue; see CONTRIBUTING.md for the format and an example entry.
+# Check this file with:  python -m hackwatch.cli validate

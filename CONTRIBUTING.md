@@ -22,7 +22,21 @@ What happens next:
 4. Once merged, the event appears on the site and in the calendar feed after the next update.
 
 You can also edit `manual_events.yaml` directly in a pull request; the PR check runs
-`hackwatch validate` and the tests.
+`hackwatch validate` and the tests. An entry looks like this:
+
+```yaml
+- title: Amman AI Hackathon
+  url: https://example.com/amman-ai-hackathon
+  dates: 2026-11-15 to 2026-11-17      # or a single date; always YYYY-MM-DD
+  location: King Hussein Business Park, Amman
+  organizer: My Club
+  type: hackathon                      # hackathon | competition | conference | workshop | meetup | other
+  mode: in-person                      # in-person | online | hybrid (default: from location)
+  tags: [ai]                           # optional, ids from taxonomy.yaml
+  prize: 500 JOD                       # optional
+  registration_deadline: 2026-11-10    # optional
+  description: Optional, a few sentences.
+```
 
 ## 2. Add a source (scraper)
 
