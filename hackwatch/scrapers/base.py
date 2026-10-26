@@ -22,6 +22,9 @@ class BaseScraper(abc.ABC):
     allowed_types: Optional[List[str]] = None
     # Keep only events with a tech keyword (for general listings like Eventbrite).
     require_tech_keywords: bool = False
+    # Guess tags from title/description. Off for sources whose text lists unrelated
+    # topics (CTF descriptions list challenge categories like web/crypto/hardware).
+    infer_tags: bool = True
 
     timeout_seconds: float = 60.0
 

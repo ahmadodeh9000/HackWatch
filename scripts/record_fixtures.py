@@ -31,8 +31,8 @@ def slim_html(body: bytes) -> bytes:
     return ("<html><body>\n" + "\n".join(str(s) for s in scripts) + "\n</body></html>\n").encode()
 
 
-# Sources whose HTML fixtures are reduced with slim_html.
-SLIM_SOURCES = {"eventbrite"}
+# How to shrink each source's responses before saving them as fixtures.
+SLIMMERS = {"eventbrite": slim_html}
 
 
 def full_url(method, url, params=None):
@@ -56,7 +56,8 @@ def record(scraper):
             raise
         ext = "json" if "json" in resp.headers.get("Content-Type", "") else "html"
         name = f"{len(manifest):03d}.{ext}"
-        body = slim_html(resp.content) if ext == "html" and scraper.name in SLIM_SOURCES else resp.content
+        slim = SLIMMERS.get(scraper.name)
+        body = slim(resp.content) if slim else resp.content
         (out_dir / name).write_bytes(body)
         manifest.append({"method": method, "url": key, "status": resp.status_code, "file": name})
         return resp

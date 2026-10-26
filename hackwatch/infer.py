@@ -94,16 +94,18 @@ def infer_tags(event: Event) -> List[str]:
 
 
 def apply_defaults(event: Event, default_type: Optional[str] = None, default_tags: Iterable[str] = (),
-                   default_scope: Optional[str] = None, allowed_types: Optional[Iterable[str]] = None) -> Event:
+                   default_scope: Optional[str] = None, allowed_types: Optional[Iterable[str]] = None,
+                   infer_tags_from_text: bool = True) -> Event:
     """Fill in what the source didn't set.
 
     type:  explicit > inferred > source default (> 'other' when stored)
-    tags:  explicit, or else inferred; source default tags are always added
+    tags:  explicit, or else inferred (unless the source turns that off);
+           source default tags are always added
     scope: explicit > source default (> derived from location when stored)
     """
     if event.type is None:
         event.type = infer_type(event, allowed_types) or default_type
-    if not event.tags:
+    if not event.tags and infer_tags_from_text:
         event.tags = infer_tags(event)
     event.tags = event.tags + [t for t in default_tags if t not in event.tags]
     if event.scope is None:

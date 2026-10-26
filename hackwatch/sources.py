@@ -13,7 +13,7 @@ from hackwatch.taxonomy import normalize_tags
 
 SOURCES_PATH = Path(__file__).resolve().parent.parent / "sources.yaml"
 ALLOWED_KEYS = {"name", "scraper", "enabled", "scope", "default_type", "default_tags", "allowed_types",
-                "require_tech_keywords", "options"}
+                "require_tech_keywords", "infer_tags", "options"}
 
 
 @dataclass
@@ -26,6 +26,7 @@ class SourceConfig:
     default_tags: List[str] = field(default_factory=list)
     allowed_types: Optional[List[str]] = None
     require_tech_keywords: bool = False
+    infer_tags: bool = True
     options: Dict[str, Any] = field(default_factory=dict)
 
 
@@ -53,6 +54,7 @@ def parse_source(raw: dict) -> SourceConfig:
             allowed_types=[validate_event_type(t, strict=True) for t in raw["allowed_types"]]
             if raw.get("allowed_types") else None,
             require_tech_keywords=bool(raw.get("require_tech_keywords", False)),
+            infer_tags=bool(raw.get("infer_tags", True)),
             options=dict(raw.get("options") or {}),
         )
     except ValueError as exc:
@@ -88,6 +90,7 @@ def build_scraper(config: SourceConfig) -> BaseScraper:
     scraper.default_tags = list(config.default_tags)
     scraper.allowed_types = config.allowed_types
     scraper.require_tech_keywords = config.require_tech_keywords
+    scraper.infer_tags = config.infer_tags
     return scraper
 
 

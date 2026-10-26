@@ -1,0 +1,8 @@
+[
+  {
+    "method": "GET",
+    "url": "https://ctftime.org/api/v1/events/?limit=100&start=1792972800&finish=1798156800",
+    "status": 200,
+    "file": "000.json"
+  }
+]

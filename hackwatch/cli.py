@@ -75,7 +75,7 @@ def run_fetch(
 def apply_source_defaults(event: Event, scraper: BaseScraper) -> None:
     """Fill fields the event left unset: inferred type/tags, then the source's defaults."""
     apply_defaults(event, scraper.default_type, scraper.default_tags,
-                   scraper.default_scope, scraper.allowed_types)
+                   scraper.default_scope, scraper.allowed_types, scraper.infer_tags)
 
 
 def make_manual_entry(title, url, dates, location, organizer, event_type,

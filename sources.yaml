@@ -7,6 +7,7 @@
 #   default_tags  added to every event from this source
 #   allowed_types limits which types inference may pick for this source
 #   require_tech_keywords  true = keep only events with a tech keyword (general listings)
+#   infer_tags    false = don't guess tags from the text (default true)
 #   options       passed to the scraper's constructor (names must match its arguments)
 #
 # Status, numbers and failed sources: see SOURCES.md.
@@ -54,6 +55,16 @@ sources:
     default_tags: [josa, open-source]
     options:
       events_url: https://josa.ngo/events
+
+  - name: ctftime
+    enabled: true
+    scope: worldwide
+    default_type: competition
+    allowed_types: [competition]
+    default_tags: [ctf, security]
+    infer_tags: false   # descriptions list challenge categories (web, crypto, hardware...)
+    options:
+      days_ahead: 60   # on-site CTFs outside Jordan are dropped by the usual filter
 
   - name: manual
     enabled: true

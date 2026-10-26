@@ -116,8 +116,9 @@ tags:
     labels: [AR/VR]
   blockchain:
     label: Blockchain
-    aliases: [web3, crypto]
-    keywords: [blockchain, web3, crypto, ethereum, solana, smart contract, بلوكتشين]
+    aliases: [web3]
+    # Not "crypto": in CTFs it means cryptography.
+    keywords: [blockchain, web3, cryptocurrency, ethereum, solana, smart contract, بلوكتشين]
     labels: [Blockchain]
   open-source:
     label: Open source
