@@ -56,6 +56,17 @@ sources:
     options:
       events_url: https://josa.ngo/events
 
+  - name: ieee
+    scraper: vtools
+    enabled: true
+    scope: jordan
+    default_tags: [ieee]
+    options:
+      # The public vTools API can't filter by section, so all upcoming events are
+      # paged through (~10 pages of 100) and those hosted by these sections kept.
+      section_spoids: [R80079]   # IEEE Jordan Section
+      days_ahead: 60
+
   - name: ctftime
     enabled: true
     scope: worldwide

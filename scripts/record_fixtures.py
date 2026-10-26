@@ -31,6 +31,21 @@ def slim_html(body: bytes) -> bytes:
     return ("<html><body>\n" + "\n".join(str(s) for s in scripts) + "\n</body></html>\n").encode()
 
 
+def slim_vtools(body: bytes) -> bytes:
+    """Keep the IEEE Jordan Section events plus 3 others per page (to test the filter).
+
+    A full vTools page is ~0.5 MB of mostly other countries' events.
+    """
+    data = json.loads(body)
+    jordan, others = [], []
+    for item in data.get("data") or []:
+        spoids = json.dumps((item.get("attributes") or {}).get("primary-host") or {})
+        (jordan if "R80079" in spoids else others).append(item)
+    data["data"] = jordan + others[:3]
+    data.pop("included", None)
+    return (json.dumps(data, ensure_ascii=False, indent=1) + "\n").encode()
+
+
 def slim_codeforces(body: bytes) -> bytes:
     """contest.list returns every contest ever (~2000); keep upcoming ones and 5 finished."""
     data = json.loads(body)
@@ -41,7 +56,7 @@ def slim_codeforces(body: bytes) -> bytes:
 
 
 # How to shrink each source's responses before saving them as fixtures.
-SLIMMERS = {"eventbrite": slim_html, "codeforces": slim_codeforces}
+SLIMMERS = {"eventbrite": slim_html, "ieee": slim_vtools, "codeforces": slim_codeforces}
 
 
 def full_url(method, url, params=None):

@@ -1,0 +1,692 @@
+{
+ "data": [
+  {
+   "type": "events",
+   "id": "589111",
+   "attributes": {
+    "id": 589111,
+    "title": "Breast Cancer Awareness ",
+    "description": "<p>A Breast Cancer Event in October to promote awareness about breast cancer , highlighting the importance of early detection, and encouraging student donations to support the cause. It also aims to introduce students to WIE, activities, and opportunities for involvement.</p>\r\n<p>The event will feature a small pink-themed bake fair, educational booths in collaborations with other university clubs, interactive activities, small games, and awareness materials to engage students and promote the importance of breast cancer awareness.</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>",
+    "start-time": "2026-10-28T07:00:00.000Z",
+    "end-time": "2026-10-28T10:00:00.000Z",
+    "time-zone": {
+     "name": "Europe/Istanbul",
+     "utc-offset": 3
+    },
+    "primary-host": {
+     "spoid": "SBA04651",
+     "name": "German Jordanian University, WIE",
+     "class_code": "SUBO",
+     "class_description": "Organizational SPO",
+     "type_code": "AFFN",
+     "type_description": "Affinity",
+     "section_spoids": "R80079",
+     "region_spoids": "R8",
+     "society_spoids": "WIE050",
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [
+     {
+      "spoid": "STB04651",
+      "name": "German Jordanian University",
+      "class_code": "SUBG",
+      "class_description": "Geographic SPO",
+      "type_code": "STBR",
+      "type_description": "Student Branch",
+      "section_spoids": "R80079",
+      "region_spoids": "R8",
+      "society_spoids": null,
+      "report_submitted": null,
+      "report_updated": null
+     }
+    ],
+    "header": "",
+    "footer": "",
+    "keywords": " #WIE #breast-cancer #IEEE #gju",
+    "tags": [
+     "#WIE",
+     "#breast-cancer",
+     "#IEEE",
+     "#gju"
+    ],
+    "agenda": null,
+    "contact-email": "ramaneiroukh@gmail.com",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "GJU",
+    "address2": "",
+    "city": "Madaba",
+    "postal-code": "",
+    "building": "",
+    "room-number": "",
+    "map-url": "",
+    "latitude": "31.7767804",
+    "longitude": "35.8024807",
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": null,
+    "registration-end-time": null,
+    "registration-url": null,
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "3ACCF704-47DB-4770-BC64-79CAB18F9365",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/589111",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-26T15:31:48.000Z",
+    "updated-at": "2026-10-26T16:32:46.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1031"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "107"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "5"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "12"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "589069",
+   "attributes": {
+    "id": 589069,
+    "title": "IEEE Day UJ-Aq",
+    "description": "<p><span class=\"\" data-path-to-node=\"7,0\">The annual IEEE Day celebration at the University of Jordan - Aqaba aims to highlight innovation and provide an interactive technological environment for students</span><span class=\"\" data-path-to-node=\"7,1\"><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><sup class=\"superscript\"><!----></sup><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----></span><span data-path-to-node=\"7,2\">. The event features indoor activities including welcoming remarks, student project presentations, a panel discussion with technology professionals, and interactive competitions</span><span class=\"\" data-path-to-node=\"7,3\"><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><sup class=\"superscript\"><!----></sup><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----></span><span data-path-to-node=\"7,4\">. Additionally, outdoor activities include IEEE society and company booths, an interactive IEEE Interest Tree, a \"Tech Myth or Fact\" challenge, and a Student Booth Challenge</span><span class=\"\" data-path-to-node=\"7,5\"><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><sup class=\"superscript\"><!----></sup><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----></span></p>",
+    "start-time": "2026-11-03T08:00:00.000Z",
+    "end-time": "2026-11-03T11:00:00.000Z",
+    "time-zone": {
+     "name": "Asia/Riyadh",
+     "utc-offset": 3
+    },
+    "primary-host": {
+     "spoid": "STB60236108",
+     "name": "The University of Jordan-Aqaba",
+     "class_code": "SUBG",
+     "class_description": "Geographic SPO",
+     "type_code": "STBR",
+     "type_description": "Student Branch",
+     "section_spoids": "R80079",
+     "region_spoids": "R8",
+     "society_spoids": null,
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": "#IEEEDay #Innovation #StudentBranch #UJ-Aqaba #Networking",
+    "tags": [
+     "#IEEEDay",
+     "#Innovation",
+     "#StudentBranch",
+     "#UJ-Aqaba",
+     "#Networking"
+    ],
+    "agenda": null,
+    "contact-email": "mohamedfreihat391@gmail.com",
+    "contact-display": "<p>Contact: Mohammad Freihat - Chair, IEEE UJ-Aqaba SB</p>\r\n<p>Email: mohmaedfreihat391@gmail.com</p>",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "Hwy Valley",
+    "address2": "",
+    "city": "Aqaba",
+    "postal-code": "77110",
+    "building": "The University of Jordan – Aqaba",
+    "room-number": "Main Theatre",
+    "map-url": "https://maps.app.goo.gl/w2eMduuJNXry1MtGA",
+    "latitude": "29.5320522",
+    "longitude": "35.0063209",
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": null,
+    "registration-end-time": null,
+    "registration-url": null,
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "8E7A1687-2AD7-42AD-BE65-FF6BC8E29EEC",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/589069",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-26T11:45:37.000Z",
+    "updated-at": "2026-10-26T11:59:43.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1031"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "107"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "1"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "2"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "588430",
+   "attributes": {
+    "id": 588430,
+    "title": "IEEE DAY 2026 – YARMOUK UNIVERSITY",
+    "description": "<p class=\"isSelectedEnd\">IEEE Day is a university-wide event organized by the IEEE Yarmouk University Student Branch, bringing together its affiliated Societies and the Women in Engineering (WIE) Affinity Group to celebrate IEEE&rsquo;s global community and promote engineering, technology, and innovation.</p>\r\n<p class=\"isSelectedEnd\">The event will feature booths representing the different IEEE Societies and Affinity Group, providing students with opportunities to learn about their activities, explore technical interests, discover volunteering opportunities, and engage with the IEEE community.</p>\r\n<p class=\"isSelectedEnd\">Through interactive booth activities and student engagement, IEEE Day aims to strengthen collaboration among IEEE teams, increase awareness of their initiatives, and encourage students to participate in future technical and professional development activities.</p>\r\n<p><strong>Venue:</strong> Hijjawi Faculty of Engineering Technology, Yarmouk University, Irbid, Jordan.</p>",
+    "start-time": "2026-11-01T07:00:00.000Z",
+    "end-time": "2026-11-01T12:30:00.000Z",
+    "time-zone": {
+     "name": "Asia/Riyadh",
+     "utc-offset": 3
+    },
+    "primary-host": {
+     "spoid": "SBA25091",
+     "name": "Yarmouk University, WIE",
+     "class_code": "SUBO",
+     "class_description": "Organizational SPO",
+     "type_code": "AFFN",
+     "type_description": "Affinity",
+     "section_spoids": "R80079",
+     "region_spoids": "R8",
+     "society_spoids": "WIE050",
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [
+     {
+      "spoid": "STB25091",
+      "name": "Yarmouk University",
+      "class_code": "SUBG",
+      "class_description": "Geographic SPO",
+      "type_code": "STBR",
+      "type_description": "Student Branch",
+      "section_spoids": "R80079",
+      "region_spoids": "R8",
+      "society_spoids": null,
+      "report_submitted": null,
+      "report_updated": null
+     }
+    ],
+    "header": "",
+    "footer": "",
+    "keywords": " #ieee-women-in-engineering #WIE #IEEE #yarmouk #Jordan #IEEE_communities #IEEE_DAY\r\n #societies #ieee-societies #technology #collaboration",
+    "tags": [
+     "#ieee-women-in-engineering",
+     "#WIE",
+     "#IEEE",
+     "#yarmouk",
+     "#Jordan",
+     "#IEEE_communities",
+     "#IEEE_DAY",
+     "#societies",
+     "#ieee-societies",
+     "#technology",
+     "#collaboration"
+    ],
+    "agenda": null,
+    "contact-email": "Malak.abunejem@outlook.sa",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "Jordan",
+    "address2": "Yarmouk University ",
+    "city": "Irbid",
+    "postal-code": "21110",
+    "building": "",
+    "room-number": "",
+    "map-url": "",
+    "latitude": null,
+    "longitude": null,
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": null,
+    "registration-end-time": null,
+    "registration-url": null,
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "F12344A6-87A1-4139-B992-12A75083DF13",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/588430",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-23T13:14:33.000Z",
+    "updated-at": "2026-10-23T13:48:43.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1031"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "107"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "3"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "8"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "589175",
+   "attributes": {
+    "id": 589175,
+    "title": "Introduction to Arduino Workshop",
+    "description": "<p data-pm-slice=\"1 1 []\">The <strong>IEEE George Mason University Student Branch</strong> is pleased to invite you to our upcoming <strong>Introduction to Arduino Workshop</strong>, organized as part of our Workshop Series.</p>\r\n<p>This workshop is designed to introduce students to the fundamentals of Arduino programming, microcontrollers, and basic electronic circuit design. Participants will have the opportunity to gain practical experience through guided exercises using Arduino development boards and electronic components.</p>\r\n<p><strong>Workshop Activities:</strong></p>\r\n<ul data-spread=\"false\">\r\n<li>\r\n<p>Introduction to Arduino and its applications.</p>\r\n</li>\r\n<li>\r\n<p>Setting up and using the Arduino Integrated Development Environment (IDE).</p>\r\n</li>\r\n<li>\r\n<p>Programming an Arduino board to control an LED.</p>\r\n</li>\r\n<li>\r\n<p>Designing and assembling basic circuits using breadboards and electronic components.</p>\r\n</li>\r\n<li>\r\n<p>Implementing push buttons as digital inputs.</p>\r\n</li>\r\n<li>\r\n<p>Completing a practical challenge to reinforce the concepts learned.</p>\r\n</li>\r\n</ul>\r\n<p>The workshop will be conducted by two experienced IEEE GMU Student Branch officers with backgrounds in robotics, electronics, and circuit prototyping. All practical activities will be supervised, and guidance will be provided throughout the session.</p>\r\n<p><strong>Event Details:</strong></p>\r\n<p>📅 <strong>Date:</strong> Thursday, November 5, 2026</p>\r\n<p>🕒 <strong>Time:</strong> 3:30 PM &ndash; 5:30 PM ET</p>\r\n<p>📍 <strong>Location:</strong> George Mason University, Fairfax Campus (Room TBD)</p>\r\n<p><strong>Participation is open to all GMU students, regardless of their academic major or prior technical experience.</strong> No previous knowledge of Arduino or electronics is required.</p>\r\n<p>We encourage students interested in programming, robotics, embedded systems, and electronics to take advantage of this opportunity to develop practical technical skills and engage with fellow students.</p>",
+    "start-time": "2026-11-05T20:30:00.000Z",
+    "end-time": "2026-11-05T22:30:00.000Z",
+    "time-zone": {
+     "name": "America/New_York",
+     "utc-offset": -5
+    },
+    "primary-host": {
+     "spoid": "STB93701",
+     "name": "George Mason University",
+     "class_code": "SUBG",
+     "class_description": "Geographic SPO",
+     "type_code": "STBR",
+     "type_description": "Student Branch",
+     "section_spoids": "R20049",
+     "region_spoids": "R2",
+     "society_spoids": null,
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "<p><img src=\"https://events.vtools.ieee.org/vtools_ui/media/display/75459186-e316-40ef-a28f-6795d19a4dd4\" alt=\"\" width=\"1086\" height=\"1448\"></p>",
+    "footer": "",
+    "keywords": " #EngineeringStudents #GeorgeMasonUniversity  #GMU #IEEE #Technical #Workshop #Arduino #GMUStudentBranch",
+    "tags": [
+     "#EngineeringStudents",
+     "#GeorgeMasonUniversity",
+     "#GMU",
+     "#IEEE",
+     "#Technical",
+     "#Workshop",
+     "#Arduino",
+     "#GMUStudentBranch"
+    ],
+    "agenda": null,
+    "contact-email": "mohammadreza.fasihi@gmail.com",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "4400 University Drive",
+    "address2": "",
+    "city": "Fairfax",
+    "postal-code": "22030-4444",
+    "building": "Johnson Center",
+    "room-number": "244 Conference Room",
+    "map-url": "",
+    "latitude": "38.8298335",
+    "longitude": "-77.3073408",
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": null,
+    "registration-end-time": null,
+    "registration-url": "https://cglink.me/2d7/r2306375",
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "4E341685-CCAC-4EB9-A8BA-2BD9CB726AE8",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/589175",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-26T20:18:12.000Z",
+    "updated-at": "2026-10-26T20:22:43.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1851"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "221"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "2"
+     }
+    },
+    "subcategory": {
+     "data": null
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "589169",
+   "attributes": {
+    "id": 589169,
+    "title": "IEEE Information Sessions ",
+    "description": "<p class=\"MsoNormal\"><span style=\"font-size: small;\"><strong>Session 1: Information Table&nbsp; &nbsp;10:30 -12:00&nbsp;</strong></span></p>\r\n<p class=\"MsoNormal\">&nbsp;</p>\r\n<p class=\"MsoNormal\" align=\"left\"><span style=\"font-size: small;\">Visit the IEEE Information Table in the <strong>Buell Atrium</strong>. Brian Ryckman from IEEE will answer your questions about IEEE and the IEEE Xplore database. Pick up <strong>free IEEE swag</strong>!</span></p>\r\n<div>&nbsp;</div>\r\n<p class=\"MsoNormal\"><strong><span style=\"font-size: small;\">&nbsp;</span></strong></p>\r\n<p class=\"MsoNormal\"><strong><span style=\"font-size: small;\">Session 2: Career and Interview Preparation&nbsp; &nbsp;12:30 - 1:30&nbsp;</span></strong></p>\r\n<p class=\"MsoNormal\">&nbsp;</p>\r\n<p class=\"MsoNormal\" align=\"left\"><span style=\"font-size: small;\">&nbsp;<a name=\"m_6554921465172825080_m_-7292059091284757478__Hlk242456586\"></a>Head to the <strong>Library</strong> for the IEEE presentation on using IEEE Xplore as a career and interview preparation resource. Increase your awareness of current trends and innovations.</span></p>\r\n<div>&nbsp;</div>\r\n<p class=\"MsoNormal\"><strong><span style=\"font-size: small;\">&nbsp;</span></strong></p>\r\n<p class=\"MsoNormal\"><strong><span style=\"font-size: small;\">Session 3: Publishing with IEEE&nbsp; &nbsp;2:30-3:30&nbsp;</span></strong></p>\r\n<p class=\"MsoNormal\">&nbsp;</p>\r\n<p class=\"MsoNormal\" align=\"left\"><span style=\"font-size: small;\">Are you interested in publishing with IEEE? Attend this session in the <strong>Library</strong> for tips on preparing your manuscript and navigating the submission process to get your work published. Q &amp; A included.</span></p>\r\n<p class=\"MsoNormal\"><img src=\"https://events.vtools.ieee.org/vtools_ui/media/display/977eac1e-f066-49f8-bf05-596474432f66\" alt=\"\" width=\"1700\" height=\"2200\"></p>",
+    "start-time": "2026-10-27T14:30:00.000Z",
+    "end-time": "2026-10-27T19:30:00.000Z",
+    "time-zone": {
+     "name": "America/New_York",
+     "utc-offset": -5
+    },
+    "primary-host": {
+     "spoid": "HKN164",
+     "name": "Lawrence Technological University, Theta Upsilon",
+     "class_code": "SUBO",
+     "class_description": "Organizational SPO",
+     "type_code": "AFFN",
+     "type_description": "Affinity",
+     "section_spoids": "R40035",
+     "region_spoids": "R4",
+     "society_spoids": null,
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [
+     {
+      "spoid": "STB03921",
+      "name": "Lawrence Technological University",
+      "class_code": "SUBG",
+      "class_description": "Geographic SPO",
+      "type_code": "STBR",
+      "type_description": "Student Branch",
+      "section_spoids": "R40035",
+      "region_spoids": "R4",
+      "society_spoids": null,
+      "report_submitted": null,
+      "report_updated": null
+     }
+    ],
+    "header": "",
+    "footer": "",
+    "keywords": " #IEEE #IEEEYoungProfessionals #LTU #STEM #application",
+    "tags": [
+     "#IEEE",
+     "#IEEEYoungProfessionals",
+     "#LTU",
+     "#STEM",
+     "#application"
+    ],
+    "agenda": null,
+    "contact-email": "mguduri@ltu.edu",
+    "contact-display": "<p>Dr. Manisha Guduri</p>\r\n<p><a href=\"mailto:mguduri@ltu.edu\">mguduri@ltu.edu</a></p>\r\n<p>&nbsp;</p>",
+    "cosponsor-name": "College of Engineering, Lawrence Technological University",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "21000 West Ten Mile Road",
+    "address2": "Southfield, MI, 48075-1058",
+    "city": "Southfield, MI 48075",
+    "postal-code": "48075",
+    "building": "Library",
+    "room-number": "",
+    "map-url": "",
+    "latitude": "42.4733688",
+    "longitude": "-83.2218731",
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": "2026-10-26T21:00:00.000Z",
+    "registration-end-time": "2026-10-27T14:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/589169",
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": 20,
+    "cancelled": false,
+    "uid": "EDA33DC5-DB94-41A1-9B36-C4C339A18773",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/589169",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-26T19:04:57.000Z",
+    "updated-at": "2026-10-26T19:09:53.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1824"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "221"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "1"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "1"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "589164",
+   "attributes": {
+    "id": 589164,
+    "title": "Monthly Executive Team Meeting",
+    "description": "<p>Monthly Executive Team Meeting - IEEE St-Maurice Section (Nov'2026)</p>",
+    "start-time": "2026-11-12T16:23:00.000Z",
+    "end-time": "2026-11-12T17:30:00.000Z",
+    "time-zone": {
+     "name": "America/New_York",
+     "utc-offset": -5
+    },
+    "primary-host": {
+     "spoid": "STB85301",
+     "name": "University of Quebec in Trois-Rivieres",
+     "class_code": "SUBG",
+     "class_description": "Geographic SPO",
+     "type_code": "STBR",
+     "type_description": "Student Branch",
+     "section_spoids": "R70021",
+     "region_spoids": "R7",
+     "society_spoids": null,
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": " #St-Maurice",
+    "tags": [
+     "#St-Maurice"
+    ],
+    "agenda": null,
+    "contact-email": "justin.vaugeois@uqtr.ca",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "3351 Bd des Forges",
+    "address2": "",
+    "city": "Trois-Rivieres",
+    "postal-code": "",
+    "building": "",
+    "room-number": "2484",
+    "map-url": "",
+    "latitude": null,
+    "longitude": null,
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": null,
+    "registration-end-time": null,
+    "registration-url": null,
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "56188FCC-53C3-488D-B844-A3F586C19C75",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/589164",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-26T18:24:22.000Z",
+    "updated-at": "2026-10-26T18:27:46.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "412"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "36"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "4"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "9"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  }
+ ],
+ "meta": {
+  "version": "vTools Api::V8",
+  "messages": [],
+  "paging": {
+   "page": "1",
+   "limit": 100,
+   "total_pages": 10
+  }
+ }
+}

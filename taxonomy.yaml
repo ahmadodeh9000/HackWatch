@@ -32,7 +32,8 @@ types:
     labels: [Workshop / hands-on session]
   - type: meetup
     keywords: [meetup, meet-up, talk, webinar, networking, lecture, session, panel, fireside chat,
-               lightning talk, لقاء, محاضرة, ندوة, جلسة, أمسية, امسية]
+               lightning talk, ieee day, celebration, ceremony, inauguration, kickoff, kick-off,
+               opening event, launch event, لقاء, محاضرة, ندوة, جلسة, أمسية, امسية, احتفال, حفل]
     labels: [Networking]
 
 # Tags: every rule that matches title, labels or description adds its tag.

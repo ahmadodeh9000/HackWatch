@@ -1,0 +1,426 @@
+{
+ "data": [
+  {
+   "type": "events",
+   "id": "576551",
+   "attributes": {
+    "id": 576551,
+    "title": "IEEE WIE ZU Opening Event 2026-2027",
+    "description": "<blockquote data-start=\"609\" data-end=\"808\">\r\n<p class=\"PDq2pG_selectionAnchorContainer\" data-start=\"611\" data-end=\"808\">An opening event for IEEE Women in Engineering &ndash; Zarqa University to introduce the chapter, welcome members, and highlight the upcoming activities and opportunities for the 2026&ndash;2027 academic year.</p>\r\n</blockquote>\r\n<p data-start=\"810\" data-end=\"824\">&nbsp;</p>",
+    "start-time": "2026-11-15T08:00:00.000Z",
+    "end-time": "2026-11-15T13:00:00.000Z",
+    "time-zone": {
+     "name": "Africa/Cairo",
+     "utc-offset": 2
+    },
+    "primary-host": {
+     "spoid": "SBA60173704",
+     "name": "Zarqa University,WIE",
+     "class_code": "SUBO",
+     "class_description": "Organizational SPO",
+     "type_code": "AFFN",
+     "type_description": "Affinity",
+     "section_spoids": "R80079",
+     "region_spoids": "R8",
+     "society_spoids": "WIE050",
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": " #WIE #ieee-women-in-engineering",
+    "tags": [
+     "#WIE",
+     "#ieee-women-in-engineering"
+    ],
+    "agenda": null,
+    "contact-email": "wiesocietyzu@gmail.com",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "",
+    "address2": "",
+    "city": "Zarqa",
+    "postal-code": "",
+    "building": "",
+    "room-number": "",
+    "map-url": "",
+    "latitude": null,
+    "longitude": null,
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": null,
+    "registration-end-time": null,
+    "registration-url": "https://forms.gle/yWjcwUs6ms6D86qs6",
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "F08CADDC-DEE3-44B6-BC92-01EFC2B44048",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/576551",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-09-08T18:57:57.000Z",
+    "updated-at": "2026-09-08T19:24:45.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1031"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "107"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "2"
+     }
+    },
+    "subcategory": {
+     "data": null
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "579843",
+   "attributes": {
+    "id": 579843,
+    "title": "7th International Conference on Innovative Computing (ICIC) 2026",
+    "description": "<p><strong>International Conference on Innovative Computing (ICIC) 2026</strong></p>\r\n<p>The ICIC is a multi-topic conference focusing on a broad range of innovative computing methods and their applications. The ICIC intends to provide an outstanding platform for researchers and practitioners from academia and industry to meet and share their novel ideas and contributions in the field of ICT. The conference has a research papers track and a PhD symposium. The objective of the conference is to provide a platform for researchers and scholars to present their work and gather educated feedback. It endeavors to assemble researchers to develop collaboration and cooperation in developing interdisciplinary technology. It encourages original and applied research having an impact on industrial and technical advancement. Applications that require real-life data from various aspects of life such as management, medicine, and engineering bear a higher impact on daily life matters. The conference inspires contributors to send research work governing such applications.&nbsp;<a title=\"Call for Papers\" href=\"https://icic.umt.edu.pk/Call-For-Papers.aspx\">https://icic.umt.edu.pk/Call-For-Papers.aspx</a></p>",
+    "start-time": "2026-12-02T04:00:00.000Z",
+    "end-time": "2026-12-03T12:00:00.000Z",
+    "time-zone": {
+     "name": "Asia/Karachi",
+     "utc-offset": 5
+    },
+    "primary-host": {
+     "spoid": "STB62591",
+     "name": "University of Management & Technology - Lahore",
+     "class_code": "SUBG",
+     "class_description": "Geographic SPO",
+     "type_code": "STBR",
+     "type_description": "Student Branch",
+     "section_spoids": "R00003",
+     "region_spoids": "R0",
+     "society_spoids": null,
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": "#Interatinal Conference #computing #AI  #collaboration",
+    "tags": [
+     "#Interatinal",
+     "#Conference",
+     "#computing",
+     "#AI",
+     "#collaboration"
+    ],
+    "agenda": null,
+    "contact-email": "husnain.ashfaq@umt.edu.pk",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "C-II, Johar Town, Lahore, 54770, Pakistan",
+    "address2": "",
+    "city": "Lahore",
+    "postal-code": "54000",
+    "building": "",
+    "room-number": "",
+    "map-url": "",
+    "latitude": "31.4517639",
+    "longitude": "74.2963566",
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": null,
+    "registration-end-time": null,
+    "registration-url": null,
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "5181FD5B-FBAF-43B0-9F7D-76BB92D615D7",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/579843",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-09-25T09:27:56.000Z",
+    "updated-at": "2026-09-25T09:33:29.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1245"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "158"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "2"
+     }
+    },
+    "subcategory": {
+     "data": null
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "579789",
+   "attributes": {
+    "id": 579789,
+    "title": "IEEE Young Professionals Happy Hour",
+    "description": "<p>Young Professionals Happy Hour. Get to know your fellow young professionals at Kirby&rsquo;s in Memorial!</p>",
+    "start-time": "2026-12-06T01:00:00.000Z",
+    "end-time": "2026-12-06T01:30:00.000Z",
+    "time-zone": {
+     "name": "America/Chicago",
+     "utc-offset": -6
+    },
+    "primary-host": {
+     "spoid": "YP50017",
+     "name": "Houston Section Affinity Group,YP",
+     "class_code": "SUBO",
+     "class_description": "Organizational SPO",
+     "type_code": "AFFN",
+     "type_description": "Affinity",
+     "section_spoids": "R50017",
+     "region_spoids": "R5",
+     "society_spoids": null,
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": " #STEM #YP #Young #happyhour",
+    "tags": [
+     "#STEM",
+     "#YP",
+     "#Young",
+     "#happyhour"
+    ],
+    "agenda": null,
+    "contact-email": "olivia.zindel@ieee.org",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "1015 Gessner Rd",
+    "address2": "",
+    "city": "Houston",
+    "postal-code": "77055",
+    "building": "",
+    "room-number": "",
+    "map-url": "",
+    "latitude": "29.7867794",
+    "longitude": "-95.5456125",
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": "2026-09-25T05:00:00.000Z",
+    "registration-end-time": "2026-12-05T06:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/579789",
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "E447C5F4-2163-440B-8EE7-C99255C27277",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/579789",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-09-24T23:56:33.000Z",
+    "updated-at": "2026-09-25T00:09:36.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1847"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "221"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "3"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "5"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "579787",
+   "attributes": {
+    "id": 579787,
+    "title": "IEEE Young Professionals Happy Hour",
+    "description": "<p>Join other young professionals for a social happy hour at Kirby&rsquo;s Ice House in Memorial!</p>",
+    "start-time": "2026-11-07T23:00:00.000Z",
+    "end-time": "2026-11-08T00:30:00.000Z",
+    "time-zone": {
+     "name": "America/Chicago",
+     "utc-offset": -6
+    },
+    "primary-host": {
+     "spoid": "YP50017",
+     "name": "Houston Section Affinity Group,YP",
+     "class_code": "SUBO",
+     "class_description": "Organizational SPO",
+     "type_code": "AFFN",
+     "type_description": "Affinity",
+     "section_spoids": "R50017",
+     "region_spoids": "R5",
+     "society_spoids": null,
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": " #YP #Young #social #happyhour",
+    "tags": [
+     "#YP",
+     "#Young",
+     "#social",
+     "#happyhour"
+    ],
+    "agenda": null,
+    "contact-email": "Olivia.zindel@ieee.org",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "1015 Gessner Rd",
+    "address2": "",
+    "city": "Houston",
+    "postal-code": "77055",
+    "building": "",
+    "room-number": "",
+    "map-url": "",
+    "latitude": "29.7867794",
+    "longitude": "-95.5456125",
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": "2026-09-25T05:00:00.000Z",
+    "registration-end-time": "2026-11-07T06:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/579787",
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": 50,
+    "cancelled": false,
+    "uid": "1596F1A9-9B1C-4355-803F-E5952424A412",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/579787",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-09-24T23:28:24.000Z",
+    "updated-at": "2026-10-12T14:43:07.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1847"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "221"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "3"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "5"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  }
+ ],
+ "meta": {
+  "version": "vTools Api::V8",
+  "messages": [],
+  "paging": {
+   "page": "7",
+   "limit": 100,
+   "total_pages": 10
+  }
+ }
+}

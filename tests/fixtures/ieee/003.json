@@ -1,0 +1,560 @@
+{
+ "data": [
+  {
+   "type": "events",
+   "id": "585050",
+   "attributes": {
+    "id": 585050,
+    "title": "Yarmouk University IEEE Day Celebration 2026",
+    "description": "<p>Celebrate <strong>IEEE Day</strong> at Yarmouk University! Join us for an inspiring day filled with technology, innovation, and community engagement. Explore cutting-edge student projects, attend interactive technical workshops, network with fellow engineers, and learn more about how IEEE empowers future innovators and tech leaders.</p>",
+    "start-time": "2026-10-27T06:00:00.000Z",
+    "end-time": "2026-10-27T12:00:00.000Z",
+    "time-zone": {
+     "name": "Asia/Riyadh",
+     "utc-offset": 3
+    },
+    "primary-host": {
+     "spoid": "SBC25091F",
+     "name": "Yarmouk University,AES10",
+     "class_code": "SUBT",
+     "class_description": "Technical SPO",
+     "type_code": "BRCH",
+     "type_description": "Student Branch Chapter",
+     "section_spoids": "R80079",
+     "region_spoids": "R8",
+     "society_spoids": "AES010",
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [
+     {
+      "spoid": "STB25091",
+      "name": "Yarmouk University",
+      "class_code": "SUBG",
+      "class_description": "Geographic SPO",
+      "type_code": "STBR",
+      "type_description": "Student Branch",
+      "section_spoids": "R80079",
+      "region_spoids": "R8",
+      "society_spoids": null,
+      "report_submitted": null,
+      "report_updated": null
+     }
+    ],
+    "header": "<p data-path-to-node=\"4,0\"><strong data-path-to-node=\"4,0\" data-index-in-node=\"0\">IEEE Day 2026 | Yarmouk University</strong></p>\r\n<p data-path-to-node=\"4,1\"><strong data-path-to-node=\"4,1\" data-index-in-node=\"0\">Empowering Technology for Tomorrow</strong></p>\r\n<p data-path-to-node=\"4,2\"><em data-path-to-node=\"4,2\" data-index-in-node=\"0\">Hosted by Yarmouk University IEEE Student Branch</em></p>",
+    "footer": "<p data-path-to-node=\"8,0\">&nbsp;Hijjawi Faculty for Engineering Technology, Yarmouk University &mdash; Irbid, Jordan</p>\r\n<p data-path-to-node=\"8,1\">&nbsp;October 17, 2026 | 09:00 AM &ndash; 03:00 PM</p>\r\n<p data-path-to-node=\"8,4\">&nbsp;</p>\r\n<p data-path-to-node=\"8,5\">&nbsp;</p>",
+    "keywords": " #yarmouk_university #yu #ieee-day  #societies #technology #ieee-societies #jordan",
+    "tags": [
+     "#yarmouk_university",
+     "#yu",
+     "#ieee-day",
+     "#societies",
+     "#technology",
+     "#ieee-societies",
+     "#jordan"
+    ],
+    "agenda": "<div class=\"container\">\r\n<div id=\"model-response-message-contentr_188c6aeac6b66263\" class=\"markdown markdown-main-panel md-content enable-luminous-fast-follows enable-updated-hr-color\" dir=\"ltr\" style=\"--animation-duration: 400ms; --fade-animation-function: ease-out;\" aria-busy=\"false\" aria-live=\"off\">\r\n<ul data-path-to-node=\"7\">\r\n<li>\r\n<ul>\r\n<li>\r\n<p data-path-to-node=\"9,0,0\"><strong data-path-to-node=\"9,0,0\" data-index-in-node=\"0\">09:00 AM &ndash; 09:30 AM:</strong> Registration &amp; Welcoming Reception</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"9,1,0\"><strong data-path-to-node=\"9,1,0\" data-index-in-node=\"0\">09:30 AM &ndash; 10:30 AM:</strong> Official Opening Ceremony <em data-path-to-node=\"9,1,0\" data-index-in-node=\"47\">(Wesam Bushnaq Hall)</em></p>\r\n<ul data-path-to-node=\"9,1,1\">\r\n<li>\r\n<p data-path-to-node=\"9,1,1,0,0\">Opening Remarks</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"9,1,1,1,0\">Speech by Faculty Dean</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"9,1,1,2,0\">Speech by IEEE Student Branch Advisor &amp; Chair</p>\r\n</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"9,2,0\"><strong data-path-to-node=\"9,2,0\" data-index-in-node=\"0\">10:30 AM &ndash; 02:00 PM:</strong> IEEE Societies Exhibition &amp; Outdoor Booths</p>\r\n<ul data-path-to-node=\"9,2,1\">\r\n<li>\r\n<p data-path-to-node=\"9,2,1,0,0\">Interactive booths for all IEEE Student Branch Societies</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"9,2,1,1,0\">Networking, games, and direct engagement with members</p>\r\n</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"9,3,0\"><strong data-path-to-node=\"9,3,0\" data-index-in-node=\"0\">02:00 PM &ndash; 03:00 PM:</strong> Award Ceremony, Giveaways &amp; Closing Remarks <em data-path-to-node=\"9,3,0\" data-index-in-node=\"65\">(Wesam Bushnaq Hall)</em></p>\r\n<ul data-path-to-node=\"9,3,1\">\r\n<li>\r\n<p data-path-to-node=\"9,3,1,0,0\">Distribution of gifts &amp; prizes</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"9,3,1,1,0\">Recognition of outstanding contributors and volunteers</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"9,3,1,2,0\">Group Photo &amp; Wrap-up</p>\r\n</li>\r\n</ul>\r\n</li>\r\n</ul>\r\n</li>\r\n<li>&nbsp;</li>\r\n</ul>\r\n</div>\r\n<!----></div>",
+    "contact-email": "Aessyu2022@gmail.com",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "Yarmouk University, University Street",
+    "address2": "",
+    "city": "Irbid",
+    "postal-code": "",
+    "building": "Hijjawi Faculty of Engineering Technology",
+    "room-number": "",
+    "map-url": "",
+    "latitude": "32.5351791",
+    "longitude": "35.8566931",
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": "2026-10-13T21:00:00.000Z",
+    "registration-end-time": "2026-10-17T05:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/585050",
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "E845C9D4-DC09-4909-A8C3-BD681BC711C0",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/585050",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-13T23:07:54.000Z",
+    "updated-at": "2026-10-16T02:31:29.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1031"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "107"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "2"
+     }
+    },
+    "subcategory": {
+     "data": null
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "585009",
+   "attributes": {
+    "id": 585009,
+    "title": " IEEE YU Day Celebration 2026",
+    "description": "<p><strong>The IEEE Student Branch at Yarmouk University (YU) is proudly preparing to host an extraordinary IEEE Day celebration, with the organizing team working tirelessly behind the scenes to design a comprehensive and memorable experience for the student community. The event program features a diverse array of engaging interactive activities, insightful sessions, and creative segments that embody the core spirit of IEEE&mdash;leveraging technology for the benefit of humanity. Additionally, the IEEE Computer Society (CS) Chapter is actively preparing a distinct set of fresh and innovative activities tailored to enhance technical skill sets, spark curiosity, and provide valuable hands-on learning experiences and practical challenges. This event highlights the hard work, collaborative energy, and vibrant engineering culture of the IEEE community at Yarmouk University.</strong></p>",
+    "start-time": "2026-10-27T07:30:00.000Z",
+    "end-time": "2026-10-27T11:30:00.000Z",
+    "time-zone": {
+     "name": "Asia/Riyadh",
+     "utc-offset": 3
+    },
+    "primary-host": {
+     "spoid": "SBC25091A",
+     "name": "Yarmouk University, C16",
+     "class_code": "SUBT",
+     "class_description": "Technical SPO",
+     "type_code": "BRCH",
+     "type_description": "Student Branch Chapter",
+     "section_spoids": "R80079",
+     "region_spoids": "R8",
+     "society_spoids": "C016",
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": " #CS_YU #IEEE #IEEEYU #yarmouk #team-working #computer-society #technology #learning",
+    "tags": [
+     "#CS_YU",
+     "#IEEE",
+     "#IEEEYU",
+     "#yarmouk",
+     "#team-working",
+     "#computer-society",
+     "#technology",
+     "#learning"
+    ],
+    "agenda": null,
+    "contact-email": "ownmheirat@gmail.com",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "Yarmouk University",
+    "address2": "",
+    "city": "Irbid",
+    "postal-code": "",
+    "building": "Hijjawi new ",
+    "room-number": "",
+    "map-url": "",
+    "latitude": "32.5351791",
+    "longitude": "35.8566931",
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": null,
+    "registration-end-time": null,
+    "registration-url": null,
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "1FFF8F73-A77A-4827-BCC1-AE0A61D3E5CB",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/585009",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-13T19:20:34.000Z",
+    "updated-at": "2026-10-13T19:28:10.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1031"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "107"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "1"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "2"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "586009",
+   "attributes": {
+    "id": 586009,
+    "title": "December General Body Meeting",
+    "description": "<p>Come learn about some upcoming events and connect with other members in IEEE. In additon, give feedback for the EECS department during our Town Hall.&nbsp;</p>\r\n<p>Instagram: <a href=\"https://www.instagram.com/psu_ieee/\">https://www.instagram.com/psu_ieee/</a>&nbsp;</p>\r\n<p>Website: <a href=\"https://pennstateieee.org/\">https://pennstateieee.org/</a>&nbsp;</p>\r\n<p>LinkedIn: <a href=\"https://www.linkedin.com/company/official-penn-state-ieee\">https://www.linkedin.com/company/official-penn-state-ieee</a>&nbsp;</p>",
+    "start-time": "2026-12-02T00:00:00.000Z",
+    "end-time": "2026-12-02T01:30:00.000Z",
+    "time-zone": {
+     "name": "America/New_York",
+     "utc-offset": -5
+    },
+    "primary-host": {
+     "spoid": "SBC01501",
+     "name": "Pennsylvania State University-Univ Park,C16",
+     "class_code": "SUBT",
+     "class_description": "Technical SPO",
+     "type_code": "BRCH",
+     "type_description": "Student Branch Chapter",
+     "section_spoids": "R20007",
+     "region_spoids": "R2",
+     "society_spoids": "C016",
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": " #IEEE #StudentOrg #Updates #Students #Feedback #TownHall",
+    "tags": [
+     "#IEEE",
+     "#StudentOrg",
+     "#Updates",
+     "#Students",
+     "#Feedback",
+     "#TownHall"
+    ],
+    "agenda": null,
+    "contact-email": "akp6217@psu.edu",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "",
+    "address2": "",
+    "city": "University Park",
+    "postal-code": "16802",
+    "building": "Mount Nittany ",
+    "room-number": "",
+    "map-url": "",
+    "latitude": "40.8147955",
+    "longitude": "-77.8653126",
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": null,
+    "registration-end-time": null,
+    "registration-url": null,
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "43A7229B-6C23-462F-B951-03F64F9397AF",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/586009",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-15T19:43:09.000Z",
+    "updated-at": "2026-10-15T19:43:49.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1841"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "221"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "3"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "8"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "586005",
+   "attributes": {
+    "id": 586005,
+    "title": "November General Body Meeting",
+    "description": "<p>Come learn about some upcoming events and connect with other members in IEEE.</p>\r\n<p>Instagram: <a href=\"https://www.instagram.com/psu_ieee/\">https://www.instagram.com/psu_ieee/</a>&nbsp;</p>\r\n<p>Website: <a href=\"https://pennstateieee.org/\">https://pennstateieee.org/</a>&nbsp;</p>\r\n<p>LinkedIn: <a href=\"https://www.linkedin.com/company/official-penn-state-ieee\">https://www.linkedin.com/company/official-penn-state-ieee</a>&nbsp;</p>",
+    "start-time": "2026-11-04T23:00:00.000Z",
+    "end-time": "2026-11-05T01:00:00.000Z",
+    "time-zone": {
+     "name": "America/New_York",
+     "utc-offset": -5
+    },
+    "primary-host": {
+     "spoid": "SBC01501",
+     "name": "Pennsylvania State University-Univ Park,C16",
+     "class_code": "SUBT",
+     "class_description": "Technical SPO",
+     "type_code": "BRCH",
+     "type_description": "Student Branch Chapter",
+     "section_spoids": "R20007",
+     "region_spoids": "R2",
+     "society_spoids": "C016",
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": " #IEEE #StudentOrg #Updates #Students",
+    "tags": [
+     "#IEEE",
+     "#StudentOrg",
+     "#Updates",
+     "#Students"
+    ],
+    "agenda": null,
+    "contact-email": "akp6217@psu.edu",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "",
+    "address2": "",
+    "city": "University Park",
+    "postal-code": "16802",
+    "building": "Mount Nittany ",
+    "room-number": "",
+    "map-url": "",
+    "latitude": "40.8147955",
+    "longitude": "-77.8653126",
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": "2026-10-16T04:00:00.000Z",
+    "registration-end-time": "2026-11-04T05:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/586005",
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "E64A1026-987F-46CF-BDEE-2021101A3CEE",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/586005",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-15T19:40:38.000Z",
+    "updated-at": "2026-10-15T19:42:14.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1841"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "221"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "3"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "8"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "586003",
+   "attributes": {
+    "id": 586003,
+    "title": "Halloween Social  and Escape Room",
+    "description": "<p>Come check out our Escape Room and show off your halloween costume as this Social x Technical Event. There will be an award for best halloween costume and a chance to connect with members and put your problem solving skills to the test.&nbsp;</p>\r\n<p>Instagram: <a href=\"https://www.instagram.com/psu_ieee/\">https://www.instagram.com/psu_ieee/</a>&nbsp;</p>\r\n<p>Website: <a href=\"https://pennstateieee.org/\">https://pennstateieee.org/</a>&nbsp;</p>\r\n<p>LinkedIn: <a href=\"https://www.linkedin.com/company/official-penn-state-ieee\">https://www.linkedin.com/company/official-penn-state-ieee</a>&nbsp;</p>",
+    "start-time": "2026-10-27T22:00:00.000Z",
+    "end-time": "2026-10-28T00:00:00.000Z",
+    "time-zone": {
+     "name": "America/New_York",
+     "utc-offset": -5
+    },
+    "primary-host": {
+     "spoid": "SBC01501",
+     "name": "Pennsylvania State University-Univ Park,C16",
+     "class_code": "SUBT",
+     "class_description": "Technical SPO",
+     "type_code": "BRCH",
+     "type_description": "Student Branch Chapter",
+     "section_spoids": "R20007",
+     "region_spoids": "R2",
+     "society_spoids": "C016",
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": " #IEEE #StudentOrg #escaperoom #learning #halloween #problem-solving",
+    "tags": [
+     "#IEEE",
+     "#StudentOrg",
+     "#escaperoom",
+     "#learning",
+     "#halloween",
+     "#problem-solving"
+    ],
+    "agenda": null,
+    "contact-email": "akp6217@psu.edu",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "",
+    "address2": "",
+    "city": "University Park",
+    "postal-code": "16802",
+    "building": "Mount Nittany ",
+    "room-number": "",
+    "map-url": "",
+    "latitude": "40.8147955",
+    "longitude": "-77.8653126",
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": "2026-10-16T04:00:00.000Z",
+    "registration-end-time": "2026-10-27T04:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/586003",
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "EF71EFB3-1540-4ACA-BA87-59518417C662",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/586003",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-15T19:37:50.000Z",
+    "updated-at": "2026-10-15T19:39:24.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1841"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "221"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "3"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "5"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  }
+ ],
+ "meta": {
+  "version": "vTools Api::V8",
+  "messages": [],
+  "paging": {
+   "page": "4",
+   "limit": 100,
+   "total_pages": 10
+  }
+ }
+}
