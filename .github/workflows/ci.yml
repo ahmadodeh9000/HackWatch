@@ -1,0 +1,34 @@
+name: PR check
+
+# Runs on pull requests opened by people (bot PRs from submission.yml don't
+# trigger workflows; that workflow validates before opening its PR).
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Validate manual_events.yaml
+        run: python -m hackwatch.cli validate
+
+      - name: Validate sources.yaml
+        run: python -c "from hackwatch.scrapers import get_available_scrapers; print(len(get_available_scrapers(include_disabled=True)), 'sources OK')"
+
+      - name: Run tests (offline, recorded fixtures)
+        run: python -m pytest -q
