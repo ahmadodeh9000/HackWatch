@@ -31,7 +31,7 @@ types:
                study jam, ورشة, ورشه, دورة, تدريب, معسكر]
     labels: [Workshop / hands-on session]
   - type: meetup
-    keywords: [meetup, meet-up, talk, webinar, networking, lecture, session, panel, fireside chat,
+    keywords: [meetup, meet-up, meeting, talk, webinar, networking, lecture, session, panel, fireside chat,
                lightning talk, ieee day, celebration, ceremony, inauguration, kickoff, kick-off,
                opening event, launch event, لقاء, محاضرة, ندوة, جلسة, أمسية, امسية, احتفال, حفل]
     labels: [Networking]

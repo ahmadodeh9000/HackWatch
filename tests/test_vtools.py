@@ -28,6 +28,7 @@ def test_ieee_event_fields(replay, configured):
     assert pes.organizer == "Hashemite University, PE31/IA34"
     assert pes.start_date == "2026-11-05" and pes.mode == "in-person"
     assert pes.location == "Az Zarqa, Jordan"
+    assert pes.type == "meetup"  # "MEETING"
 
     bau = by_url["https://events.vtools.ieee.org/m/587642"]
     assert bau.location == "Amman, Jordan"  # source had "amman"
