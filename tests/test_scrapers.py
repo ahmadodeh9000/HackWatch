@@ -162,6 +162,8 @@ def test_requests_have_a_timeout(monkeypatch):
     scraper = DevpostScraper(delay_seconds=0)
 
     class Resp:
+        status_code, content, headers = 200, b"{}", {"Content-Type": "application/json"}
+
         def raise_for_status(self):
             pass
 

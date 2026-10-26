@@ -5,6 +5,7 @@ hackwatch.db
 docs/events.json
 docs/labels.json
 docs/events.ics
+docs/status.json
 *.egg-info/
 dist/
 build/

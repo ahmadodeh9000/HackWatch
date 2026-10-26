@@ -49,7 +49,9 @@ jobs:
         run: python -m pytest -q
 
       - name: Fetch events (scraper failures are non-fatal)
-        run: python -m hackwatch.cli fetch || true
+        # Prints a per-source table (HTTP codes, timings, errors) to the log and the job
+        # summary, and publishes it as status.json so it's readable without signing in.
+        run: python -m hackwatch.cli fetch --report docs/status.json || true
 
       - name: Export events (events.json, labels.json, events.ics)
         run: python -m hackwatch.cli export --out docs/events.json --labels docs/labels.json --ics docs/events.ics

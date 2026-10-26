@@ -41,11 +41,15 @@ class EventbriteScraper(BaseScraper):
         events: List[Event] = []
         seen_urls = set()
 
+        failures = []
         for search_url in self.search_urls:
             try:
                 resp = self.get(search_url)
                 soup = BeautifulSoup(resp.text, "html.parser")
-            except Exception:
+            except Exception as exc:
+                # One failed search page is fine; all of them failing is an error (below),
+                # not "0 events", so the fetch keeps this source's stored events.
+                failures.append(f"{search_url}: {exc}")
                 continue
 
             for script in soup.find_all("script", type="application/ld+json"):
@@ -138,4 +142,6 @@ class EventbriteScraper(BaseScraper):
                         country=country,
                     ))
 
+        if failures and len(failures) == len(self.search_urls):
+            raise RuntimeError(f"all {len(failures)} Eventbrite search pages failed; first: {failures[0]}")
         return events

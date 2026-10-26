@@ -1,6 +1,9 @@
 import json
+import os
+import time
 import typer
 from typing import Callable, List, NamedTuple, Optional, Tuple
+from datetime import datetime, timezone
 from pathlib import Path
 import yaml
 
@@ -28,6 +31,28 @@ class FetchResult(NamedTuple):
     error: Optional[str] = None
     removed: int = 0   # stored events this source no longer lists
     note: Optional[str] = None
+    seconds: float = 0.0
+    requests: tuple = ()   # the scraper's request log (dicts: url, status, seconds, error, hint)
+
+    def summary(self) -> dict:
+        """One row of the fetch report: what happened and, if empty, likely why."""
+        statuses: dict = {}
+        for r in self.requests:
+            key = str(r.get("status") or "no response")
+            statuses[key] = statuses.get(key, 0) + 1
+        return {
+            "source": self.source,
+            "ok": self.error is None,
+            "kept": self.kept, "fetched": self.fetched, "removed": self.removed,
+            "seconds": round(self.seconds, 1),
+            "requests": len(self.requests),
+            "http_status": statuses,
+            "slowest_request_s": max((r.get("seconds") or 0 for r in self.requests), default=0),
+            "block_hints": sorted({r["hint"] for r in self.requests if r.get("hint")}),
+            "request_errors": [r["error"] for r in self.requests if r.get("error")][:3],
+            "error": self.error,
+            "note": self.note,
+        }
 
 
 # A source that suddenly returns nothing but had at least this many events is
@@ -52,6 +77,8 @@ def run_fetch(
     for scraper in scrapers:
         if on_start:
             on_start(scraper.name)
+        started = time.monotonic()
+        scraper.request_log = []
         try:
             events = scraper.fetch()
             for event in events:
@@ -65,12 +92,28 @@ def run_fetch(
                                                          require_tech=scraper.require_tech_keywords)
                 result = FetchResult(scraper.name, kept, len(events), removed=removed)
         except Exception as exc:
-            result = FetchResult(scraper.name, 0, 0, error=str(exc))
+            result = FetchResult(scraper.name, 0, 0, error=f"{type(exc).__name__}: {exc}"[:500])
+        result = result._replace(seconds=time.monotonic() - started, requests=tuple(scraper.request_log))
         results.append(result)
         if on_result:
             on_result(result)
     db.rebuild_events(conn)
     return run_id, results
+
+
+def fetch_report_markdown(rows: List[dict]) -> str:
+    """The fetch report as a Markdown table (readable in the log and the job summary)."""
+    lines = ["| Source | Result | Kept / fetched | Requests | HTTP status | Time | Problem |",
+             "|---|---|---|---|---|---|---|"]
+    for r in rows:
+        result = "OK" if r["ok"] else "ERROR"
+        if r["ok"] and r["note"]:
+            result = "KEPT OLD"
+        statuses = ", ".join(f"{code}×{n}" for code, n in sorted(r["http_status"].items())) or "-"
+        problem = r["error"] or r["note"] or "; ".join(r["block_hints"] + r["request_errors"]) or ""
+        lines.append(f"| {r['source']} | {result} | {r['kept']} / {r['fetched']} | {r['requests']} | "
+                     f"{statuses} | {r['seconds']} s | {problem.replace('|', '/')[:300]} |")
+    return "\n".join(lines)
 
 
 def apply_source_defaults(event: Event, scraper: BaseScraper) -> None:
@@ -143,12 +186,14 @@ def save_manual_entry(entry: dict, yaml_file: Path) -> bool:
 @app.command()
 def fetch(
     source: Optional[str] = typer.Option(None, "--source", "-s", help="Only this source from sources.yaml (runs even if disabled)"),
-    db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database")
+    db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database"),
+    report_path: Optional[Path] = typer.Option(None, "--report", help="Write a per-source JSON report (HTTP codes, timings, errors)"),
 ):
     """Fetch events from scrapers and update the database."""
     conn = db.get_connection(db_path)
     db.init_db(conn)
 
+    report_rows = []
     # Naming a source runs it even if it's disabled in sources.yaml.
     all_scrapers = get_available_scrapers(include_disabled=bool(source))
     if source:
@@ -172,11 +217,22 @@ def fetch(
             removed = f", removed {r.removed} no longer listed" if r.removed else ""
             typer.echo(f"[{r.source}] OK: kept {r.kept} of {r.fetched} events{removed}.")
 
-    run_id, _ = run_fetch(
+    run_id, results = run_fetch(
         conn, scrapers,
         on_start=lambda name: typer.echo(f"Fetching from {name}..."),
         on_result=report,
     )
+    report_rows = [r.summary() for r in results]
+    table = fetch_report_markdown(report_rows)
+    typer.echo("\n" + table)
+    summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary_file:
+        with open(summary_file, "a", encoding="utf-8") as f:
+            f.write("## Fetch report\n\n" + table + "\n")
+    if report_path:
+        with open(report_path, "w", encoding="utf-8") as f:
+            json.dump({"generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                       "sources": report_rows}, f, indent=2, ensure_ascii=False)
     typer.echo(f"Fetch completed. Stored/updated events (fetch run #{run_id}).")
 
 

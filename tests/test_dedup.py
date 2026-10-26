@@ -109,7 +109,7 @@ def test_events_a_source_drops_are_removed(conn):
 def test_errored_source_keeps_its_events(conn):
     cli.run_fetch(conn, [Listing("gdg", [jo("A", "gdg", 1)]), Listing("josa", [jo("J", "josa", 3)])])
     _, results = cli.run_fetch(conn, [Listing("gdg", error="timeout"), Listing("josa", [])])
-    assert results[0].error == "timeout"
+    assert results[0].error == "RuntimeError: timeout"
     assert titles(conn) == ["A"]  # josa fetched fine and listed nothing -> its event is gone
 
 
