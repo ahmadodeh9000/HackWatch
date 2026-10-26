@@ -129,6 +129,12 @@ python3 -m hackwatch.cli export --out events.json
 | `tags` | ids from [`taxonomy.yaml`](taxonomy.yaml), e.g. `ai`, `ctf`, `cp`, `robotics`, `sumo`, `ieee` | Aliases work (`cybersecurity` → `security`). Unknown tags are an error in `manual_events.yaml`. |
 | `scope` | `jordan`, `worldwide` | Set per source (Devpost: worldwide; Eventbrite, GDG, JOSA, manual: jordan). Can be overridden per event. |
 
+**Inference.** When a source doesn't set `type` or `tags`, they are guessed from the title,
+the source's own labels (GDG event tags, Devpost themes) and the description, using the
+English and Arabic keyword rules in [`taxonomy.yaml`](taxonomy.yaml). Order of precedence for
+type: explicit value → inferred → the source's `default_type` in `sources.yaml` → `other`.
+Explicit tags are kept as they are; a source's `default_tags` are always added.
+
 The JSON export still includes the old `is_online` flag (`true` for online and hybrid) so older versions of the site keep working.
 
 ---

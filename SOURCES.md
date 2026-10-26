@@ -74,5 +74,5 @@ These were described as existing in earlier notes, but **do not exist** in the c
 
 - ~~`sources.yaml`~~: added in Phase 3. Each source's scope, defaults and options now live there.
 - An IEEE vTools scraper.
-- Event type inference. The `type` field itself only exists as uncommitted
-  work in progress (as of 2026-10-26); it is set by hand in YAML and defaults to `hackathon`.
+- ~~Event type inference~~: added in Phase 3 (`hackwatch/infer.py`, rules in `taxonomy.yaml`).
+  It also uses GDG's own event tags, GDG's `audience_type` (for mode) and Devpost themes.

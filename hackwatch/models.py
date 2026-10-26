@@ -79,6 +79,9 @@ class Event:
     # jordan | worldwide. None = not set; run_fetch applies the scraper's
     # default_scope, and db.upsert_event falls back to the event's location.
     scope: Optional[str] = None
+    # The source's own category labels (GDG event tags, Devpost themes). Only used
+    # as input for type/tag inference; not stored or exported.
+    source_labels: List[str] = field(default_factory=list)
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
     first_seen_run_id: Optional[int] = None

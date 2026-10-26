@@ -1,27 +1,142 @@
-# Controlled vocabulary for event tags.
+# Controlled vocabulary for event types and tags, plus the keyword rules that
+# hackwatch/infer.py uses to guess them from an event's text.
 #
-# Only the tag ids below are allowed on events. An alias is another spelling
-# that is accepted and stored as the tag id (e.g. "cybersecurity" -> security).
-# Phase 3 adds keyword rules here for inferring tags from titles.
+# Matching (see infer.py):
+# - English keywords are whole words/phrases, case-insensitive, plural "s" allowed
+#   ("hack" matches "Hacks" but not "Lifehacks").
+# - Arabic keywords match anywhere in a word (so "ورشة" also matches "الورشة").
+# - "labels" match a source's own category labels exactly (GDG event tags,
+#   Devpost themes), case-insensitive.
+# - Values set explicitly by a source or in manual_events.yaml always win.
+
+# Type rules are checked in order and the first match wins. Each field is tried
+# separately: title first, then the source's labels, then the description.
+# So "Reclaim hackathon information session" is a meetup (first rule), and a
+# description that merely mentions a hackathon can't override a title that says "Workshop".
+types:
+  - type: meetup  # sessions *about* another event come first
+    keywords: [info session, information session, orientation, open day, open house]
+  - type: hackathon
+    keywords: [hackathon, hack, hack day, hack night, datathon, ideathon, buildathon, makeathon,
+               designathon, codefest, game jam, هاكاثون, هكاثون]
+  - type: competition
+    keywords: [competition, contest, challenge, cup, olympiad, championship, tournament, ctf,
+               capture the flag, treasure hunt, مسابقة, تحدي, بطولة, أولمبياد, اولمبياد]
+  - type: conference
+    keywords: [conference, summit, forum, devfest, expo, symposium, congress, convention,
+               مؤتمر, قمة, ملتقى, منتدى, معرض]
+    labels: [Conference]
+  - type: workshop
+    keywords: [workshop, bootcamp, boot camp, training, hands-on, course, masterclass, tutorial,
+               study jam, ورشة, ورشه, دورة, تدريب, معسكر]
+    labels: [Workshop / hands-on session]
+  - type: meetup
+    keywords: [meetup, meet-up, talk, webinar, networking, lecture, session, panel, fireside chat,
+               lightning talk, لقاء, محاضرة, ندوة, جلسة, أمسية, امسية]
+    labels: [Networking]
+
+# Tags: every rule that matches title, labels or description adds its tag.
+# Only these tag ids are allowed on events. Aliases are other accepted spellings
+# when a tag is set by hand (e.g. "cybersecurity" -> security).
 tags:
-  ai:            {label: AI & ML, aliases: [ml, machine-learning, artificial-intelligence, genai]}
-  web:           {label: Web, aliases: [web-dev, frontend, backend]}
-  mobile:        {label: Mobile, aliases: [android, ios, flutter]}
-  cloud:         {label: Cloud, aliases: [devops]}
-  security:      {label: Security, aliases: [cybersecurity, cyber, infosec]}
-  ctf:           {label: CTF, aliases: [capture-the-flag]}
-  cp:            {label: Competitive programming, aliases: [competitive-programming, icpc]}
-  data:          {label: Data, aliases: [data-science, analytics]}
-  robotics:      {label: Robotics, aliases: [robot]}
-  sumo:          {label: Robot sumo, aliases: [robot-sumo]}
-  line-follower: {label: Line follower, aliases: [line-following]}
-  embedded:      {label: Embedded & electronics, aliases: [electronics, pcb, arduino, hardware]}
-  iot:           {label: IoT}
-  game-dev:      {label: Game dev, aliases: [gamedev, games, game-jam]}
-  blockchain:    {label: Blockchain, aliases: [web3, crypto]}
-  open-source:   {label: Open source, aliases: [opensource, oss]}
-  design:        {label: Design & UX, aliases: [ux, ui]}
-  startup:       {label: Startups}
-  ieee:          {label: IEEE}
-  gdg:           {label: GDG}
-  josa:          {label: JOSA}
+  ai:
+    label: AI & ML
+    aliases: [ml, machine-learning, artificial-intelligence, genai]
+    keywords: [ai, a.i., artificial intelligence, machine learning, deep learning, llm, genai,
+               generative ai, agentic, computer vision, nlp, ذكاء اصطناعي, الذكاء الاصطناعي, تعلم الآلة]
+    labels: [Machine Learning/AI]
+  web:
+    label: Web
+    aliases: [web-dev, frontend, backend]
+    keywords: [web, web development, frontend, front-end, backend, back-end, full stack, full-stack,
+               javascript, react, html, css, تطوير المواقع, الويب]
+    labels: [Web]
+  mobile:
+    label: Mobile
+    aliases: [android, ios, flutter]
+    keywords: [mobile, android, ios, flutter, react native, kotlin, swift, app development, تطبيقات الموبايل, الهواتف]
+    labels: [Mobile]
+  cloud:
+    label: Cloud & DevOps
+    aliases: [devops]
+    keywords: [cloud, aws, azure, gcp, google cloud, devops, ci/cd, kubernetes, docker, serverless, الحوسبة السحابية]
+    labels: [DevOps, Serverless, Google Cloud]
+  security:
+    label: Security
+    aliases: [cybersecurity, cyber, infosec]
+    keywords: [security, cybersecurity, cyber, infosec, penetration testing, pentest, ethical hacking,
+               malware, oidc, least-privilege, أمن سيبراني, الأمن السيبراني, سيبراني, امن المعلومات]
+    labels: [Cybersecurity]
+  ctf:
+    label: CTF
+    aliases: [capture-the-flag]
+    keywords: [ctf, capture the flag, jeopardy ctf]
+  cp:
+    label: Competitive programming
+    aliases: [competitive-programming, icpc]
+    keywords: [competitive programming, icpc, acm, codeforces, leetcode, programming contest,
+               coding contest, البرمجة التنافسية]
+  data:
+    label: Data
+    aliases: [data-science, analytics]
+    keywords: [data science, data analytics, data analysis, data engineering, big data, datathon,
+               analytics, علم البيانات, تحليل البيانات]
+    labels: [Data Analytics, Databases]
+  robotics:
+    label: Robotics
+    aliases: [robot]
+    keywords: [robot, robotics, روبوت, الروبوتات, روبوتات]
+  sumo:
+    label: Robot sumo
+    aliases: [robot-sumo]
+    keywords: [sumo, robot sumo, سومو]
+  line-follower:
+    label: Line follower
+    aliases: [line-following]
+    keywords: [line follower, line-follower, line following, line tracing, تتبع الخط]
+  embedded:
+    label: Embedded & electronics
+    aliases: [electronics, pcb, arduino, hardware]
+    keywords: [embedded, electronics, pcb, arduino, raspberry pi, microcontroller, fpga, esp32,
+               hardware, إلكترونيات, الكترونيات, أنظمة مدمجة]
+  iot:
+    label: IoT
+    keywords: [iot, internet of things, إنترنت الأشياء, انترنت الاشياء]
+    labels: [IoT]
+  game-dev:
+    label: Game dev
+    aliases: [gamedev, games, game-jam]
+    keywords: [game jam, game dev, game development, gamedev, gaming, games industry, unity, unreal,
+               pocket gamer, تطوير الألعاب]
+    labels: [Gaming]
+  ar-vr:
+    label: AR / VR
+    aliases: [ar, vr, xr]
+    keywords: [ar, vr, xr, augmented reality, virtual reality, mixed reality, الواقع الافتراضي, الواقع المعزز]
+    labels: [AR/VR]
+  blockchain:
+    label: Blockchain
+    aliases: [web3, crypto]
+    keywords: [blockchain, web3, crypto, ethereum, solana, smart contract, بلوكتشين]
+    labels: [Blockchain]
+  open-source:
+    label: Open source
+    aliases: [opensource, oss]
+    keywords: [open source, open-source, foss, hacktoberfest, linux, مفتوح المصدر, المصادر المفتوحة]
+  design:
+    label: Design & UX
+    aliases: [ux, ui]
+    keywords: [ux, ui/ux, user experience, figma, product design, تصميم تجربة المستخدم]
+    labels: [Design]
+  startup:
+    label: Startups
+    keywords: [startup, entrepreneurship, entrepreneur, founder, ريادة الأعمال, ريادة, شركات ناشئة]
+  ieee:
+    label: IEEE
+    keywords: [ieee]
+  gdg:
+    label: GDG
+    keywords: [gdg, google developer group, google developer groups, devfest]
+  josa:
+    label: JOSA
+    keywords: [josa, jordan open source association]

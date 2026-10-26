@@ -4,6 +4,8 @@ from hackwatch.models import Event
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.registry import register
 
+GDG_AUDIENCE_MODES = {"IN_PERSON": "in-person", "VIRTUAL": "online", "HYBRID": "hybrid"}
+
 
 @register("gdg")
 class GDGScraper(BaseScraper):
@@ -78,6 +80,10 @@ class GDGScraper(BaseScraper):
                     or "virtual" in title_lower
                     or "online" in title_lower
                 )
+                # audience_type is GDG's own mode field; older events only had the flags above.
+                mode = GDG_AUDIENCE_MODES.get(str(detail.get("audience_type") or "").upper())
+                if mode:
+                    is_online = mode != "in-person"
                 if is_online and not venue:
                     location = "Online"
 
@@ -95,8 +101,10 @@ class GDGScraper(BaseScraper):
                         end_date=end_date,
                         location=location or "Online",
                         is_online=is_online,
+                        mode=mode,
                         description=desc,
                         country="JO",
+                        source_labels=[str(t) for t in detail.get("tags") or []],
                     )
                 )
 

@@ -5,6 +5,7 @@ from pathlib import Path
 import yaml
 
 from hackwatch import db
+from hackwatch.infer import apply_defaults
 from hackwatch.models import (
     Event, VALID_EVENT_TYPES, VALID_MODES, VALID_SCOPES,
     validate_event_type, validate_mode, validate_scope,
@@ -52,12 +53,9 @@ def run_fetch(
 
 
 def apply_source_defaults(event: Event, scraper: BaseScraper) -> None:
-    """Fill fields the event left unset with the scraper's defaults."""
-    if event.type is None:
-        event.type = scraper.default_type
-    event.tags = event.tags + [t for t in scraper.default_tags if t not in event.tags]
-    if event.scope is None:
-        event.scope = scraper.default_scope
+    """Fill fields the event left unset: inferred type/tags, then the source's defaults."""
+    apply_defaults(event, scraper.default_type, scraper.default_tags,
+                   scraper.default_scope, scraper.allowed_types)
 
 
 def make_manual_entry(title, url, dates, location, organizer, event_type,

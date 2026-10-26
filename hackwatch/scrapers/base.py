@@ -18,6 +18,8 @@ class BaseScraper(abc.ABC):
     default_tags: List[str] = []
     # jordan | worldwide; applied to events that don't set their own scope.
     default_scope: Optional[str] = None
+    # If set, type inference may only pick from these (e.g. Devpost: hackathon, competition).
+    allowed_types: Optional[List[str]] = None
 
     def __init__(self, delay_seconds: float = 2.0):
         self.delay_seconds = delay_seconds

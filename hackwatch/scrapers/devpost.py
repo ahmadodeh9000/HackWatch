@@ -162,7 +162,8 @@ class DevpostScraper(BaseScraper):
                     end_date=end_date,
                     location=location,
                     is_online=is_online,
-                    description=description
+                    description=description,
+                    source_labels=themes,
                 )
                 events.append(event)
 

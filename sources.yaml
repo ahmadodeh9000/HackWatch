@@ -5,6 +5,7 @@
 #   scope         jordan | worldwide (an event can override it)
 #   default_type  used when neither the event nor inference sets a type
 #   default_tags  added to every event from this source
+#   allowed_types limits which types inference may pick for this source
 #   options       passed to the scraper's constructor (names must match its arguments)
 #
 # Status, numbers and failed sources: see SOURCES.md.
@@ -13,6 +14,9 @@ sources:
     enabled: true
     scope: worldwide
     default_type: hackathon
+    # Devpost only lists hackathons and competitions, so "Syntax Summit" there is
+    # still a hackathon, while "OpenCV AI Competition" is a competition.
+    allowed_types: [hackathon, competition]
     options:
       max_pages: 2
 
