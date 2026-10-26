@@ -1,0 +1,88 @@
+name: Event submission
+
+# When a maintainer adds the "approved" label to a "Submit an event" issue:
+# parse the issue, validate it, and open a PR adding it to manual_events.yaml.
+#
+# Security: the issue body is attacker-controlled text. It is passed to Python
+# ONLY through the ISSUE_BODY environment variable and never written into a
+# run: script with ${{ }}, which would let a crafted issue run shell commands.
+#
+# PRs opened with GITHUB_TOKEN don't trigger other workflows (so the PR check
+# in ci.yml won't run on them); that's why `hackwatch validate` runs here,
+# before the PR is opened.
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: submission-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  submit:
+    if: github.event.label.name == 'approved'
+    runs-on: ubuntu-latest
+    env:
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+      ISSUE_BODY: ${{ github.event.issue.body }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Add the event and run hackwatch validate
+        id: add
+        run: |
+          OUT="$RUNNER_TEMP/submission"
+          if python scripts/issue_to_event.py --out-dir "$OUT"; then
+            echo "valid=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "valid=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Report problems on the issue
+        if: steps.add.outputs.valid != 'true'
+        run: |
+          OUT="$RUNNER_TEMP/submission"
+          gh issue comment "$ISSUE_NUMBER" --body-file "$OUT/errors.md"
+          gh issue edit "$ISSUE_NUMBER" --remove-label approved
+          echo "::error::Submission in issue #$ISSUE_NUMBER is invalid; details were commented on the issue."
+          exit 1
+
+      - name: Open a pull request
+        if: steps.add.outputs.valid == 'true'
+        run: |
+          OUT="$RUNNER_TEMP/submission"
+          branch="event/issue-$ISSUE_NUMBER"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
+          git add manual_events.yaml
+          git commit -F "$OUT/commit-msg.txt"
+          # Re-approving after an edit updates the same branch/PR.
+          git push --force origin "$branch"
+          if gh pr view "$branch" --json url --jq .url > "$OUT/pr-url.txt" 2>/dev/null; then
+            echo "Updated existing PR $(cat "$OUT/pr-url.txt")"
+          else
+            gh pr create --base main --head "$branch" \
+              --title "$(cat "$OUT/pr-title.txt")" --body-file "$OUT/pr-body.md" \
+              | tail -n 1 > "$OUT/pr-url.txt"
+          fi
+          printf 'Thanks! A pull request adding this event is ready for review: %s\n\nشكراً! تم فتح طلب دمج لإضافة الفعالية.\n' \
+            "$(cat "$OUT/pr-url.txt")" > "$OUT/comment.md"
+          gh issue comment "$ISSUE_NUMBER" --body-file "$OUT/comment.md"
