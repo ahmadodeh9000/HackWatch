@@ -1,0 +1,8 @@
+[
+  {
+    "method": "GET",
+    "url": "https://josa.ngo/events",
+    "status": 200,
+    "file": "000.html"
+  }
+]

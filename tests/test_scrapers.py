@@ -1,0 +1,106 @@
+"""Offline baseline tests: each scraper parses its recorded real responses.
+
+These pin down what the scrapers do *today* (Phase 0), so later changes that
+break parsing show up as test failures instead of an empty website.
+"""
+import textwrap
+
+from hackwatch.scrapers import gdg, josa
+from hackwatch.scrapers.devpost import DevpostScraper, parse_devpost_dates
+from hackwatch.scrapers.eventbrite import EventbriteScraper
+from hackwatch.scrapers.gdg import GDGScraper
+from hackwatch.scrapers.josa import JOSAScraper
+from hackwatch.scrapers.manual import ManualScraper
+
+
+def by_title(events):
+    return {e.title: e for e in events}
+
+
+def test_devpost_parses_api_pages(replay):
+    replay("devpost")
+    events = DevpostScraper(delay_seconds=0).fetch()
+
+    assert len(events) == 18  # 2 pages x 9 per page
+    ev = by_title(events)["Nebius x NVIDIA Global AI Hackathon"]
+    assert ev.url == "https://nebiusglobalaihackathon.devpost.com/"
+    assert (ev.start_date, ev.end_date) == ("2026-08-26", "2026-10-30")
+    assert ev.is_online and ev.location == "Online"
+    assert ev.prize == "$50,000"
+
+
+def test_devpost_date_formats():
+    assert parse_devpost_dates("Aug 31 - Oct 23, 2026") == ("2026-08-31", "2026-10-23")
+    assert parse_devpost_dates("Oct 05 - 23, 2026") == ("2026-10-05", "2026-10-23")
+    assert parse_devpost_dates("Dec 20, 2026 - Jan 10, 2027") == ("2026-12-20", "2027-01-10")
+    assert parse_devpost_dates(None) == (None, None)
+
+
+def test_eventbrite_parses_online_and_jordan_pages(replay):
+    replay("eventbrite")
+    events = EventbriteScraper(delay_seconds=0).fetch()
+
+    assert len(events) == 26
+    titles = by_title(events)
+    online = titles["Krifth Developer Hackathon"]
+    assert online.is_online and online.start_date == "2026-10-29"
+    assert "?" not in online.url  # tracking params stripped
+
+    amman = titles["Pocket Gamer Connects Jordan 2026"]
+    assert not amman.is_online
+    assert amman.country == "JO"
+    assert amman.location == "Abdali Boulevard, Amman, Jordan"
+    assert (amman.start_date, amman.end_date) == ("2026-11-07", "2026-11-08")
+
+
+def test_gdg_parses_jordan_chapters(replay, frozen_today):
+    replay("gdg")
+    frozen_today(gdg)
+    events = GDGScraper(delay_seconds=0).fetch()
+
+    # Past events are skipped, so only upcoming ones remain.
+    assert sorted(e.title for e in events) == [
+        "DevFest Amman 2026",
+        "Mastering Research Papers: How to Read Them Effectively",
+        "🚀 Flutter Bootcamp: Learn App Development",
+        "🚀 Flutter Bootcamp: Learn App Development",
+    ]
+    devfest = by_title(events)["DevFest Amman 2026"]
+    assert devfest.organizer == "GDG Amman"
+    assert devfest.start_date == "2026-11-28"
+    assert devfest.country == "JO" and not devfest.is_online
+
+
+def test_josa_parses_event_previews(replay, frozen_today):
+    replay("josa")
+    frozen_today(josa)
+    events = JOSAScraper(delay_seconds=0).fetch()
+
+    assert len(events) == 5
+    ev = by_title(events)["Hacktoberfest 2026 Amman"]
+    assert ev.url == "https://josa.ngo/events/265"
+    assert ev.start_date == "2026-10-24"
+    assert ev.location == "Amman, Jordan" and not ev.is_online
+
+
+def test_manual_reads_yaml(tmp_path):
+    path = tmp_path / "events.yaml"
+    path.write_text(textwrap.dedent("""\
+        - title: Club Hackathon
+          url: https://example.com/hack
+          dates: 2026-11-15 to 2026-11-17
+          location: Amman, Jordan
+          organizer: My Club
+        - title: Online Meetup
+          url: https://example.com/meetup
+          dates: 2026-12-01
+          location: Online
+        - title: missing url is skipped
+    """))
+    events = ManualScraper(yaml_path=path).fetch()
+
+    assert [e.title for e in events] == ["Club Hackathon", "Online Meetup"]
+    hack, meetup = events
+    assert (hack.start_date, hack.end_date) == ("2026-11-15", "2026-11-17")
+    assert hack.country == "JO" and not hack.is_online
+    assert meetup.is_online and meetup.start_date == meetup.end_date == "2026-12-01"

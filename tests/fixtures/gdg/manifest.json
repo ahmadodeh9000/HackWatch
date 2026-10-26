@@ -1,0 +1,74 @@
+[
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/api/event/?chapter=558",
+    "status": 200,
+    "file": "000.json"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/api/event/133308/",
+    "status": 200,
+    "file": "001.json"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/api/event/?chapter=2637",
+    "status": 200,
+    "file": "002.json"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/api/event/133344/",
+    "status": 200,
+    "file": "003.json"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/api/event/133345/",
+    "status": 200,
+    "file": "004.json"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/api/event/?chapter=2643",
+    "status": 200,
+    "file": "005.json"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/api/event/?chapter=2739",
+    "status": 200,
+    "file": "006.json"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/api/event/134237/",
+    "status": 200,
+    "file": "007.json"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/api/event/?chapter=2702",
+    "status": 200,
+    "file": "008.json"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/api/event/?chapter=2800",
+    "status": 200,
+    "file": "009.json"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/api/event/?chapter=2655",
+    "status": 200,
+    "file": "010.json"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/api/event/?chapter=2654",
+    "status": 200,
+    "file": "011.json"
+  }
+]

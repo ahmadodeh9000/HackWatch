@@ -1,0 +1,14 @@
+[
+  {
+    "method": "GET",
+    "url": "https://devpost.com/api/hackathons?status%5B%5D=upcoming&status%5B%5D=open&page=1",
+    "status": 200,
+    "file": "000.json"
+  },
+  {
+    "method": "GET",
+    "url": "https://devpost.com/api/hackathons?status%5B%5D=upcoming&status%5B%5D=open&page=2",
+    "status": 200,
+    "file": "001.json"
+  }
+]
