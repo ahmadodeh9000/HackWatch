@@ -26,3 +26,9 @@ def test_main_exit_codes(tmp_path):
     assert main([str(out)]) == 1
     out.write_text(json.dumps([{"title": "x"}]))
     assert main([str(out)]) == 0
+
+
+def test_ratio_zero_disables_only_the_shrink_check():
+    # CI's force=true input passes --min-ratio 0
+    assert check(1, 100, 0) is None
+    assert check(0, 100, 0) == "export has 0 events"
