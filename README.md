@@ -1,24 +1,33 @@
 # 🔍 HackWatch
 
-**Jordan-focused tech & engineering event aggregator for your terminal.**
+**Tech & engineering events in Jordan: on the web, in your calendar and in your terminal.**
 
-HackWatch tracks tech and engineering events (hackathons, contests, conferences, workshops, meetups) with a focus on Jordan: online events worldwide are included, while in-person events are filtered strictly to Jordan. It scrapes upcoming events from multiple sources, stores them in a local SQLite database, and lets you browse everything through an interactive terminal dashboard.
+HackWatch collects hackathons, competitions, conferences, workshops and meetups in Jordan, plus online
+events from anywhere (CTFs, Codeforces rounds, online hackathons). In-person events outside Jordan are
+left out. It fetches from several sources daily, merges duplicates, and publishes a website and a
+calendar feed. Clubs can submit their own events through a short bilingual form.
 
-![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue)
+![Python 3.12](https://img.shields.io/badge/python-3.12-blue)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
 
-🌐 **Live site:** https://ahmadodeh9000.github.io/HackWatch/
+🌐 **Live site:** https://ahmadodeh9000.github.io/HackWatch/ ·
+📅 **Calendar feed (Jordan events):** https://ahmadodeh9000.github.io/HackWatch/events.ics ·
+➕ **[Submit an event](https://github.com/ahmadodeh9000/HackWatch/issues/new?template=event.yml)**
 
 ---
 
 ## ✨ Features
 
-- **Jordan-focused** — Online events worldwide are tracked; in-person events only in Jordan
-- **Multi-source scraping** — Devpost, Eventbrite, Google Developer Groups, JOSA, and manual YAML entries
+- **Jordan-focused** — In-person events only in Jordan; the site shows Jordan events by default, with a toggle for worldwide online events
+- **8 sources** — GDG chapters, IEEE Jordan Section, JOSA, Eventbrite (Jordan), Devpost, CTFtime, Codeforces, and community submissions; see [SOURCES.md](SOURCES.md)
+- **Types, tags and modes** — Inferred from titles (English and Arabic) and the sources' own labels
+- **Duplicates merged** — The same event from several sources appears once, with all its links
+- **Calendar feed** — Subscribe to `events.ics` in Google/Apple/Outlook calendar
+- **Community submissions** — A bilingual issue form; a bot validates it and opens a pull request
 - **Interactive dashboard** — Rich terminal UI with color-coded sources, urgency indicators, and event details
 - **Smart date handling** — Events sorted by date, past events hidden by default, countdown indicators
 - **Local-first** — All data stored in a single `hackwatch.db` SQLite file
-- **Manual events** — Add your own events via YAML or the interactive prompt
+- **Manual events** — Add your own events via YAML, the CLI, or the [issue form](CONTRIBUTING.md)
 - **Search** — Full-text keyword search across titles, organizers, locations, and descriptions
 - **CLI commands** — Also supports traditional CLI via `python3 -m hackwatch.cli`
 
@@ -114,8 +123,11 @@ python3 -m hackwatch.cli add
 python3 -m hackwatch.cli add -t "Robot Sumo Cup" -u https://example.com/sumo -d 2026-12-05 \
   -l "Irbid, Jordan" -o "IEEE JUST" --type competition --mode in-person --tags robotics,sumo,ieee
 
-# Export upcoming events to JSON
-python3 -m hackwatch.cli export --out events.json
+# Check manual_events.yaml strictly (exits 1 on any invalid entry)
+python3 -m hackwatch.cli validate
+
+# Export upcoming events to JSON, plus tag labels and the calendar feed for the site
+python3 -m hackwatch.cli export --out docs/events.json --labels docs/labels.json --ics docs/events.ics
 ```
 
 ---
@@ -173,6 +185,18 @@ HackWatch/
 
 ---
 
+## 🔁 How the daily update works
+
+The `Update HackWatch Events & Deploy` workflow runs every day (and on manual runs):
+
+1. Runs the tests, then fetches every enabled source in `sources.yaml`.
+2. Each source that fetched successfully replaces what it listed before, so cancelled or removed
+   events disappear. A source that errors keeps its old events.
+3. Listings of the same event are merged (same link, or a similar title within a day from another source);
+   precedence is manual > Jordan sources > worldwide feeds.
+4. Exports `events.json`, `labels.json` and `events.ics`, and refuses to deploy if there are 0 events or
+   fewer than half of what's live. Run it manually with **force** after an expected big drop.
+
 ## 🔧 Adding a New Scraper
 
 1. Create `hackwatch/scrapers/mysource.py` with a `BaseScraper` subclass, registered by name.
@@ -214,7 +238,8 @@ To turn a source off, set `enabled: false`. `fetch --source mysource` still runs
 
 ## 📝 Manual Events (YAML)
 
-Add events directly to `manual_events.yaml`:
+The easiest way is the [Submit an event](https://github.com/ahmadodeh9000/HackWatch/issues/new?template=event.yml)
+form (see [CONTRIBUTING.md](CONTRIBUTING.md)). You can also add events directly to `manual_events.yaml`:
 
 ```yaml
 - title: My Local Hackathon

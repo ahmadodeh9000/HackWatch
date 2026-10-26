@@ -6,7 +6,7 @@
 <title>HackWatch - Tech & engineering events in Jordan</title>
 <meta name="description" content="Never miss a tech or engineering event in Jordan. Online events worldwide, in-person events in Jordan. Open source.">
 <meta property="og:title" content="HackWatch - Tech & engineering events in Jordan">
-<meta property="og:description" content="Online events worldwide, in-person events in Jordan. Student clubs can add events with 5 lines of YAML.">
+<meta property="og:description" content="Tech and engineering events in Jordan, plus online events worldwide. Clubs can submit events with a short form.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ahmadodeh9000.github.io/HackWatch/">
 <meta property="og:image" content="https://ahmadodeh9000.github.io/HackWatch/og.png">
@@ -137,9 +137,8 @@ section.block{padding:36px 0}
 section.block h2{margin:0 0 8px;font-size:1.6rem}
 section.block>.wrap>p{color:var(--muted);margin:0 0 18px}
 .callout{background:var(--accent-soft);border-radius:var(--radius);padding:24px;border:1px solid var(--border)}
+.callout p{margin:0 0 16px}
 pre{margin:0 0 16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;overflow-x:auto;font:.9rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--text)}
-.codewrap{position:relative}
-.copy{position:absolute;top:8px;right:8px;padding:5px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:.8rem;font-family:inherit}
 footer{padding:32px 0 48px;text-align:center;color:var(--muted);font-size:.92rem;border-top:1px solid var(--border)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.card:hover,.btn:hover{transform:none}}
 @media (max-width:520px){.hero{padding:36px 0 24px}.grid{grid-template-columns:1fr}}
@@ -188,19 +187,11 @@ footer{padding:32px 0 48px;text-align:center;color:var(--muted);font-size:.92rem
   <section class="block" id="add">
     <div class="wrap">
       <h2>Add your club's event</h2>
-      <p>Running a hackathon, workshop or other event? Add five lines and it shows up here after the next update.</p>
+      <p>Running a hackathon, competition, workshop or meetup? Fill in a short form (English or Arabic). After a quick review it appears here and in the calendar feed.</p>
       <div class="callout">
-        <div class="codewrap">
-<pre id="yaml">- title: My Club Hackathon
-  url: https://example.com
-  dates: 2026-11-01 to 2026-11-03
-  location: Amman, Jordan
-  organizer: My Club
-  prize: $500
-  type: hackathon   # hackathon | competition | conference | workshop | meetup | other</pre>
-          <button class="copy" id="copyBtn" type="button">Copy</button>
-        </div>
-        <a class="btn primary" id="editLink" href="#" target="_blank" rel="noopener">Add it on GitHub</a>
+        <p>You'll need: the event's title, link, date(s), format (in-person, online or hybrid), city and venue, organizer and type. Dates are written like <code>2026-11-15</code>.</p>
+        <p dir="rtl" lang="ar">أضف فعالية ناديك عبر نموذج قصير بالعربية أو الإنجليزية، وستظهر هنا بعد المراجعة.</p>
+        <a class="btn primary" id="submitLink" href="#" target="_blank" rel="noopener">Submit an event</a>
       </div>
     </div>
   </section>
@@ -228,7 +219,7 @@ const GITHUB_USER = "ahmadodeh9000";
 const REPO = "HackWatch";
 const REPO_URL = `https://github.com/${GITHUB_USER}/${REPO}`;
 document.getElementById("repoLink").href = REPO_URL;
-document.getElementById("editLink").href = `${REPO_URL}/edit/main/manual_events.yaml`;
+document.getElementById("submitLink").href = `${REPO_URL}/issues/new?template=event.yml`;
 
 const SITE_URL = `https://${GITHUB_USER}.github.io/${REPO}/`;
 document.getElementById("subscribe").href = SITE_URL.replace(/^https:/, "webcal:") + "events.ics";
@@ -388,13 +379,6 @@ $("clear").addEventListener("click", () => {
   state.q=""; FILTERS.forEach(k => state[k] = "all");
   $("search").value=""; syncChips(); render();
 });
-$("copyBtn").addEventListener("click", async () => {
-  const b = $("copyBtn");
-  try{ await navigator.clipboard.writeText($("yaml").textContent); b.textContent = "Copied ✓"; }
-  catch(_){ b.textContent = "Press Ctrl+C"; }
-  setTimeout(() => b.textContent = "Copy", 1800);
-});
-
 async function load(){
   try{
     const res = await fetch("events.json", {cache:"no-store"});
