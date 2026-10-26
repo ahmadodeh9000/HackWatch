@@ -31,8 +31,17 @@ def slim_html(body: bytes) -> bytes:
     return ("<html><body>\n" + "\n".join(str(s) for s in scripts) + "\n</body></html>\n").encode()
 
 
+def slim_codeforces(body: bytes) -> bytes:
+    """contest.list returns every contest ever (~2000); keep upcoming ones and 5 finished."""
+    data = json.loads(body)
+    contests = data.get("result") or []
+    upcoming = [c for c in contests if c.get("phase") == "BEFORE"]
+    data["result"] = upcoming + [c for c in contests if c.get("phase") != "BEFORE"][:5]
+    return (json.dumps(data, ensure_ascii=False, indent=1) + "\n").encode()
+
+
 # How to shrink each source's responses before saving them as fixtures.
-SLIMMERS = {"eventbrite": slim_html}
+SLIMMERS = {"eventbrite": slim_html, "codeforces": slim_codeforces}
 
 
 def full_url(method, url, params=None):

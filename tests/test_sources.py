@@ -15,18 +15,18 @@ def write(tmp_path, body):
 
 
 def test_registry_has_all_scrapers():
-    assert set(SCRAPERS) >= {"devpost", "eventbrite", "gdg", "josa", "manual", "ctftime"}
+    assert set(SCRAPERS) >= {"devpost", "eventbrite", "gdg", "josa", "manual", "ctftime", "codeforces"}
     assert SCRAPERS["gdg"] is GDGScraper
 
 
 def test_repo_sources_yaml_builds_every_source():
     scrapers = {s.name: s for s in get_available_scrapers(include_disabled=True)}
-    assert set(scrapers) == {"devpost", "eventbrite", "gdg", "josa", "ctftime", "manual"}
+    assert set(scrapers) == {"devpost", "eventbrite", "gdg", "josa", "ctftime", "codeforces", "manual"}
     assert [n for n, s in scrapers.items() if s.require_tech_keywords] == ["eventbrite"]
     assert scrapers["devpost"].default_scope == "worldwide" and scrapers["devpost"].default_type == "hackathon"
     assert scrapers["gdg"].default_tags == ["gdg"] and len(scrapers["gdg"].chapter_ids) == 8
     worldwide = {n for n, s in scrapers.items() if s.default_scope == "worldwide"}
-    assert worldwide == {"devpost", "ctftime"}
+    assert worldwide == {"devpost", "ctftime", "codeforces"}
     assert all("/d/jordan/" in u for u in scrapers["eventbrite"].search_urls)
 
 

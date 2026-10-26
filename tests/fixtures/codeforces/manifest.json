@@ -1,0 +1,8 @@
+[
+  {
+    "method": "GET",
+    "url": "https://codeforces.com/api/contest.list?gym=false",
+    "status": 200,
+    "file": "000.json"
+  }
+]

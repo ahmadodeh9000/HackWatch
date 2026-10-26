@@ -66,6 +66,18 @@ sources:
     options:
       days_ahead: 60   # on-site CTFs outside Jordan are dropped by the usual filter
 
+  - name: codeforces
+    enabled: true
+    scope: worldwide
+    default_type: competition
+    allowed_types: [competition]
+    default_tags: [cp]
+    infer_tags: false
+    options:
+      days_ahead: 30
+      # Regular rated rounds only; remove to include every contest.
+      include: ['\bDiv\. ?[123]\b', '^Educational Codeforces Round']
+
   - name: manual
     enabled: true
     scope: jordan

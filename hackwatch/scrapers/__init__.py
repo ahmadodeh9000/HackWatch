@@ -3,7 +3,7 @@ from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.registry import SCRAPERS, register
 
 # Importing the modules registers their scraper classes.
-from hackwatch.scrapers import ctftime, devpost, eventbrite, gdg, josa, manual  # noqa: F401,E402
+from hackwatch.scrapers import codeforces, ctftime, devpost, eventbrite, gdg, josa, manual  # noqa: F401,E402
 
 __all__ = ["BaseScraper", "SCRAPERS", "register", "get_available_scrapers"]
 
