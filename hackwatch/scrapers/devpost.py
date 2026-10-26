@@ -101,6 +101,7 @@ def extract_devpost_prize(item: dict) -> str:
 
 class DevpostScraper(BaseScraper):
     name: str = "devpost"
+    default_scope = "worldwide"
     default_type = "hackathon"
 
     def __init__(self, max_pages: int = 2, delay_seconds: float = 2.0):

@@ -31,6 +31,7 @@ JORDAN_CHAPTER_IDS = [
 
 class GDGScraper(BaseScraper):
     name: str = "gdg"
+    default_scope = "jordan"
     default_tags = ["gdg"]
 
     def __init__(

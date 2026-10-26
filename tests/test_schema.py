@@ -174,3 +174,47 @@ def test_source_default_tags_are_added_and_stored(tmp_path):
     ev = Event(title="Flutter", url="https://f", source="gdg", location="Amman, Jordan", tags=["mobile"])
     cli.run_fetch(conn, [GDG([ev])])
     assert db.get_events(conn, show_all=True)[0].tags == ["mobile", "gdg"]
+
+
+def test_scope_from_source_default_event_override_and_location(tmp_path):
+    class Worldwide(FakeScraper):
+        name = "devpost"
+        default_scope = "worldwide"
+
+    conn = db.get_connection(tmp_path / "t.db")
+    db.init_db(conn)
+    events = [
+        Event(title="Default", url="https://a", source="devpost", is_online=True),
+        Event(title="Override", url="https://b", source="devpost", is_online=True, scope="jordan"),
+    ]
+    cli.run_fetch(conn, [Worldwide(events)])
+    # No scraper default and no override: decided by location.
+    db.upsert_event(conn, Event(title="Amman", url="https://c", source="manual", location="Amman, Jordan"))
+    db.upsert_event(conn, Event(title="Remote", url="https://d", source="manual", is_online=True))
+    assert {e.title: e.scope for e in db.get_events(conn, show_all=True)} == {
+        "Default": "worldwide", "Override": "jordan", "Amman": "jordan", "Remote": "worldwide"}
+
+
+def test_bad_scope_is_an_error():
+    with pytest.raises(ValueError, match="scope must be one of"):
+        Event(title="t", url="https://x", source="manual", scope="mars")
+
+
+def test_manual_scope_override(tmp_path):
+    from hackwatch.scrapers.manual import ManualScraper
+    path = tmp_path / "m.yaml"
+    path.write_text("- title: MLH GHW\n  url: https://g\n  location: Online\n  scope: worldwide\n")
+    assert ManualScraper(yaml_path=path).fetch()[0].scope == "worldwide"
+
+
+def test_migration_sets_scope(tmp_path):
+    path = tmp_path / "old.db"
+    raw = sqlite3.connect(path)
+    raw.executescript(OLD_SCHEMA)
+    raw.execute("INSERT INTO events (id, title, url, source, is_online) VALUES ('1', 'D', 'https://d', 'devpost', 1)")
+    raw.execute("INSERT INTO events (id, title, url, source, country) VALUES ('2', 'G', 'https://g', 'gdg', 'JO')")
+    raw.commit()
+    raw.close()
+    conn = db.get_connection(path)
+    db.init_db(conn)
+    assert {e.title: e.scope for e in db.get_events(conn, show_all=True)} == {"D": "worldwide", "G": "jordan"}

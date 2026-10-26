@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 import yaml
 
-from hackwatch.models import Event, validate_event_type, validate_mode
+from hackwatch.models import Event, validate_event_type, validate_mode, validate_scope
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.taxonomy import normalize_tags
 
@@ -103,6 +103,7 @@ def parse_manual_item(item: dict) -> Event:
         is_online=is_online,
         mode=mode,
         tags=normalize_tags(item.get("tags"), strict=True),
+        scope=validate_scope(item["scope"]) if item.get("scope") else None,
         description=item.get("description"),
         type=validate_event_type(item["type"]) if item.get("type") else None,
     )
@@ -116,6 +117,7 @@ def load_manual_yaml(path: Path):
 
 class ManualScraper(BaseScraper):
     name: str = "manual"
+    default_scope = "jordan"
 
     def __init__(self, yaml_path: Path = DEFAULT_MANUAL_YAML):
         super().__init__(delay_seconds=0.0)

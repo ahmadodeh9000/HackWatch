@@ -52,6 +52,8 @@ def apply_source_defaults(event: Event, scraper: BaseScraper) -> None:
     if event.type is None:
         event.type = scraper.default_type
     event.tags = event.tags + [t for t in scraper.default_tags if t not in event.tags]
+    if event.scope is None:
+        event.scope = scraper.default_scope
 
 
 def make_manual_entry(title, url, dates, location, organizer, event_type) -> dict:
@@ -230,6 +232,7 @@ def export(
             "description": ev.description,
             "mode": ev.mode,
             "tags": ev.tags,
+            "scope": ev.scope,
             "is_online": ev.is_online,  # legacy, = mode != "in-person"; kept for the current site
         }
         for ev in events

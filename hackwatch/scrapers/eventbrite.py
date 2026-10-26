@@ -28,6 +28,7 @@ def clean_eventbrite_url(url: str) -> str:
 
 class EventbriteScraper(BaseScraper):
     name: str = "eventbrite"
+    default_scope = "jordan"
 
     def __init__(
         self,

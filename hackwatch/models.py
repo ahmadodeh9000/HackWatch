@@ -38,6 +38,15 @@ def validate_mode(value: str) -> str:
         raise ValueError(f"mode must be one of {', '.join(VALID_MODES)}, got {value!r}")
     return v
 
+VALID_SCOPES = ("jordan", "worldwide")
+
+
+def validate_scope(value: str) -> str:
+    v = str(value).strip().lower()
+    if v not in VALID_SCOPES:
+        raise ValueError(f"scope must be one of {', '.join(VALID_SCOPES)}, got {value!r}")
+    return v
+
 
 @dataclass
 class Event:
@@ -62,6 +71,9 @@ class Event:
     type: Optional[str] = None
     # Tag ids from taxonomy.yaml; unknown tags are dropped with a warning.
     tags: List[str] = field(default_factory=list)
+    # jordan | worldwide. None = not set; run_fetch applies the scraper's
+    # default_scope, and db.upsert_event falls back to the event's location.
+    scope: Optional[str] = None
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
     first_seen_run_id: Optional[int] = None
@@ -76,6 +88,8 @@ class Event:
         if self.type is not None:
             self.type = validate_event_type(self.type)
         self.tags = normalize_tags(self.tags)
+        if self.scope is not None:
+            self.scope = validate_scope(self.scope)
         if not self.country:
             self.country = to_iso2(self.location)
         if not self.id:

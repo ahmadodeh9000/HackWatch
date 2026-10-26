@@ -4,7 +4,7 @@ from datetime import datetime, date
 from pathlib import Path
 from typing import List, Optional
 from hackwatch.models import DEFAULT_EVENT_TYPE, Event
-from hackwatch.filters import is_relevant
+from hackwatch.filters import is_in_jordan, is_relevant
 
 DEFAULT_DB_PATH = Path("hackwatch.db")
 
@@ -39,6 +39,7 @@ def init_db(conn: sqlite3.Connection) -> None:
                 is_online INTEGER DEFAULT 0,
                 mode TEXT,
                 tags TEXT NOT NULL DEFAULT '[]',
+                scope TEXT,
                 description TEXT,
                 type TEXT NOT NULL DEFAULT 'other',
                 first_seen_run_id INTEGER,
@@ -60,6 +61,11 @@ def migrate(conn: sqlite3.Connection) -> None:
         conn.execute("ALTER TABLE events ADD COLUMN mode TEXT;")
     if "tags" not in existing_cols:
         conn.execute("ALTER TABLE events ADD COLUMN tags TEXT NOT NULL DEFAULT '[]';")
+    if "scope" not in existing_cols:
+        conn.execute("ALTER TABLE events ADD COLUMN scope TEXT;")
+    conn.execute("UPDATE events SET scope = CASE WHEN source = 'devpost' THEN 'worldwide' "
+                 "WHEN country = 'JO' OR source IN ('gdg', 'josa', 'manual', 'eventbrite') THEN 'jordan' "
+                 "ELSE 'worldwide' END WHERE scope IS NULL;")
     conn.execute("UPDATE events SET mode = CASE is_online WHEN 1 THEN 'online' ELSE 'in-person' END "
                  "WHERE mode IS NULL;")
 
@@ -84,12 +90,12 @@ def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] =
             INSERT INTO events (
                 id, title, url, source, organizer, prize,
                 registration_deadline, start_date, end_date,
-                location, country, is_online, mode, tags, description, type, first_seen_run_id,
+                location, country, is_online, mode, tags, scope, description, type, first_seen_run_id,
                 created_at, updated_at
             ) VALUES (
                 :id, :title, :url, :source, :organizer, :prize,
                 :registration_deadline, :start_date, :end_date,
-                :location, :country, :is_online, :mode, :tags, :description, :type, :first_seen_run_id,
+                :location, :country, :is_online, :mode, :tags, :scope, :description, :type, :first_seen_run_id,
                 CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
             )
             ON CONFLICT(url) DO UPDATE SET
@@ -105,6 +111,7 @@ def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] =
                 is_online = excluded.is_online,
                 mode = excluded.mode,
                 tags = excluded.tags,
+                scope = excluded.scope,
                 description = excluded.description,
                 type = excluded.type,
                 updated_at = CURRENT_TIMESTAMP;
@@ -123,6 +130,7 @@ def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] =
             "is_online": 1 if event.is_online else 0,
             "mode": event.mode,
             "tags": json.dumps(event.tags),
+            "scope": event.scope or ("jordan" if is_in_jordan(event) else "worldwide"),
             "description": event.description,
             "type": event.type or DEFAULT_EVENT_TYPE,
             "first_seen_run_id": run_id
@@ -190,6 +198,7 @@ def get_events(
             is_online=bool(row["is_online"]),
             mode=row["mode"],
             tags=json.loads(row["tags"] or "[]"),
+            scope=row["scope"],
             description=row["description"],
             type=row["type"],
             created_at=row["created_at"],

@@ -28,6 +28,7 @@ def infer_year(day: int, month_name: str, today: date) -> Optional[date]:
 
 class JOSAScraper(BaseScraper):
     name: str = "josa"
+    default_scope = "jordan"
     default_tags = ["josa", "open-source"]
 
     def __init__(self, events_url: str = "https://josa.ngo/events", delay_seconds: float = 2.0):
