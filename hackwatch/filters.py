@@ -48,7 +48,7 @@ def is_tech_related(event) -> bool:
 
 
 def is_relevant(event) -> bool:
-    """Online events from anywhere are kept; in-person events only if they are in Jordan."""
+    """Online/hybrid events from anywhere are kept; in-person events only if they are in Jordan."""
     if event.source == "manual":
         return True
     if "tbd" in (event.title or "").lower():
@@ -56,7 +56,7 @@ def is_relevant(event) -> bool:
     start = _parse(event.start_date)
     if start and start > date.today() + timedelta(days=MAX_DAYS_AHEAD):
         return False
-    if not event.is_online and not is_in_jordan(event):
+    if event.mode == "in-person" and not is_in_jordan(event):
         return False
     if event.source not in TECH_ONLY_SOURCES:
         return is_tech_related(event)

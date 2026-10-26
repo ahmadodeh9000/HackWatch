@@ -87,6 +87,7 @@ class EventbriteScraper(BaseScraper):
 
                     attendance_mode = str(event_data.get("eventAttendanceMode", ""))
                     is_online = "OnlineEventAttendanceMode" in attendance_mode
+                    mode = "hybrid" if "MixedEventAttendanceMode" in attendance_mode else None
 
                     loc_info = event_data.get("location")
                     location = "Online" if is_online else None
@@ -139,6 +140,7 @@ class EventbriteScraper(BaseScraper):
                         end_date=end_date,
                         location=location or ("Online" if is_online else "TBD"),
                         is_online=is_online,
+                        mode=mode,
                         description=description,
                         country=country,
                     ))

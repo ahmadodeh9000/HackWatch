@@ -90,3 +90,51 @@ def test_migration_renames_contest(tmp_path):
     conn.execute("INSERT INTO events (id, title, url, source, type) VALUES ('1', 'C', 'https://c', 'manual', 'contest')")
     db.init_db(conn)
     assert db.get_events(conn, show_all=True)[0].type == "competition"
+
+
+@pytest.mark.parametrize("kwargs, mode, is_online", [
+    ({}, "in-person", False),
+    ({"is_online": True}, "online", True),
+    ({"mode": "Hybrid"}, "hybrid", True),
+    ({"mode": "virtual"}, "online", True),
+    ({"mode": "in person", "is_online": True}, "in-person", False),  # explicit mode wins
+])
+def test_mode_and_legacy_is_online(kwargs, mode, is_online):
+    ev = Event(title="t", url="https://x", source="manual", **kwargs)
+    assert (ev.mode, ev.is_online) == (mode, is_online)
+
+
+def test_bad_mode_raises():
+    with pytest.raises(ValueError, match="mode must be one of"):
+        Event(title="t", url="https://x", source="manual", mode="sometimes")
+
+
+def test_hybrid_outside_jordan_is_kept_in_person_is_not():
+    from hackwatch.filters import is_relevant
+    common = dict(title="Python conf", url="https://x", source="eventbrite", location="Berlin, Germany")
+    assert is_relevant(Event(mode="hybrid", **common))
+    assert not is_relevant(Event(mode="in-person", **common))
+
+
+def test_migration_sets_mode_from_is_online(tmp_path):
+    path = tmp_path / "old.db"
+    raw = sqlite3.connect(path)
+    raw.executescript(OLD_SCHEMA)
+    raw.execute("INSERT INTO events (id, title, url, source, is_online) VALUES ('1', 'On', 'https://on', 'devpost', 1)")
+    raw.execute("INSERT INTO events (id, title, url, source, is_online) VALUES ('2', 'Off', 'https://off', 'josa', 0)")
+    raw.commit()
+    raw.close()
+    conn = db.get_connection(path)
+    db.init_db(conn)
+    assert {e.title: e.mode for e in db.get_events(conn, show_all=True)} == {"On": "online", "Off": "in-person"}
+
+
+def test_manual_mode_field(tmp_path):
+    from hackwatch.scrapers.manual import ManualEventError, ManualScraper
+    path = tmp_path / "m.yaml"
+    path.write_text("- title: H\n  url: https://h\n  location: Amman, Jordan\n  mode: hybrid\n")
+    (ev,) = ManualScraper(yaml_path=path).fetch()
+    assert ev.mode == "hybrid" and ev.location == "Amman, Jordan"
+    path.write_text("- title: H\n  url: https://h\n  mode: maybe\n")
+    with pytest.raises(ManualEventError, match="mode must be one of"):
+        ManualScraper(yaml_path=path).fetch()

@@ -186,7 +186,9 @@ def list_events(
         return
 
     for ev in events:
-        loc = "Online" if ev.is_online else (ev.location or "TBD")
+        loc = "Online" if ev.mode == "online" else (ev.location or "TBD")
+        if ev.mode == "hybrid":
+            loc += " + online (hybrid)"
         date_str = ev.start_date or ev.registration_deadline or "TBD"
         if ev.end_date and ev.end_date != ev.start_date:
             date_str += f" -> {ev.end_date}"
@@ -225,7 +227,8 @@ def export(
             "organizer": ev.organizer,
             "prize": ev.prize,
             "description": ev.description,
-            "is_online": ev.is_online,
+            "mode": ev.mode,
+            "is_online": ev.is_online,  # legacy, = mode != "in-person"; kept for the current site
         }
         for ev in events
     ]

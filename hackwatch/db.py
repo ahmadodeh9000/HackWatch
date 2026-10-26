@@ -36,6 +36,7 @@ def init_db(conn: sqlite3.Connection) -> None:
                 location TEXT,
                 country TEXT,
                 is_online INTEGER DEFAULT 0,
+                mode TEXT,
                 description TEXT,
                 type TEXT NOT NULL DEFAULT 'other',
                 first_seen_run_id INTEGER,
@@ -53,6 +54,10 @@ def migrate(conn: sqlite3.Connection) -> None:
     if "type" not in existing_cols:
         conn.execute("ALTER TABLE events ADD COLUMN type TEXT NOT NULL DEFAULT 'other';")
     conn.execute("UPDATE events SET type = 'competition' WHERE type = 'contest';")
+    if "mode" not in existing_cols:
+        conn.execute("ALTER TABLE events ADD COLUMN mode TEXT;")
+    conn.execute("UPDATE events SET mode = CASE is_online WHEN 1 THEN 'online' ELSE 'in-person' END "
+                 "WHERE mode IS NULL;")
 
 
 def create_fetch_run(conn: sqlite3.Connection) -> int:
@@ -75,12 +80,12 @@ def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] =
             INSERT INTO events (
                 id, title, url, source, organizer, prize,
                 registration_deadline, start_date, end_date,
-                location, country, is_online, description, type, first_seen_run_id,
+                location, country, is_online, mode, description, type, first_seen_run_id,
                 created_at, updated_at
             ) VALUES (
                 :id, :title, :url, :source, :organizer, :prize,
                 :registration_deadline, :start_date, :end_date,
-                :location, :country, :is_online, :description, :type, :first_seen_run_id,
+                :location, :country, :is_online, :mode, :description, :type, :first_seen_run_id,
                 CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
             )
             ON CONFLICT(url) DO UPDATE SET
@@ -94,6 +99,7 @@ def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] =
                 location = excluded.location,
                 country = excluded.country,
                 is_online = excluded.is_online,
+                mode = excluded.mode,
                 description = excluded.description,
                 type = excluded.type,
                 updated_at = CURRENT_TIMESTAMP;
@@ -110,6 +116,7 @@ def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] =
             "location": event.location,
             "country": event.country,
             "is_online": 1 if event.is_online else 0,
+            "mode": event.mode,
             "description": event.description,
             "type": event.type or DEFAULT_EVENT_TYPE,
             "first_seen_run_id": run_id
@@ -175,6 +182,7 @@ def get_events(
             location=row["location"],
             country=row["country"],
             is_online=bool(row["is_online"]),
+            mode=row["mode"],
             description=row["description"],
             type=row["type"],
             created_at=row["created_at"],

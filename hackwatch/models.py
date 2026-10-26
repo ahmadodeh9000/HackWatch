@@ -24,6 +24,19 @@ def validate_event_type(value: Optional[str]) -> str:
     )
     return DEFAULT_EVENT_TYPE
 
+VALID_MODES = ("in-person", "online", "hybrid")
+MODE_ALIASES = {"in person": "in-person", "inperson": "in-person", "offline": "in-person",
+                "onsite": "in-person", "on-site": "in-person", "virtual": "online", "remote": "online"}
+
+
+def validate_mode(value: str) -> str:
+    """Normalise a mode value; raises ValueError for anything unrecognised."""
+    v = str(value).strip().lower()
+    v = MODE_ALIASES.get(v, v)
+    if v not in VALID_MODES:
+        raise ValueError(f"mode must be one of {', '.join(VALID_MODES)}, got {value!r}")
+    return v
+
 
 @dataclass
 class Event:
@@ -36,7 +49,11 @@ class Event:
     start_date: Optional[str] = None
     end_date: Optional[str] = None
     location: Optional[str] = None
+    # Legacy flag kept for the JSON export. If mode is given, is_online is derived
+    # from it (hybrid counts as online: you can attend without being there);
+    # otherwise mode is derived from is_online.
     is_online: bool = False
+    mode: Optional[str] = None
     description: Optional[str] = None
     country: Optional[str] = None
     # None = not set by the source; run_fetch applies the scraper's default_type,
@@ -48,6 +65,11 @@ class Event:
     id: Optional[str] = None
 
     def __post_init__(self):
+        if self.mode:
+            self.mode = validate_mode(self.mode)
+            self.is_online = self.mode != "in-person"
+        else:
+            self.mode = "online" if self.is_online else "in-person"
         if self.type is not None:
             self.type = validate_event_type(self.type)
         if not self.country:

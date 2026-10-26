@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 import yaml
 
-from hackwatch.models import Event, validate_event_type
+from hackwatch.models import Event, validate_event_type, validate_mode
 from hackwatch.scrapers.base import BaseScraper
 
 DEFAULT_MANUAL_YAML = Path("manual_events.yaml")
@@ -79,8 +79,9 @@ def parse_manual_item(item: dict) -> Event:
         raise ValueError(f"end date {end_date} is before start date {start_date}")
 
     location = item.get("location")
+    mode = validate_mode(item["mode"]) if item.get("mode") else None
     is_online = bool(item.get("is_online", False))
-    if location and "online" in str(location).lower():
+    if not mode and location and "online" in str(location).lower():
         is_online = True
 
     prize = item.get("prize") or "N/A"
@@ -99,6 +100,7 @@ def parse_manual_item(item: dict) -> Event:
         end_date=end_date,
         location=location,
         is_online=is_online,
+        mode=mode,
         description=item.get("description"),
         type=validate_event_type(item["type"]) if item.get("type") else None,
     )

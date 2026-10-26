@@ -96,8 +96,8 @@ class GDGScraper(BaseScraper):
 
                 title_lower = title.lower()
                 is_online = (
-                    detail.get("live_url") is not None
-                    or detail.get("event_type_title") == "Virtual"
+                    bool(detail.get("is_virtual_event"))
+                    or detail.get("live_url") is not None
                     or "virtual" in title_lower
                     or "online" in title_lower
                 )

@@ -75,6 +75,13 @@ def format_date_range(ev: Event) -> str:
     return "TBD"
 
 
+def format_location(ev: Event) -> str:
+    if ev.mode == "online":
+        return "🌐 Online"
+    loc = ev.location or "TBD"
+    return f"🔀 Hybrid: {loc} + online" if ev.mode == "hybrid" else loc
+
+
 def days_until(date_str: str | None) -> int | None:
     """Return days from today until date_str (ISO), or None."""
     if not date_str:
@@ -177,7 +184,7 @@ def display_events_table(events: list[Event], title: str = "Events"):
             elif days is not None and days < 0:
                 date_text.append("\n(passed)", style="dim italic")
 
-        loc = "🌐 Online" if ev.is_online else (ev.location or "TBD")
+        loc = format_location(ev)
 
         prize = ev.prize if (ev.prize and ev.prize != "N/A") else "—"
         prize_style = "bold bright_green" if prize != "—" else "dim"
@@ -224,7 +231,7 @@ def display_event_detail(ev: Event, idx: int):
         f"  [bold]Source:[/]     [{src_color}]{ev.source.upper()}[/]",
         f"  [bold]URL:[/]        [link={ev.url}]{ev.url}[/link]",
         f"  [bold]Dates:[/]      {format_date_range(ev)}",
-        f"  [bold]Location:[/]   {'🌐 Online' if ev.is_online else (ev.location or 'TBD')}",
+        f"  [bold]Location:[/]   {format_location(ev)}",
         f"  [bold]Prize:[/]      {ev.prize or '—'}",
         f"  [bold]Organizer:[/]  {ev.organizer or '—'}",
     ]

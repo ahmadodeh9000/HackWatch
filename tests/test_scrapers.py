@@ -157,3 +157,20 @@ def test_josa_year_inference_picks_nearest_year():
     assert infer_year(28, "December", date(2027, 1, 3)) == date(2026, 12, 28)  # Jan -> last Dec
     assert infer_year(29, "February", date(2027, 6, 1)) == date(2028, 2, 29)   # only leap year fits
     assert infer_year(3, "Smarch", date(2026, 1, 1)) is None
+
+
+def test_eventbrite_mixed_attendance_is_hybrid(monkeypatch):
+    # No recorded page has a hybrid event, so this uses a minimal hand-written one.
+    import json
+    from types import SimpleNamespace
+    item = {"@type": "Event", "name": "AI Summit", "url": "https://www.eventbrite.com/e/ai-summit-1?aff=x",
+            "startDate": "2026-12-01", "eventAttendanceMode": "https://schema.org/MixedEventAttendanceMode",
+            "location": {"@type": "Place", "name": "HTU",
+                         "address": {"addressLocality": "Amman", "addressCountry": "JO"}}}
+    page = ('<script type="application/ld+json">'
+            + json.dumps({"@type": "ItemList", "itemListElement": [{"item": item}]}) + "</script>")
+    scraper = EventbriteScraper(search_urls=["https://www.eventbrite.com/d/jordan/ai/"], delay_seconds=0)
+    monkeypatch.setattr(scraper, "get", lambda url: SimpleNamespace(text=page))
+    (ev,) = scraper.fetch()
+    assert ev.mode == "hybrid" and ev.is_online
+    assert ev.location == "HTU, Amman, Jordan"
