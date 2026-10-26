@@ -1,6 +1,6 @@
 __pycache__/
 *.pyc
-.venv/
+.venv*/
 hackwatch.db
 docs/events.json
 *.egg-info/
