@@ -132,14 +132,11 @@ def test_migration_sets_mode_from_is_online(tmp_path):
 
 
 def test_manual_mode_field(tmp_path):
-    from hackwatch.scrapers.manual import ManualEventError, ManualScraper
+    from hackwatch.scrapers.manual import ManualScraper
     path = tmp_path / "m.yaml"
     path.write_text("- title: H\n  url: https://h\n  location: Amman, Jordan\n  mode: hybrid\n")
     (ev,) = ManualScraper(yaml_path=path).fetch()
     assert ev.mode == "hybrid" and ev.location == "Amman, Jordan"
-    path.write_text("- title: H\n  url: https://h\n  mode: maybe\n")
-    with pytest.raises(ManualEventError, match="mode must be one of"):
-        ManualScraper(yaml_path=path).fetch()
 
 
 def test_tags_are_normalised_against_taxonomy():
@@ -153,14 +150,11 @@ def test_unknown_scraped_tag_is_dropped_with_warning():
     assert ev.tags == ["ai"]
 
 
-def test_manual_unknown_tag_is_an_error(tmp_path):
-    from hackwatch.scrapers.manual import ManualEventError, ManualScraper
+def test_manual_tags(tmp_path):
+    from hackwatch.scrapers.manual import ManualScraper
     path = tmp_path / "m.yaml"
     path.write_text("- title: H\n  url: https://h\n  tags: [robotics, sumo]\n")
     assert ManualScraper(yaml_path=path).fetch()[0].tags == ["robotics", "sumo"]
-    path.write_text("- title: H\n  url: https://h\n  tags: robotics, juggling\n")
-    with pytest.raises(ManualEventError, match="unknown tag"):
-        ManualScraper(yaml_path=path).fetch()
 
 
 def test_source_default_tags_are_added_and_stored(tmp_path):

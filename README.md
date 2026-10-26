@@ -204,7 +204,13 @@ Add events directly to `manual_events.yaml`:
 ```
 
 Dates must be ISO (`YYYY-MM-DD`). Use either `dates:` (one date, or `start to end`) or `start_date:` / `end_date:`.
-An invalid entry stops the import with an error that names the entry and the field.
+When fetching, an invalid entry (bad date, unknown type/tag/mode, missing title or URL,
+duplicate URL) is skipped with an error naming the entry; the other entries still import.
+To check the file strictly, run:
+
+```bash
+python3 -m hackwatch.cli validate   # exits 1 if any entry is invalid
+```
 
 Then run **Fetch** (option 2) to import them into the database.
 

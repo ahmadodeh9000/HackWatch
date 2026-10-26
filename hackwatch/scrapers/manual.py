@@ -1,4 +1,6 @@
+import os
 import re
+import sys
 from datetime import date, datetime
 from pathlib import Path
 from typing import List, Optional, Tuple
@@ -10,10 +12,6 @@ from hackwatch.taxonomy import normalize_tags
 
 DEFAULT_MANUAL_YAML = Path("manual_events.yaml")
 ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
-
-
-class ManualEventError(ValueError):
-    """manual_events.yaml contains entries that can't be imported."""
 
 
 class _NoDatesLoader(yaml.SafeLoader):
@@ -105,7 +103,7 @@ def parse_manual_item(item: dict) -> Event:
         tags=normalize_tags(item.get("tags"), strict=True),
         scope=validate_scope(item["scope"]) if item.get("scope") else None,
         description=item.get("description"),
-        type=validate_event_type(item["type"]) if item.get("type") else None,
+        type=validate_event_type(item["type"], strict=True) if item.get("type") else None,
     )
 
 
@@ -113,6 +111,49 @@ def load_manual_yaml(path: Path):
     """Load the YAML file with dates left as strings (see _NoDatesLoader)."""
     with open(path, "r", encoding="utf-8") as f:
         return yaml.load(f, Loader=_NoDatesLoader)
+
+
+def load_manual_events(path: Path) -> Tuple[List[Event], List[str]]:
+    """Parse every entry, returning (valid events, error messages).
+
+    Each error names the entry by position and title. A YAML syntax error
+    raises, since then no entry can be trusted.
+    """
+    if not path.exists():
+        return [], []
+    data = load_manual_yaml(path)
+    if not data:
+        return [], []
+    raw_events = data if isinstance(data, list) else data.get("events", [])
+
+    events: List[Event] = []
+    errors: List[str] = []
+    seen_urls = {}
+    for idx, item in enumerate(raw_events, 1):
+        if not isinstance(item, dict):
+            errors.append(f"entry #{idx}: expected a mapping, got {type(item).__name__}")
+            continue
+        label = f"entry #{idx} ({item.get('title') or 'untitled'})"
+        try:
+            event = parse_manual_item(item)
+        except ValueError as exc:
+            errors.append(f"{label}: {exc}")
+            continue
+        norm_url = event.url.strip().rstrip("/").lower()
+        if norm_url in seen_urls:
+            errors.append(f"{label}: duplicate url, same as entry #{seen_urls[norm_url]}")
+            continue
+        seen_urls[norm_url] = idx
+        events.append(event)
+    return events, errors
+
+
+def report_error(path: Path, message: str) -> None:
+    """Print loudly to stderr; on GitHub Actions also as an error annotation."""
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        print(f"::error file={path}::{message}", file=sys.stderr)
+    else:
+        print(f"ERROR {path}: {message}", file=sys.stderr)
 
 
 class ManualScraper(BaseScraper):
@@ -124,27 +165,12 @@ class ManualScraper(BaseScraper):
         self.yaml_path = yaml_path
 
     def fetch(self) -> List[Event]:
-        if not self.yaml_path.exists():
-            return []
+        """Import valid entries; invalid ones are skipped with an error each.
 
-        data = load_manual_yaml(self.yaml_path)
-
-        if not data:
-            return []
-
-        raw_events = data if isinstance(data, list) else data.get("events", [])
-        events: List[Event] = []
-        errors: List[str] = []
-
-        for idx, item in enumerate(raw_events, 1):
-            if not isinstance(item, dict):
-                errors.append(f"entry #{idx}: expected a mapping, got {type(item).__name__}")
-                continue
-            try:
-                events.append(parse_manual_item(item))
-            except ValueError as exc:
-                errors.append(f"entry #{idx} ({item.get('title') or 'untitled'}): {exc}")
-
-        if errors:
-            raise ManualEventError(f"{self.yaml_path} has invalid entries:\n  " + "\n  ".join(errors))
+        One bad community submission must not hide every other manual event.
+        `hackwatch.cli validate` is the strict check that fails on any error.
+        """
+        events, self.errors = load_manual_events(self.yaml_path)
+        for message in self.errors:
+            report_error(self.yaml_path, message)
         return events

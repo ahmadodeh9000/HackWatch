@@ -11,7 +11,7 @@ from hackwatch.models import (
 )
 from hackwatch.scrapers import get_available_scrapers
 from hackwatch.scrapers.base import BaseScraper
-from hackwatch.scrapers.manual import load_manual_yaml, parse_manual_dates
+from hackwatch.scrapers.manual import load_manual_events, load_manual_yaml, parse_manual_dates
 from hackwatch.taxonomy import normalize_tags
 
 app = typer.Typer(help="HackWatch: Track hackathons and developer events.")
@@ -76,7 +76,7 @@ def make_manual_entry(title, url, dates, location, organizer, event_type,
         "dates": dates,
         "location": (location or "").strip() or "Online",
         "organizer": (organizer or "").strip() or None,
-        "type": validate_event_type(event_type),
+        "type": validate_event_type(event_type, strict=True),
     }
     if (mode or "").strip():
         entry["mode"] = validate_mode(mode)
@@ -189,12 +189,31 @@ def add(
     except ValueError as exc:
         typer.echo(f"Error: {exc}")
         raise typer.Exit(code=1)
-    if entry["type"] == "other" and (event_type or "").strip().lower() not in ("", "other"):
-        typer.echo(f"Warning: unknown type '{event_type}', using 'other'.")
 
     updated = save_manual_entry(entry, yaml_file)
     action = "Updated" if updated else "Saved"
     typer.echo(f"{action} event '{title.strip()}' in {yaml_file}")
+
+
+@app.command()
+def validate(
+    yaml_file: Path = typer.Option(Path("manual_events.yaml"), "--file", help="Path to manual YAML file"),
+):
+    """Strictly check manual_events.yaml; exit 1 if any entry is invalid."""
+    if not yaml_file.exists():
+        typer.echo(f"Error: {yaml_file} does not exist")
+        raise typer.Exit(code=1)
+    try:
+        events, errors = load_manual_events(yaml_file)
+    except yaml.YAMLError as exc:
+        typer.echo(f"Error: {yaml_file} is not valid YAML:\n{exc}")
+        raise typer.Exit(code=1)
+    for message in errors:
+        typer.echo(f"Error: {message}")
+    if errors:
+        typer.echo(f"{yaml_file}: {len(errors)} invalid, {len(events)} valid entries.")
+        raise typer.Exit(code=1)
+    typer.echo(f"{yaml_file}: all {len(events)} entries are valid.")
 
 
 @app.command(name="list")

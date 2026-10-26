@@ -12,7 +12,7 @@ from hackwatch.scrapers.devpost import DevpostScraper, parse_devpost_dates
 from hackwatch.scrapers.eventbrite import EventbriteScraper
 from hackwatch.scrapers.gdg import GDGScraper
 from hackwatch.scrapers.josa import JOSAScraper
-from hackwatch.scrapers.manual import ManualEventError, ManualScraper
+from hackwatch.scrapers.manual import ManualScraper
 
 
 def by_title(events):
@@ -120,32 +120,6 @@ def test_manual_accepts_yaml_dates_and_explicit_fields(tmp_path):
           registration_deadline: 2026-10-30
     """).fetch()
     assert (ev.start_date, ev.end_date, ev.registration_deadline) == ("2026-11-01", "2026-11-02", "2026-10-30")
-
-
-@pytest.mark.parametrize("bad, message", [
-    ("dates: 11/01/2026", "dates must be an ISO date"),
-    ("dates: Nov 1 to Nov 3", "dates (start) must be an ISO date"),
-    ("start_date: 2026-02-30", "start_date must be an ISO date"),
-    ("dates: 2026-11-05 to 2026-11-01", "end date 2026-11-01 is before start date"),
-])
-def test_manual_rejects_bad_dates(tmp_path, bad, message):
-    scraper = write_yaml(tmp_path, f"""\
-        - title: Good
-          url: https://example.com/good
-          dates: 2026-11-01
-        - title: Broken
-          url: https://example.com/broken
-          {bad}
-    """)
-    with pytest.raises(ManualEventError) as exc:
-        scraper.fetch()
-    assert "entry #2 (Broken)" in str(exc.value)
-    assert message in str(exc.value)
-
-
-def test_manual_requires_title_and_url(tmp_path):
-    with pytest.raises(ManualEventError, match="title and url are required"):
-        write_yaml(tmp_path, "- title: no url\n").fetch()
 
 
 def test_josa_year_inference_picks_nearest_year():

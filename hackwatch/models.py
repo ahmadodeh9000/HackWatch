@@ -10,14 +10,19 @@ TYPE_ALIASES = {"contest": "competition"}
 DEFAULT_EVENT_TYPE = "other"
 
 
-def validate_event_type(value: Optional[str]) -> str:
-    """Return a valid event type: aliases are mapped, unknown values become 'other' (with a warning)."""
+def validate_event_type(value: Optional[str], strict: bool = False) -> str:
+    """Return a valid event type: aliases are mapped, unknown values become 'other'.
+
+    Unknown values warn, or raise ValueError when strict (manual YAML).
+    """
     if value is None or not str(value).strip():
         return DEFAULT_EVENT_TYPE
     v = str(value).strip().lower()
     v = TYPE_ALIASES.get(v, v)
     if v in VALID_EVENT_TYPES:
         return v
+    if strict:
+        raise ValueError(f"type must be one of {', '.join(VALID_EVENT_TYPES)}, got {value!r}")
     warnings.warn(
         f"Unknown event type '{value}'; falling back to '{DEFAULT_EVENT_TYPE}'. "
         f"Allowed values: {', '.join(sorted(VALID_EVENT_TYPES))}.",
