@@ -4,6 +4,7 @@ import hashlib
 import warnings
 from hackwatch.countries import to_iso2
 from hackwatch.taxonomy import normalize_tags
+from hackwatch.urls import clean_url, normalize_url
 
 VALID_EVENT_TYPES = ("hackathon", "competition", "conference", "workshop", "meetup", "other")
 TYPE_ALIASES = {"contest": "competition"}
@@ -100,7 +101,7 @@ class Event:
             self.scope = validate_scope(self.scope)
         if not self.country:
             self.country = to_iso2(self.location)
+        self.url = clean_url(self.url)
         if not self.id:
-            # Deterministic ID generated from source and normalized URL
-            norm_url = self.url.strip().rstrip("/").lower()
-            self.id = hashlib.sha256(f"{self.source}:{norm_url}".encode("utf-8")).hexdigest()[:16]
+            # Deterministic ID from source + normalized URL (ignores tracking params, www, slash...)
+            self.id = hashlib.sha256(f"{self.source}:{normalize_url(self.url)}".encode("utf-8")).hexdigest()[:16]
