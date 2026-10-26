@@ -121,3 +121,14 @@ def test_add_with_mode_tags_scope(tmp_path):
     bad = runner.invoke(cli.app, ["add", "--file", str(path), "-t", "X", "-u", "https://x", "-d", "2026-12-05",
                                   "-l", "Online", "-o", "me", "--type", "other", "--tags", "juggling"])
     assert bad.exit_code == 1 and "unknown tag" in bad.output
+
+
+def test_export_labels_for_the_site(tmp_path):
+    labels = tmp_path / "labels.json"
+    result = runner.invoke(cli.app, ["export", "--db", str(_db_with_events(tmp_path)),
+                                     "--out", str(tmp_path / "e.json"), "--labels", str(labels)])
+    assert result.exit_code == 0, result.output
+    data = json.loads(labels.read_text())
+    assert data["tags"]["cp"] == "Competitive programming"
+    assert data["types"][-1] == "other"
+    assert all("id" in r for r in json.loads((tmp_path / "e.json").read_text()))

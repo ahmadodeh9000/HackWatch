@@ -13,7 +13,7 @@ from hackwatch.models import (
 from hackwatch.scrapers import get_available_scrapers
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.manual import load_manual_events, load_manual_yaml, parse_manual_dates
-from hackwatch.taxonomy import normalize_tags
+from hackwatch.taxonomy import load_taxonomy, normalize_tags
 
 app = typer.Typer(help="HackWatch: Track hackathons and developer events.")
 
@@ -289,6 +289,7 @@ def list_events(
 @app.command()
 def export(
     out: Path = typer.Option(Path("events.json"), "--out", "-o", help="Output JSON file path"),
+    labels: Optional[Path] = typer.Option(None, "--labels", help="Also write tag/type labels (for the site) to this JSON file"),
     db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database"),
 ):
     """Export upcoming events to a JSON file."""
@@ -299,6 +300,7 @@ def export(
 
     records = [
         {
+            "id": ev.id,
             "title": ev.title,
             "url": ev.url,
             "source": ev.source,
@@ -323,6 +325,15 @@ def export(
         json.dump(records, f, indent=2, ensure_ascii=False)
 
     typer.echo(f"Exported {len(records)} events to {out}")
+
+    if labels:
+        taxonomy = load_taxonomy()
+        with open(labels, "w", encoding="utf-8") as f:
+            json.dump({
+                "types": list(VALID_EVENT_TYPES),
+                "tags": {tag: (info or {}).get("label", tag) for tag, info in (taxonomy.get("tags") or {}).items()},
+            }, f, indent=2, ensure_ascii=False)
+        typer.echo(f"Wrote labels to {labels}")
 
 
 if __name__ == "__main__":

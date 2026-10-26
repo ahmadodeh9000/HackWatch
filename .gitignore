@@ -3,6 +3,7 @@ __pycache__/
 .venv*/
 hackwatch.db
 docs/events.json
+docs/labels.json
 *.egg-info/
 dist/
 build/

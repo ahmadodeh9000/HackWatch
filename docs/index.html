@@ -32,7 +32,13 @@
   --src-gdg:#dcf5e5; --src-gdg-fg:#17653a;
   --src-josa:#f1e1ff; --src-josa-fg:#6b2aa0;
   --src-manual:#fff0b8; --src-manual-fg:#7a5a00;
+  --src-ieee:#dbeafe; --src-ieee-fg:#00629b;
+  --src-ctftime:#fee2e2; --src-ctftime-fg:#991b1b;
+  --src-codeforces:#e0e7ff; --src-codeforces-fg:#3730a3;
   --src-other:#ebe8e2; --src-other-fg:#555;
+  --mode-in-person:#fdecc8; --mode-in-person-fg:#8a5300;
+  --mode-online:#eceafe; --mode-online-fg:#4f46e5;
+  --mode-hybrid:#dcf5e5; --mode-hybrid-fg:#17653a;
   --type-hackathon:#e0f2fe; --type-hackathon-fg:#075985;
   --type-competition:#fce7f3; --type-competition-fg:#9d174d;
   --type-other:#ebe8e2; --type-other-fg:#555;
@@ -54,13 +60,19 @@
     --src-gdg:#16402a; --src-gdg-fg:#8ee0ae;
     --src-josa:#3a1f56; --src-josa-fg:#d8b2ff;
     --src-manual:#463a10; --src-manual-fg:#ffe07a;
+    --src-ieee:#0f3550; --src-ieee-fg:#8fd0ff;
+    --src-ctftime:#4c1414; --src-ctftime-fg:#fca5a5;
+    --src-codeforces:#272a5c; --src-codeforces-fg:#c7d2fe;
     --src-other:#2b2e39; --src-other-fg:#b5bacb;
-  --type-hackathon:#0c4a6e; --type-hackathon-fg:#7dd3fc;
-  --type-competition:#500724; --type-competition-fg:#f9a8d4;
-  --type-other:#2b2e39; --type-other-fg:#b5bacb;
-  --type-conference:#3b0764; --type-conference-fg:#d8b4fe;
-  --type-workshop:#14532d; --type-workshop-fg:#86efac;
-  --type-meetup:#431407; --type-meetup-fg:#fdba74;
+    --mode-in-person:#4a3510; --mode-in-person-fg:#ffd27a;
+    --mode-online:#2a2850; --mode-online-fg:#b6b2ff;
+    --mode-hybrid:#16402a; --mode-hybrid-fg:#8ee0ae;
+    --type-hackathon:#0c4a6e; --type-hackathon-fg:#7dd3fc;
+    --type-competition:#500724; --type-competition-fg:#f9a8d4;
+    --type-other:#2b2e39; --type-other-fg:#b5bacb;
+    --type-conference:#3b0764; --type-conference-fg:#d8b4fe;
+    --type-workshop:#14532d; --type-workshop-fg:#86efac;
+    --type-meetup:#431407; --type-meetup-fg:#fdba74;
   }
 }
 *{box-sizing:border-box}
@@ -84,11 +96,15 @@ a{color:var(--accent)}
 .controls{position:sticky;top:0;z-index:10;background:var(--bg);padding:12px 0 8px;border-bottom:1px solid var(--border)}
 .search{width:100%;padding:14px 18px;border-radius:999px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:1rem;font-family:inherit}
 .search:focus{border-color:var(--accent);outline:none}
-.row{display:flex;align-items:center;gap:8px;margin-top:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.row{display:flex;align-items:center;gap:8px;margin-top:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
 .row .label{flex:none;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);min-width:64px}
 .chip{flex:none;padding:7px 14px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-size:.92rem;font-family:inherit}
 .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
 .meta{display:flex;justify-content:space-between;align-items:center;margin:14px 0 6px;color:var(--muted);font-size:.95rem}
+.scope{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:.95rem;cursor:pointer;width:fit-content}
+.scope input{width:20px;height:20px;accent-color:var(--accent);margin:0;cursor:pointer}
+.pill.tag{background:var(--gray-bg);color:var(--gray-fg);font-weight:600}
+.subscribe{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:4px 0 0;font-size:.95rem;color:var(--muted)}
 .clear{background:none;border:none;color:var(--accent);font-weight:600;cursor:pointer;font-size:.95rem;font-family:inherit;display:none}
 .clear.show{display:inline}
 
@@ -127,6 +143,8 @@ pre{margin:0 0 16px;background:var(--surface);border:1px solid var(--border);bor
 footer{padding:32px 0 48px;text-align:center;color:var(--muted);font-size:.92rem;border-top:1px solid var(--border)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.card:hover,.btn:hover{transform:none}}
 @media (max-width:520px){.hero{padding:36px 0 24px}.grid{grid-template-columns:1fr}}
+/* Six filter rows would cover ~40% of a phone screen if they stayed pinned. */
+@media (max-width:720px){.controls{position:static}}
 </style>
 </head>
 <body>
@@ -134,7 +152,7 @@ footer{padding:32px 0 48px;text-align:center;color:var(--muted);font-size:.92rem
 <header class="hero">
   <div class="wrap">
     <h1>Never miss a tech or engineering event in Jordan 🇯🇴</h1>
-    <p>Online events worldwide · In-person events in Jordan only. Updated daily.</p>
+    <p>Hackathons, competitions, conferences, workshops and meetups in Jordan, plus online events from anywhere. Updated daily.</p>
     <div class="btns">
       <a class="btn primary" href="#events">Browse events</a>
       <a class="btn secondary" href="#add">Add your club's event</a>
@@ -146,10 +164,12 @@ footer{padding:32px 0 48px;text-align:center;color:var(--muted);font-size:.92rem
   <div class="controls">
     <div class="wrap">
       <input id="search" class="search" type="search" placeholder="Search events, organizers, locations..." aria-label="Search events" autocomplete="off">
-      <div class="row" id="rowSource" role="group" aria-label="Filter by source"><span class="label">Source</span></div>
-      <div class="row" id="rowFormat" role="group" aria-label="Filter by format"><span class="label">Format</span></div>
-      <div class="row" id="rowStatus" role="group" aria-label="Filter by status"><span class="label">Status</span></div>
+      <label class="scope"><input type="checkbox" id="worldwide"> Include worldwide online events</label>
       <div class="row" id="rowType" role="group" aria-label="Filter by type"><span class="label">Type</span></div>
+      <div class="row" id="rowTag" role="group" aria-label="Filter by tag"><span class="label">Tags</span></div>
+      <div class="row" id="rowMode" role="group" aria-label="Filter by mode"><span class="label">Mode</span></div>
+      <div class="row" id="rowStatus" role="group" aria-label="Filter by status"><span class="label">Status</span></div>
+      <div class="row" id="rowSource" role="group" aria-label="Filter by source"><span class="label">Source</span></div>
     </div>
   </div>
 
@@ -158,6 +178,10 @@ footer{padding:32px 0 48px;text-align:center;color:var(--muted);font-size:.92rem
       <span id="count" aria-live="polite">Loading events...</span>
       <button id="clear" class="clear" type="button">Clear filters</button>
     </div>
+    <p class="subscribe">
+      <a id="subscribe" href="events.ics">📅 Subscribe in your calendar</a>
+      <span>Jordan events only · <a id="icsLink" href="events.ics">.ics link</a> for Google Calendar (“From URL”)</span>
+    </p>
     <div class="grid" id="grid"></div>
   </div>
 
@@ -206,8 +230,17 @@ const REPO_URL = `https://github.com/${GITHUB_USER}/${REPO}`;
 document.getElementById("repoLink").href = REPO_URL;
 document.getElementById("editLink").href = `${REPO_URL}/edit/main/manual_events.yaml`;
 
-const state = {events:[], q:"", source:"all", format:"all", status:"all", type:"all"};
-const KNOWN_SRC = ["devpost","eventbrite","gdg","josa","manual"];
+const SITE_URL = `https://${GITHUB_USER}.github.io/${REPO}/`;
+document.getElementById("subscribe").href = SITE_URL.replace(/^https:/, "webcal:") + "events.ics";
+document.getElementById("icsLink").href = SITE_URL + "events.ics";
+
+const state = {events:[], q:"", source:"all", mode:"all", status:"all", type:"all", tag:"all", worldwide:false};
+const FILTERS = ["source","mode","status","type","tag"];
+const KNOWN_SRC = ["devpost","eventbrite","gdg","josa","ieee","ctftime","codeforces","manual"];
+const TYPES = ["hackathon","competition","conference","workshop","meetup","other"];
+const MODES = {"in-person":"📍 In-person","online":"🌐 Online","hybrid":"🔀 Hybrid"};
+let TAG_LABELS = {};
+const PREF_KEY = "hackwatch.includeWorldwide";
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
@@ -252,22 +285,30 @@ function fmtRange(ev){
   return b && b !== a ? `${a} → ${b}` : a;
 }
 
+function inScope(ev){ return state.worldwide || ev.scope === "jordan"; }
 function matches(ev){
-  if(state.source !== "all" && ev.source !== state.source) return false;
-  if(state.format === "online" && !ev.is_online) return false;
-  if(state.format === "inperson" && ev.is_online) return false;
+  if(!inScope(ev)) return false;
+  if(state.source !== "all" && !(ev.sources || [ev.source]).includes(state.source)) return false;
+  if(state.mode !== "all" && ev.mode !== state.mode) return false;
+  if(state.tag !== "all" && !(ev.tags || []).includes(state.tag)) return false;
   if(state.status === "upcoming" && !(ev._status === "upcoming" || ev._status === "soon")) return false;
   if(state.status === "ongoing" && ev._status !== "ongoing") return false;
   if(state.type !== "all" && (ev.type||"other") !== state.type) return false;
   if(state.q){
-    const hay = [ev.title, ev.organizer, ev.location, ev.description].join(" ").toLowerCase();
+    const hay = [ev.title, ev.organizer, ev.location, ev.description, ...(ev.tags || []).map(tagLabel)].join(" ").toLowerCase();
     return state.q.split(/\s+/).filter(Boolean).every(w => hay.includes(w));
   }
   return true;
 }
 
+function tagLabel(t){ return TAG_LABELS[t] || t; }
 function card(ev){
   const src = KNOWN_SRC.includes(ev.source) ? ev.source : "other";
+  const mode = MODES[ev.mode] ? ev.mode : "in-person";
+  const type = TYPES.includes(ev.type) ? ev.type : "other";
+  const more = (ev.sources || []).length > 1 ? ` +${ev.sources.length - 1}` : "";
+  const alsoOn = more ? ` title="Also listed on: ${esc(ev.sources.slice(1).join(", "))}"` : "";
+  const tags = (ev.tags || []).map(t => `<span class="pill tag">#${esc(tagLabel(t))}</span>`).join("");
   const prize = isFakePrize(ev.prize) ? "" : `<span class="pill prize">🏆 ${esc(ev.prize)}</span>`;
   const org = ev.organizer ? `<p class="org">by ${esc(ev.organizer)}</p>` : "";
   const desc = ev.description ? `<p class="desc">${esc(ev.description)}</p>` : "";
@@ -276,13 +317,14 @@ function card(ev){
     <div class="top"><h3>${esc(ev.title)}</h3><span class="pill ${ev._status}">${esc(ev._label)}</span></div>
     ${org}
     <div class="tags">
-      <span class="pill fmt">${ev.is_online ? "🌐 Online" : "📍 In-person"}</span>
-      <span class="pill src" style="background:var(--src-${src});color:var(--src-${src}-fg)">${esc(ev.source || "other")}</span>
-      <span class="pill" style="background:var(--type-${ev.type||'other'});color:var(--type-${ev.type||'other'}-fg)">${esc(ev.type||'other')}</span>
+      <span class="pill" style="background:var(--type-${type});color:var(--type-${type}-fg)">${esc(type)}</span>
+      <span class="pill" style="background:var(--mode-${mode});color:var(--mode-${mode}-fg)">${MODES[mode]}</span>
+      <span class="pill src" style="background:var(--src-${src});color:var(--src-${src}-fg)"${alsoOn}>${esc(ev.source || "other")}${more}</span>
       ${prize}
     </div>
+    ${tags ? `<div class="tags">${tags}</div>` : ""}
     <p class="info">📅 ${esc(fmtRange(ev))}</p>
-    <p class="info">📍 ${esc(ev.location || "Location TBA")}</p>
+    <p class="info">${mode === "online" ? "🌐 Online" : "📍 " + esc(ev.location || "Location TBA") + (mode === "hybrid" ? " · also online" : "")}</p>
     ${desc}
     <a class="btn primary" href="${url}" target="_blank" rel="noopener">View event</a>
   </article>`;
@@ -297,7 +339,7 @@ function render(){
     grid.innerHTML = list.map(card).join("");
   }
   $("count").textContent = `Showing ${plural(list.length,"event")}`;
-  const active = state.q || state.source!=="all" || state.format!=="all" || state.status!=="all" || state.type!=="all";
+  const active = state.q || FILTERS.some(k => state[k] !== "all");
   $("clear").classList.toggle("show", !!active);
 }
 
@@ -317,18 +359,33 @@ function syncChips(){
   document.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", state[b.dataset.key] === b.dataset.val));
 }
 
+// Chips only offer values that occur in the events currently in scope.
 function setup(){
-  const sources = [...new Set(state.events.map(e => e.source).filter(Boolean))].sort();
-  chips("rowSource","source",[["all","All"],...sources.map(s => [s, s])]);
-  chips("rowFormat","format",[["all","All"],["online","Online"],["inperson","In-person"]]);
+  const pool = state.events.filter(inScope);
+  const present = key => new Set(pool.flatMap(e => key === "tags" ? (e.tags || []) : key === "sources" ? (e.sources || [e.source]) : [e[key]]));
+  const types = present("type"), modes = present("mode"), tags = present("tags"), sources = present("sources");
+  for (const [key, have] of [["type", types], ["mode", modes], ["tag", tags], ["source", sources]]) {
+    if (state[key] !== "all" && !have.has(state[key])) state[key] = "all";
+  }
+  const cap = t => t.charAt(0).toUpperCase() + t.slice(1);
+  chips("rowType","type",[["all","All"],...TYPES.filter(t => types.has(t)).map(t => [t, cap(t)])]);
+  chips("rowTag","tag",[["all","All"],...[...tags].sort((a,b) => tagLabel(a).localeCompare(tagLabel(b))).map(t => [t, tagLabel(t)])]);
+  chips("rowMode","mode",[["all","All"],...Object.keys(MODES).filter(m => modes.has(m)).map(m => [m, MODES[m]])]);
   chips("rowStatus","status",[["all","All"],["upcoming","Upcoming"],["ongoing","Ongoing"]]);
-  const types = [...new Set(state.events.map(e => e.type||"other"))].sort();
-  chips("rowType","type",[["all","All"],...types.map(t => [t, t.charAt(0).toUpperCase()+t.slice(1)])]);
+  chips("rowSource","source",[["all","All"],...[...sources].sort().map(s => [s, s])]);
 }
+
+function loadPref(){ try { return localStorage.getItem(PREF_KEY) === "1"; } catch(_) { return false; } }
+function savePref(on){ try { localStorage.setItem(PREF_KEY, on ? "1" : "0"); } catch(_) { /* private mode etc. */ } }
+state.worldwide = loadPref();
+$("worldwide").checked = state.worldwide;
+$("worldwide").addEventListener("change", e => {
+  state.worldwide = e.target.checked; savePref(state.worldwide); setup(); render();
+});
 
 $("search").addEventListener("input", e => { state.q = e.target.value.trim().toLowerCase(); render(); });
 $("clear").addEventListener("click", () => {
-  state.q=""; state.source="all"; state.format="all"; state.status="all"; state.type="all";
+  state.q=""; FILTERS.forEach(k => state[k] = "all");
   $("search").value=""; syncChips(); render();
 });
 $("copyBtn").addEventListener("click", async () => {
@@ -344,6 +401,10 @@ async function load(){
     if(!res.ok) throw new Error(res.status);
     const lm = res.headers.get("Last-Modified");
     const data = await res.json();
+    try {
+      const labels = await (await fetch("labels.json", {cache:"no-store"})).json();
+      TAG_LABELS = labels.tags || {};
+    } catch(_) { /* labels are optional; tag ids are shown instead */ }
     state.events = data.map(enrich).filter(Boolean)
       .sort((a,b) => a._rank - b._rank || a._key - b._key || String(a.title).localeCompare(String(b.title)));
     const when = lm ? new Date(lm) : new Date();
