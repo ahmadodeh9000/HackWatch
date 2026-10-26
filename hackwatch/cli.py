@@ -7,6 +7,7 @@ import yaml
 from hackwatch import db
 from hackwatch.models import Event, VALID_EVENT_TYPES, validate_event_type
 from hackwatch.scrapers import get_available_scrapers
+from hackwatch.scrapers.manual import parse_manual_dates
 
 app = typer.Typer(help="HackWatch: Track hackathons and developer events.")
 
@@ -75,6 +76,12 @@ def add(
         organizer = typer.prompt("Organizer", default="")
     if not event_type:
         event_type = typer.prompt(f"Type ({', '.join(sorted(VALID_EVENT_TYPES))})", default="hackathon")
+
+    try:
+        parse_manual_dates(dates)
+    except ValueError as exc:
+        typer.echo(f"Error: {exc}")
+        raise typer.Exit(code=1)
 
     # Validate the type value
     validated_type = validate_event_type(event_type)
