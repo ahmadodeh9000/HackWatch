@@ -104,3 +104,14 @@ def test_manual_reads_yaml(tmp_path):
     assert (hack.start_date, hack.end_date) == ("2026-11-15", "2026-11-17")
     assert hack.country == "JO" and not hack.is_online
     assert meetup.is_online and meetup.start_date == meetup.end_date == "2026-12-01"
+
+
+def test_josa_year_inference_picks_nearest_year():
+    from datetime import date
+    from hackwatch.scrapers.josa import infer_year
+
+    assert infer_year(24, "October", date(2026, 10, 26)) == date(2026, 10, 24)
+    assert infer_year(5, "January", date(2026, 12, 28)) == date(2027, 1, 5)    # Dec -> next Jan
+    assert infer_year(28, "December", date(2027, 1, 3)) == date(2026, 12, 28)  # Jan -> last Dec
+    assert infer_year(29, "February", date(2027, 6, 1)) == date(2028, 2, 29)   # only leap year fits
+    assert infer_year(3, "Smarch", date(2026, 1, 1)) is None

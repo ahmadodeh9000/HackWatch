@@ -8,6 +8,24 @@ from hackwatch.models import Event
 from hackwatch.scrapers.base import BaseScraper
 
 
+def infer_year(day: int, month_name: str, today: date) -> Optional[date]:
+    """Pick the year that puts "day month" nearest to today.
+
+    JOSA shows dates without a year, and lists both recent and upcoming events,
+    so "5 January" seen in late December means next year, and "28 December"
+    seen in early January means last year.
+    """
+    candidates = []
+    for year in (today.year - 1, today.year, today.year + 1):
+        try:
+            candidates.append(datetime.strptime(f"{day} {month_name} {year}", "%d %B %Y").date())
+        except ValueError:
+            pass  # bad month name, or 29 February in a non-leap year
+    if not candidates:
+        return None
+    return min(candidates, key=lambda d: abs((d - today).days))
+
+
 class JOSAScraper(BaseScraper):
     name: str = "josa"
 
@@ -20,8 +38,7 @@ class JOSAScraper(BaseScraper):
         soup = BeautifulSoup(resp.text, "html.parser")
         events: List[Event] = []
 
-        # Current year fallback
-        current_year = date.today().year
+        today = date.today()
 
         previews = soup.select("div.preview")
         for preview in previews:
@@ -51,14 +68,8 @@ class JOSAScraper(BaseScraper):
             iso_date = None
             date_match = re.search(r"(\d{1,2})\s+([A-Za-z]+)", raw_date)
             if date_match:
-                day, month_name = date_match.group(1), date_match.group(2)
-                for year in (current_year, current_year - 1, current_year + 1):
-                    try:
-                        dt = datetime.strptime(f"{day} {month_name} {year}", "%d %B %Y")
-                        iso_date = dt.strftime("%Y-%m-%d")
-                        break
-                    except ValueError:
-                        pass
+                found = infer_year(int(date_match.group(1)), date_match.group(2), today)
+                iso_date = found.isoformat() if found else None
 
             is_online = "online" in title.lower() or "webinar" in title.lower()
 
