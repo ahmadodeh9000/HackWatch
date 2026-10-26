@@ -83,6 +83,10 @@ class Event:
     # The source's own category labels (GDG event tags, Devpost themes). Only used
     # as input for type/tag inference; not stored or exported.
     source_labels: List[str] = field(default_factory=list)
+    # Set on merged events (hackwatch/dedup.py): every source and URL that listed
+    # this event, most trusted first. `source`/`url` are the first of each.
+    sources: List[str] = field(default_factory=list)
+    urls: List[str] = field(default_factory=list)
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
     first_seen_run_id: Optional[int] = None

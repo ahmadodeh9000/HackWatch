@@ -27,9 +27,9 @@ def test_run_fetch_stores_relevant_events_and_survives_errors(tmp_path):
     broken = FakeScraper("eventbrite", error=RuntimeError("site down"))
     seen = []
 
-    run_id, results = cli.run_fetch(conn, [broken, good], on_result=lambda *r: seen.append(r))
+    run_id, results = cli.run_fetch(conn, [broken, good], on_result=seen.append)
 
-    assert results == seen == [("eventbrite", 0, 0, "site down"), ("manual", 1, 1, None)]
+    assert results == seen == [("eventbrite", 0, 0, "site down", 0, None), ("manual", 1, 1, None, 0, None)]
     assert [e.title for e in db.get_events(conn, only_new=True)] == ["Club Hack"]
     assert run_id == db.get_latest_fetch_run_id(conn)
 

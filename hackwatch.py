@@ -289,17 +289,20 @@ def action_fetch():
         console.print(Panel("[yellow]No scrapers available.[/yellow]", border_style="yellow"))
         return
 
-    def report(name, kept, fetched, error):
-        src_color = SOURCE_COLORS.get(name, "white")
-        if error:
-            console.print(f"  [red]✘ {name.upper()}[/]  →  Error: {error}")
+    def report(r):
+        src_color = SOURCE_COLORS.get(r.source, "white")
+        if r.error:
+            console.print(f"  [red]✘ {r.source.upper()}[/]  →  Error: {r.error} (stored events unchanged)")
+        elif r.note:
+            console.print(f"  [yellow]! {r.source.upper()}[/]  →  {r.note}")
         else:
-            console.print(f"  [{src_color}]✔ {name.upper()}[/]  →  kept {kept} of {fetched} events")
+            removed = f", removed {r.removed}" if r.removed else ""
+            console.print(f"  [{src_color}]✔ {r.source.upper()}[/]  →  kept {r.kept} of {r.fetched} events{removed}")
 
     console.print()
     with console.status("[bold bright_cyan]Fetching events from all sources...[/]", spinner="dots"):
         run_id, results = run_fetch(conn, scrapers, on_result=report)
-    total = sum(kept for _, kept, _, _ in results)
+    total = sum(r.kept for r in results)
 
     console.print()
     console.print(

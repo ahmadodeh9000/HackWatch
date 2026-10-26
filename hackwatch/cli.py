@@ -1,6 +1,6 @@
 import json
 import typer
-from typing import Callable, List, Optional, Tuple
+from typing import Callable, List, NamedTuple, Optional, Tuple
 from pathlib import Path
 import yaml
 
@@ -20,18 +20,31 @@ app = typer.Typer(help="HackWatch: Track hackathons and developer events.")
 
 # ─── Shared logic (also used by the interactive dashboard in hackwatch.py) ──
 
-FetchResult = Tuple[str, int, int, Optional[str]]  # (source, kept, fetched, error)
+class FetchResult(NamedTuple):
+    source: str
+    kept: int          # stored after filters
+    fetched: int       # returned by the scraper
+    error: Optional[str] = None
+    removed: int = 0   # stored events this source no longer lists
+    note: Optional[str] = None
+
+
+# A source that suddenly returns nothing but had at least this many events is
+# more likely broken (site redesign) than empty, so its events are kept.
+EMPTY_RESULT_GUARD = 3
 
 
 def run_fetch(
     conn,
     scrapers: List[BaseScraper],
     on_start: Optional[Callable[[str], None]] = None,
-    on_result: Optional[Callable[[str, int, int, Optional[str]], None]] = None,
+    on_result: Optional[Callable[[FetchResult], None]] = None,
 ) -> Tuple[int, List[FetchResult]]:
-    """Run each scraper and store relevant events under a new fetch run.
+    """Run each scraper, store what it lists, then merge duplicates across sources.
 
-    A failing scraper is reported and skipped, never stops the others.
+    A source that fetched successfully replaces its previous events (so events it
+    no longer lists disappear). A failing source is reported and its stored events
+    are left untouched; it never stops the others.
     """
     run_id = db.create_fetch_run(conn)
     results: List[FetchResult] = []
@@ -42,13 +55,19 @@ def run_fetch(
             events = scraper.fetch()
             for event in events:
                 apply_source_defaults(event, scraper)
-            kept = sum(1 for event in events if db.upsert_event(conn, event, run_id=run_id))
-            result = (scraper.name, kept, len(events), None)
+            stored = db.count_observations(conn, scraper.name)
+            if not events and stored >= EMPTY_RESULT_GUARD:
+                result = FetchResult(scraper.name, 0, 0, note=(
+                    f"returned nothing; kept its {stored} stored events in case the source is broken"))
+            else:
+                kept, removed = db.replace_source_events(conn, scraper.name, events, run_id=run_id)
+                result = FetchResult(scraper.name, kept, len(events), removed=removed)
         except Exception as exc:
-            result = (scraper.name, 0, 0, str(exc))
+            result = FetchResult(scraper.name, 0, 0, error=str(exc))
         results.append(result)
         if on_result:
-            on_result(*result)
+            on_result(result)
+    db.rebuild_events(conn)
     return run_id, results
 
 
@@ -142,11 +161,14 @@ def fetch(
         typer.echo("No scrapers registered.")
         return
 
-    def report(name, kept, total, error):
-        if error:
-            typer.echo(f"[{name}] ERROR: {error}")
+    def report(r: FetchResult):
+        if r.error:
+            typer.echo(f"[{r.source}] ERROR: {r.error} (stored events left unchanged)")
+        elif r.note:
+            typer.echo(f"[{r.source}] WARNING: {r.note}")
         else:
-            typer.echo(f"[{name}] OK: kept {kept} of {total} events.")
+            removed = f", removed {r.removed} no longer listed" if r.removed else ""
+            typer.echo(f"[{r.source}] OK: kept {r.kept} of {r.fetched} events{removed}.")
 
     run_id, _ = run_fetch(
         conn, scrapers,
@@ -289,6 +311,8 @@ def export(
             "mode": ev.mode,
             "tags": ev.tags,
             "scope": ev.scope,
+            "sources": ev.sources,
+            "urls": ev.urls,
             "is_online": ev.is_online,  # legacy, = mode != "in-person"; kept for the current site
         }
         for ev in events
