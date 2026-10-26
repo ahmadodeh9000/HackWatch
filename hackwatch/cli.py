@@ -5,6 +5,7 @@ from pathlib import Path
 import yaml
 
 from hackwatch import db
+from hackwatch.ics import build_calendar, calendar_events
 from hackwatch.infer import apply_defaults
 from hackwatch.models import (
     Event, VALID_EVENT_TYPES, VALID_MODES, VALID_SCOPES,
@@ -290,6 +291,7 @@ def list_events(
 def export(
     out: Path = typer.Option(Path("events.json"), "--out", "-o", help="Output JSON file path"),
     labels: Optional[Path] = typer.Option(None, "--labels", help="Also write tag/type labels (for the site) to this JSON file"),
+    ics: Optional[Path] = typer.Option(None, "--ics", help="Also write an iCalendar feed of Jordan events to this file"),
     db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database"),
 ):
     """Export upcoming events to a JSON file."""
@@ -334,6 +336,13 @@ def export(
                 "tags": {tag: (info or {}).get("label", tag) for tag, info in (taxonomy.get("tags") or {}).items()},
             }, f, indent=2, ensure_ascii=False)
         typer.echo(f"Wrote labels to {labels}")
+
+    if ics:
+        # Includes events that ended recently, so subscribers' calendars keep them.
+        feed = calendar_events(db.get_events(conn, show_all=True), scope="jordan")
+        with open(ics, "w", encoding="utf-8", newline="") as f:
+            f.write(build_calendar(feed))
+        typer.echo(f"Wrote {len(feed)} Jordan events to {ics}")
 
 
 if __name__ == "__main__":

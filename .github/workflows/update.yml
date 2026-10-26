@@ -51,8 +51,8 @@ jobs:
       - name: Fetch events (scraper failures are non-fatal)
         run: python -m hackwatch.cli fetch || true
 
-      - name: Export events to docs/events.json
-        run: python -m hackwatch.cli export --out docs/events.json --labels docs/labels.json
+      - name: Export events (events.json, labels.json, events.ics)
+        run: python -m hackwatch.cli export --out docs/events.json --labels docs/labels.json --ics docs/events.ics
 
       # Fails on 0 events, or on fewer than half the deployed count. A manual run
       # with force=true sets the ratio to 0, which disables only the second check.

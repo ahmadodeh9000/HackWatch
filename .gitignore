@@ -4,6 +4,7 @@ __pycache__/
 hackwatch.db
 docs/events.json
 docs/labels.json
+docs/events.ics
 *.egg-info/
 dist/
 build/
