@@ -104,6 +104,12 @@ def parse_manual_item(item: dict) -> Event:
     )
 
 
+def load_manual_yaml(path: Path):
+    """Load the YAML file with dates left as strings (see _NoDatesLoader)."""
+    with open(path, "r", encoding="utf-8") as f:
+        return yaml.load(f, Loader=_NoDatesLoader)
+
+
 class ManualScraper(BaseScraper):
     name: str = "manual"
 
@@ -115,8 +121,7 @@ class ManualScraper(BaseScraper):
         if not self.yaml_path.exists():
             return []
 
-        with open(self.yaml_path, "r", encoding="utf-8") as f:
-            data = yaml.load(f, Loader=_NoDatesLoader)
+        data = load_manual_yaml(self.yaml_path)
 
         if not data:
             return []

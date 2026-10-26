@@ -21,7 +21,8 @@ from rich.align import Align
 from rich import box
 
 from hackwatch import db
-from hackwatch.models import Event
+from hackwatch.cli import make_manual_entry, run_fetch, save_manual_entry
+from hackwatch.models import Event, VALID_EVENT_TYPES
 from hackwatch.scrapers import get_available_scrapers
 
 console = Console()
@@ -281,23 +282,17 @@ def action_fetch():
         console.print(Panel("[yellow]No scrapers available.[/yellow]", border_style="yellow"))
         return
 
-    run_id = db.create_fetch_run(conn)
-    total = 0
+    def report(name, kept, fetched, error):
+        src_color = SOURCE_COLORS.get(name, "white")
+        if error:
+            console.print(f"  [red]✘ {name.upper()}[/]  →  Error: {error}")
+        else:
+            console.print(f"  [{src_color}]✔ {name.upper()}[/]  →  kept {kept} of {fetched} events")
 
     console.print()
     with console.status("[bold bright_cyan]Fetching events from all sources...[/]", spinner="dots"):
-        for scraper in scrapers:
-            src_color = SOURCE_COLORS.get(scraper.name, "white")
-            try:
-                events = scraper.fetch()
-                kept = 0
-                for event in events:
-                    if db.upsert_event(conn, event, run_id=run_id):
-                        kept += 1
-                total += kept
-                console.print(f"  [{src_color}]✔ {scraper.name.upper()}[/]  →  kept {kept} of {len(events)} events")
-            except Exception as exc:
-                console.print(f"  [red]✘ {scraper.name.upper()}[/]  →  Error: {exc}")
+        run_id, results = run_fetch(conn, scrapers, on_result=report)
+    total = sum(kept for _, kept, _, _ in results)
 
     console.print()
     console.print(
@@ -400,8 +395,6 @@ def action_dashboard():
 
 def action_add_manual():
     """Interactively add a manual event."""
-    import yaml
-
     console.print(Panel("[bold]Add a Manual Event[/]", border_style="bright_magenta"))
 
     title = Prompt.ask("[bold]Title[/]")
@@ -409,38 +402,15 @@ def action_add_manual():
     dates = Prompt.ask("[bold]Dates[/] [dim](e.g. 2026-11-01 to 2026-11-03)[/]", default="")
     location = Prompt.ask("[bold]Location[/]", default="Online")
     organizer = Prompt.ask("[bold]Organizer[/]", default="")
+    event_type = Prompt.ask("[bold]Type[/]", choices=sorted(VALID_EVENT_TYPES), default="hackathon")
 
     yaml_path = Path("manual_events.yaml")
-    existing_events = []
-    if yaml_path.exists():
-        with open(yaml_path, "r", encoding="utf-8") as f:
-            content = yaml.safe_load(f)
-            if isinstance(content, list):
-                existing_events = content
-            elif isinstance(content, dict) and "events" in content:
-                existing_events = content["events"]
-
-    new_entry = {
-        "title": title.strip(),
-        "url": url.strip(),
-        "dates": dates.strip() if dates else None,
-        "location": location.strip() if location else "Online",
-        "organizer": organizer.strip() if organizer else None,
-    }
-
-    # Upsert by URL
-    updated = False
-    norm_url = new_entry["url"].rstrip("/").lower()
-    for idx, item in enumerate(existing_events):
-        if str(item.get("url", "")).rstrip("/").lower() == norm_url:
-            existing_events[idx] = new_entry
-            updated = True
-            break
-    if not updated:
-        existing_events.append(new_entry)
-
-    with open(yaml_path, "w", encoding="utf-8") as f:
-        yaml.safe_dump(existing_events, f, sort_keys=False, allow_unicode=True)
+    try:
+        entry = make_manual_entry(title, url, dates, location, organizer, event_type)
+    except ValueError as exc:
+        console.print(Panel(f"[bold red]Not saved:[/] {exc}", border_style="red"))
+        return
+    updated = save_manual_entry(entry, yaml_path)
 
     action = "Updated" if updated else "Added"
     console.print(
