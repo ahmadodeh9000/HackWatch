@@ -11,12 +11,28 @@ import traceback
 from pathlib import Path
 
 import requests
+from bs4 import BeautifulSoup
 
 from hackwatch.filters import is_relevant
 from hackwatch.scrapers import get_available_scrapers
 from hackwatch.scrapers.base import BaseScraper
 
 FIXTURES = Path(__file__).resolve().parent.parent / "tests" / "fixtures"
+
+
+def slim_html(body: bytes) -> bytes:
+    """Keep only the JSON-LD <script> blocks of an HTML page.
+
+    Eventbrite search pages are ~700 KB, but the scraper only reads JSON-LD,
+    so this keeps fixtures small while staying real response data.
+    """
+    soup = BeautifulSoup(body, "html.parser")
+    scripts = soup.find_all("script", type="application/ld+json")
+    return ("<html><body>\n" + "\n".join(str(s) for s in scripts) + "\n</body></html>\n").encode()
+
+
+# Sources whose HTML fixtures are reduced with slim_html.
+SLIM_SOURCES = {"eventbrite"}
 
 
 def full_url(method, url, params=None):
@@ -40,7 +56,8 @@ def record(scraper):
             raise
         ext = "json" if "json" in resp.headers.get("Content-Type", "") else "html"
         name = f"{len(manifest):03d}.{ext}"
-        (out_dir / name).write_bytes(resp.content)
+        body = slim_html(resp.content) if ext == "html" and scraper.name in SLIM_SOURCES else resp.content
+        (out_dir / name).write_bytes(body)
         manifest.append({"method": method, "url": key, "status": resp.status_code, "file": name})
         return resp
 

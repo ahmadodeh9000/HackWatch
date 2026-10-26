@@ -42,7 +42,7 @@ def test_eventbrite_parses_online_and_jordan_pages(replay):
     replay("eventbrite")
     events = EventbriteScraper(delay_seconds=0).fetch()
 
-    assert len(events) == 26
+    assert len(events) == 163  # 8 terms x (jordan + online), de-duplicated by URL
     titles = by_title(events)
     online = titles["Krifth Developer Hackathon"]
     assert online.is_online and online.start_date == "2026-10-29"

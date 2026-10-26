@@ -1,14 +1,98 @@
 [
   {
     "method": "GET",
-    "url": "https://www.eventbrite.com/d/online/hackathon/",
+    "url": "https://www.eventbrite.com/d/jordan/hackathon/",
     "status": 200,
     "file": "000.html"
   },
   {
     "method": "GET",
-    "url": "https://www.eventbrite.com/d/jordan/hackathon/",
+    "url": "https://www.eventbrite.com/d/jordan/tech/",
     "status": 200,
     "file": "001.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://www.eventbrite.com/d/jordan/ai/",
+    "status": 200,
+    "file": "002.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://www.eventbrite.com/d/jordan/programming/",
+    "status": 200,
+    "file": "003.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://www.eventbrite.com/d/jordan/robotics/",
+    "status": 200,
+    "file": "004.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://www.eventbrite.com/d/jordan/cybersecurity/",
+    "status": 200,
+    "file": "005.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://www.eventbrite.com/d/jordan/data-science/",
+    "status": 200,
+    "file": "006.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://www.eventbrite.com/d/jordan/developer/",
+    "status": 200,
+    "file": "007.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://www.eventbrite.com/d/online/hackathon/",
+    "status": 200,
+    "file": "008.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://www.eventbrite.com/d/online/tech/",
+    "status": 200,
+    "file": "009.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://www.eventbrite.com/d/online/ai/",
+    "status": 200,
+    "file": "010.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://www.eventbrite.com/d/online/programming/",
+    "status": 200,
+    "file": "011.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://www.eventbrite.com/d/online/robotics/",
+    "status": 200,
+    "file": "012.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://www.eventbrite.com/d/online/cybersecurity/",
+    "status": 200,
+    "file": "013.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://www.eventbrite.com/d/online/data-science/",
+    "status": 200,
+    "file": "014.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://www.eventbrite.com/d/online/developer/",
+    "status": 200,
+    "file": "015.html"
   }
 ]
