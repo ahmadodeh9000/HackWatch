@@ -48,6 +48,7 @@ def init_db(conn: sqlite3.Connection) -> None:
                 type TEXT NOT NULL DEFAULT 'other',
                 sources TEXT NOT NULL DEFAULT '[]',
                 urls TEXT NOT NULL DEFAULT '[]',
+                stale INTEGER NOT NULL DEFAULT 0,
                 first_seen_run_id INTEGER,
                 created_at TEXT DEFAULT CURRENT_TIMESTAMP,
                 updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
@@ -99,6 +100,8 @@ def migrate(conn: sqlite3.Connection) -> None:
     for col in ("sources", "urls"):
         if col not in existing_cols:
             conn.execute(f"ALTER TABLE events ADD COLUMN {col} TEXT NOT NULL DEFAULT '[]';")
+    if "stale" not in existing_cols:
+        conn.execute("ALTER TABLE events ADD COLUMN stale INTEGER NOT NULL DEFAULT 0;")
 
     had_observations = conn.execute(
         "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'observations'").fetchone()
@@ -107,7 +110,7 @@ def migrate(conn: sqlite3.Connection) -> None:
         # Databases from before dedup: each existing row becomes its source's observation.
         for row in conn.execute("SELECT * FROM events").fetchall():
             ev = _row_to_event(row)
-            _write_observation(conn, ev, row["first_seen_run_id"], row["created_at"])
+            write_observation(conn, ev, row["first_seen_run_id"], row["created_at"])
         rebuild_events(conn)
 
 
@@ -125,7 +128,7 @@ def get_latest_fetch_run_id(conn: sqlite3.Connection) -> Optional[int]:
 
 STORED_FIELDS = ("title", "url", "source", "organizer", "prize", "registration_deadline",
                  "start_date", "end_date", "location", "country", "mode", "description",
-                 "type", "tags", "scope")
+                 "type", "tags", "scope", "stale")
 
 
 def _prepare(event: Event) -> Event:
@@ -137,7 +140,7 @@ def _prepare(event: Event) -> Event:
     return event
 
 
-def _write_observation(conn, event: Event, run_id: Optional[int], created_at: Optional[str] = None) -> None:
+def write_observation(conn, event: Event, run_id: Optional[int], created_at: Optional[str] = None) -> None:
     data = json.dumps({f: getattr(event, f) for f in STORED_FIELDS}, ensure_ascii=False)
     conn.execute("""
         INSERT INTO observations (source, url_key, data, first_seen_run_id, last_seen_run_id,
@@ -166,7 +169,7 @@ def replace_source_events(conn: sqlite3.Connection, source: str, events: List[Ev
     with conn:
         for event in events:
             if is_relevant(event, require_tech):
-                _write_observation(conn, _prepare(event), run_id)
+                write_observation(conn, _prepare(event), run_id)
                 keys.add(normalize_url(event.url))
         stale = [row["url_key"] for row in conn.execute(
             "SELECT url_key FROM observations WHERE source = ?", (source,)) if row["url_key"] not in keys]
@@ -190,11 +193,11 @@ def rebuild_events(conn: sqlite3.Connection) -> int:
                 INSERT INTO events (
                     id, title, url, source, organizer, prize, registration_deadline, start_date,
                     end_date, location, country, is_online, mode, tags, scope, description, type,
-                    sources, urls, first_seen_run_id, created_at, updated_at
+                    sources, urls, stale, first_seen_run_id, created_at, updated_at
                 ) VALUES (
                     :id, :title, :url, :source, :organizer, :prize, :registration_deadline, :start_date,
                     :end_date, :location, :country, :is_online, :mode, :tags, :scope, :description, :type,
-                    :sources, :urls, :first_seen_run_id, :created_at, :updated_at
+                    :sources, :urls, :stale, :first_seen_run_id, :created_at, :updated_at
                 )
             """, {
                 **{f: getattr(ev, f) for f in STORED_FIELDS},
@@ -204,6 +207,7 @@ def rebuild_events(conn: sqlite3.Connection) -> int:
                 "tags": json.dumps(ev.tags),
                 "sources": json.dumps(ev.sources),
                 "urls": json.dumps(ev.urls),
+                "stale": 1 if ev.stale else 0,
                 "first_seen_run_id": ev.first_seen_run_id,
                 "created_at": ev.created_at,
                 "updated_at": ev.updated_at,
@@ -217,7 +221,7 @@ def upsert_event(conn: sqlite3.Connection, event: Event, run_id: Optional[int] =
     if not is_relevant(event, require_tech):
         return False
     with conn:
-        _write_observation(conn, _prepare(event), run_id)
+        write_observation(conn, _prepare(event), run_id)
     rebuild_events(conn)
     return True
 
@@ -304,6 +308,7 @@ def _row_to_event(row: sqlite3.Row) -> Event:
         type=row["type"],
         sources=json.loads(row["sources"]) if "sources" in keys else [],
         urls=json.loads(row["urls"]) if "urls" in keys else [],
+        stale=bool(row["stale"]) if "stale" in keys else False,
         created_at=row["created_at"],
         updated_at=row["updated_at"],
         first_seen_run_id=row["first_seen_run_id"],

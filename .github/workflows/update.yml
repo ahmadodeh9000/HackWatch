@@ -53,6 +53,12 @@ jobs:
         # summary, and publishes it as status.json so it's readable without signing in.
         run: python -m hackwatch.cli fetch --report docs/status.json || true
 
+      # Per-source guard: a source that had >= 3 events in the live site but returned
+      # nothing now (error, block, empty page) keeps those events, marked stale, with a
+      # warning in the job summary.
+      - name: Keep last deployed events of sources that returned nothing
+        run: python -m hackwatch.cli carry-over --previous https://ahmadodeh9000.github.io/HackWatch/events.json
+
       - name: Export events (events.json, labels.json, events.ics)
         run: python -m hackwatch.cli export --out docs/events.json --labels docs/labels.json --ics docs/events.ics
 

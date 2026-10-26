@@ -8,6 +8,7 @@ from pathlib import Path
 import yaml
 
 from hackwatch import db
+from hackwatch.carryover import MIN_PREVIOUS_EVENTS, carry_over, load_previous
 from hackwatch.ics import build_calendar, calendar_events
 from hackwatch.infer import apply_defaults
 from hackwatch.models import (
@@ -295,6 +296,37 @@ def validate(
     typer.echo(f"{yaml_file}: all {len(events)} entries are valid.")
 
 
+@app.command(name="carry-over")
+def carry_over_command(
+    previous: str = typer.Option(..., "--previous", help="URL or path of the previously deployed events.json"),
+    min_events: int = typer.Option(MIN_PREVIOUS_EVENTS, "--min-events", help="Only for sources that had at least this many events"),
+    db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database"),
+):
+    """Keep the last deployed events of sources that returned nothing this run (marked stale)."""
+    conn = db.get_connection(db_path)
+    db.init_db(conn)
+    old = load_previous(previous)
+    if old is None:
+        typer.echo(f"Could not read the previous export at {previous}; nothing carried over.")
+        return
+    sources = [s.name for s in get_available_scrapers()]
+    restored = carry_over(conn, old, sources, min_events=min_events)
+    lines = []
+    for source, n in restored.items():
+        had = sum(1 for r in old if r.get("source") == source)
+        lines.append(f"{source} returned no events this run (it had {had} in the last deploy); "
+                     f"kept {n} upcoming events from the last deploy, marked stale.")
+    for line in lines:
+        typer.echo(f"::warning title=Source returned nothing::{line}")
+    summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
+    if summary_file and lines:
+        with open(summary_file, "a", encoding="utf-8") as f:
+            f.write("## ⚠️ Deploy guard\n\n" + "\n".join(f"- {line}" for line in lines) +
+                    "\n\nCheck the fetch report above for the HTTP status and error.\n")
+    if not lines:
+        typer.echo("Every source that had events in the last deploy returned some; nothing carried over.")
+
+
 @app.command(name="list")
 def list_events(
     new: bool = typer.Option(False, "--new", help="Show only events first seen in the last fetch"),
@@ -374,6 +406,7 @@ def export(
             "scope": ev.scope,
             "sources": ev.sources,
             "urls": ev.urls,
+            "stale": ev.stale,
             "is_online": ev.is_online,  # legacy, = mode != "in-person"; kept for the current site
         }
         for ev in events

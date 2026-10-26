@@ -312,6 +312,7 @@ function card(ev){
       <span class="pill" style="background:var(--mode-${mode});color:var(--mode-${mode}-fg)">${MODES[mode]}</span>
       <span class="pill src" style="background:var(--src-${src});color:var(--src-${src}-fg)"${alsoOn}>${esc(ev.source || "other")}${more}</span>
       ${prize}
+      ${ev.stale ? `<span class="pill tba" title="This source failed or returned nothing in the latest update, so this listing is from the previous update.">⚠ Not re-checked today</span>` : ""}
     </div>
     ${tags ? `<div class="tags">${tags}</div>` : ""}
     <p class="info">📅 ${esc(fmtRange(ev))}</p>

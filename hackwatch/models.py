@@ -87,6 +87,9 @@ class Event:
     # this event, most trusted first. `source`/`url` are the first of each.
     sources: List[str] = field(default_factory=list)
     urls: List[str] = field(default_factory=list)
+    # True when the source failed or returned nothing this run and the event was
+    # copied from the previous deploy (hackwatch/carryover.py).
+    stale: bool = False
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
     first_seen_run_id: Optional[int] = None
