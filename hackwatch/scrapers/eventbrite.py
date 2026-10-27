@@ -132,7 +132,7 @@ class EventbriteScraper(BaseScraper):
                         source=self.name,
                         organizer=organizer,
                         prize="N/A",
-                        registration_deadline=start_date,
+                        # Eventbrite's listing JSON-LD has no sales end date.
                         start_date=start_date,
                         end_date=end_date,
                         location=location or ("Online" if is_online else "TBD"),

@@ -3,6 +3,7 @@ from datetime import date, datetime, timedelta, timezone
 from typing import Iterable, List, Optional
 
 from hackwatch.models import Event
+from hackwatch.timeutil import DEFAULT_TZ, zone
 
 PRODID = "-//HackWatch//Jordan tech events//EN"
 UID_DOMAIN = "hackwatch.ahmadodeh9000.github.io"
@@ -46,12 +47,38 @@ def _stamp(event: Event) -> str:
     return "20260101T000000Z"
 
 
+DEFAULT_TIMED_HOURS = 2
+
+
+def _utc_stamp(day: date, clock: str) -> datetime:
+    hour, minute = (int(x) for x in clock.split(":"))
+    local = datetime(day.year, day.month, day.day, hour, minute, tzinfo=zone(DEFAULT_TZ))
+    return local.astimezone(timezone.utc)
+
+
+def _when_lines(event: Event, start: date, end: date) -> List[str]:
+    """DTSTART/DTEND: timed (UTC) when a start time is known, otherwise all-day."""
+    if event.start_time:
+        begins = _utc_stamp(start, event.start_time)
+        ends = _utc_stamp(end, event.end_time) if event.end_time else begins + timedelta(hours=DEFAULT_TIMED_HOURS)
+        if ends <= begins:
+            ends = begins + timedelta(hours=DEFAULT_TIMED_HOURS)
+        return [f"DTSTART:{begins.strftime('%Y%m%dT%H%M%SZ')}", f"DTEND:{ends.strftime('%Y%m%dT%H%M%SZ')}"]
+    return [
+        f"DTSTART;VALUE=DATE:{start.strftime('%Y%m%d')}",
+        # All-day events: DTEND is the day *after* the last day (exclusive).
+        f"DTEND;VALUE=DATE:{(end + timedelta(days=1)).strftime('%Y%m%d')}",
+    ]
+
+
 def event_lines(event: Event) -> List[str]:
     start = date.fromisoformat(event.start_date[:10])
     end = date.fromisoformat((event.end_date or event.start_date)[:10])
     if end < start:
         end = start
     details = [event.description or ""]
+    if event.registration_deadline:
+        details.append(f"Registration closes: {event.registration_deadline}")
     if event.organizer:
         details.append(f"Organizer: {event.organizer}")
     if event.prize and event.prize != "N/A":
@@ -66,9 +93,7 @@ def event_lines(event: Event) -> List[str]:
         "BEGIN:VEVENT",
         f"UID:{event.id}@{UID_DOMAIN}",
         f"DTSTAMP:{_stamp(event)}",
-        f"DTSTART;VALUE=DATE:{start.strftime('%Y%m%d')}",
-        # All-day events: DTEND is the day *after* the last day (exclusive).
-        f"DTEND;VALUE=DATE:{(end + timedelta(days=1)).strftime('%Y%m%d')}",
+        *_when_lines(event, start, end),
         f"SUMMARY:{escape_text(event.title)}",
         f"DESCRIPTION:{escape_text(chr(10).join(d for d in details if d))}",
         f"URL:{event.url}",

@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from hackwatch.models import Event
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.registry import register
-from hackwatch.timeutil import local_date
+from hackwatch.timeutil import local_date, local_time
 
 LOCATION_MODES = {"physical": "in-person", "virtual": "online", "hybrid": "hybrid"}
 # Posts that report on a past activity rather than announce one. vTools has no field for
@@ -91,6 +91,9 @@ class VToolsScraper(BaseScraper):
                     registration_deadline=local_date(attrs.get("registration-end-time"), tz),
                     start_date=local_date(attrs.get("start-time"), tz),
                     end_date=local_date(attrs.get("end-time"), tz),
+                    # Clock times in Amman: some Jordan events are set to e.g. Europe/Istanbul.
+                    start_time=local_time(attrs.get("start-time")),
+                    end_time=local_time(attrs.get("end-time")),
                     mode=mode,
                     location=location,
                     country="JO",

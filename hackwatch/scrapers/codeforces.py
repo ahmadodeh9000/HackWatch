@@ -5,7 +5,7 @@ from typing import List, Optional
 from hackwatch.models import Event
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.registry import register
-from hackwatch.timeutil import local_date
+from hackwatch.timeutil import local_date, local_time
 
 # Regular rated rounds; skips sponsored/special contests (Kotlin Heroes, ICPC challenges...).
 DEFAULT_INCLUDE = [r"\bDiv\. ?[123]\b", r"^Educational Codeforces Round"]
@@ -47,6 +47,8 @@ class CodeforcesScraper(BaseScraper):
                 prize="N/A",
                 start_date=local_date(start),
                 end_date=local_date(start + duration),
+                start_time=local_time(start),
+                end_time=local_time(start + duration),
                 mode="online",
                 location="Online",
                 description=f"{hours}h {minutes:02d}m Codeforces contest ({contest.get('type')} rules).",

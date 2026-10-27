@@ -27,6 +27,9 @@ LABELS = {
     "event link": "url",
     "start date": "start_date",
     "end date": "end_date",
+    "start time": "start_time",
+    "end time": "end_time",
+    "registration deadline": "registration_deadline",
     "format": "mode",
     "city and venue": "location",
     "organizer": "organizer",
@@ -81,6 +84,9 @@ def build_entry(fields: Dict[str, str]) -> dict:
         event_type=first_word(fields.get("type", "")) or None,
         mode=mode,
         tags=fields.get("tags", "") or None,
+        start_time=fields.get("start_time", "") or None,
+        end_time=fields.get("end_time", "") or None,
+        registration_deadline=fields.get("registration_deadline", "") or None,
     )
     if not re.match(r"^https?://", entry["url"]):
         raise ValueError("event link must start with http:// or https://")

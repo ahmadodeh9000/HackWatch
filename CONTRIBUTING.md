@@ -34,7 +34,9 @@ You can also edit `manual_events.yaml` directly in a pull request; the PR check 
   mode: in-person                      # in-person | online | hybrid (default: from location)
   tags: [ai]                           # optional, ids from taxonomy.yaml
   prize: 500 JOD                       # optional
-  registration_deadline: 2026-11-10    # optional
+  start_time: "09:00"                  # optional, Amman time, 24 h
+  end_time: "17:00"                    # optional
+  registration_deadline: 2026-11-10    # optional, must be on or before the last day
   description: Optional, a few sentences.
 ```
 

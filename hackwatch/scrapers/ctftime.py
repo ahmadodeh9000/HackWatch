@@ -5,7 +5,7 @@ from typing import List
 from hackwatch.models import Event
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.registry import register
-from hackwatch.timeutil import local_date
+from hackwatch.timeutil import local_date, local_time
 
 
 # A money amount with its currency before ("$900", "USD 2,500") or after ("1 500 €", "1100$").
@@ -81,6 +81,8 @@ class CTFtimeScraper(BaseScraper):
                 prize=extract_prize(prize_text) or None,
                 start_date=local_date(item.get("start")),
                 end_date=local_date(item.get("finish")),
+                start_time=local_time(item.get("start")),
+                end_time=local_time(item.get("finish")),
                 mode="in-person" if onsite else "online",
                 location=(item.get("location") or None) if onsite else "Online",
                 description=description,

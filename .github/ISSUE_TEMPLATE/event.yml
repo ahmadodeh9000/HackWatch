@@ -40,6 +40,30 @@ body:
       placeholder: "2026-11-16"
     validations:
       required: false
+  - type: input
+    id: start_time
+    attributes:
+      label: "Start time / وقت البدء"
+      description: "Optional, Amman time, 24-hour. / اختياري، بتوقيت عمّان (24 ساعة)."
+      placeholder: "18:00"
+    validations:
+      required: false
+  - type: input
+    id: end_time
+    attributes:
+      label: "End time / وقت الانتهاء"
+      description: "Optional. / اختياري."
+      placeholder: "21:00"
+    validations:
+      required: false
+  - type: input
+    id: registration_deadline
+    attributes:
+      label: "Registration deadline / آخر موعد للتسجيل"
+      description: "Optional, YYYY-MM-DD. / اختياري، بصيغة YYYY-MM-DD."
+      placeholder: "2026-11-10"
+    validations:
+      required: false
   - type: dropdown
     id: mode
     attributes:

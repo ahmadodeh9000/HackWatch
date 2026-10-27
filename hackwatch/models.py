@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
 import hashlib
+import re
 import warnings
 from hackwatch.countries import to_iso2
 from hackwatch.taxonomy import normalize_tags
@@ -44,6 +45,17 @@ def validate_mode(value: str) -> str:
         raise ValueError(f"mode must be one of {', '.join(VALID_MODES)}, got {value!r}")
     return v
 
+TIME_RE = re.compile(r"^([01]?\d|2[0-3]):([0-5]\d)$")
+
+
+def validate_time(value, field: str = "time") -> str:
+    """'9:30' / '09:30' -> '09:30'; raises ValueError for anything else (24-hour clock)."""
+    m = TIME_RE.match(str(value).strip())
+    if not m:
+        raise ValueError(f"{field} must be a 24-hour time like 18:30, got {value!r}")
+    return f"{int(m.group(1)):02d}:{m.group(2)}"
+
+
 VALID_SCOPES = ("jordan", "worldwide")
 
 
@@ -64,6 +76,9 @@ class Event:
     registration_deadline: Optional[str] = None
     start_date: Optional[str] = None
     end_date: Optional[str] = None
+    # Local Amman clock times ("HH:MM", 24 h), when the source says.
+    start_time: Optional[str] = None
+    end_time: Optional[str] = None
     location: Optional[str] = None
     # Legacy flag kept for the JSON export. If mode is given, is_online is derived
     # from it (hybrid counts as online: you can attend without being there);
@@ -101,6 +116,8 @@ class Event:
     id: Optional[str] = None
 
     def __post_init__(self):
+        self.start_time = validate_time(self.start_time, "start_time") if self.start_time else None
+        self.end_time = validate_time(self.end_time, "end_time") if self.end_time else None
         if self.mode:
             self.mode = validate_mode(self.mode)
             self.is_online = self.mode != "in-person"

@@ -38,6 +38,8 @@ def init_db(conn: sqlite3.Connection) -> None:
                 registration_deadline TEXT,
                 start_date TEXT,
                 end_date TEXT,
+                start_time TEXT,
+                end_time TEXT,
                 location TEXT,
                 country TEXT,
                 is_online INTEGER DEFAULT 0,
@@ -105,6 +107,9 @@ def migrate(conn: sqlite3.Connection) -> None:
         conn.execute("ALTER TABLE events ADD COLUMN stale INTEGER NOT NULL DEFAULT 0;")
     if "stale_since" not in existing_cols:
         conn.execute("ALTER TABLE events ADD COLUMN stale_since TEXT;")
+    for col in ("start_time", "end_time"):
+        if col not in existing_cols:
+            conn.execute(f"ALTER TABLE events ADD COLUMN {col} TEXT;")
 
     had_observations = conn.execute(
         "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'observations'").fetchone()
@@ -130,7 +135,7 @@ def get_latest_fetch_run_id(conn: sqlite3.Connection) -> Optional[int]:
 
 
 STORED_FIELDS = ("title", "url", "source", "organizer", "prize", "registration_deadline",
-                 "start_date", "end_date", "location", "country", "mode", "description",
+                 "start_date", "end_date", "start_time", "end_time", "location", "country", "mode", "description",
                  "type", "tags", "scope", "stale", "stale_since", "host_key")
 
 
@@ -195,11 +200,11 @@ def rebuild_events(conn: sqlite3.Connection) -> int:
             conn.execute("""
                 INSERT INTO events (
                     id, title, url, source, organizer, prize, registration_deadline, start_date,
-                    end_date, location, country, is_online, mode, tags, scope, description, type,
+                    end_date, start_time, end_time, location, country, is_online, mode, tags, scope, description, type,
                     sources, urls, stale, stale_since, first_seen_run_id, created_at, updated_at
                 ) VALUES (
                     :id, :title, :url, :source, :organizer, :prize, :registration_deadline, :start_date,
-                    :end_date, :location, :country, :is_online, :mode, :tags, :scope, :description, :type,
+                    :end_date, :start_time, :end_time, :location, :country, :is_online, :mode, :tags, :scope, :description, :type,
                     :sources, :urls, :stale, :stale_since, :first_seen_run_id, :created_at, :updated_at
                 )
             """, {
@@ -301,6 +306,8 @@ def _row_to_event(row: sqlite3.Row) -> Event:
         registration_deadline=row["registration_deadline"],
         start_date=row["start_date"],
         end_date=row["end_date"],
+        start_time=row["start_time"] if "start_time" in keys else None,
+        end_time=row["end_time"] if "end_time" in keys else None,
         location=row["location"],
         country=row["country"],
         is_online=bool(row["is_online"]),

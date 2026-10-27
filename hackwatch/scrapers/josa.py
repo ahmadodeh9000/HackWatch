@@ -27,6 +27,9 @@ def infer_year(day: int, month_name: str, today: date) -> Optional[date]:
     return min(candidates, key=lambda d: abs((d - today).days))
 
 
+JORDAN_TIME_RE = re.compile(r"(\d{1,2}:\d{2})\s*-\s*(\d{1,2}:\d{2})\s*Jordan Time", re.I)
+
+
 @register("josa")
 class JOSAScraper(BaseScraper):
     def __init__(self, events_url: str = "https://josa.ngo/events", delay_seconds: float = 2.0):
@@ -71,6 +74,14 @@ class JOSAScraper(BaseScraper):
                 found = infer_year(int(date_match.group(1)), date_match.group(2), today)
                 iso_date = found.isoformat() if found else None
 
+            # Cards show "09:00 - 21:00 Jordan Time" (and the same in UTC).
+            start_time = end_time = None
+            for text in strings:
+                times = JORDAN_TIME_RE.search(text)
+                if times:
+                    start_time, end_time = times.group(1), times.group(2)
+                    break
+
             is_online = "online" in title.lower() or "webinar" in title.lower()
 
             events.append(Event(
@@ -79,9 +90,10 @@ class JOSAScraper(BaseScraper):
                 source=self.name,
                 organizer="Jordan Open Source Association (JOSA)",
                 prize="N/A",
-                registration_deadline=iso_date,
                 start_date=iso_date,
                 end_date=iso_date,
+                start_time=start_time,
+                end_time=end_time,
                 location="Online" if is_online else location,
                 is_online=is_online,
                 description=None

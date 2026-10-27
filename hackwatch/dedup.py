@@ -101,7 +101,7 @@ def group_duplicates(events: List[Event]) -> List[List[Event]]:
     return list(groups.values())
 
 
-MERGED_FIELDS = ("organizer", "prize", "registration_deadline", "start_date", "end_date",
+MERGED_FIELDS = ("organizer", "prize", "registration_deadline", "start_date", "end_date", "start_time", "end_time",
                  "location", "country", "description")
 
 

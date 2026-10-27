@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 import yaml
 
-from hackwatch.models import Event, validate_event_type, validate_mode, validate_scope
+from hackwatch.models import Event, validate_event_type, validate_mode, validate_scope, validate_time
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.registry import register
 from hackwatch.taxonomy import normalize_tags
@@ -16,15 +16,18 @@ ISO_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
 class _NoDatesLoader(yaml.SafeLoader):
-    """SafeLoader that leaves 2026-11-01 as a string.
+    """SafeLoader that leaves 2026-11-01 and 18:00 as strings.
 
     PyYAML's own date conversion crashes on values like 2026-02-30 with an error
-    that doesn't say which entry is wrong; to_iso_date gives a clearer one.
+    that doesn't say which entry is wrong; to_iso_date gives a clearer one. And YAML
+    1.1 reads an unquoted 18:00 as the base-60 number 1080.
     """
 
 
+_CLOCK_RE = re.compile(r"^\d{1,2}:\d{2}$")
 _NoDatesLoader.yaml_implicit_resolvers = {
-    ch: [(tag, rx) for tag, rx in resolvers if tag != "tag:yaml.org,2002:timestamp"]
+    ch: ([("tag:yaml.org,2002:str", _CLOCK_RE)] if ch.isdigit() else [])
+    + [(tag, rx) for tag, rx in resolvers if tag != "tag:yaml.org,2002:timestamp"]
     for ch, resolvers in yaml.SafeLoader.yaml_implicit_resolvers.items()
 }
 
@@ -77,6 +80,14 @@ def parse_manual_item(item: dict) -> Event:
         start_date, end_date = parse_manual_dates(item.get("dates"))
     if start_date and end_date and end_date < start_date:
         raise ValueError(f"end date {end_date} is before start date {start_date}")
+    deadline = to_iso_date(item.get("registration_deadline"), "registration_deadline")
+    last_day = end_date or start_date
+    if deadline and last_day and deadline > last_day:
+        raise ValueError(f"registration_deadline {deadline} is after the event ends ({last_day})")
+    start_time = validate_time(item["start_time"], "start_time") if item.get("start_time") else None
+    end_time = validate_time(item["end_time"], "end_time") if item.get("end_time") else None
+    if start_time and end_time and end_time <= start_time and (end_date or start_date) == start_date:
+        raise ValueError(f"end_time {end_time} is not after start_time {start_time} on a one-day event")
 
     location = item.get("location")
     mode = validate_mode(item["mode"]) if item.get("mode") else None
@@ -95,7 +106,9 @@ def parse_manual_item(item: dict) -> Event:
         organizer=item.get("organizer"),
         prize=prize,
         # Only set when given: an event's end is not its registration deadline.
-        registration_deadline=to_iso_date(item.get("registration_deadline"), "registration_deadline"),
+        registration_deadline=deadline,
+        start_time=start_time,
+        end_time=end_time,
         start_date=start_date,
         end_date=end_date,
         location=location,

@@ -3,6 +3,7 @@ from typing import List, Optional
 from hackwatch.models import Event
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.registry import register
+from hackwatch.timeutil import local_time
 
 GDG_AUDIENCE_MODES = {"IN_PERSON": "in-person", "VIRTUAL": "online", "HYBRID": "hybrid"}
 
@@ -96,9 +97,11 @@ class GDGScraper(BaseScraper):
                         source=self.name,
                         organizer=organizer,
                         prize="N/A",
-                        registration_deadline=start_date,
+                        # GDG doesn't publish a registration deadline.
                         start_date=start_date,
                         end_date=end_date,
+                        start_time=local_time(detail.get("start_date") or start_raw),
+                        end_time=local_time(end_raw),
                         location=location or "Online",
                         is_online=is_online,
                         mode=mode,
@@ -148,9 +151,10 @@ class GDGScraper(BaseScraper):
                 source=self.name,
                 organizer=organizer,
                 prize="N/A",
-                registration_deadline=start_date,
                 start_date=start_date,
                 end_date=end_date,
+                start_time=local_time(start_raw),
+                end_time=local_time(end_raw),
                 location=location or "Online",
                 is_online=is_online,
                 description=desc,

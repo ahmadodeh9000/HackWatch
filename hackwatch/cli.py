@@ -18,7 +18,7 @@ from hackwatch.models import (
 )
 from hackwatch.scrapers import get_available_scrapers
 from hackwatch.scrapers.base import BaseScraper
-from hackwatch.scrapers.manual import load_manual_events, load_manual_yaml, parse_manual_dates
+from hackwatch.scrapers.manual import load_manual_events, load_manual_yaml, parse_manual_dates, parse_manual_item
 from hackwatch.sources import load_sources
 from hackwatch.taxonomy import normalize_tags, site_labels
 
@@ -126,10 +126,12 @@ def apply_source_defaults(event: Event, scraper: BaseScraper) -> None:
 
 
 def make_manual_entry(title, url, dates, location, organizer, event_type,
-                      mode=None, tags=None, scope=None) -> dict:
+                      mode=None, tags=None, scope=None, start_time=None, end_time=None,
+                      registration_deadline=None) -> dict:
     """Build a manual_events.yaml entry, raising ValueError on bad input.
 
-    mode, tags and scope are only written when given, to keep the YAML short.
+    Optional fields are only written when given, to keep the YAML short. The entry is
+    checked with the same rules as `validate` before it's returned.
     """
     if not (title or "").strip() or not (url or "").strip():
         raise ValueError("title and url are required")
@@ -150,6 +152,11 @@ def make_manual_entry(title, url, dates, location, organizer, event_type,
         entry["tags"] = tag_list
     if (scope or "").strip():
         entry["scope"] = validate_scope(scope)
+    for key, value in (("start_time", start_time), ("end_time", end_time),
+                       ("registration_deadline", registration_deadline)):
+        if (value or "").strip():
+            entry[key] = value.strip()
+    parse_manual_item(entry)  # same checks as the import (times, deadline vs. dates...)
     return entry
 
 
@@ -250,6 +257,9 @@ def add(
     mode: Optional[str] = typer.Option(None, "--mode", help=f"{' | '.join(VALID_MODES)} (default: from location)"),
     tags: Optional[str] = typer.Option(None, "--tags", help="Comma-separated tags from taxonomy.yaml, e.g. 'ai,web'"),
     scope: Optional[str] = typer.Option(None, "--scope", help=f"{' | '.join(VALID_SCOPES)} (default: jordan)"),
+    start_time: Optional[str] = typer.Option(None, "--start-time", help="Start time in Amman, 24 h (e.g. 18:00)"),
+    end_time: Optional[str] = typer.Option(None, "--end-time", help="End time in Amman, 24 h"),
+    deadline: Optional[str] = typer.Option(None, "--deadline", help="Registration deadline (YYYY-MM-DD)"),
     yaml_file: Path = typer.Option(Path("manual_events.yaml"), "--file", help="Path to manual YAML file"),
 ):
     """Add a manual event to manual_events.yaml (prompts if options omitted)."""
@@ -267,7 +277,8 @@ def add(
         event_type = typer.prompt(f"Type ({', '.join(VALID_EVENT_TYPES)})", default="other")
 
     try:
-        entry = make_manual_entry(title, url, dates, location, organizer, event_type, mode, tags, scope)
+        entry = make_manual_entry(title, url, dates, location, organizer, event_type, mode, tags, scope,
+                                  start_time, end_time, deadline)
     except ValueError as exc:
         typer.echo(f"Error: {exc}")
         raise typer.Exit(code=1)
@@ -429,6 +440,9 @@ def export(
             "type": ev.type,
             "start_date": ev.start_date,
             "end_date": ev.end_date,
+            "start_time": ev.start_time,
+            "end_time": ev.end_time,
+            "registration_deadline": ev.registration_deadline,
             "location": ev.location,
             "organizer": ev.organizer,
             "prize": ev.prize,
