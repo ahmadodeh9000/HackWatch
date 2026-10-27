@@ -1,0 +1,20 @@
+[
+  {
+    "method": "GET",
+    "url": "https://www.gju.edu.jo/gju-event/month/2026-10",
+    "status": 200,
+    "file": "000.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://www.gju.edu.jo/gju-event/month/2026-11",
+    "status": 200,
+    "file": "001.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://www.gju.edu.jo/gju-event/month/2026-12",
+    "status": 200,
+    "file": "002.html"
+  }
+]

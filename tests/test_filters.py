@@ -2,9 +2,7 @@ import pytest
 
 from hackwatch import filters
 from hackwatch.models import Event
-from hackwatch.scrapers import gdg
 from hackwatch.scrapers.eventbrite import EventbriteScraper
-from hackwatch.scrapers.gdg import GDGScraper
 
 
 def ev(title, source="eventbrite", online=True, location=None, description=None, **kw):
@@ -50,9 +48,8 @@ def test_keyword_check_only_when_source_requires_it():
     assert not filters.is_relevant(research, require_tech=True)
 
 
-def test_gdg_fixture_events_all_kept(replay, frozen_today, configured):
+def test_gdg_fixture_events_all_kept(replay, configured):
     replay("gdg")
-    frozen_today(gdg)
     events = configured("gdg").fetch()
     assert events and all(filters.is_relevant(e) for e in events)
 

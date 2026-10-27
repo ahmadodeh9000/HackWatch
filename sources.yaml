@@ -34,21 +34,34 @@ sources:
       search_terms: [hackathon, tech, ai, programming, robotics, cybersecurity, data-science, developer]
 
   - name: gdg
+    scraper: bevy
     enabled: true
     scope: jordan
     default_tags: [gdg]
     options:
-      # gdg.community.dev chapter ids (URLs checked to load). Irbid and Zarqa have no
-      # city chapters; the JUST Irbid campus chapter was removed (404).
-      chapter_ids:
-        - 558    # GDG Amman
-        - 2637   # GDG on Campus Princess Sumaya University for Technology (Amman)
-        - 2643   # GDG on Campus Zarqa University
-        - 2739   # GDG on Campus Hashemite University (Zarqa)
-        - 2702   # GDG on Campus Al-Hussein Technical University (Amman)
-        - 2800   # GDG on Campus Al-Zaytoonah University (Amman)
-        - 2655   # GDG on Campus Applied Science Private University (Amman)
-        - 2654   # GDG on Campus Al-Balqa' Applied University (Salt)
+      # Public chapter pages (gdg.community.dev/<slug>/) and event pages; the /api/ path
+      # is disallowed in robots.txt. Irbid and Zarqa have no city chapters; the JUST
+      # Irbid campus chapter was removed (404).
+      base_url: https://gdg.community.dev
+      chapters:
+        - gdg-amman
+        - gdg-on-campus-princess-sumaya-university-for-technology-amman-jordan
+        - gdg-on-campus-zarqa-university-zarqa-jordan
+        - gdg-on-campus-hashemite-university-zarqa-jordan
+        - gdg-on-campus-al-hussein-technical-university-amman-jordan
+        - gdg-on-campus-al-zaytoonah-university-of-jordan-amman-jordan
+        - gdg-on-campus-applied-science-private-university-amman-jordan
+        - gdg-on-campus-al-balqa-applied-university-salt-jordan
+
+  - name: startupgrind
+    scraper: bevy
+    enabled: true
+    scope: jordan
+    default_tags: [startup]
+    options:
+      base_url: https://www.startupgrind.com
+      chapters: [amman]   # Startup Grind Amman
+      organizer: "Startup Grind {chapter}"   # the chapter page is titled just "Amman"
 
   - name: josa
     enabled: true
@@ -56,6 +69,14 @@ sources:
     default_tags: [josa, open-source]
     options:
       events_url: https://josa.ngo/events
+
+  - name: gju
+    enabled: true
+    scope: jordan
+    # A university calendar: orientation days and ceremonies too, so keep tech ones only.
+    require_tech_keywords: true
+    options:
+      months_ahead: 2   # this month + 2 (3 requests, 10 s apart per robots.txt)
 
   - name: ieee
     scraper: vtools

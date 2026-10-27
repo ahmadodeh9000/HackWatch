@@ -55,8 +55,32 @@ def slim_codeforces(body: bytes) -> bytes:
     return (json.dumps(data, ensure_ascii=False, indent=1) + "\n").encode()
 
 
+def slim_bevy(body: bytes) -> bytes:
+    """Keep what the Bevy scraper reads (~0.6 MB pages -> a few KB): headings and event
+    links in order, og:title, JSON-LD, the event_tags script and the audience_type line."""
+    import re
+    html = body.decode("utf-8", "ignore")
+    soup = BeautifulSoup(html, "html.parser")
+    keep = []
+    og = soup.find("meta", property="og:title")
+    if og:
+        keep.append(str(og))
+    for node in soup.find_all(["h1", "h2", "a", "script"]):
+        if node.name in ("h1", "h2"):
+            keep.append(f"<{node.name}>{node.get_text(' ', strip=True)}</{node.name}>")
+        elif node.name == "a" and "/events/details/" in (node.get("href") or ""):
+            keep.append(f'<a href="{node["href"]}"></a>')
+        elif node.name == "script" and (node.get("type") == "application/ld+json" or node.get("id") == "event_tags"):
+            keep.append(str(node))
+    audience = re.search(r"""["']audience_type["']\s*:\s*["']\w+["']""", html)
+    if audience:
+        keep.append(f"<script>var x = {{{audience.group(0)}}};</script>")
+    return ("<html><head></head><body>\n" + "\n".join(keep) + "\n</body></html>\n").encode()
+
+
 # How to shrink each source's responses before saving them as fixtures.
-SLIMMERS = {"eventbrite": slim_html, "ieee": slim_vtools, "codeforces": slim_codeforces}
+SLIMMERS = {"eventbrite": slim_html, "ieee": slim_vtools, "codeforces": slim_codeforces,
+            "gdg": slim_bevy, "startupgrind": slim_bevy}
 
 
 def full_url(method, url, params=None):

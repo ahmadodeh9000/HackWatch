@@ -8,7 +8,7 @@ from typer.testing import CliRunner
 from hackwatch import cli
 from hackwatch.ics import build_calendar
 from hackwatch.models import Event, validate_time
-from hackwatch.scrapers import ctftime, codeforces, gdg, josa
+from hackwatch.scrapers import ctftime, codeforces, josa
 from hackwatch.scrapers.manual import load_manual_events
 from scripts.issue_to_event import build_entry, parse_issue_form
 from tests.test_issue_to_event import body
@@ -29,7 +29,7 @@ def test_ctftime_and_codeforces_times_are_amman(replay, frozen_today, configured
 
 
 def test_gdg_and_josa_times(replay, frozen_today, configured):
-    devfest = fetched(replay, frozen_today, configured, "gdg", gdg)["DevFest Amman 2026"]
+    devfest = fetched(replay, frozen_today, configured, "gdg")["DevFest Amman 2026"]
     assert (devfest.start_time, devfest.end_time) == ("11:00", "19:00")
     assert devfest.registration_deadline is None  # no longer faked from the start date
     pcb = fetched(replay, frozen_today, configured, "josa", josa)["JOSA Workshop | Introduction to PCB Design"]

@@ -7,10 +7,9 @@ import textwrap
 
 import pytest
 
-from hackwatch.scrapers import gdg, josa
+from hackwatch.scrapers import josa
 from hackwatch.scrapers.devpost import DevpostScraper, parse_devpost_dates
 from hackwatch.scrapers.eventbrite import EventbriteScraper
-from hackwatch.scrapers.gdg import GDGScraper
 from hackwatch.scrapers.josa import JOSAScraper
 from hackwatch.scrapers.manual import ManualScraper
 
@@ -52,22 +51,26 @@ def test_eventbrite_parses_jordan_pages(replay, configured):
     assert (amman.start_date, amman.end_date) == ("2026-11-07", "2026-11-08")
 
 
-def test_gdg_parses_jordan_chapters(replay, frozen_today, configured):
+def test_gdg_reads_public_chapter_and_event_pages(replay, configured):
     replay("gdg")
-    frozen_today(gdg)
     events = configured("gdg").fetch()
 
-    # Past events are skipped, so only upcoming ones remain.
+    # Only links above each chapter page's "Past events" heading are followed.
     assert sorted(e.title for e in events) == [
         "DevFest Amman 2026",
         "Mastering Research Papers: How to Read Them Effectively",
         "🚀 Flutter Bootcamp: Learn App Development",
         "🚀 Flutter Bootcamp: Learn App Development",
+        "🚀 Flutter Bootcamp: Learn App Development",
     ]
     devfest = by_title(events)["DevFest Amman 2026"]
-    assert devfest.organizer == "GDG Amman"
-    assert devfest.start_date == "2026-11-28"
-    assert devfest.country == "JO" and not devfest.is_online
+    assert devfest.organizer == "GDG Amman"  # from og:title
+    assert (devfest.start_date, devfest.start_time, devfest.end_time) == ("2026-11-28", "11:00", "19:00")
+    assert devfest.location == "King Hussein Business Park, Amman, Jordan"
+    assert devfest.country == "JO" and devfest.mode == "in-person"
+    assert "Conference" in devfest.source_labels
+    assert devfest.registration_deadline is None  # validThrough is just the start time
+    assert all("/api/" not in r["url"] for r in configured("gdg").request_log)
 
 
 def test_josa_parses_event_previews(replay, frozen_today, configured):

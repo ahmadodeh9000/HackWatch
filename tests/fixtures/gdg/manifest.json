@@ -1,74 +1,80 @@
 [
   {
     "method": "GET",
-    "url": "https://gdg.community.dev/api/event/?chapter=558",
+    "url": "https://gdg.community.dev/gdg-amman/",
     "status": 200,
-    "file": "000.json"
+    "file": "000.html"
   },
   {
     "method": "GET",
-    "url": "https://gdg.community.dev/api/event/133308/",
+    "url": "https://gdg.community.dev/events/details/google-gdg-amman-presents-devfest-amman-2026/",
     "status": 200,
-    "file": "001.json"
+    "file": "001.html"
   },
   {
     "method": "GET",
-    "url": "https://gdg.community.dev/api/event/?chapter=2637",
+    "url": "https://gdg.community.dev/gdg-on-campus-princess-sumaya-university-for-technology-amman-jordan/",
     "status": 200,
-    "file": "002.json"
+    "file": "002.html"
   },
   {
     "method": "GET",
-    "url": "https://gdg.community.dev/api/event/133344/",
+    "url": "https://gdg.community.dev/events/details/google-gdg-on-campus-princess-sumaya-university-for-technology-amman-jordan-presents-flutter-bootcamp-learn-app-development-2026-10-24/",
     "status": 200,
-    "file": "003.json"
+    "file": "003.html"
   },
   {
     "method": "GET",
-    "url": "https://gdg.community.dev/api/event/133345/",
+    "url": "https://gdg.community.dev/events/details/google-gdg-on-campus-princess-sumaya-university-for-technology-amman-jordan-presents-flutter-bootcamp-learn-app-development-2026-10-31/",
     "status": 200,
-    "file": "004.json"
+    "file": "004.html"
   },
   {
     "method": "GET",
-    "url": "https://gdg.community.dev/api/event/?chapter=2643",
+    "url": "https://gdg.community.dev/events/details/google-gdg-on-campus-princess-sumaya-university-for-technology-amman-jordan-presents-flutter-bootcamp-learn-app-development-2026-11-07/",
     "status": 200,
-    "file": "005.json"
+    "file": "005.html"
   },
   {
     "method": "GET",
-    "url": "https://gdg.community.dev/api/event/?chapter=2739",
+    "url": "https://gdg.community.dev/gdg-on-campus-zarqa-university-zarqa-jordan/",
     "status": 200,
-    "file": "006.json"
+    "file": "006.html"
   },
   {
     "method": "GET",
-    "url": "https://gdg.community.dev/api/event/134237/",
+    "url": "https://gdg.community.dev/gdg-on-campus-hashemite-university-zarqa-jordan/",
     "status": 200,
-    "file": "007.json"
+    "file": "007.html"
   },
   {
     "method": "GET",
-    "url": "https://gdg.community.dev/api/event/?chapter=2702",
+    "url": "https://gdg.community.dev/events/details/google-gdg-on-campus-hashemite-university-zarqa-jordan-presents-mastering-research-papers-how-to-read-them-effectively/",
     "status": 200,
-    "file": "008.json"
+    "file": "008.html"
   },
   {
     "method": "GET",
-    "url": "https://gdg.community.dev/api/event/?chapter=2800",
+    "url": "https://gdg.community.dev/gdg-on-campus-al-hussein-technical-university-amman-jordan/",
     "status": 200,
-    "file": "009.json"
+    "file": "009.html"
   },
   {
     "method": "GET",
-    "url": "https://gdg.community.dev/api/event/?chapter=2655",
+    "url": "https://gdg.community.dev/gdg-on-campus-al-zaytoonah-university-of-jordan-amman-jordan/",
     "status": 200,
-    "file": "010.json"
+    "file": "010.html"
   },
   {
     "method": "GET",
-    "url": "https://gdg.community.dev/api/event/?chapter=2654",
+    "url": "https://gdg.community.dev/gdg-on-campus-applied-science-private-university-amman-jordan/",
     "status": 200,
-    "file": "011.json"
+    "file": "011.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/gdg-on-campus-al-balqa-applied-university-salt-jordan/",
+    "status": 200,
+    "file": "012.html"
   }
 ]

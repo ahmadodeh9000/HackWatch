@@ -4,7 +4,7 @@ import pytest
 from hackwatch.cli import apply_source_defaults
 from hackwatch.infer import apply_defaults, infer_tags, infer_type, is_low_signal, keyword_pattern
 from hackwatch.models import VALID_EVENT_TYPES, Event
-from hackwatch.scrapers import gdg, josa
+from hackwatch.scrapers import josa
 from hackwatch.taxonomy import load_taxonomy
 
 
@@ -16,7 +16,7 @@ def ev(title, description=None, labels=(), **kw):
 @pytest.fixture
 def fetched(replay, frozen_today, configured):
     """fetched("gdg") -> {title: event} after the same defaults/inference as a real fetch."""
-    frozen_today(gdg, josa)
+    frozen_today(josa)
 
     def run(source):
         replay(source)
