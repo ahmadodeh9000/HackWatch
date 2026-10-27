@@ -20,6 +20,7 @@ from hackwatch.urls import normalize_url
 
 TITLE_SIMILARITY = 0.85
 MAX_START_DAYS_APART = 1
+SAME_HOST_TITLE_OVERLAP = 0.6
 # Words that say nothing about which event it is.
 TITLE_NOISE = re.compile(r"\b(19|20)\d{2}\b|\b(the|a|an|of|in|at|for|and|by)\b")
 
@@ -47,11 +48,24 @@ def rank(event: Event) -> int:
     return 1 if event.scope == "jordan" else 2
 
 
+def title_overlap(a: str, b: str) -> float:
+    """Share of the shorter title's words that also appear in the other title."""
+    wa, wb = set(normalize_title(a).split()), set(normalize_title(b).split())
+    if not wa or not wb:
+        return 0.0
+    return len(wa & wb) / min(len(wa), len(wb))
+
+
 def same_event(a: Event, b: Event) -> bool:
     if normalize_url(a.url) == normalize_url(b.url):
         return True
     if a.source == b.source:
-        return False  # one source listing two similar titles = two sessions, not a duplicate
+        # One source listing two similar titles is usually two sessions (GDG's two
+        # Flutter Bootcamp dates). Exception: the source says both come from the same
+        # host (IEEE branch) on the same day, e.g. two chapters each posting IEEE Day.
+        return (bool(a.host_key) and a.host_key == b.host_key
+                and bool(a.start_date) and a.start_date == b.start_date
+                and title_overlap(a.title, b.title) >= SAME_HOST_TITLE_OVERLAP)
     da, db_ = _parse(a.start_date), _parse(b.start_date)
     if not da or not db_ or abs((da - db_).days) > MAX_START_DAYS_APART:
         return False

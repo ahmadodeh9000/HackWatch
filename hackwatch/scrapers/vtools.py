@@ -1,3 +1,4 @@
+import re
 from typing import List
 
 import requests
@@ -9,6 +10,17 @@ from hackwatch.scrapers.registry import register
 from hackwatch.timeutil import local_date
 
 LOCATION_MODES = {"physical": "in-person", "virtual": "online", "hybrid": "hybrid"}
+# Posts that report on a past activity rather than announce one. vTools has no field for
+# this (enhanced-report is empty on them), so the title is the only signal.
+REPORT_RE = re.compile(r"\breports?\b|تقرير", re.I)
+# Student branch (STB), its chapters (SBC... + letter) and affinity groups (SBA) share the
+# branch number: STB25091, SBC25091A and SBA25091 are all Yarmouk University.
+BRANCH_SPOID_RE = re.compile(r"^(?:STB|SBC|SBA)(\d+)")
+
+
+def branch_key(spoid: str) -> str:
+    m = BRANCH_SPOID_RE.match(spoid or "")
+    return f"branch-{m.group(1)}" if m else (spoid or "")
 
 
 def html_to_text(html: str, limit: int = 600) -> str:
@@ -61,6 +73,8 @@ class VToolsScraper(BaseScraper):
                 attrs = item.get("attributes") or {}
                 if not attrs.get("title") or not self._in_sections(attrs):
                     continue
+                if attrs.get("cancelled") or REPORT_RE.search(attrs["title"]):
+                    continue
                 tz = (attrs.get("time-zone") or {}).get("name")
                 mode = LOCATION_MODES.get(str(attrs.get("location-type") or "").lower(), "in-person")
                 # City names are typed freely ("amman", "Az Zarqa"); capitalise all-lowercase ones.
@@ -82,6 +96,7 @@ class VToolsScraper(BaseScraper):
                     country="JO",
                     description=html_to_text(attrs.get("description")),
                     source_labels=[str(t).lstrip("#") for t in attrs.get("tags") or []],
+                    host_key=branch_key(host.get("spoid")) or None,
                 ))
             page += 1
         return events

@@ -33,6 +33,18 @@ def test_normalize_title():
     (ev("DevFest Amman 2026", "gdg", "https://a"), ev("Devfest Amman", "eventbrite", "https://b", start="2099-11-30"), False),
     # same source, similar titles = separate sessions
     (ev("Flutter Bootcamp", "gdg", "https://a"), ev("Flutter Bootcamp", "gdg", "https://b"), False),
+    # ...unless the source says it's the same host on the same day
+    (ev("IEEE YU Day Celebration 2026", "ieee", "https://a", host_key="branch-25091"),
+     ev("Yarmouk University IEEE Day Celebration 2026", "ieee", "https://b", host_key="branch-25091"), True),
+    # same host, different day: two events
+    (ev("IEEE Day", "ieee", "https://a", host_key="branch-25091"),
+     ev("IEEE Day", "ieee", "https://b", start="2099-11-29", host_key="branch-25091"), False),
+    # same day, different branch: two events
+    (ev("IEEE Day 2026", "ieee", "https://a", host_key="branch-25091"),
+     ev("IEEE Day 2026", "ieee", "https://b", host_key="branch-20223"), False),
+    # same host and day but unrelated titles
+    (ev("PES meeting", "ieee", "https://a", host_key="branch-1"),
+     ev("WIE opening event", "ieee", "https://b", host_key="branch-1"), False),
     # different events on the same day
     (ev("DevFest Amman", "gdg", "https://a"), ev("PyCon Amman", "eventbrite", "https://b"), False),
     # no start date: only the URL can match

@@ -128,7 +128,7 @@ def get_latest_fetch_run_id(conn: sqlite3.Connection) -> Optional[int]:
 
 STORED_FIELDS = ("title", "url", "source", "organizer", "prize", "registration_deadline",
                  "start_date", "end_date", "location", "country", "mode", "description",
-                 "type", "tags", "scope", "stale")
+                 "type", "tags", "scope", "stale", "host_key")
 
 
 def _prepare(event: Event) -> Event:

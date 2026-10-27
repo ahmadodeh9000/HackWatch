@@ -90,6 +90,9 @@ class Event:
     # True when the source failed or returned nothing this run and the event was
     # copied from the previous deploy (hackwatch/carryover.py).
     stale: bool = False
+    # Who listed it, when a source can tell (IEEE: the student branch number). Two
+    # same-day listings from one source with the same host_key may be merged (dedup.py).
+    host_key: Optional[str] = None
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
     first_seen_run_id: Optional[int] = None

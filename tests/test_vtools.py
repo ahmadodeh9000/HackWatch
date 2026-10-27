@@ -16,8 +16,10 @@ def fetched(replay, configured):
 
 def test_only_jordan_section_events_are_kept(replay, configured):
     events = fetched(replay, configured)
-    # The fixture pages also contain 3 other-section events each, which must be skipped.
-    assert len(events) == 15
+    # The fixture pages also contain 3 other-section events each, which must be skipped,
+    # and "Best Poster Competition Report" is a report, not an event.
+    assert len(events) == 14
+    assert not any("Report" in e.title for e in events)
     assert all(e.country == "JO" and e.scope == "jordan" and "ieee" in e.tags for e in events)
 
 
@@ -67,3 +69,45 @@ def test_slow_page_is_retried_once(monkeypatch):
     monkeypatch.setattr(scraper, "get", get)
     assert scraper.fetch() == []
     assert calls == [1, 1]
+
+
+def test_branch_key_groups_branch_chapters_and_affinity_groups():
+    from hackwatch.scrapers.vtools import branch_key
+    assert branch_key("STB25091") == branch_key("SBC25091A") == branch_key("SBA25091") == "branch-25091"
+    assert branch_key("SBC61971D") == "branch-61971"
+    assert branch_key("CH09455") == "CH09455"  # section chapters keep their own id
+    assert branch_key(None) == ""
+
+
+def test_cancelled_and_report_entries_are_skipped(monkeypatch):
+    scraper = VToolsScraper(section_spoids=["R80079"], delay_seconds=0)
+    host = {"section_spoids": "R80079", "spoid": "STB1", "name": "X"}
+
+    def item(title, **kw):
+        return {"attributes": {"id": len(title), "title": title, "primary-host": host,
+                               "start-time": "2026-11-01T10:00:00Z", "location-type": "physical", **kw}}
+
+    class Resp:
+        def json(self):
+            return {"meta": {"paging": {"total_pages": 1}}, "data": [
+                item("IEEE Day"), item("Workshop Report"), item("تقرير ورشة"), item("Talk", cancelled=True)]}
+
+    monkeypatch.setattr(scraper, "get", lambda *a, **k: Resp())
+    assert [e.title for e in scraper.fetch()] == ["IEEE Day"]
+
+
+def test_same_branch_same_day_listings_merge(replay, configured, tmp_path):
+    from hackwatch import cli, db
+    replay("ieee")
+    conn = db.get_connection(tmp_path / "t.db")
+    db.init_db(conn)
+    cli.run_fetch(conn, [configured("ieee")])
+    events = db.get_events(conn, show_all=True)
+
+    # Oct 27: two Yarmouk chapters (SBC25091A, SBC25091F) posted the same celebration.
+    oct27 = [e for e in events if e.start_date == "2026-10-27"]
+    assert len(oct27) == 1 and len(oct27[0].urls) == 2
+    # Nov 1: the Yarmouk branch, its WIE group and its RA24 chapter all posted IEEE Day.
+    nov1 = [e for e in events if e.start_date == "2026-11-01"]
+    assert len(nov1) == 1 and len(nov1[0].urls) == 3
+    assert len(events) == 11  # 14 listings - 1 - 2 merged
