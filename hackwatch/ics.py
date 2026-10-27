@@ -137,6 +137,8 @@ def calendar_events(events: Iterable[Event], scope: Optional[str] = "jordan",
     for e in events:
         if scope and e.scope != scope or not e.start_date:
             continue
+        if e.low_signal:  # club-life events stay off the feed, as on the site by default
+            continue
         last = date.fromisoformat((e.end_date or e.start_date)[:10])
         if last >= cutoff:
             chosen.append(e)

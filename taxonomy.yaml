@@ -16,6 +16,17 @@ pinned:
   type: [hackathon, competition, workshop, conference, meetup]
   tag: [robotics, ctf, cp, ai, security]
 
+# "Club life" events: real, but mostly interesting to members (inaugurations, officer
+# kickoffs, awareness days, internal meetings). They're flagged low_signal and hidden on
+# the site unless "Show club life events" is on; they stay in events.json. Matched
+# against the title only. A manual entry can set low_signal: true/false explicitly.
+low_signal:
+  keywords: [inauguration, inaugural ceremony, officers, officer, kickoff, kick-off, opening ceremony,
+             opening event, launch ceremony, awareness, report, internal meeting, general assembly,
+             elections, board meeting, team building, orientation day, welcome day, recruitment,
+             حفل افتتاح, افتتاح, تدشين, اجتماع داخلي, الهيئة العامة, انتخابات, توعية, توعوي, تقرير,
+             حفل تكريم, يوم تعريفي]
+
 # Type rules are checked in order and the first match wins. Each field is tried
 # separately: title first, then the source's labels, then the description.
 # So "Reclaim hackathon information session" is a meetup (first rule), and a

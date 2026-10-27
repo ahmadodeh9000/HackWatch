@@ -123,3 +123,14 @@ def test_export_has_times_and_deadline(tmp_path):
     CliRunner().invoke(cli.app, ["export", "--db", str(tmp_path / "t.db"), "--out", str(out)])
     (rec,) = json.loads(out.read_text())
     assert (rec["start_time"], rec["end_time"], rec["registration_deadline"]) == ("18:00", None, "2098-12-30")
+
+
+def test_low_signal_from_manual_yaml_and_kept_off_the_calendar(tmp_path):
+    from hackwatch.ics import calendar_events
+    (ev,), errors = manual(tmp_path, "low_signal: true\n")
+    assert errors == [] and ev.low_signal is True
+    _, errors = manual(tmp_path, "low_signal: maybe\n")
+    assert "low_signal must be true or false" in errors[0]
+    keep = Event(title="DevFest", url="https://d", source="gdg", scope="jordan", start_date="2099-01-01")
+    club = Event(title="Kickoff", url="https://k", source="gdg", scope="jordan", start_date="2099-01-01", low_signal=True)
+    assert [e.title for e in calendar_events([keep, club])] == ["DevFest"]

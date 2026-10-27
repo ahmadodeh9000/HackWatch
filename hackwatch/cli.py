@@ -453,6 +453,7 @@ def export(
             "sources": ev.sources,
             "urls": ev.urls,
             "stale": ev.stale,
+            "low_signal": bool(ev.low_signal),
             "stale_since": ev.stale_since,
             "is_online": ev.is_online,  # legacy, = mode != "in-person"; kept for the current site
         }

@@ -67,6 +67,15 @@ def parse_manual_dates(value) -> Tuple[Optional[str], Optional[str]]:
     return d, d
 
 
+def _bool_field(item: dict, key: str) -> Optional[bool]:
+    if key not in item or item[key] is None:
+        return None
+    value = item[key]
+    if isinstance(value, bool):
+        return value
+    raise ValueError(f"{key} must be true or false, got {value!r}")
+
+
 def parse_manual_item(item: dict) -> Event:
     """Turn one YAML entry into an Event, raising ValueError on bad fields."""
     title = item.get("title")
@@ -107,6 +116,7 @@ def parse_manual_item(item: dict) -> Event:
         prize=prize,
         # Only set when given: an event's end is not its registration deadline.
         registration_deadline=deadline,
+        low_signal=_bool_field(item, "low_signal"),
         start_time=start_time,
         end_time=end_time,
         start_date=start_date,

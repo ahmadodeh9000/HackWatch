@@ -177,6 +177,7 @@ footer{padding:32px 0 48px;text-align:center;color:var(--muted);font-size:.92rem
     <div class="wrap">
       <input id="search" class="search" type="search" placeholder="Search events, organizers, locations..." aria-label="Search events" autocomplete="off">
       <label class="scope"><input type="checkbox" id="worldwide"> Include worldwide online events</label>
+      <label class="scope"><input type="checkbox" id="clubLife"> Show club life events (inaugurations, officer kickoffs…)</label>
       <div class="row" id="rowType" role="group" aria-label="Filter by type"><span class="label">Type</span></div>
       <div class="row" id="rowTag" role="group" aria-label="Filter by tag"><span class="label">Tags</span></div>
       <div class="row" id="rowMode" role="group" aria-label="Filter by mode"><span class="label">Mode</span></div>
@@ -257,6 +258,7 @@ const MODES = {"in-person":"📍 In-person","online":"🌐 Online","hybrid":"�
 let TAG_LABELS = {};
 let PINNED = {type: [], tag: []};  // from labels.json (taxonomy.yaml "pinned")
 const PREF_KEY = "hackwatch.includeWorldwide";
+const CLUB_PREF_KEY = "hackwatch.showClubLife";
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
@@ -301,7 +303,9 @@ function fmtRange(ev){
   return b && b !== a ? `${a} → ${b}` : a;
 }
 
-function inScope(ev){ return state.worldwide || ev.scope === "jordan"; }
+function inScope(ev){
+  return (state.worldwide || ev.scope === "jordan") && (state.clubLife || !ev.low_signal);
+}
 // Does ev have value `val` for filter row `key`?
 function hasValue(ev, key, val){
   switch(key){
@@ -459,10 +463,15 @@ function setup(){
   chips("rowSource","source",[["all","All"],...rows.source.map(s => [s, s])]);
 }
 
-function loadPref(){ try { return localStorage.getItem(PREF_KEY) === "1"; } catch(_) { return false; } }
-function savePref(on){ try { localStorage.setItem(PREF_KEY, on ? "1" : "0"); } catch(_) { /* private mode etc. */ } }
+function loadPref(key = PREF_KEY){ try { return localStorage.getItem(key) === "1"; } catch(_) { return false; } }
+function savePref(on, key = PREF_KEY){ try { localStorage.setItem(key, on ? "1" : "0"); } catch(_) { /* private mode etc. */ } }
 state.worldwide = loadPref();
 $("worldwide").checked = state.worldwide;
+state.clubLife = loadPref(CLUB_PREF_KEY);
+$("clubLife").checked = state.clubLife;
+$("clubLife").addEventListener("change", e => {
+  state.clubLife = e.target.checked; savePref(state.clubLife, CLUB_PREF_KEY); setup(); render();
+});
 $("worldwide").addEventListener("change", e => {
   state.worldwide = e.target.checked; savePref(state.worldwide); setup(); render();
 });

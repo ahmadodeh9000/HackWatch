@@ -2,7 +2,7 @@
 import pytest
 
 from hackwatch.cli import apply_source_defaults
-from hackwatch.infer import apply_defaults, infer_tags, infer_type, keyword_pattern
+from hackwatch.infer import apply_defaults, infer_tags, infer_type, is_low_signal, keyword_pattern
 from hackwatch.models import VALID_EVENT_TYPES, Event
 from hackwatch.scrapers import gdg, josa
 from hackwatch.taxonomy import load_taxonomy
@@ -174,3 +174,27 @@ def test_site_labels_ignores_unknown_pinned_values(tmp_path):
     assert labels["pinned"] == {"type": ["hackathon"], "tag": ["ai"]}
     assert labels["tags"] == {"ai": "AI"}
     assert any("party" in str(w.message) for w in caught) and any("robotic" in str(w.message) for w in caught)
+
+
+@pytest.mark.parametrize("title, low", [
+    ("IEEE Student Branch Inauguration Ceremony", True),
+    ("IEEE GJU SB Officers Kickoff & Training Session", True),
+    ("Opening and Launch Ceremony of the IEEE CIS at Yarmouk University", True),
+    ("Breast Cancer Awareness", True),
+    ("حفل افتتاح فرع IEEE", True),
+    ("DevFest Amman 2026", False),
+    ("🚀 Flutter Bootcamp: Learn App Development", False),
+    ("IEEE PES&IAS MEETING", False),
+    ("Robot Sumo Cup", False),
+])
+def test_low_signal_by_title(title, low):
+    assert is_low_signal(ev(title)) is low
+
+
+def test_low_signal_only_looks_at_the_title():
+    assert not is_low_signal(ev("Cloud workshop", description="followed by the officers' kickoff"))
+
+
+def test_explicit_low_signal_wins():
+    assert apply_defaults(ev("Inauguration Ceremony", low_signal=False)).low_signal is False
+    assert apply_defaults(ev("Hackathon", low_signal=True)).low_signal is True

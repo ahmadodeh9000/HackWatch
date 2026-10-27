@@ -105,6 +105,9 @@ class Event:
     # True when the source failed or returned nothing this run and the event was
     # copied from the previous deploy (hackwatch/carryover.py).
     stale: bool = False
+    # Club-life event (taxonomy.yaml low_signal rules): hidden on the site by default.
+    # None = not decided yet (inference sets it); manual entries may set it explicitly.
+    low_signal: Optional[bool] = None
     # Date (YYYY-MM-DD) the event was first carried over; carryover drops it after 7 days.
     stale_since: Optional[str] = None
     # Who listed it, when a source can tell (IEEE: the student branch number). Two

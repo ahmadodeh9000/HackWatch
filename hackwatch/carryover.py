@@ -20,7 +20,7 @@ MIN_PREVIOUS_EVENTS = 3
 # A source down this long loses its kept events: they may well be cancelled or moved.
 STALE_MAX_DAYS = 7
 RECORD_FIELDS = ("title", "url", "source", "organizer", "prize", "registration_deadline", "start_date",
-                 "end_date", "start_time", "end_time", "location", "mode", "description", "type", "tags", "scope")
+                 "end_date", "start_time", "end_time", "low_signal", "location", "mode", "description", "type", "tags", "scope")
 
 
 def load_json(location: str):

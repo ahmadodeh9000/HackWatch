@@ -86,6 +86,17 @@ def infer_type(event: Event, allowed: Optional[Iterable[str]] = None) -> Optiona
     return None
 
 
+@lru_cache(maxsize=None)
+def low_signal_pattern():
+    return keyword_pattern((load_taxonomy().get("low_signal") or {}).get("keywords") or [])
+
+
+def is_low_signal(event: Event) -> bool:
+    """Club-life events (inaugurations, officer kickoffs, awareness days...), by title only."""
+    pattern = low_signal_pattern()
+    return bool(pattern and pattern.search(event.title or ""))
+
+
 def infer_tags(event: Event) -> List[str]:
     """Every tag whose rule matches the title, labels or description, in taxonomy order."""
     labels = list(event.source_labels or [])
@@ -110,4 +121,6 @@ def apply_defaults(event: Event, default_type: Optional[str] = None, default_tag
     event.tags = event.tags + [t for t in default_tags if t not in event.tags]
     if event.scope is None:
         event.scope = default_scope
+    if event.low_signal is None:
+        event.low_signal = is_low_signal(event)
     return event

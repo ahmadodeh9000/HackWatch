@@ -122,6 +122,7 @@ def merge(group: List[Event]) -> Event:
     for e in ordered[1:]:
         merged.tags += [t for t in e.tags if t not in merged.tags]
     merged.stale = all(e.stale for e in ordered)  # one fresh listing is enough
+    merged.low_signal = all(e.low_signal for e in ordered)
     merged.stale_since = min((e.stale_since for e in ordered if e.stale_since), default=None) if merged.stale else None
     merged.sources = list(dict.fromkeys(e.source for e in ordered))
     merged.urls = list(dict.fromkeys(e.url for e in ordered))
