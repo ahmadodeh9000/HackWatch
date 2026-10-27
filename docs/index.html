@@ -100,6 +100,13 @@ a{color:var(--accent)}
 .row .label{flex:none;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);min-width:64px}
 .chip{flex:none;padding:7px 14px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-size:.92rem;font-family:inherit}
 .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.chip .n{margin-left:4px;opacity:.7;font-variant-numeric:tabular-nums;font-weight:400}
+/* Pinned chips with no events right now stay visible and clickable, just quieter. */
+.chip.zero{opacity:.55;border-style:dashed}
+.chip.zero[aria-pressed="true"]{opacity:1;border-style:solid}
+.state a,.state button{font:inherit;font-weight:600}
+.state .hint{display:block;margin-top:10px;font-size:.98rem}
+.linkbtn{background:none;border:none;color:var(--accent);cursor:pointer;padding:0;text-decoration:underline}
 .meta{display:flex;justify-content:space-between;align-items:center;margin:14px 0 6px;color:var(--muted);font-size:.95rem}
 .scope{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:.95rem;cursor:pointer;width:fit-content}
 .scope input{width:20px;height:20px;accent-color:var(--accent);margin:0;cursor:pointer}
@@ -237,6 +244,7 @@ const KNOWN_SRC = ["devpost","eventbrite","gdg","josa","ieee","ctftime","codefor
 const TYPES = ["hackathon","competition","conference","workshop","meetup","other"];
 const MODES = {"in-person":"📍 In-person","online":"🌐 Online","hybrid":"🔀 Hybrid"};
 let TAG_LABELS = {};
+let PINNED = {type: [], tag: []};  // from labels.json (taxonomy.yaml "pinned")
 const PREF_KEY = "hackwatch.includeWorldwide";
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -283,14 +291,23 @@ function fmtRange(ev){
 }
 
 function inScope(ev){ return state.worldwide || ev.scope === "jordan"; }
-function matches(ev){
+// Does ev have value `val` for filter row `key`?
+function hasValue(ev, key, val){
+  switch(key){
+    case "type": return (ev.type || "other") === val;
+    case "tag": return (ev.tags || []).includes(val);
+    case "mode": return ev.mode === val;
+    case "source": return (ev.sources || [ev.source]).includes(val);
+    case "status": return val === "upcoming" ? (ev._status === "upcoming" || ev._status === "soon") : ev._status === val;
+  }
+  return false;
+}
+// skip: a row to ignore, so a chip's count shows what clicking it would give.
+function matches(ev, skip){
   if(!inScope(ev)) return false;
-  if(state.source !== "all" && !(ev.sources || [ev.source]).includes(state.source)) return false;
-  if(state.mode !== "all" && ev.mode !== state.mode) return false;
-  if(state.tag !== "all" && !(ev.tags || []).includes(state.tag)) return false;
-  if(state.status === "upcoming" && !(ev._status === "upcoming" || ev._status === "soon")) return false;
-  if(state.status === "ongoing" && ev._status !== "ongoing") return false;
-  if(state.type !== "all" && (ev.type||"other") !== state.type) return false;
+  for(const key of FILTERS){
+    if(key !== skip && state[key] !== "all" && !hasValue(ev, key, state[key])) return false;
+  }
   if(state.q){
     const hay = [ev.title, ev.organizer, ev.location, ev.description, ...(ev.tags || []).map(tagLabel)].join(" ").toLowerCase();
     return state.q.split(/\s+/).filter(Boolean).every(w => hay.includes(w));
@@ -328,17 +345,53 @@ function card(ev){
   </article>`;
 }
 
+function formUrl(){
+  // GitHub issue forms prefill a field from a query parameter named after its id.
+  const tag = state.tag !== "all" ? `&tags=${encodeURIComponent(state.tag)}` : "";
+  return `${REPO_URL}/issues/new?template=event.yml${tag}`;
+}
+
+function emptyMessage(){
+  const what = [state.tag !== "all" ? tagLabel(state.tag) : "", state.type !== "all" ? state.type : ""]
+    .filter(Boolean).join(" ");
+  const onlyNamedFilters = FILTERS.every(k => k === "tag" || k === "type" || state[k] === "all");
+  if(state.q) return `No events match “${esc(state.q)}”${what ? ` in ${esc(what)}` : ""}.`;
+  if(what && onlyNamedFilters) return `No ${esc(what)} events yet.`;
+  return "No events match these filters.";
+}
+
+function renderEmpty(){
+  // Would the same filters find something among the worldwide events?
+  const saved = state.worldwide;
+  state.worldwide = true;
+  const elsewhere = saved ? 0 : state.events.filter(e => matches(e)).length;
+  state.worldwide = saved;
+  const worldwideHint = elsewhere
+    ? `<span class="hint"><button type="button" class="linkbtn" id="showWorldwide">Show ${plural(elsewhere, "worldwide online event")}</button></span>` : "";
+  $("grid").innerHTML = `<div class="state"><span class="emoji">🔍</span>${emptyMessage()}
+    <span class="hint">Know one? <a href="${formUrl()}" target="_blank" rel="noopener">Add it →</a></span>${worldwideHint}</div>`;
+  const btn = $("showWorldwide");
+  if(btn) btn.addEventListener("click", () => { $("worldwide").checked = true; $("worldwide").dispatchEvent(new Event("change")); });
+}
+
+function updateChipCounts(){
+  document.querySelectorAll(".chip").forEach(b => {
+    const key = b.dataset.key, val = b.dataset.val;
+    const n = state.events.filter(e => matches(e, key) && (val === "all" || hasValue(e, key, val))).length;
+    b.querySelector(".n").textContent = `(${n})`;
+    b.classList.toggle("zero", n === 0);
+    b.setAttribute("aria-label", `${b.dataset.label}, ${plural(n, "event")}`);
+  });
+}
+
 function render(){
-  const list = state.events.filter(matches);
-  const grid = $("grid");
-  if(!list.length){
-    grid.innerHTML = `<div class="state"><span class="emoji">🔍</span>No events match yet - try clearing filters</div>`;
-  } else {
-    grid.innerHTML = list.map(card).join("");
-  }
+  const list = state.events.filter(e => matches(e));
+  if(!list.length) renderEmpty();
+  else $("grid").innerHTML = list.map(card).join("");
   $("count").textContent = `Showing ${plural(list.length,"event")}`;
   const active = state.q || FILTERS.some(k => state[k] !== "all");
   $("clear").classList.toggle("show", !!active);
+  updateChipCounts();
 }
 
 function chips(rowId, key, options){
@@ -346,10 +399,13 @@ function chips(rowId, key, options){
   row.querySelectorAll(".chip").forEach(n => n.remove());
   options.forEach(([val,label]) => {
     const b = document.createElement("button");
-    b.type = "button"; b.className = "chip"; b.textContent = label;
+    b.type = "button"; b.className = "chip";
+    b.append(label);
+    const n = document.createElement("span"); n.className = "n";
+    b.append(n);
     b.setAttribute("aria-pressed", state[key] === val);
     b.addEventListener("click", () => { state[key] = val; syncChips(); render(); });
-    b.dataset.key = key; b.dataset.val = val;
+    b.dataset.key = key; b.dataset.val = val; b.dataset.label = label;
     row.appendChild(b);
   });
 }
@@ -357,20 +413,39 @@ function syncChips(){
   document.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", state[b.dataset.key] === b.dataset.val));
 }
 
-// Chips only offer values that occur in the events currently in scope.
+// Chip order is decided here (on load and when the scope changes), not on every click,
+// so chips don't jump around: pinned values first (taxonomy.yaml -> labels.json, in that
+// order, shown even with 0 events), then values that occur in scope, most events first.
 function setup(){
   const pool = state.events.filter(inScope);
-  const present = key => new Set(pool.flatMap(e => key === "tags" ? (e.tags || []) : key === "sources" ? (e.sources || [e.source]) : [e[key]]));
-  const types = present("type"), modes = present("mode"), tags = present("tags"), sources = present("sources");
-  for (const [key, have] of [["type", types], ["mode", modes], ["tag", tags], ["source", sources]]) {
-    if (state[key] !== "all" && !have.has(state[key])) state[key] = "all";
+  const values = key => {
+    const counts = new Map();
+    for(const e of pool){
+      const vals = key === "tag" ? (e.tags || []) : key === "source" ? (e.sources || [e.source])
+                 : key === "type" ? [e.type || "other"] : [e[key]];
+      vals.forEach(v => counts.set(v, (counts.get(v) || 0) + 1));
+    }
+    const pinned = PINNED[key] || [];
+    const rest = [...counts.keys()].filter(v => !pinned.includes(v))
+      .sort((a, b) => counts.get(b) - counts.get(a) || String(a).localeCompare(String(b)));
+    return [...pinned, ...rest];
+  };
+  const rows = {
+    type: values("type"),
+    tag: values("tag"),
+    mode: Object.keys(MODES).filter(m => values("mode").includes(m)),
+    status: ["upcoming", "ongoing"],
+    source: values("source"),
+  };
+  for(const key of FILTERS){
+    if(state[key] !== "all" && !rows[key].includes(state[key])) state[key] = "all";
   }
   const cap = t => t.charAt(0).toUpperCase() + t.slice(1);
-  chips("rowType","type",[["all","All"],...TYPES.filter(t => types.has(t)).map(t => [t, cap(t)])]);
-  chips("rowTag","tag",[["all","All"],...[...tags].sort((a,b) => tagLabel(a).localeCompare(tagLabel(b))).map(t => [t, tagLabel(t)])]);
-  chips("rowMode","mode",[["all","All"],...Object.keys(MODES).filter(m => modes.has(m)).map(m => [m, MODES[m]])]);
+  chips("rowType","type",[["all","All"],...rows.type.map(t => [t, cap(t)])]);
+  chips("rowTag","tag",[["all","All"],...rows.tag.map(t => [t, tagLabel(t)])]);
+  chips("rowMode","mode",[["all","All"],...rows.mode.map(m => [m, MODES[m]])]);
   chips("rowStatus","status",[["all","All"],["upcoming","Upcoming"],["ongoing","Ongoing"]]);
-  chips("rowSource","source",[["all","All"],...[...sources].sort().map(s => [s, s])]);
+  chips("rowSource","source",[["all","All"],...rows.source.map(s => [s, s])]);
 }
 
 function loadPref(){ try { return localStorage.getItem(PREF_KEY) === "1"; } catch(_) { return false; } }
@@ -395,6 +470,7 @@ async function load(){
     try {
       const labels = await (await fetch("labels.json", {cache:"no-store"})).json();
       TAG_LABELS = labels.tags || {};
+      PINNED = {type: [], tag: [], ...(labels.pinned || {})};
     } catch(_) { /* labels are optional; tag ids are shown instead */ }
     state.events = data.map(enrich).filter(Boolean)
       .sort((a,b) => a._rank - b._rank || a._key - b._key || String(a.title).localeCompare(String(b.title)));
