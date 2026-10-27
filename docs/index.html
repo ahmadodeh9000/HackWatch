@@ -110,12 +110,16 @@ a{color:var(--accent)}
 
 /* cards */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:18px;padding:12px 0 40px}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;transition:transform .18s,box-shadow .18s}
+/* min-width:0 lets a card shrink below its widest content (a long pill would otherwise
+   widen the card and make the whole page scroll sideways on phones). */
+.card{min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;transition:transform .18s,box-shadow .18s}
 .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
 .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-.card h3{margin:0;font-size:1.12rem;line-height:1.3}
+.card h3{margin:0;font-size:1.12rem;line-height:1.3;min-width:0;overflow-wrap:anywhere}
+.info,.org{overflow-wrap:anywhere}
 .org{margin:0;color:var(--muted);font-size:.92rem}
-.pill{display:inline-block;padding:3px 11px;border-radius:999px;font-size:.78rem;font-weight:700;white-space:nowrap}
+/* Pills are always one line: long values (prizes, organisers) are cut with "…"; the full text is in title. */
+.pill{display:inline-block;padding:3px 11px;border-radius:999px;font-size:.78rem;font-weight:700;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}
 .pill.upcoming{background:var(--green-bg);color:var(--green-fg)}
 .pill.soon{background:var(--amber-bg);color:var(--amber-fg)}
 .pill.ongoing{background:var(--blue-bg);color:var(--blue-fg)}
@@ -123,7 +127,9 @@ a{color:var(--accent)}
 .pill.fmt{background:var(--accent-soft);color:var(--accent)}
 .pill.prize{background:var(--amber-bg);color:var(--amber-fg)}
 .pill.src{text-transform:uppercase;letter-spacing:.04em;font-size:.72rem}
-.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tags{display:flex;gap:6px;flex-wrap:wrap;min-width:0}
+.tags .pill{min-width:0}
+.top .pill{flex:none;max-width:45%}
 .info{margin:0;color:var(--muted);font-size:.93rem}
 .desc{margin:0;font-size:.93rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;color:var(--text);opacity:.9}
 .card .btn{margin-top:auto;text-align:center;padding:9px 16px;font-size:.95rem}
@@ -298,14 +304,14 @@ function card(ev){
   const mode = MODES[ev.mode] ? ev.mode : "in-person";
   const type = TYPES.includes(ev.type) ? ev.type : "other";
   const more = (ev.sources || []).length > 1 ? ` +${ev.sources.length - 1}` : "";
-  const alsoOn = more ? ` title="Also listed on: ${esc(ev.sources.slice(1).join(", "))}"` : "";
-  const tags = (ev.tags || []).map(t => `<span class="pill tag">#${esc(tagLabel(t))}</span>`).join("");
-  const prize = isFakePrize(ev.prize) ? "" : `<span class="pill prize">🏆 ${esc(ev.prize)}</span>`;
+  const alsoOn = ` title="${more ? "Also listed on: " + esc(ev.sources.slice(1).join(", ")) : "Source: " + esc(ev.source || "other")}"`;
+  const tags = (ev.tags || []).map(t => `<span class="pill tag" title="${esc(tagLabel(t))}">#${esc(tagLabel(t))}</span>`).join("");
+  const prize = isFakePrize(ev.prize) ? "" : `<span class="pill prize" title="${esc(ev.prize)}">🏆 ${esc(ev.prize)}</span>`;
   const org = ev.organizer ? `<p class="org">by ${esc(ev.organizer)}</p>` : "";
   const desc = ev.description ? `<p class="desc">${esc(ev.description)}</p>` : "";
   const url = /^https?:\/\//i.test(ev.url || "") ? esc(ev.url) : "#";
   return `<article class="card">
-    <div class="top"><h3>${esc(ev.title)}</h3><span class="pill ${ev._status}">${esc(ev._label)}</span></div>
+    <div class="top"><h3>${esc(ev.title)}</h3><span class="pill ${ev._status}" title="${esc(ev._label)}">${esc(ev._label)}</span></div>
     ${org}
     <div class="tags">
       <span class="pill" style="background:var(--type-${type});color:var(--type-${type}-fg)">${esc(type)}</span>
