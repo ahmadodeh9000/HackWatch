@@ -51,6 +51,7 @@ class BaseScraper(abc.ABC):
     infer_tags: bool = True
 
     timeout_seconds: float = 60.0
+    connection_retry_wait: float = 5.0
 
     def __init__(self, delay_seconds: float = 2.0):
         self.request_log: List[dict] = []
@@ -77,7 +78,14 @@ class BaseScraper(abc.ABC):
         entry = {"url": requests.Request(method, url, params=kwargs.get("params")).prepare().url}
         started = time.monotonic()
         try:
-            resp = self.session.request(method, url, **kwargs)
+            try:
+                resp = self.session.request(method, url, **kwargs)
+            except requests.ConnectionError:
+                # Refused/reset connections are usually brief (IEEE vTools, 2026-10-27):
+                # wait a little and try once more. Timeouts aren't retried here; a stuck
+                # page already cost timeout_seconds.
+                time.sleep(self.connection_retry_wait)
+                resp = self.session.request(method, url, **kwargs)
         except requests.RequestException as exc:
             entry.update(status=None, seconds=round(time.monotonic() - started, 2),
                          error=f"{type(exc).__name__}: {str(exc)[:200]}")

@@ -107,3 +107,32 @@ def test_fetch_writes_report_and_job_summary(tmp_path, monkeypatch):
     assert data["sources"][0]["source"] == "site" and "generated_at" in data
     assert summary.read_text().startswith("## Fetch report")
     assert "| Source | Result |" in result.output
+
+
+def test_connection_error_is_retried_once(monkeypatch):
+    scraper = Logged([])
+    scraper.connection_retry_wait = 0
+    attempts = [requests.ConnectionError("refused"), Resp(200, b"ok")]
+
+    def fake(*a, **k):
+        r = attempts.pop(0)
+        if isinstance(r, Exception):
+            raise r
+        return r
+
+    monkeypatch.setattr(scraper.session, "request", fake)
+    assert scraper.get("https://site.test").status_code == 200
+    assert [e["status"] for e in scraper.request_log] == [200]
+
+
+def test_connection_error_twice_is_logged_and_raised(monkeypatch):
+    scraper = Logged([])
+    scraper.connection_retry_wait = 0
+
+    def fake(*a, **k):
+        raise requests.ConnectionError("refused")
+
+    monkeypatch.setattr(scraper.session, "request", fake)
+    with pytest.raises(requests.ConnectionError):
+        scraper.get("https://site.test")
+    assert scraper.request_log[0]["error"] == "ConnectionError: refused"
