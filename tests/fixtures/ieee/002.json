@@ -2,89 +2,354 @@
  "data": [
   {
    "type": "events",
-   "id": "587278",
+   "id": "582932",
    "attributes": {
-    "id": 587278,
-    "title": "IEEE Day at Hijjawi Faculty",
-    "description": "<p>The IEEE Student Branch at Yarmouk University is pleased to announce IEEE Day at Hijjawi Faculty, an event dedicated to celebrating the global IEEE community and its contributions to engineering, technology, and innovation.</p>\r\n<p>The event aims to introduce students to IEEE&rsquo;s mission, vision, and professional opportunities, while highlighting the role of student engagement in advancing technical knowledge, collaboration, and professional development. Through engaging activities and interactive experiences, participants will have the opportunity to learn more about IEEE, explore its various initiatives, and connect with the student branch community.</p>\r\n<p>This event reflects IEEE&rsquo;s commitment to fostering innovation, encouraging collaboration, and empowering the next generation of engineers and technology leaders</p>",
-    "start-time": "2026-11-01T06:00:00.000Z",
-    "end-time": "2026-11-01T11:30:00.000Z",
+    "id": 582932,
+    "title": "    IEEE Day 2026",
+    "description": "<p>IEEE Day 2026 is a special occasion that brings together IEEE members, engineering students, professionals, researchers, and technology enthusiasts to celebrate the spirit of innovation, collaboration, and technological advancement.</p>\r\n<p>The event provides an opportunity to connect with like-minded individuals, exchange knowledge and experiences, and explore the role of engineering and technology in shaping the future. Through engaging activities, discussions, and networking opportunities, participants will have the chance to strengthen their technical and professional skills while building meaningful connections within the IEEE community.</p>\r\n<p>IEEE Day 2026 aims to inspire students and young engineers to actively contribute to the engineering community, develop their potential, and transform innovative ideas into solutions that can create a positive impact on society.</p>\r\n<p>Together, we connect, innovate, and shape a better tomorrow.</p>",
+    "start-time": "2026-11-01T07:00:00.000Z",
+    "end-time": "2026-11-01T12:00:00.000Z",
     "time-zone": {
      "name": "Asia/Riyadh",
      "utc-offset": 3
     },
     "primary-host": {
-     "spoid": "SBC25091C",
-     "name": "Yarmouk Univ, RA24",
-     "class_code": "SUBT",
-     "class_description": "Technical SPO",
-     "type_code": "BRCH",
-     "type_description": "Student Branch Chapter",
+     "spoid": "STB25091",
+     "name": "Yarmouk University",
+     "class_code": "SUBG",
+     "class_description": "Geographic SPO",
+     "type_code": "STBR",
+     "type_description": "Student Branch",
      "section_spoids": "R80079",
      "region_spoids": "R8",
-     "society_spoids": "RA024",
+     "society_spoids": null,
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": " #collaboration #engineering-students #networking #IEEE #womens #jordan #yarmouk #shape",
+    "tags": [
+     "#collaboration",
+     "#engineering-students",
+     "#networking",
+     "#IEEE",
+     "#womens",
+     "#jordan",
+     "#yarmouk",
+     "#shape"
+    ],
+    "agenda": null,
+    "contact-email": "mohammadshakhatreh2002@gmail.com",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "Hijjawi Faculty for Engineering Technology",
+    "address2": "Yarmouk University",
+    "city": "Irbid",
+    "postal-code": "",
+    "building": "",
+    "room-number": "",
+    "map-url": "",
+    "latitude": null,
+    "longitude": null,
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": null,
+    "registration-end-time": null,
+    "registration-url": null,
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "DDA7E9ED-A23C-4D57-A4A3-16C8C3C15766",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/582932",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-06T16:14:19.000Z",
+    "updated-at": "2026-10-24T21:10:12.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1031"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "107"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "1"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "2"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "581709",
+   "attributes": {
+    "id": 581709,
+    "title": "IEEE Day 2026 – IEEE Day Announcement",
+    "description": "<h1 style=\"text-align: center;\"><strong><span style=\"color: rgb(35, 111, 161);\">IEEE Day 2026 - Announcement</span></strong></h1>\r\n<p><span style=\"font-size: 14pt;\">IEEE Day 2026 is an opportunity for the IEEE Student Branch at Philadelphia University to celebrate the IEEE community and highlight the values of collaboration, innovation, knowledge sharing, leadership, and technological development.</span></p>\r\n<p><span style=\"font-size: 14pt;\">The activity aims to raise awareness of IEEE and its role in supporting students in their academic, technical, and professional journeys. It will highlight the opportunities available through IEEE and encourage students to become more engaged with the IEEE Student Branch, its activities, and its community.</span></p>\r\n<p><span style=\"font-size: 14pt;\">Through this celebration, the IEEE Student Branch at Philadelphia University seeks to strengthen connections among students, IEEE members, volunteers, and technology enthusiasts within the university. The activity will encourage interaction, idea sharing, teamwork, creativity, and continuous learning, while highlighting the importance of technology and engineering in shaping the future.</span></p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p>&nbsp;</p>\r\n<p dir=\"auto\" data-start=\"1258\" data-end=\"1462\">&nbsp;</p>",
+    "start-time": "2026-11-08T07:00:00.000Z",
+    "end-time": "2026-11-08T12:00:00.000Z",
+    "time-zone": {
+     "name": "Asia/Riyadh",
+     "utc-offset": 3
+    },
+    "primary-host": {
+     "spoid": "STB20223",
+     "name": "Philadelphia Univ",
+     "class_code": "SUBG",
+     "class_description": "Geographic SPO",
+     "type_code": "STBR",
+     "type_description": "Student Branch",
+     "section_spoids": "R80079",
+     "region_spoids": "R8",
+     "society_spoids": null,
      "report_submitted": null,
      "report_updated": null
     },
     "cohosts": [
      {
-      "spoid": "STB25091",
-      "name": "Yarmouk University",
-      "class_code": "SUBG",
-      "class_description": "Geographic SPO",
-      "type_code": "STBR",
-      "type_description": "Student Branch",
+      "spoid": "SBC20223",
+      "name": "Philadelphia Univ,PE31",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "BRCH",
+      "type_description": "Student Branch Chapter",
       "section_spoids": "R80079",
       "region_spoids": "R8",
-      "society_spoids": null,
+      "society_spoids": "PE031",
+      "report_submitted": null,
+      "report_updated": null
+     },
+     {
+      "spoid": "SBC20223A",
+      "name": "Philadelphia Univ,RA24",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "BRCH",
+      "type_description": "Student Branch Chapter",
+      "section_spoids": "R80079",
+      "region_spoids": "R8",
+      "society_spoids": "RA024",
+      "report_submitted": null,
+      "report_updated": null
+     },
+     {
+      "spoid": "SBC20223B",
+      "name": "Philadelphia Univ,C16",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "BRCH",
+      "type_description": "Student Branch Chapter",
+      "section_spoids": "R80079",
+      "region_spoids": "R8",
+      "society_spoids": "C016",
+      "report_submitted": null,
+      "report_updated": null
+     },
+     {
+      "spoid": "SBC20223C",
+      "name": "Philadelphia Univ,AES10",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "BRCH",
+      "type_description": "Student Branch Chapter",
+      "section_spoids": "R80079",
+      "region_spoids": "R8",
+      "society_spoids": "AES010",
       "report_submitted": null,
       "report_updated": null
      }
     ],
-    "header": "",
+    "header": "<h1><span style=\"font-size: 18pt;\">IEEE Philadelphia University Student Branch</span></h1>",
     "footer": "",
-    "keywords": "#ieeeday #hijjawi_faculty  #yarmouk_university #ieeeyu  #collaboration",
+    "keywords": " #IEEE #IEEEPHU  #IEEEDAY #IEEEDAY2026  #PhiladelphiaUniversity #StudentBranch #IEEECommunity #studantActivities  #collaboration#technology #Networking #teamwork #interaction #lead",
     "tags": [
-     "#ieeeday",
-     "#hijjawi_faculty",
-     "#yarmouk_university",
-     "#ieeeyu",
-     "#collaboration"
+     "#IEEE",
+     "#IEEEPHU",
+     "#IEEEDAY",
+     "#IEEEDAY2026",
+     "#PhiladelphiaUniversity",
+     "#StudentBranch",
+     "#IEEECommunity",
+     "#studantActivities",
+     "#collaboration",
+     "#technology",
+     "#Networking",
+     "#teamwork",
+     "#interaction",
+     "#lead"
     ],
     "agenda": null,
-    "contact-email": "khaledfadi2006@gmail.com",
+    "contact-email": "obn.mas1@gmail.com",
     "contact-display": "",
     "cosponsor-name": "",
     "location-type": "physical",
     "virtual-info": null,
-    "address1": "irbid/jordan",
-    "address2": "Yarmouk University ",
-    "city": "Irbid",
+    "address1": "Philadelphia University - University Campus",
+    "address2": "",
+    "city": "Amman ",
     "postal-code": "",
-    "building": "hijjawi faculty ",
+    "building": "",
     "room-number": "",
-    "map-url": "",
-    "latitude": "32.5351791",
-    "longitude": "35.8566931",
+    "map-url": "https://www.google.com/maps/place/IT+Faculty/@32.1661515,35.8510406,17.5z/data=!4m6!3m5!1s0x151c9d0019188bd5:0xe73c7537c65843c0!8m2!3d32.165825!4d35.8518801!16s%2Fg%2F11v_1xg49c?authuser=0&entry=ttu&g_ep=EgoyMDI2MDkyOS4wIKXMDSoASAFQAw%3D%3D",
+    "latitude": null,
+    "longitude": null,
     "image": null,
     "image-mime-type": null,
-    "registration-start-time": "2026-10-25T21:00:00.000Z",
-    "registration-end-time": "2026-10-27T09:00:00.000Z",
-    "registration-url": "https://events.vtools.ieee.org/event/register/587278",
-    "enable-cohost-url": true,
-    "cohost-url": "https://events.vtools.ieee.org/tego_/event/cohost/8F870B6C-A1A9-4851-A09A-BAAA01B0E646",
+    "registration-start-time": null,
+    "registration-end-time": null,
+    "registration-url": null,
+    "enable-cohost-url": false,
+    "cohost-url": null,
     "survey-url": "",
     "cost": false,
     "max-registrations": null,
     "cancelled": false,
-    "uid": "8F870B6C-A1A9-4851-A09A-BAAA01B0E646",
+    "uid": "AA3347A8-BD18-4B5F-AB25-EE7C9C3894A3",
     "publish": true,
     "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/587278",
+    "link": "https://events.vtools.ieee.org/m/581709",
     "ieee-attending": null,
     "guests-attending": null,
-    "created-at": "2026-10-19T19:09:25.000Z",
-    "updated-at": "2026-10-24T23:20:57.000Z",
+    "created-at": "2026-10-02T14:22:00.000Z",
+    "updated-at": "2026-10-22T20:21:27.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1031"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "107"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "3"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "5"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "580512",
+   "attributes": {
+    "id": 580512,
+    "title": "IEEE Student Branch Inauguration Ceremony",
+    "description": "<p>he IEEE Student Branch Inauguration Ceremony at Ajloun University College &ndash; Balqa Applied University marks the official launch of the IEEE Student Branch. The event brings together students, faculty members, university representatives, and invited guests to celebrate the establishment of the branch and introduce its vision, objectives, and upcoming activities. The ceremony aims to promote innovation, technical knowledge, professional development, leadership, and active student engagement through IEEE.</p>",
+    "start-time": "2026-10-28T06:00:00.000Z",
+    "end-time": "2026-10-28T14:00:00.000Z",
+    "time-zone": {
+     "name": "Asia/Riyadh",
+     "utc-offset": 3
+    },
+    "primary-host": {
+     "spoid": "STB60242176",
+     "name": "Ajloun University College-Balqa Applied University",
+     "class_code": "SUBG",
+     "class_description": "Geographic SPO",
+     "type_code": "STBR",
+     "type_description": "Student Branch",
+     "section_spoids": "R80079",
+     "region_spoids": "R8",
+     "society_spoids": null,
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": " IEEE , Student Branch , Inauguration ,\r\n Innovation , Technology , #leadership",
+    "tags": [
+     "#IEEE",
+     "#Student",
+     "#Branch",
+     "#Inauguration",
+     "#Innovation",
+     "#Technology",
+     "#leadership"
+    ],
+    "agenda": null,
+    "contact-email": "lama.khatatbeh.ieee.ac@gmail.com",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "BAU-AJLOUN",
+    "address2": "",
+    "city": "AJLOUN",
+    "postal-code": "26810",
+    "building": "Ajloun university college ",
+    "room-number": "",
+    "map-url": "",
+    "latitude": "32.3325599",
+    "longitude": "35.751742",
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": "2026-10-09T21:00:00.000Z",
+    "registration-end-time": "2026-10-20T21:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/580512",
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "CEB3D56F-762C-49C9-8D0D-C0486C07D003",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/580512",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-09-28T17:54:51.000Z",
+    "updated-at": "2026-09-28T20:21:09.000Z",
     "pricing": null,
     "speakers": null,
     "media": null,
@@ -122,71 +387,73 @@
   },
   {
    "type": "events",
-   "id": "586685",
+   "id": "584229",
    "attributes": {
-    "id": 586685,
-    "title": "IEEE PES&IAS MEETING ",
-    "description": "<p>Meeting with the new PES&amp;IAS Committee in Hashemite University</p>",
-    "start-time": "2026-11-05T11:05:00.000Z",
-    "end-time": "2026-11-05T12:05:00.000Z",
+    "id": 584229,
+    "title": "IEEE QLD Section AGM 2026",
+    "description": "<p data-pm-slice=\"1 1 []\">Dear IEEE Queensland Section Member,</p>\r\n<p>You are cordially invited to attend the <strong>2026 IEEE Queensland Section Annual General Meeting (AGM)</strong>. The meeting details are as follows:</p>\r\n<p><strong>Date:</strong> Thursday, 19 November 2026<br><strong>Time:</strong> 4:30 pm &ndash; 5:30 pm<br><strong>Venue:</strong> Sky S1 Meeting Room, Brisbane Convention and Exhibition Centre (BCEC), Grey Street, South Brisbane, QLD<br><strong>Online attendance:</strong> A Zoom option will be available (pre-registration required, details to be confirmed).</p>\r\n<p>The meeting agenda and minutes of the 2025 AGM will be circulated closer to the event.</p>\r\n<p>If you plan to attend in person, please register using the link provided in this event notice.</p>\r\n<p data-pm-slice=\"1 1 []\"><strong>The event flyer, including details of the IEEE Queensland Section Annual Dinner, can be found below.</strong></p>\r\n<p>We look forward to your participation!</p>\r\n<p>Kind regards,</p>\r\n<p>Hugo Espinosa<br>Vice-Chair, IEEE QLD Section</p>",
+    "start-time": "2026-11-19T06:30:00.000Z",
+    "end-time": "2026-11-19T07:30:00.000Z",
     "time-zone": {
-     "name": "Africa/Cairo",
-     "utc-offset": 2
+     "name": "Australia/Brisbane",
+     "utc-offset": 10
     },
     "primary-host": {
-     "spoid": "SBC61971D",
-     "name": "Hashemite University, PE31/IA34",
-     "class_code": "SUBT",
-     "class_description": "Technical SPO",
-     "type_code": "BRCH",
-     "type_description": "Student Branch Chapter",
-     "section_spoids": "R80079",
-     "region_spoids": "R8",
-     "society_spoids": "IA034,PE031",
+     "spoid": "R00553",
+     "name": "Queensland Section",
+     "class_code": "SUBG",
+     "class_description": "Geographic SPO",
+     "type_code": "SECT",
+     "type_description": "Section",
+     "section_spoids": "R00553",
+     "region_spoids": "R0",
+     "society_spoids": null,
      "report_submitted": null,
      "report_updated": null
     },
     "cohosts": [],
     "header": "",
     "footer": "",
-    "keywords": " #ieeehu",
+    "keywords": " #IEEE #queensland #AGM",
     "tags": [
-     "#ieeehu"
+     "#IEEE",
+     "#queensland",
+     "#AGM"
     ],
     "agenda": null,
-    "contact-email": "Zaidmustafashaban@gmail.com",
+    "contact-email": "h.espinosa@griffith.edu.au",
     "contact-display": "",
     "cosponsor-name": "",
     "location-type": "physical",
     "virtual-info": null,
-    "address1": "",
-    "address2": "",
-    "city": "Az Zarqa",
+    "address1": "Brisbane Convention & Exhibition Centre (BCEC)",
+    "address2": "Grey Street, South Brisbane",
+    "city": "Brisbane",
     "postal-code": "",
     "building": "",
-    "room-number": "",
-    "map-url": "",
+    "room-number": "Sky S1 Meeting Room",
+    "map-url": "https://www.google.com/maps/place/Brisbane+Convention+%26+Exhibition+Centre/@-27.4764623,153.0158252,17z/data=!3m2!4b1!5s0x6b915a09063e9851:0x99fad0bec45593b0!4m6!3m5!1s0x6b915a0968742765:0x53b5b99532970ee3!8m2!3d-27.4764671!4d153.0184001!16zL20vMDZ6cHBy?entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D",
     "latitude": null,
     "longitude": null,
     "image": null,
     "image-mime-type": null,
-    "registration-start-time": null,
-    "registration-end-time": null,
-    "registration-url": null,
+    "registration-start-time": "2026-10-10T14:00:00.000Z",
+    "registration-end-time": "2026-11-18T14:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/584229",
     "enable-cohost-url": false,
     "cohost-url": null,
     "survey-url": "",
     "cost": false,
-    "max-registrations": null,
+    "max-registrations": 25,
     "cancelled": false,
-    "uid": "416BEC47-95FD-49B7-B757-FDA96CABEC43",
+    "uid": "119CC27A-547E-4DA2-83A8-503E77995B91",
     "publish": true,
     "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/586685",
+    "link": "https://events.vtools.ieee.org/m/584229",
     "ieee-attending": null,
     "guests-attending": null,
-    "created-at": "2026-10-17T16:23:17.000Z",
-    "updated-at": "2026-10-24T10:10:28.000Z",
+    "created-at": "2026-10-11T05:12:43.000Z",
+    "updated-at": "2026-10-27T17:08:52.000Z",
     "pricing": null,
     "speakers": null,
     "media": null,
@@ -196,13 +463,13 @@
     "state": {
      "data": {
       "type": "states",
-      "id": "1031"
+      "id": "139"
      }
     },
     "country": {
      "data": {
       "type": "countries",
-      "id": "107"
+      "id": "11"
      }
     },
     "category": {
@@ -224,315 +491,82 @@
   },
   {
    "type": "events",
-   "id": "586017",
+   "id": "584211",
    "attributes": {
-    "id": 586017,
-    "title": "IEEE GJU SB Officers Kickoff & Training Session",
-    "description": "<p>The first IEEE GJU Student Branch Officers Meeting aims to bring together the newly appointed society board members, provide an opportunity for everyone to get to know each other, and introduce them to their roles and responsibilities.</p>\r\n<p>The meeting will include training sessions covering the fundamentals of serving as an IEEE Society board member, along with an introduction to IEEE vTools and its basic features for managing events and activities.</p>\r\n<p>The goal is to help our officers start the year with a clear understanding of their responsibilities and the tools they need to successfully manage their societies.</p>",
-    "start-time": "2026-11-07T13:00:00.000Z",
-    "end-time": "2026-11-07T21:59:00.000Z",
+    "id": 584211,
+    "title": "NEXTGEN INNOVATORS 2026",
+    "description": "<p><img src=\"https://events.vtools.ieee.org/vtools_ui/media/display/c837694e-e8a7-465c-a966-42503f88fcd0\" width=\"1008\" height=\"1344\"></p>\r\n<div class=\"n6owBd awi2gc\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-hveid=\"CAAICxAA\" data-complete=\"true\" data-processed=\"true\"><strong class=\"rQesXe MPyX\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-complete=\"true\" data-processed=\"true\">NEXTGEN INNOVATORS 2026: Hackathon &mdash; 2.&ordf; Edici&oacute;n<!--TgQPHd|||[]--></strong> es un evento intensivo de tres d&iacute;as coorganizado por<strong> </strong><span class=\"rQesXe MPyX\">IEEE WIE UNMSM<!--TgQPHd|||[]--></span><strong>, </strong><span class=\"rQesXe MPyX\">WIE PUCP</span> y <span class=\"rQesXe MPyX\">WIE UNFV</span>. <strong>👩&zwj;💻✨</strong><!--TgQPHd|||[]--></div>\r\n<div class=\"n6owBd awi2gc\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-hveid=\"CAAIDBAA\" data-complete=\"true\" data-processed=\"true\">Esta hackathon est&aacute; dise&ntilde;ada para todas las personas apasionadas por el <span class=\"rQesXe MPyX\">mundo STEM<!--TgQPHd|||[]--></span> 🧠💡. Brinda una plataforma colaborativa donde los participantes podr&aacute;n compartir ideas, trabajar en equipo y desarrollar soluciones tecnol&oacute;gicas e innovadoras que generen un impacto real y duradero en dos pilares cruciales:<!--TgQPHd|||[]--></div>\r\n<ul class=\"KsbFXc U6u95\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-ved=\"2ahUKEwiklveL4rCXAxXIqZUCHTOKPPkQ-7AUegYIAAgNEAA\" data-hveid=\"CAAIDRAA\" data-complete=\"true\" data-processed=\"true\">\r\n<li class=\"Z1qcYe\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-hveid=\"CAAIDRAB\" data-complete=\"true\" data-sae=\"\"><span class=\"iNqyIf\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-complete=\"true\">📚 <span class=\"rQesXe MPyX\">Educaci&oacute;n<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li>\r\n<li class=\"Z1qcYe\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-hveid=\"CAAIDRAC\" data-complete=\"true\" data-sae=\"\"><span class=\"iNqyIf\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-complete=\"true\">⚖️ <span class=\"rQesXe MPyX\">Equidad de G&eacute;nero<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li>\r\n<!--TgQPHd|||[]--></ul>\r\n<div class=\"n6owBd awi2gc\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-hveid=\"CAAIDhAA\" data-complete=\"true\" data-processed=\"true\"><span class=\"rQesXe MPyX\">📅 Detalles del Evento:<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></div>\r\n<ul class=\"KsbFXc U6u95\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-ved=\"2ahUKEwiklveL4rCXAxXIqZUCHTOKPPkQ-7AUegYIAAgPEAA\" data-hveid=\"CAAIDxAA\" data-complete=\"true\" data-processed=\"true\">\r\n<li class=\"Z1qcYe\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-hveid=\"CAAIDxAB\" data-complete=\"true\" data-sae=\"\"><span class=\"iNqyIf\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-complete=\"true\">📆 <span class=\"rQesXe MPyX\">Fechas:<!--TgQPHd|||[]--></span> 29, 30 y 31 de octubre de 2026<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li>\r\n<li class=\"Z1qcYe\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-hveid=\"CAAIDxAC\" data-complete=\"true\" data-sae=\"\"><span class=\"iNqyIf\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-complete=\"true\">🚨 <span class=\"rQesXe MPyX\">Cierre de Inscripciones:<!--TgQPHd|||[]--></span> 22 de octubre de 2026<!--TgQPHd|||[]--></span><!--TgQPHd|||[]--></li>\r\n<!--TgQPHd|||[]--></ul>\r\n<div class=\"n6owBd awi2gc\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-hveid=\"CAAIEBAA\" data-complete=\"true\" data-processed=\"true\">&iexcl;&Uacute;nete a nosotros para desafiar tus habilidades, hacer networking y ser parte de la pr&oacute;xima generaci&oacute;n de innovadores! 💜👾<!--TgQPHd|||[]--></div>\r\n<div class=\"yhAwj\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-complete=\"true\" data-processed=\"true\" data-sfc-inited=\"2\"><!--TgQPHd|||[]--></div>\r\n<div class=\"AHmQrc\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-hveid=\"CAAIEhAA\" data-complete=\"true\" data-processed=\"true\">\r\n<div class=\"n6owBd awi2gc\" data-sfc-cp=\"\" data-sfc-root=\"ep\" data-epip=\"\" data-hveid=\"CAAIEhAB\" data-complete=\"true\" data-processed=\"true\" aria-owns=\"action-menu-parent-container\">&nbsp;</div>\r\n</div>",
+    "start-time": "2026-10-29T13:00:00.000Z",
+    "end-time": "2026-11-01T01:00:00.000Z",
     "time-zone": {
-     "name": "Asia/Jerusalem",
-     "utc-offset": 2
-    },
-    "primary-host": {
-     "spoid": "STB04651",
-     "name": "German Jordanian University",
-     "class_code": "SUBG",
-     "class_description": "Geographic SPO",
-     "type_code": "STBR",
-     "type_description": "Student Branch",
-     "section_spoids": "R80079",
-     "region_spoids": "R8",
-     "society_spoids": null,
-     "report_submitted": null,
-     "report_updated": null
-    },
-    "cohosts": [
-     {
-      "spoid": "SBA04651",
-      "name": "German Jordanian University, WIE",
-      "class_code": "SUBO",
-      "class_description": "Organizational SPO",
-      "type_code": "AFFN",
-      "type_description": "Affinity",
-      "section_spoids": "R80079",
-      "region_spoids": "R8",
-      "society_spoids": "WIE050",
-      "report_submitted": null,
-      "report_updated": null
-     },
-     {
-      "spoid": "SBC04651",
-      "name": "German Jordanian University,IE13",
-      "class_code": "SUBT",
-      "class_description": "Technical SPO",
-      "type_code": "BRCH",
-      "type_description": "Student Branch Chapter",
-      "section_spoids": "R80079",
-      "region_spoids": "R8",
-      "society_spoids": "IE013",
-      "report_submitted": null,
-      "report_updated": null
-     },
-     {
-      "spoid": "SBC04651A",
-      "name": "German Jordanian University,C16",
-      "class_code": "SUBT",
-      "class_description": "Technical SPO",
-      "type_code": "BRCH",
-      "type_description": "Student Branch Chapter",
-      "section_spoids": "R80079",
-      "region_spoids": "R8",
-      "society_spoids": "C016",
-      "report_submitted": null,
-      "report_updated": null
-     },
-     {
-      "spoid": "SBC04651B",
-      "name": "German Jordanian University,EMB18",
-      "class_code": "SUBT",
-      "class_description": "Technical SPO",
-      "type_code": "BRCH",
-      "type_description": "Student Branch Chapter",
-      "section_spoids": "R80079",
-      "region_spoids": "R8",
-      "society_spoids": "EMB018",
-      "report_submitted": null,
-      "report_updated": null
-     },
-     {
-      "spoid": "SBC04651C",
-      "name": "German Jordanian University,CT08",
-      "class_code": "SUBT",
-      "class_description": "Technical SPO",
-      "type_code": "BRCH",
-      "type_description": "Student Branch Chapter",
-      "section_spoids": "R80079",
-      "region_spoids": "R8",
-      "society_spoids": "CT008",
-      "report_submitted": null,
-      "report_updated": null
-     },
-     {
-      "spoid": "SBC04651D",
-      "name": "German Jordanian University,IA34",
-      "class_code": "SUBT",
-      "class_description": "Technical SPO",
-      "type_code": "BRCH",
-      "type_description": "Student Branch Chapter",
-      "section_spoids": "R80079",
-      "region_spoids": "R8",
-      "society_spoids": "IA034",
-      "report_submitted": null,
-      "report_updated": null
-     },
-     {
-      "spoid": "SBC04651E",
-      "name": "German Jordanian University,TEM14",
-      "class_code": "SUBT",
-      "class_description": "Technical SPO",
-      "type_code": "BRCH",
-      "type_description": "Student Branch Chapter",
-      "section_spoids": "R80079",
-      "region_spoids": "R8",
-      "society_spoids": "TEM014",
-      "report_submitted": null,
-      "report_updated": null
-     },
-     {
-      "spoid": "SBC04651F",
-      "name": "German Jordanian University,RA24",
-      "class_code": "SUBT",
-      "class_description": "Technical SPO",
-      "type_code": "BRCH",
-      "type_description": "Student Branch Chapter",
-      "section_spoids": "R80079",
-      "region_spoids": "R8",
-      "society_spoids": "RA024",
-      "report_submitted": null,
-      "report_updated": null
-     },
-     {
-      "spoid": "SBC04651G",
-      "name": "German Jordanian University,PE31",
-      "class_code": "SUBT",
-      "class_description": "Technical SPO",
-      "type_code": "BRCH",
-      "type_description": "Student Branch Chapter",
-      "section_spoids": "R80079",
-      "region_spoids": "R8",
-      "society_spoids": "PE031",
-      "report_submitted": null,
-      "report_updated": null
-     },
-     {
-      "spoid": "SBC04651H",
-      "name": "German Jordanian University,AES10",
-      "class_code": "SUBT",
-      "class_description": "Technical SPO",
-      "type_code": "BRCH",
-      "type_description": "Student Branch Chapter",
-      "section_spoids": "R80079",
-      "region_spoids": "R8",
-      "society_spoids": "AES010",
-      "report_submitted": null,
-      "report_updated": null
-     }
-    ],
-    "header": "",
-    "footer": "",
-    "keywords": " #WIE #engineering #gju #ieeegju #tools #societies",
-    "tags": [
-     "#WIE",
-     "#engineering",
-     "#gju",
-     "#ieeegju",
-     "#tools",
-     "#societies"
-    ],
-    "agenda": null,
-    "contact-email": "zoiqassas@ieee.org",
-    "contact-display": "",
-    "cosponsor-name": "",
-    "location-type": "physical",
-    "virtual-info": null,
-    "address1": "",
-    "address2": "",
-    "city": "Amman",
-    "postal-code": "",
-    "building": "",
-    "room-number": "",
-    "map-url": "",
-    "latitude": null,
-    "longitude": null,
-    "image": null,
-    "image-mime-type": null,
-    "registration-start-time": null,
-    "registration-end-time": null,
-    "registration-url": null,
-    "enable-cohost-url": false,
-    "cohost-url": null,
-    "survey-url": "",
-    "cost": false,
-    "max-registrations": null,
-    "cancelled": false,
-    "uid": "4D62F553-0B04-4F4E-BE94-4B3C939C91C2",
-    "publish": true,
-    "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/586017",
-    "ieee-attending": null,
-    "guests-attending": null,
-    "created-at": "2026-10-15T19:56:04.000Z",
-    "updated-at": "2026-10-15T20:09:31.000Z",
-    "pricing": null,
-    "speakers": null,
-    "media": null,
-    "enhanced-report": null
-   },
-   "relationships": {
-    "state": {
-     "data": {
-      "type": "states",
-      "id": "1031"
-     }
-    },
-    "country": {
-     "data": {
-      "type": "countries",
-      "id": "107"
-     }
-    },
-    "category": {
-     "data": {
-      "type": "categories",
-      "id": "4"
-     }
-    },
-    "subcategory": {
-     "data": {
-      "type": "subcategories",
-      "id": "10"
-     }
-    },
-    "menus": {
-     "data": []
-    }
-   }
-  },
-  {
-   "type": "events",
-   "id": "587318",
-   "attributes": {
-    "id": 587318,
-    "title": "Emerson Library: IEEE TryEngineering book read-along and STEM activity",
-    "description": "<div>\r\n<div id=\"model-response-message-contentr_ff92b27d6e19b861\" class=\"markdown markdown-main-panel md-content enable-luminous-fast-follows enable-updated-hr-color tutor-markdown-rendering\" dir=\"ltr\" aria-busy=\"false\" aria-live=\"polite\">\r\n<div><strong data-path-to-node=\"1\" data-index-in-node=\"0\">Discover Your Passion: Explore Real World Technology Through STEM!</strong></div>\r\nIEEE TryEngineering book read-along - <a href=\"https://tryengineering.org/home/stem-childrens-book-series\" target=\"_blank\" rel=\"noopener\" data-saferedirecturl=\"https://www.google.com/url?q=https://tryengineering.org/home/stem-childrens-book-series&amp;source=gmail&amp;ust=1792532541199000&amp;usg=AOvVaw3_LW2U_Yk6L0eKSc2PI-ud\">https://tryengineering.org/<wbr>home/stem-childrens-book-<wbr>series</a><br>\r\n<div><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><sup class=\"superscript\"><!----></sup><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----> <!----><!----><!----><!----><!----><!----><!----><!----><!----></div>\r\n<br>\r\n<div><span data-path-to-node=\"3,0\"> <strong data-path-to-node=\"3,0\" data-index-in-node=\"1\">Hosted By:</strong> Emerson Public Library</span><span data-path-to-node=\"3,1\"><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><sup class=\"superscript\"><!----></sup><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----></span> <!----><!----><!----><!----><!----><!----><!----><!----><!----></div>\r\n<br>\r\n<div><span data-path-to-node=\"4,0\">This hands-on experience combines literacy and STEM projects to create and explore after school.</span><span data-path-to-node=\"4,1\"><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><sup class=\"superscript\"><!----></sup><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----><!----></span><span data-path-to-node=\"4,2\"> Powered by IEEE Try Engineering and the IEEE North Jersey Section, the event will explore real-world technology topics including:</span></div>\r\n<ul data-path-to-node=\"5\">\r\n<li>\r\n<div><span data-path-to-node=\"5,0,0,0\">Artificial Intelligence</span></div>\r\n</li>\r\n<li>\r\n<div><span data-path-to-node=\"5,1,0,0\">Communication Technology</span></div>\r\n</li>\r\n<li>\r\n<div><span data-path-to-node=\"5,2,0,0\">Electric Vehicles</span></div>\r\n</li>\r\n<li>\r\n<div><span data-path-to-node=\"5,3,0,0\">Ocean Engineering</span></div>\r\n</li>\r\n<li>\r\n<div><span data-path-to-node=\"5,4,0,0\">Semiconductors</span></div>\r\n</li>\r\n<li>\r\n<div><span data-path-to-node=\"5,5,0,0\">Signal Power</span></div>\r\n</li>\r\n</ul>\r\n<div>&nbsp;</div>\r\n<div><strong data-path-to-node=\"6\" data-index-in-node=\"0\">Event Details:</strong></div>\r\n<br>\r\n<ul data-path-to-node=\"7\">\r\n<li>\r\n<div><span data-path-to-node=\"7,0,0,0\"><strong data-path-to-node=\"7,0,0,0\" data-index-in-node=\"0\">Date:</strong> Monday, November 16, 2026</span></div>\r\n</li>\r\n<li>\r\n<div><span data-path-to-node=\"7,1,0,0\"><strong data-path-to-node=\"7,1,0,0\" data-index-in-node=\"0\">Time:</strong> 3:30 PM</span></div>\r\n</li>\r\n<li>\r\n<div><span data-path-to-node=\"7,2,0,0\"><strong data-path-to-node=\"7,2,0,0\" data-index-in-node=\"0\">Eligibility:</strong> Open to children grades 3-6.</span></div>\r\n</li>\r\n<li>\r\n<div><span data-path-to-node=\"7,3,0,0\"><strong data-path-to-node=\"7,3,0,0\" data-index-in-node=\"0\">Registration:</strong> Registration is required online at www.emersonlibrary.org</span></div>\r\n</li>\r\n</ul>\r\n</div>\r\n</div>\r\n<div>More information about:</div>\r\n<div><strong><a href=\"https://r1.ieee.org/northjersey/\">IEEE North Jersey Section</a></strong></div>\r\n<div>&nbsp;</div>\r\n<div><img src=\"https://events.vtools.ieee.org/vtools_ui/media/display/6351f7cc-a39c-4366-92da-4286d3861b27\"></div>\r\n<div>&nbsp;</div>\r\n<div>&nbsp;</div>\r\n<div><img src=\"https://events.vtools.ieee.org/vtools_ui/media/display/fb2781db-009a-4014-a492-e25bcf242714\"></div>\r\n<div>&nbsp;</div>",
-    "start-time": "2026-11-16T20:30:00.000Z",
-    "end-time": "2026-11-16T21:30:00.000Z",
-    "time-zone": {
-     "name": "America/New_York",
+     "name": "America/Lima",
      "utc-offset": -5
     },
     "primary-host": {
-     "spoid": "R10051",
-     "name": "North Jersey Section",
-     "class_code": "SUBG",
-     "class_description": "Geographic SPO",
-     "type_code": "SECT",
-     "type_description": "Section",
-     "section_spoids": "R10051",
-     "region_spoids": "R1",
-     "society_spoids": null,
+     "spoid": "SBA03221",
+     "name": "Universidad Nacional Mayor de San Marcos, WIE",
+     "class_code": "SUBO",
+     "class_description": "Organizational SPO",
+     "type_code": "AFFN",
+     "type_description": "Affinity",
+     "section_spoids": "R90721",
+     "region_spoids": "R9",
+     "society_spoids": "WIE050",
      "report_submitted": null,
      "report_updated": null
     },
     "cohosts": [],
     "header": "",
     "footer": "",
-    "keywords": " #STEM #excom #jersey #education #volunteer #preU #K-12",
+    "keywords": " #WIE #networking #stem #IEEE #students #unmsm #NextGenInnovators2026 #HackathonWIE #Hackathon2026 #WIEUNMSM #WIEPUCP #WIEUNFV",
     "tags": [
-     "#STEM",
-     "#excom",
-     "#jersey",
-     "#education",
-     "#volunteer",
-     "#preU",
-     "#K-12"
+     "#WIE",
+     "#networking",
+     "#stem",
+     "#IEEE",
+     "#students",
+     "#unmsm",
+     "#NextGenInnovators2026",
+     "#HackathonWIE",
+     "#Hackathon2026",
+     "#WIEUNMSM",
+     "#WIEPUCP",
+     "#WIEUNFV"
     ],
     "agenda": null,
-    "contact-email": "craig.polk@ieee.org",
-    "contact-display": "<p>Section pre-U co-chair: Chitra Venkatraman -&nbsp;chitrav55@gmail.com</p>\r\n<p>Section pre-U co-chair: Craig Polk - craig.polk@ieee.org</p>",
+    "contact-email": "sarita.calderon@unmsm.edu.pe",
+    "contact-display": "",
     "cosponsor-name": "",
-    "location-type": "physical",
-    "virtual-info": null,
-    "address1": "",
-    "address2": "",
-    "city": "Emerson",
-    "postal-code": "07630",
-    "building": "Emerson Public Library",
+    "location-type": "hybrid",
+    "virtual-info": "<p><a href=\"https://events.vtools.ieee.org/tego_/event/NEXTGEN INNOVATORS 2026 Viernes, 30 de octubre &middot; 8:00 &ndash; 11:00am Zona horaria: America/Lima Informaci&oacute;n para unirse con Google Meet Enlace de la videollamada: https:/meet.google.com/yop-xxrz-czc O marca el: ‪(PE) +51 1 6449188‬ PIN: ‪255 753 610 3652‬# M&aacute;s n&uacute;meros de tel&eacute;fono: https://tel.meet/yop-xxrz-czc?pin=2557536103652\">&nbsp;https://meet.google.com/yop-xxrz-czc</a></p>",
+    "address1": "WWX6+7VP, Av. Óscar R. Benavides, Lima 15081",
+    "address2": "Av. Universitaria 1801, San Miguel 15088",
+    "city": "Lima",
+    "postal-code": "",
+    "building": "",
     "room-number": "",
-    "map-url": "",
-    "latitude": "40.9744436",
-    "longitude": "-74.0278279",
+    "map-url": "https://maps.app.goo.gl/VQwKut4HE7dMRGGUA",
+    "latitude": "-12.049468",
+    "longitude": "-77.0728676",
     "image": null,
     "image-mime-type": null,
     "registration-start-time": null,
     "registration-end-time": null,
-    "registration-url": "https://www.emersonlibrary.org",
+    "registration-url": "https://luma.com/ze7o6cj5",
     "enable-cohost-url": false,
     "cohost-url": null,
     "survey-url": "",
     "cost": false,
     "max-registrations": null,
     "cancelled": false,
-    "uid": "1A5C70C6-7987-4F31-B59F-79543FBD925C",
+    "uid": "21C5C0F7-DD9F-41DA-AA0E-3992278A00D3",
     "publish": true,
-    "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/587318",
+    "virtual": true,
+    "link": "https://events.vtools.ieee.org/m/584211",
     "ieee-attending": null,
     "guests-attending": null,
-    "created-at": "2026-10-19T21:38:56.000Z",
-    "updated-at": "2026-10-19T21:45:23.000Z",
+    "created-at": "2026-10-11T00:49:08.000Z",
+    "updated-at": "2026-10-11T01:32:34.000Z",
     "pricing": null,
     "speakers": null,
     "media": null,
@@ -542,181 +576,14 @@
     "state": {
      "data": {
       "type": "states",
-      "id": "1832"
+      "id": "1289"
      }
     },
     "country": {
      "data": {
       "type": "countries",
-      "id": "221"
+      "id": "163"
      }
-    },
-    "category": {
-     "data": {
-      "type": "categories",
-      "id": "6"
-     }
-    },
-    "subcategory": {
-     "data": {
-      "type": "subcategories",
-      "id": "15"
-     }
-    },
-    "menus": {
-     "data": []
-    }
-   }
-  },
-  {
-   "type": "events",
-   "id": "587315",
-   "attributes": {
-    "id": 587315,
-    "title": "Basic A.I. Applications",
-    "description": "<p style=\"margin-bottom: 0in;\"><strong>Generative AI Best Practices in Engineerng</strong></p>\r\n<ul>\r\n<li>-Defining the work before delegating to AI</li>\r\n<li>-Preserving engineering judgement when using AI</li>\r\n<li>-Setting boundaries for AI agents</li>\r\n</ul>\r\n<p>Submit AHEAD OF THE PROGRAM A.I. searches to the speaker Clayton Dalton for him to demonstrate.&nbsp;</p>",
-    "start-time": "2026-11-02T22:00:00.000Z",
-    "end-time": "2026-11-02T23:00:00.000Z",
-    "time-zone": {
-     "name": "America/Chicago",
-     "utc-offset": -6
-    },
-    "primary-host": {
-     "spoid": "R30001",
-     "name": "Alabama Section",
-     "class_code": "SUBG",
-     "class_description": "Geographic SPO",
-     "type_code": "SECT",
-     "type_description": "Section",
-     "section_spoids": "R30001",
-     "region_spoids": "R3",
-     "society_spoids": null,
-     "report_submitted": null,
-     "report_updated": null
-    },
-    "cohosts": [
-     {
-      "spoid": "CH03001",
-      "name": "Alabama Section Chapter, C16",
-      "class_code": "SUBT",
-      "class_description": "Technical SPO",
-      "type_code": "CHPT",
-      "type_description": "Chapter",
-      "section_spoids": "R30001",
-      "region_spoids": "R3",
-      "society_spoids": "C016",
-      "report_submitted": null,
-      "report_updated": null
-     },
-     {
-      "spoid": "CH03002",
-      "name": "Alabama Section Chapter, COM19",
-      "class_code": "SUBT",
-      "class_description": "Technical SPO",
-      "type_code": "CHPT",
-      "type_description": "Chapter",
-      "section_spoids": "R30001",
-      "region_spoids": "R3",
-      "society_spoids": "COM019",
-      "report_submitted": null,
-      "report_updated": null
-     },
-     {
-      "spoid": "CH03003",
-      "name": "Alabama Section Chapter,PE31",
-      "class_code": "SUBT",
-      "class_description": "Technical SPO",
-      "type_code": "CHPT",
-      "type_description": "Chapter",
-      "section_spoids": "R30001",
-      "region_spoids": "R3",
-      "society_spoids": "PE031",
-      "report_submitted": null,
-      "report_updated": null
-     },
-     {
-      "spoid": "LM30001",
-      "name": "Alabama Section Affinity Group, LM",
-      "class_code": "SUBO",
-      "class_description": "Organizational SPO",
-      "type_code": "AFFN",
-      "type_description": "Affinity",
-      "section_spoids": "R30001",
-      "region_spoids": "R3",
-      "society_spoids": null,
-      "report_submitted": null,
-      "report_updated": null
-     }
-    ],
-    "header": "",
-    "footer": "",
-    "keywords": "#microgrids #battery #IEEE #STEM #energy #generation #engineering #power #distribution #storage battery #batteries #monitoring #cbm #asset management #transformers #switchgear #cables #breakers   ",
-    "tags": [
-     "#microgrids",
-     "#battery",
-     "#IEEE",
-     "#STEM",
-     "#energy",
-     "#generation",
-     "#engineering",
-     "#power",
-     "#distribution",
-     "#storage",
-     "#batteries",
-     "#monitoring",
-     "#cbm",
-     "#asset",
-     "#management",
-     "#transformers",
-     "#switchgear",
-     "#cables",
-     "#breakers"
-    ],
-    "agenda": "<p><span style=\"font-size: 12pt;\"><span style=\"font-family: arial,helvetica,sans-serif;\">4:00 PM Presentation</span></span></p>\r\n<p><span style=\"font-family: arial,helvetica,sans-serif; font-size: 12pt;\">5:00 PM - Adjourn</span></p>",
-    "contact-email": "Chair-ALSect@ieee.org",
-    "contact-display": "<p class=\"MsoNormal\"><u>Email address to contact for additional info:</u>&nbsp;</p>\r\n<p><a href=\"mailto:robert@streamcrest.com\">jay.stewart@southwire.com</a></p>\r\n<p>cp 770-435-2927</p>",
-    "cosponsor-name": "",
-    "location-type": "virtual",
-    "virtual-info": "<div class=\"meeting_detail_info_content\">\r\n<div class=\"meeting_detail_wrapper\" role=\"region\" aria-label=\"More ways to join\">\r\n<section>\r\n<dl>\r\n<dd>\r\n<div class=\"host_pin_area\">\r\n<div class=\"meeting_detail_wrapper\" role=\"region\" aria-label=\"More ways to join\">\r\n<section>\r\n<dl>\r\n<dd>\r\n<div class=\"host_pin_area\">\r\n<p>&nbsp;</p>\r\n<div class=\"meeting_detail_blockt\">\r\n<div class=\"meetingInfo_Title_wrapper\">\r\n<h3 id=\"meetingInformationTitle\" class=\"\">Join information</h3>\r\n</div>\r\n</div>\r\n<div class=\"meeting_detail_info_content\">\r\n<div class=\"meeting_detail_wrapper\" role=\"region\" aria-label=\"Meeting Information\">&nbsp;</div>\r\n<div class=\"meeting_detail_wrapper\" role=\"region\" aria-label=\"More ways to join\">\r\n<div class=\"meeting_detail_wrapper\" role=\"region\" aria-label=\"More ways to join\">\r\n<section>\r\n<dl>\r\n<dd>\r\n<div class=\"global-callin-numbers-line\">\r\n<div class=\"meeting_detail_wrapper\" role=\"region\" aria-label=\"Meeting Information\">\r\n<dl>\r\n<dt title=\"Meeting link:\">Meeting link:</dt>\r\n<dd><a href=\"https://ieeemeetings.webex.com/ieeemeetings/j.php?MTID=mbed360e1edb60dd3d9ed3786efbbea2d\">https://ieeemeetings.webex.com/ieeemeetings/j.php?MTID=mbed360e1edb60dd3d9ed3786efbbea2d&nbsp;</a>\r\n<div class=\"el-popover__trigger\">&nbsp;</div>\r\n<a id=\"mdp_copy_meeting_link\" class=\"el-tooltip item copy\" tabindex=\"0\" role=\"button\" aria-label=\"Copy meeting link\"></a></dd>\r\n<dt title=\"Meeting number:\">Meeting number:</dt>\r\n<dd><span id=\"meetingKeySelector\">2533 048 9377</span></dd>\r\n<dt title=\"Password: \">Password:</dt>\r\n<dd id=\"mdp_advanced_info_password\" dir=\"auto\">3HkgP6fmph2</dd>\r\n<dd id=\"mdp_advanced_info_host_key\"></dd>\r\n</dl>\r\n</div>\r\n<div class=\"meeting_detail_wrapper\" role=\"region\" aria-label=\"More ways to join\">\r\n<section>\r\n<dl>\r\n<dt title=\"Join by video system\">Join by video system</dt>\r\n<dd>\r\n<div id=\"mdp_video_address\">Dial&nbsp;<span dir=\"auto\">25330489377@ieeemeetings.webex.com</span></div>\r\n<div id=\"mdp_video_dialing_ip_address\">You can also dial 173.243.2.68 and enter your meeting number.</div>\r\n</dd>\r\n</dl>\r\n</section>\r\n<section>\r\n<dl>\r\n<dt title=\"Join by phone\">Join by phone</dt>\r\n<dd>\r\n<div>\r\n<div id=\"mdp_audio_call_in_numbers\" dir=\"auto\">\r\n<div>\r\n<div><span dir=\"auto\">+1-415-655-0002</span>&nbsp;United States Toll</div>\r\n<div><span dir=\"auto\">1-855-282-6330</span>&nbsp;United States Toll Free</div>\r\n</div>\r\n</div>\r\n<div id=\"mdp_audio_telephony_type\" class=\"accessCodeArea\">Access code:&nbsp;<span dir=\"auto\">2533 048 9377</span></div>\r\n<div class=\"host_pin_area\">Host PIN: 1711</div>\r\n</div>\r\n</dd>\r\n</dl>\r\n<dl>\r\n<dt></dt>\r\n<dd>\r\n<div class=\"global-callin-numbers-line\"><a id=\"mdp_show_global_call_in_number_link\" role=\"button\" href=\"https://ieeemeetings.webex.com/webappng/sites/ieeemeetings/meeting/info/df9a444527754f218c3012d8a56e5bbf\">Global call-in numbers&nbsp;</a><span class=\"txt_split\">|</span>&nbsp;<a id=\"mdp_toll_free_calling_restrictions_link\" href=\"https://cisco.com/go/tollfree-restrictions\" target=\"_blank\" rel=\"noopener\" aria-label=\"Download the toll-free calling restrictions document\">Toll-free calling restrictions</a></div>\r\n</dd>\r\n</dl>\r\n</section>\r\n</div>\r\n</div>\r\n</dd>\r\n</dl>\r\n</section>\r\n</div>\r\n</div>\r\n</div>\r\n</div>\r\n</dd>\r\n</dl>\r\n</section>\r\n</div>\r\n</div>\r\n</dd>\r\n</dl>\r\n</section>\r\n</div>\r\n</div>\r\n<table align=\"left\">\r\n<tbody>\r\n<tr>\r\n<td valign=\"top\">&nbsp;</td>\r\n</tr>\r\n</tbody>\r\n</table>",
-    "address1": null,
-    "address2": null,
-    "city": null,
-    "postal-code": null,
-    "building": null,
-    "room-number": null,
-    "map-url": null,
-    "latitude": null,
-    "longitude": null,
-    "image": null,
-    "image-mime-type": null,
-    "registration-start-time": "2026-10-23T05:00:00.000Z",
-    "registration-end-time": "2026-11-02T18:00:00.000Z",
-    "registration-url": "https://events.vtools.ieee.org/event/register/587315",
-    "enable-cohost-url": false,
-    "cohost-url": null,
-    "survey-url": "",
-    "cost": false,
-    "max-registrations": null,
-    "cancelled": false,
-    "uid": "11823419-3621-4D07-B1F5-44466D524D57",
-    "publish": true,
-    "virtual": true,
-    "link": "https://events.vtools.ieee.org/m/587315",
-    "ieee-attending": null,
-    "guests-attending": null,
-    "created-at": "2026-10-19T21:25:53.000Z",
-    "updated-at": "2026-10-22T16:20:53.000Z",
-    "pricing": null,
-    "speakers": null,
-    "media": null,
-    "enhanced-report": null
-   },
-   "relationships": {
-    "state": {
-     "data": null
-    },
-    "country": {
-     "data": null
     },
     "category": {
      "data": {
@@ -734,89 +601,102 @@
   },
   {
    "type": "events",
-   "id": "587314",
+   "id": "584169",
    "attributes": {
-    "id": 587314,
-    "title": "IEEE Rock River Valley Section October 2026 Meeting",
-    "description": "<p>Anu Gokhale, Region 4 Education Chair</p>\r\n<p><strong><span style=\"mso-fareast-font-family: 'Times New Roman';\">Behind the Algorithm: Understanding AI Decision-Making</span></strong></p>",
-    "start-time": "2026-10-29T23:00:00.000Z",
-    "end-time": "2026-10-30T02:00:00.000Z",
+    "id": 584169,
+    "title": "The 10th Montreal Photonics Networking Event",
+    "description": "<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"https://events.vtools.ieee.org/vtools_ui/media/display/bbe6b7dc-360d-4960-ae9d-f82499b42cbb\" width=\"597\" height=\"336\"></p>\r\n<p>You are invited to attend the 10th Montreal Photonics Networking Event on Friday 4th December 2026.</p>\r\n<p>The Montreal Photonics Networking Event is an annual event that brings together students doing research in photonics, as well as the local industry and innovation ecosystem. The event features a poster competition with several prizes and various networking activities to foster professional development. The event&rsquo;s mission is to bring together graduate students to (1) establish a way for students to discuss life as a photonics researcher, (2) enhance research synergies, and (3) connect with the industry for further career development.</p>\r\n<p>-----------------</p>\r\n<p>Vous &ecirc;tes invit&eacute;&middot;e&middot;s &agrave; participer au 10e &eacute;v&eacute;nement de r&eacute;seautage en photonique de Montr&eacute;al le vendredi 4 d&eacute;cembre 2026.</p>\r\n<p>Le Montreal Photonics Networking Event est un &eacute;v&eacute;nement annuel qui rassemble les &eacute;tudiant&middot;e&middot;s qui font de la recherche en photonique, ainsi que l'industrie locale et l'&eacute;cosyst&egrave;me de l'innovation. L'&eacute;v&eacute;nement comprend un concours d'affiches dot&eacute; de plusieurs prix et diverses activit&eacute;s de r&eacute;seautage visant &agrave; favoriser le d&eacute;veloppement professionnel. La mission de l'&eacute;v&eacute;nement est de rassembler les &eacute;tudiant&middot;e&middot;s (1) permettre aux &eacute;tudiant.e.s d'&eacute;change sur la vie de chercheur&middot;e en photonique, (2) am&eacute;liorer les synergies de recherche, et (3) rencontrer des repr&eacute;sentant&middot;e&middot;s de l'industrie pour d&eacute;velopper de nouvelles perspectives de carri&egrave;re</p>\r\n<p>&nbsp;</p>",
+    "start-time": "2026-12-04T14:00:00.000Z",
+    "end-time": "2026-12-04T22:00:00.000Z",
     "time-zone": {
-     "name": "America/Chicago",
-     "utc-offset": -6
+     "name": "Canada/Eastern",
+     "utc-offset": -5
     },
     "primary-host": {
-     "spoid": "R40029",
-     "name": "Rock River Valley Section",
-     "class_code": "SUBG",
-     "class_description": "Geographic SPO",
-     "type_code": "SECT",
-     "type_description": "Section",
-     "section_spoids": "R40029",
-     "region_spoids": "R4",
-     "society_spoids": null,
+     "spoid": "CH07178",
+     "name": "Montreal Section Chapter, PHO36",
+     "class_code": "SUBT",
+     "class_description": "Technical SPO",
+     "type_code": "CHPT",
+     "type_description": "Chapter",
+     "section_spoids": "R70009",
+     "region_spoids": "R7",
+     "society_spoids": "PHO036",
      "report_submitted": null,
      "report_updated": null
     },
     "cohosts": [
      {
-      "spoid": "STB12191",
-      "name": "Northern Illinois Univ",
+      "spoid": "R70009",
+      "name": "Montreal Section",
       "class_code": "SUBG",
       "class_description": "Geographic SPO",
-      "type_code": "STBR",
-      "type_description": "Student Branch",
-      "section_spoids": "R40029",
-      "region_spoids": "R4",
+      "type_code": "SECT",
+      "type_description": "Section",
+      "section_spoids": "R70009",
+      "region_spoids": "R7",
       "society_spoids": null,
+      "report_submitted": null,
+      "report_updated": null
+     },
+     {
+      "spoid": "SBC19011A",
+      "name": "Institut Natl de la Recherche Scientifique,PHO36",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "BRCH",
+      "type_description": "Student Branch Chapter",
+      "section_spoids": "R70009",
+      "region_spoids": "R7",
+      "society_spoids": "PHO036",
       "report_submitted": null,
       "report_updated": null
      }
     ],
-    "header": "",
+    "header": "<p>Call for abstracts // Appel &agrave; r&eacute;sum&eacute;: <a href=\"https://forms.gle/vLeSatFF3jcHyJQp6\">https://forms.gle/vLeSatFF3jcHyJQp6</a></p>",
     "footer": "",
-    "keywords": " #education #Rockford #RRVS #region-4 #student",
+    "keywords": "#Photonics #Research #Networking #Montreal  #poster",
     "tags": [
-     "#education",
-     "#Rockford",
-     "#RRVS",
-     "#region-4",
-     "#student"
+     "#Photonics",
+     "#Research",
+     "#Networking",
+     "#Montreal",
+     "#poster"
     ],
-    "agenda": "<p>6:00 PM Check in and social time</p>\r\n<p>6:30 PM Dinner</p>\r\n<p>7:00 PM Remarks, Networking, Introduce Speaker</p>\r\n<p>7:15 PM Presentation</p>",
-    "contact-email": "terry.johnson2284@gmail.com",
-    "contact-display": "",
+    "agenda": "<ul>\r\n<li>8:30 AM - 9:30 AM: Booth &amp; poster set-up</li>\r\n<li>9:30 AM - 10:00 AM: Registration general attendees</li>\r\n<li>10:00 AM - 11:00 AM: Poster session #1 dedicated to Dr. Andrea Rovere&nbsp;</li>\r\n<li>11:00 AM - 11:10 AM: Welcome by Chair in conference room&nbsp;</li>\r\n<li>11:10 PM - 12:10 PM: Plenary speaker in conference room&nbsp;</li>\r\n<li>12:15 PM - 1:15 PM: Networking &amp; lunch</li>\r\n<li>1:15 PM - 2:00 PM: Speed-networking</li>\r\n<li>2:00 PM - 2:45 PM: Careers panel</li>\r\n<li>2:45 PM - 3:30 PM: Poster session #2</li>\r\n<li>3:30 PM - 4:00 PM: Free networking</li>\r\n<li>4:00 PM - 4:15 PM: Announcement of presentation competition winners and closing speech&nbsp;</li>\r\n<li>4:15 PM - 5:00 PM: Social networking</li>\r\n</ul>",
+    "contact-email": "matthew.t.posner@ieee.org",
+    "contact-display": "<p>Thank you to our event partners: TBA</p>\r\n<p>Thank you to our sponsors: TBA</p>\r\n<p>Thank you to our regional professional photonics organizations: IEEE Montreal and IEEE Photonics Society. ETS, Polytechnique, McGill, and INRS Optica-SPIE-IPS student chapters.&nbsp;</p>\r\n<p>&nbsp;</p>",
     "cosponsor-name": "",
-    "location-type": "hybrid",
-    "virtual-info": "<p>To be provided closer to event</p>",
-    "address1": "Northern Illinois University, Rockford Campus",
-    "address2": "8500 E State St",
-    "city": "Rockford",
-    "postal-code": "61108",
-    "building": "Rockford Conference Center",
-    "room-number": "",
-    "map-url": "",
-    "latitude": "42.273927",
-    "longitude": "-88.949368",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "1100 Notre-Dame St W",
+    "address2": "",
+    "city": "Montréal",
+    "postal-code": "H3C 1K3",
+    "building": "Pavillion A",
+    "room-number": "AUDITORIUM A-1600",
+    "map-url": "https://maps.app.goo.gl/n1pmnhgi5qreRL3Y7",
+    "latitude": "45.5150571",
+    "longitude": "-73.5498475",
     "image": null,
     "image-mime-type": null,
-    "registration-start-time": "2026-10-20T05:00:00.000Z",
-    "registration-end-time": "2026-10-29T05:00:00.000Z",
-    "registration-url": "https://events.vtools.ieee.org/event/register/587314",
+    "registration-start-time": "2026-10-10T04:00:00.000Z",
+    "registration-end-time": "2026-12-02T05:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/584169",
     "enable-cohost-url": false,
     "cohost-url": null,
     "survey-url": "",
     "cost": false,
-    "max-registrations": null,
+    "max-registrations": 125,
     "cancelled": false,
-    "uid": "E650B63E-F96D-45C1-9053-720F83BCEA72",
+    "uid": "06D117BD-00EB-4B2E-90E8-9C3F2BC2976C",
     "publish": true,
-    "virtual": true,
-    "link": "https://events.vtools.ieee.org/m/587314",
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/584169",
     "ieee-attending": null,
     "guests-attending": null,
-    "created-at": "2026-10-19T21:21:27.000Z",
-    "updated-at": "2026-10-24T19:18:02.000Z",
+    "created-at": "2026-10-10T17:52:11.000Z",
+    "updated-at": "2026-10-13T19:07:05.000Z",
     "pricing": null,
     "speakers": null,
     "media": null,
@@ -826,36 +706,45 @@
     "state": {
      "data": {
       "type": "states",
-      "id": "1815"
+      "id": "412"
      }
     },
     "country": {
      "data": {
       "type": "countries",
-      "id": "221"
+      "id": "36"
      }
     },
     "category": {
      "data": {
       "type": "categories",
-      "id": "3"
+      "id": "2"
      }
     },
     "subcategory": {
-     "data": {
-      "type": "subcategories",
-      "id": "8"
-     }
+     "data": null
     },
     "menus": {
      "data": [
       {
        "type": "menus",
-       "id": "65390"
+       "id": "64881"
       },
       {
        "type": "menus",
-       "id": "65391"
+       "id": "64882"
+      },
+      {
+       "type": "menus",
+       "id": "64883"
+      },
+      {
+       "type": "menus",
+       "id": "64884"
+      },
+      {
+       "type": "menus",
+       "id": "64885"
       }
      ]
     }
@@ -867,8 +756,8 @@
   "messages": [],
   "paging": {
    "page": "3",
-   "limit": 100,
-   "total_pages": 10
+   "limit": 200,
+   "total_pages": 5
   }
  }
 }

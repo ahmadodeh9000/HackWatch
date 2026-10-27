@@ -353,78 +353,75 @@
   },
   {
    "type": "events",
-   "id": "589175",
+   "id": "588216",
    "attributes": {
-    "id": 589175,
-    "title": "Introduction to Arduino Workshop",
-    "description": "<p data-pm-slice=\"1 1 []\">The <strong>IEEE George Mason University Student Branch</strong> is pleased to invite you to our upcoming <strong>Introduction to Arduino Workshop</strong>, organized as part of our Workshop Series.</p>\r\n<p>This workshop is designed to introduce students to the fundamentals of Arduino programming, microcontrollers, and basic electronic circuit design. Participants will have the opportunity to gain practical experience through guided exercises using Arduino development boards and electronic components.</p>\r\n<p><strong>Workshop Activities:</strong></p>\r\n<ul data-spread=\"false\">\r\n<li>\r\n<p>Introduction to Arduino and its applications.</p>\r\n</li>\r\n<li>\r\n<p>Setting up and using the Arduino Integrated Development Environment (IDE).</p>\r\n</li>\r\n<li>\r\n<p>Programming an Arduino board to control an LED.</p>\r\n</li>\r\n<li>\r\n<p>Designing and assembling basic circuits using breadboards and electronic components.</p>\r\n</li>\r\n<li>\r\n<p>Implementing push buttons as digital inputs.</p>\r\n</li>\r\n<li>\r\n<p>Completing a practical challenge to reinforce the concepts learned.</p>\r\n</li>\r\n</ul>\r\n<p>The workshop will be conducted by two experienced IEEE GMU Student Branch officers with backgrounds in robotics, electronics, and circuit prototyping. All practical activities will be supervised, and guidance will be provided throughout the session.</p>\r\n<p><strong>Event Details:</strong></p>\r\n<p>📅 <strong>Date:</strong> Thursday, November 5, 2026</p>\r\n<p>🕒 <strong>Time:</strong> 3:30 PM &ndash; 5:30 PM ET</p>\r\n<p>📍 <strong>Location:</strong> George Mason University, Fairfax Campus (Room TBD)</p>\r\n<p><strong>Participation is open to all GMU students, regardless of their academic major or prior technical experience.</strong> No previous knowledge of Arduino or electronics is required.</p>\r\n<p>We encourage students interested in programming, robotics, embedded systems, and electronics to take advantage of this opportunity to develop practical technical skills and engage with fellow students.</p>",
-    "start-time": "2026-11-05T20:30:00.000Z",
-    "end-time": "2026-11-05T22:30:00.000Z",
+    "id": 588216,
+    "title": "Opening and Launch Ceremony of the IEEE CIS at Yarmouk University",
+    "description": "<p>Join us for the official inauguration ceremony of the IEEE Computational Intelligence Society (CIS) Student Branch Chapter at Yarmouk University. The event marks the official launch of the chapter, introducing our mission, executive committee, and upcoming roadmap of activities in Artificial Intelligence, Machine Learning, and Data Science. The ceremony will feature welcome addresses from university representatives, faculty members, and IEEE Jordan Section officials.</p>",
+    "start-time": "2026-11-17T07:30:00.000Z",
+    "end-time": "2026-11-17T10:30:00.000Z",
     "time-zone": {
-     "name": "America/New_York",
-     "utc-offset": -5
+     "name": "Asia/Baghdad",
+     "utc-offset": 3
     },
     "primary-host": {
-     "spoid": "STB93701",
-     "name": "George Mason University",
-     "class_code": "SUBG",
-     "class_description": "Geographic SPO",
-     "type_code": "STBR",
-     "type_description": "Student Branch",
-     "section_spoids": "R20049",
-     "region_spoids": "R2",
-     "society_spoids": null,
+     "spoid": "SBC25091G",
+     "name": "Yarmouk University,CIS11",
+     "class_code": "SUBT",
+     "class_description": "Technical SPO",
+     "type_code": "BRCH",
+     "type_description": "Student Branch Chapter",
+     "section_spoids": "R80079",
+     "region_spoids": "R8",
+     "society_spoids": "CIS011",
      "report_submitted": null,
      "report_updated": null
     },
     "cohosts": [],
-    "header": "<p><img src=\"https://events.vtools.ieee.org/vtools_ui/media/display/75459186-e316-40ef-a28f-6795d19a4dd4\" alt=\"\" width=\"1086\" height=\"1448\"></p>",
+    "header": "",
     "footer": "",
-    "keywords": " #EngineeringStudents #GeorgeMasonUniversity  #GMU #IEEE #Technical #Workshop #Arduino #GMUStudentBranch",
+    "keywords": "#IEEE #IEEE-CIS #Yarmouk-University  #machine-learning #ieee-computational-intelligence",
     "tags": [
-     "#EngineeringStudents",
-     "#GeorgeMasonUniversity",
-     "#GMU",
      "#IEEE",
-     "#Technical",
-     "#Workshop",
-     "#Arduino",
-     "#GMUStudentBranch"
+     "#IEEE-CIS",
+     "#Yarmouk-University",
+     "#machine-learning",
+     "#ieee-computational-intelligence"
     ],
     "agenda": null,
-    "contact-email": "mohammadreza.fasihi@gmail.com",
-    "contact-display": "",
+    "contact-email": "ammaralomari29@gmail.com",
+    "contact-display": "<p>For inquiries, please contact us at: ammaralomari29@gmail.com</p>",
     "cosponsor-name": "",
     "location-type": "physical",
     "virtual-info": null,
-    "address1": "4400 University Drive",
+    "address1": "",
     "address2": "",
-    "city": "Fairfax",
-    "postal-code": "22030-4444",
-    "building": "Johnson Center",
-    "room-number": "244 Conference Room",
-    "map-url": "",
-    "latitude": "38.8298335",
-    "longitude": "-77.3073408",
+    "city": "Irbid",
+    "postal-code": "21116",
+    "building": "",
+    "room-number": "",
+    "map-url": "https://maps.app.goo.gl/MRCARN12J6KZDnETA",
+    "latitude": null,
+    "longitude": null,
     "image": null,
     "image-mime-type": null,
-    "registration-start-time": null,
-    "registration-end-time": null,
-    "registration-url": "https://cglink.me/2d7/r2306375",
+    "registration-start-time": "2026-10-25T17:12:00.000Z",
+    "registration-end-time": "2026-11-16T21:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/588216",
     "enable-cohost-url": false,
     "cohost-url": null,
     "survey-url": "",
     "cost": false,
-    "max-registrations": null,
+    "max-registrations": 300,
     "cancelled": false,
-    "uid": "4E341685-CCAC-4EB9-A8BA-2BD9CB726AE8",
+    "uid": "65D2C6B4-F9B4-4B0D-82B4-356441F6D885",
     "publish": true,
     "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/589175",
+    "link": "https://events.vtools.ieee.org/m/588216",
     "ieee-attending": null,
     "guests-attending": null,
-    "created-at": "2026-10-26T20:18:12.000Z",
-    "updated-at": "2026-10-26T20:22:43.000Z",
+    "created-at": "2026-10-22T16:50:58.000Z",
+    "updated-at": "2026-10-25T18:49:17.000Z",
     "pricing": null,
     "speakers": null,
     "media": null,
@@ -434,7 +431,333 @@
     "state": {
      "data": {
       "type": "states",
-      "id": "1851"
+      "id": "1031"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "107"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "4"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "9"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "587642",
+   "attributes": {
+    "id": 587642,
+    "title": "IEEE CS BAU Project Showcase & Membership Day (IEEE Day 2026 celebration)",
+    "description": "<p>Join the IEEE Computer Society at Al-Balqa Applied University as we celebrate IEEE Day 2026!</p>\r\n<p>Visit our booth to:<br>- See live demos of student projects built by IEEE CS BAU members<br>- Learn what IEEE and the IEEE Computer Society offer students: workshops, competitions like IEEEXtreme, and professional growth<br>- Join IEEE / IEEE CS on the spot by scanning our QR code<br>- Enjoy games, Arabic coffee and sweets</p>\r\n<p>A technical session on stage will be announced soon.</p>\r\n<p>Open to all BAU students, faculty and staff, from every major.</p>\r\n<p>Date: Tuesday, November 10, 2026<br>Venue: Al-Balqa Applied University, Princess Janna bint Ghazi Theater<br>Organized by: IEEE Computer Society, BAU</p>\r\n<p>IEEE Day celebrates the first gathering of IEEE's founders in 1884, under the theme \"Leveraging Technology for a Better Tomorrow.\"</p>",
+    "start-time": "2026-11-10T06:00:00.000Z",
+    "end-time": "2026-11-10T12:00:00.000Z",
+    "time-zone": {
+     "name": "Asia/Baghdad",
+     "utc-offset": 3
+    },
+    "primary-host": {
+     "spoid": "SBC63021B",
+     "name": "Al-Balqa Applied University, C16",
+     "class_code": "SUBT",
+     "class_description": "Technical SPO",
+     "type_code": "BRCH",
+     "type_description": "Student Branch Chapter",
+     "section_spoids": "R80079",
+     "region_spoids": "R8",
+     "society_spoids": "C016",
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": "#IEEEDay #IEEEDay2026 #computer-society #IEEE_CS #IEEE_BAU_CS #CS_BAU #technology #programming #student-projects #membership\r\n",
+    "tags": [
+     "#IEEEDay",
+     "#IEEEDay2026",
+     "#computer-society",
+     "#IEEE_CS",
+     "#IEEE_BAU_CS",
+     "#CS_BAU",
+     "#technology",
+     "#programming",
+     "#student-projects",
+     "#membership"
+    ],
+    "agenda": "<p>&nbsp;</p>\r\n<p>9:00 - Booths Setup</p>\r\n<p>10:00 - Booth opens: project demos and IEEE CS membership desk<br>11:00 - Technical session on stage (speaker TBA)<br>12:00 - Games and hospitality<br>15:00 - Booth closes</p>",
+    "contact-email": "fuadtamimi@ieee.org",
+    "contact-display": "<p>IEEE Branch Consolure BAU - Dr. Jawdat Al Kassasbeh - jawdat1983@yahoo.com</p>\r\n<p>IEEE CS BAU &ndash; Fuad Al-Tamimi (Chair) - fuadtamimi@ieee.org</p>",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "Al Balqa Applied University Engineering Technology College, Princess Janna bint Ghazi Theater",
+    "address2": "",
+    "city": "amman",
+    "postal-code": "11143",
+    "building": "",
+    "room-number": "",
+    "map-url": "https://maps.app.goo.gl/5ZUhvCMvQ3cM9rA1A",
+    "latitude": "32.0249589",
+    "longitude": "35.7167936",
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": "2026-10-20T21:00:00.000Z",
+    "registration-end-time": "2026-11-09T19:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/587642",
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "E3B4F202-EF93-493D-9409-88FF583CE7BF",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/587642",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-20T17:54:18.000Z",
+    "updated-at": "2026-10-20T18:23:38.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1031"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "107"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "2"
+     }
+    },
+    "subcategory": {
+     "data": null
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "589351",
+   "attributes": {
+    "id": 589351,
+    "title": "Board game night ",
+    "description": "<p>Join for board game night!&nbsp;</p>",
+    "start-time": "2026-11-06T22:00:00.000Z",
+    "end-time": "2026-11-06T23:15:00.000Z",
+    "time-zone": {
+     "name": "America/Chicago",
+     "utc-offset": -6
+    },
+    "primary-host": {
+     "spoid": "SBC02151",
+     "name": "Vanderbilt University,NPS05",
+     "class_code": "SUBT",
+     "class_description": "Technical SPO",
+     "type_code": "BRCH",
+     "type_description": "Student Branch Chapter",
+     "section_spoids": "R30743",
+     "region_spoids": "R3",
+     "society_spoids": "NPS005",
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": "Game night #Happy #hour #Social #NPSS",
+    "tags": [
+     "#Game",
+     "#night",
+     "#Happy",
+     "#hour",
+     "#Social",
+     "#NPSS"
+    ],
+    "agenda": null,
+    "contact-email": "jenna.kronenberg@vanderbilt.edu",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "",
+    "address2": "",
+    "city": "Nashville",
+    "postal-code": "",
+    "building": "",
+    "room-number": "",
+    "map-url": "",
+    "latitude": null,
+    "longitude": null,
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": null,
+    "registration-end-time": null,
+    "registration-url": null,
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "EFDEEF95-DBC7-434B-8D31-D2DF0681C4F4",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/589351",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-27T17:14:21.000Z",
+    "updated-at": "2026-10-27T17:15:53.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1846"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "221"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "3"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "5"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "589335",
+   "attributes": {
+    "id": 589335,
+    "title": "IEEE Huntsville TEMS Chapter & Professional Activities Committee",
+    "description": "<table style=\"background-color: #f4f6f9; padding: 20px 0;\" border=\"0\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\r\n<tbody>\r\n<tr>\r\n<td align=\"center\"><!-- Main Email Container -->\r\n<table style=\"background-color: #ffffff; border: 1px solid #e0e0e0; border-collapse: collapse;\" border=\"0\" width=\"600\" cellspacing=\"0\" cellpadding=\"0\"><!-- Header Banner -->\r\n<tbody>\r\n<tr>\r\n<td style=\"padding: 25px 20px; background-color: #002855; color: #ffffff;\" align=\"center\" bgcolor=\"#002855\">\r\n<table border=\"0\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\r\n<tbody>\r\n<tr>\r\n<td style=\"font-size: 13px; font-weight: bold; letter-spacing: 1px; color: #00b0ff; text-transform: uppercase;\" align=\"left\">IEEE Huntsville Section &bull; TEMS &amp; PAC</td>\r\n</tr>\r\n<tr>\r\n<td style=\"font-size: 22px; font-weight: bold; color: #ffffff; padding-top: 8px; line-height: 28px;\" align=\"left\">Joint Professional Development Workshop</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n</td>\r\n</tr>\r\n<!-- Flyer Image Placeholder / Embed -->\r\n<tr>\r\n<td style=\"padding: 10px; background-color: #1a2530;\" align=\"center\" bgcolor=\"#1a2530\">\r\n<p>&nbsp;</p>\r\n<p><img src=\"https://enotice.vtools.ieee.org/vtools_ui/media/display/abbc0a3c-a05d-4d26-8821-5479146f1441\" width=\"500\"></p>\r\n</td>\r\n</tr>\r\n<!-- Main Body Content -->\r\n<tr>\r\n<td style=\"padding: 30px 25px; color: #333333; font-size: 15px; line-height: 22px;\">\r\n<p style=\"margin-top: 0; margin-bottom: 15px; font-weight: bold; color: #002855; font-size: 18px;\">Leveraging Your Leadership Style to Motivate Your Team</p>\r\n<p style=\"margin-top: 0; margin-bottom: 15px;\">Join the <strong>IEEE Huntsville Section TEMS Chapter</strong> and <strong>Professional Activities Committee (PAC)</strong> for a special joint professional development session co-hosted with <strong>SHPE Huntsville</strong> and <strong>NSBE North Alabama Professionals</strong>.</p>\r\n<p style=\"margin-top: 0; margin-bottom: 20px;\">We are thrilled to welcome guest speaker <strong>Antonio (Tony) Delgado, P.E.</strong> (EMB Business Unit Lead at Merrick &amp; Company), who is flying in out-of-state for this event. Learn practical strategies to inspire your team, strengthen workplace collaboration, and expand your professional network!</p>\r\n<!-- Event Logistics Box -->\r\n<table style=\"background-color: #f8f9fa; border-left: 4px solid #006699; margin-bottom: 25px;\" border=\"0\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\r\n<tbody>\r\n<tr>\r\n<td style=\"padding: 15px 20px;\">\r\n<table style=\"height: 110px;\" border=\"0\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\r\n<tbody>\r\n<tr style=\"height: 22px;\">\r\n<td style=\"padding-bottom: 8px; font-size: 14px; color: rgb(51, 51, 51); height: 22px;\"><strong>Date:</strong> Thursday, November 12th</td>\r\n</tr>\r\n<tr style=\"height: 22px;\">\r\n<td style=\"padding-bottom: 8px; font-size: 14px; color: rgb(51, 51, 51); height: 22px;\"><strong>Time:</strong> 6:00 PM (Workshop)</td>\r\n</tr>\r\n<tr style=\"height: 22px;\">\r\n<td style=\"padding-bottom: 8px; font-size: 14px; color: rgb(51, 51, 51); height: 22px;\"><strong>Location:</strong> 360C Quality Cir NW, Suite 310, Huntsville, AL 35806</td>\r\n</tr>\r\n<tr style=\"height: 22px;\">\r\n<td style=\"padding-bottom: 8px; font-size: 14px; color: rgb(51, 51, 51); height: 22px;\"><strong>Cost:</strong> FREE (Members &amp; Friends Welcome!)</td>\r\n</tr>\r\n<tr style=\"height: 22px;\">\r\n<td style=\"font-size: 14px; color: rgb(51, 51, 51); height: 22px;\"><strong>Food:</strong> Provided</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<!-- Call to Action Button -->\r\n<table style=\"margin-bottom: 25px;\" border=\"0\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\r\n<tbody>\r\n<tr>\r\n<td align=\"center\">\r\n<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\r\n<tbody>\r\n<tr>\r\n<td style=\"border-radius: 4px; background-color: #006699;\" align=\"center\" bgcolor=\"#006699\"><a style=\"font-size: 16px; font-family: Arial, sans-serif; color: #ffffff; text-decoration: none; border-radius: 4px; padding: 12px 25px; border: 1px solid #006699; display: inline-block; font-weight: bold;\" href=\"https://www.zeffy.com/en-US/ticketing/annual-gala-8976\" target=\"_blank\" rel=\"noopener\"> RSVP </a></td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<!-- Host & Sponsor Recognition -->\r\n<table style=\"border-top: 1px solid #eeeeee; padding-top: 20px; font-size: 13px; color: #666666; line-height: 18px;\" border=\"0\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\r\n<tbody>\r\n<tr>\r\n<td>\r\n<p style=\"margin: 0 0 8px 0;\"><strong>Hosted in Collaboration By:</strong></p>\r\n<p style=\"margin: 0 0 15px 0;\">SHPE Huntsville Professional Chapter, NSBE North Alabama Professionals, and IEEE Huntsville Section (TEMS &amp; PAC).</p>\r\n<p style=\"margin: 0 0 8px 0;\"><strong>Sponsored By:</strong></p>\r\n<p style=\"margin: 0;\">Merrick &amp; Company | MTSI</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n</td>\r\n</tr>\r\n<!-- Footer -->\r\n<tr>\r\n<td style=\"padding: 20px; background-color: #002855; color: #cccccc; font-size: 12px; line-height: 16px;\" align=\"center\" bgcolor=\"#002855\">\r\n<p style=\"margin: 0 0 5px 0; font-weight: bold; color: #ffffff;\">IEEE Huntsville Section</p>\r\n<p style=\"margin: 0 0 10px 0;\">Technology &amp; Engineering Management Society (TEMS) &amp; Professional Activities Committee (PAC)</p>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n</td>\r\n</tr>\r\n</tbody>\r\n</table>",
+    "start-time": "2026-11-13T00:00:00.000Z",
+    "end-time": "2026-11-13T02:00:00.000Z",
+    "time-zone": {
+     "name": "America/Chicago",
+     "utc-offset": -6
+    },
+    "primary-host": {
+     "spoid": "CH03232",
+     "name": "Huntsville Section Chapter,TEM14",
+     "class_code": "SUBT",
+     "class_description": "Technical SPO",
+     "type_code": "CHPT",
+     "type_description": "Chapter",
+     "section_spoids": "R30025",
+     "region_spoids": "R3",
+     "society_spoids": "TEM014",
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": " #tems #engineering-management-society #leadership #joint  #management #leadership-style #teamwork #teams #nsbe #shpe",
+    "tags": [
+     "#tems",
+     "#engineering-management-society",
+     "#leadership",
+     "#joint",
+     "#management",
+     "#leadership-style",
+     "#teamwork",
+     "#teams",
+     "#nsbe",
+     "#shpe"
+    ],
+    "agenda": null,
+    "contact-email": "EBONEE.A.walker@ieee.org",
+    "contact-display": "",
+    "cosponsor-name": "SHPE Huntsville, NSBE North Alabama Professionals, Merrick, & MTSI",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "360C Quality CIR NW",
+    "address2": "",
+    "city": "Huntsville",
+    "postal-code": "35806",
+    "building": "",
+    "room-number": "#310",
+    "map-url": "",
+    "latitude": null,
+    "longitude": null,
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": null,
+    "registration-end-time": null,
+    "registration-url": "https://www.zeffy.com/en-US/ticketing/annual-gala-8976",
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "71B9B684-C4BE-4041-92A1-8D725E21ADFC",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/589335",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-27T16:35:20.000Z",
+    "updated-at": "2026-10-27T16:43:00.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1800"
      }
     },
     "country": {
@@ -459,191 +782,74 @@
   },
   {
    "type": "events",
-   "id": "589169",
+   "id": "589331",
    "attributes": {
-    "id": 589169,
-    "title": "IEEE Information Sessions ",
-    "description": "<p class=\"MsoNormal\"><span style=\"font-size: small;\"><strong>Session 1: Information Table&nbsp; &nbsp;10:30 -12:00&nbsp;</strong></span></p>\r\n<p class=\"MsoNormal\">&nbsp;</p>\r\n<p class=\"MsoNormal\" align=\"left\"><span style=\"font-size: small;\">Visit the IEEE Information Table in the <strong>Buell Atrium</strong>. Brian Ryckman from IEEE will answer your questions about IEEE and the IEEE Xplore database. Pick up <strong>free IEEE swag</strong>!</span></p>\r\n<div>&nbsp;</div>\r\n<p class=\"MsoNormal\"><strong><span style=\"font-size: small;\">&nbsp;</span></strong></p>\r\n<p class=\"MsoNormal\"><strong><span style=\"font-size: small;\">Session 2: Career and Interview Preparation&nbsp; &nbsp;12:30 - 1:30&nbsp;</span></strong></p>\r\n<p class=\"MsoNormal\">&nbsp;</p>\r\n<p class=\"MsoNormal\" align=\"left\"><span style=\"font-size: small;\">&nbsp;<a name=\"m_6554921465172825080_m_-7292059091284757478__Hlk242456586\"></a>Head to the <strong>Library</strong> for the IEEE presentation on using IEEE Xplore as a career and interview preparation resource. Increase your awareness of current trends and innovations.</span></p>\r\n<div>&nbsp;</div>\r\n<p class=\"MsoNormal\"><strong><span style=\"font-size: small;\">&nbsp;</span></strong></p>\r\n<p class=\"MsoNormal\"><strong><span style=\"font-size: small;\">Session 3: Publishing with IEEE&nbsp; &nbsp;2:30-3:30&nbsp;</span></strong></p>\r\n<p class=\"MsoNormal\">&nbsp;</p>\r\n<p class=\"MsoNormal\" align=\"left\"><span style=\"font-size: small;\">Are you interested in publishing with IEEE? Attend this session in the <strong>Library</strong> for tips on preparing your manuscript and navigating the submission process to get your work published. Q &amp; A included.</span></p>\r\n<p class=\"MsoNormal\"><img src=\"https://events.vtools.ieee.org/vtools_ui/media/display/977eac1e-f066-49f8-bf05-596474432f66\" alt=\"\" width=\"1700\" height=\"2200\"></p>",
-    "start-time": "2026-10-27T14:30:00.000Z",
-    "end-time": "2026-10-27T19:30:00.000Z",
+    "id": 589331,
+    "title": "IEEE PES ESPAÑA | [Webinar #2 - 09.11.2026] | Cybersecurity of Control Room of the Future using Artificial Intelligence",
+    "description": "<p class=\"MsoNormal\"><strong><span lang=\"ES\">Cap&iacute;tulo Espa&ntilde;ol IEEE/PES</span></strong></p>\r\n<p class=\"MsoNormal\"><span lang=\"ES\">Estimados miembros del Cap&iacute;tulo:</span></p>\r\n<p class=\"MsoNormal\"><span lang=\"ES\">Se remite informaci&oacute;n de un nuevo seminario, esperando que sea de vuestro inter&eacute;s.&nbsp;</span></p>\r\n<p class=\"MsoNormal\"><span lang=\"ES\">Un saludo,</span></p>\r\n<p class=\"MsoNormal\"><span lang=\"ES\">Jos&eacute; Mar&iacute;a Maza Ortega,&nbsp;</span><span lang=\"ES\">Presidente Cap&iacute;tulo Espa&ntilde;ol de IEEE/PES</span></p>\r\n<p class=\"MsoNormal\"><span lang=\"ES\">&nbsp;--------------------------------------------------------------------------------------------------------------</span></p>\r\n<p class=\"MsoNormal\"><span lang=\"ES\">T&iacute;tulo: </span><strong><span lang=\"EN\"><span style=\"font-size: 11pt;\" data-olk-copy-source=\"MessageBody\">Cybersecurity of Control Room of the Future using Artificial Intelligence</span></span></strong></p>\r\n<p class=\"MsoNormal\"><span lang=\"EN\">Ponente: Dr. Alex Stefanov, TU Delft<span lang=\"EN\" style=\"font-size: 11.0pt; line-height: 115%; font-family: 'Arial',sans-serif; mso-fareast-font-family: Arial; mso-ansi-language: EN; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;\">, The Netherlands</span></span></p>\r\n<p class=\"MsoNormal\"><span lang=\"ES\">Resumen:</span></p>\r\n<p class=\"MsoNormal\"><span lang=\"ES\"><span lang=\"EN\" style=\"font-size: 11.0pt; line-height: 115%; font-family: 'Arial',sans-serif; mso-fareast-font-family: Arial; mso-ansi-language: EN; mso-fareast-language: EN-US; mso-bidi-language: AR-SA; mso-bidi-font-weight: bold;\"><span style=\"font-size: 11pt;\" data-olk-copy-source=\"MessageBody\">Electrical power grids are vulnerable to cyber attacks, as seen in Ukraine in and 2022, 2016, and 2015. These cyber attacks are classified as Advanced Persistent Threats (APTs) posing serious threats to power grid operation from Control Room of the Future (CRoF), potentially causing cascading failures and wide-spread blackouts. However, state-of-the-art intrusion detection systems and mitigation techniques are inadequate for APT detection and prevention owing to their stealthy nature and long-lasting persistence. Furthermore, they are ineffective as they focus on individual anomaly instances and overlook the correlation between attack instances. In this seminar, we analyse the emerging cyber security threats for power systems. We will discuss how APTs on Operational Technologies (OT) networks in CRoF and digital substations can cause cascading failures and continental blackouts. Solutions using AI are discussed to strengthen the cyber security of CRoF. AI-based methods will be presented for spatio-temporal APT detection and correlation for cyber-physical power systems from CRoF. They provide online situational awareness for power system operators to pinpoint power system-wide anomaly locations in near real-time and pre-emptively mitigate APTs using preventive controlled islanding at an early stage before causing adverse impacts. A CRoF cyber range infrastructure is presented for joint attack / defence exercises and training of power grid operators in CRoF and cyber security professionals in Security Operation Centers (SOC) to cooperatively detect and mitigate APTs and increase the cyber security and cyber resilience of power grids</span></span></span></p>\r\n<p class=\"MsoNormal\"><span lang=\"ES\">Lugar: Videconferencia</span></p>\r\n<p class=\"MsoNormal\"><span lang=\"ES\">Idioma: Ingl&eacute;s</span></p>\r\n<p class=\"MsoNormal\"><span lang=\"ES\">Fecha: Lunes, 9 de noviembre de 2026<br>Hora: 18:00 - 19:30 (CET)</span></p>\r\n<p class=\"MsoNormal\"><span lang=\"ES\">Webinar gratuito</span></p>\r\n<p class=\"MsoNormal\"><span lang=\"ES\">Registro: <a href=\"https://events.vtools.ieee.org/event/register/589331\">https://events.vtools.ieee.org/event/register/589331</a></span></p>\r\n<p class=\"MsoNormal\"><span lang=\"ES\">Cierre registro: 06.11.2026 a las 11:00 AM (CET)&nbsp;</span></p>\r\n<p class=\"MsoNormal\"><span lang=\"ES\">Nota: El registro es obligatorio para recibir el enlace URL del evento, que ser&aacute; enviado el mismo d&iacute;a del evento a las 13:00 (CET). La participaci&oacute;n en esta actividad es gratuita y abierta a cualquier asistente, incluyendo miembros de IEEE/PES y no miembros, por lo que puede compartir el enlace de esta noticia.</span></p>\r\n<p class=\"MsoNormal\"><span lang=\"ES\">Enlace a la noticia:&nbsp;<a href=\"https://events.vtools.ieee.org/m/589331\">https://events.vtools.ieee.org/m/589331</a></span></p>\r\n<p>&nbsp;</p>",
+    "start-time": "2026-11-09T17:00:00.000Z",
+    "end-time": "2026-11-09T18:30:00.000Z",
     "time-zone": {
-     "name": "America/New_York",
-     "utc-offset": -5
+     "name": "Europe/Madrid",
+     "utc-offset": 1
     },
     "primary-host": {
-     "spoid": "HKN164",
-     "name": "Lawrence Technological University, Theta Upsilon",
-     "class_code": "SUBO",
-     "class_description": "Organizational SPO",
-     "type_code": "AFFN",
-     "type_description": "Affinity",
-     "section_spoids": "R40035",
-     "region_spoids": "R4",
-     "society_spoids": null,
-     "report_submitted": null,
-     "report_updated": null
-    },
-    "cohosts": [
-     {
-      "spoid": "STB03921",
-      "name": "Lawrence Technological University",
-      "class_code": "SUBG",
-      "class_description": "Geographic SPO",
-      "type_code": "STBR",
-      "type_description": "Student Branch",
-      "section_spoids": "R40035",
-      "region_spoids": "R4",
-      "society_spoids": null,
-      "report_submitted": null,
-      "report_updated": null
-     }
-    ],
-    "header": "",
-    "footer": "",
-    "keywords": " #IEEE #IEEEYoungProfessionals #LTU #STEM #application",
-    "tags": [
-     "#IEEE",
-     "#IEEEYoungProfessionals",
-     "#LTU",
-     "#STEM",
-     "#application"
-    ],
-    "agenda": null,
-    "contact-email": "mguduri@ltu.edu",
-    "contact-display": "<p>Dr. Manisha Guduri</p>\r\n<p><a href=\"mailto:mguduri@ltu.edu\">mguduri@ltu.edu</a></p>\r\n<p>&nbsp;</p>",
-    "cosponsor-name": "College of Engineering, Lawrence Technological University",
-    "location-type": "physical",
-    "virtual-info": null,
-    "address1": "21000 West Ten Mile Road",
-    "address2": "Southfield, MI, 48075-1058",
-    "city": "Southfield, MI 48075",
-    "postal-code": "48075",
-    "building": "Library",
-    "room-number": "",
-    "map-url": "",
-    "latitude": "42.4733688",
-    "longitude": "-83.2218731",
-    "image": null,
-    "image-mime-type": null,
-    "registration-start-time": "2026-10-26T21:00:00.000Z",
-    "registration-end-time": "2026-10-27T14:00:00.000Z",
-    "registration-url": "https://events.vtools.ieee.org/event/register/589169",
-    "enable-cohost-url": false,
-    "cohost-url": null,
-    "survey-url": "",
-    "cost": false,
-    "max-registrations": 20,
-    "cancelled": false,
-    "uid": "EDA33DC5-DB94-41A1-9B36-C4C339A18773",
-    "publish": true,
-    "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/589169",
-    "ieee-attending": null,
-    "guests-attending": null,
-    "created-at": "2026-10-26T19:04:57.000Z",
-    "updated-at": "2026-10-26T19:09:53.000Z",
-    "pricing": null,
-    "speakers": null,
-    "media": null,
-    "enhanced-report": null
-   },
-   "relationships": {
-    "state": {
-     "data": {
-      "type": "states",
-      "id": "1824"
-     }
-    },
-    "country": {
-     "data": {
-      "type": "countries",
-      "id": "221"
-     }
-    },
-    "category": {
-     "data": {
-      "type": "categories",
-      "id": "1"
-     }
-    },
-    "subcategory": {
-     "data": {
-      "type": "subcategories",
-      "id": "1"
-     }
-    },
-    "menus": {
-     "data": []
-    }
-   }
-  },
-  {
-   "type": "events",
-   "id": "589164",
-   "attributes": {
-    "id": 589164,
-    "title": "Monthly Executive Team Meeting",
-    "description": "<p>Monthly Executive Team Meeting - IEEE St-Maurice Section (Nov'2026)</p>",
-    "start-time": "2026-11-12T16:23:00.000Z",
-    "end-time": "2026-11-12T17:30:00.000Z",
-    "time-zone": {
-     "name": "America/New_York",
-     "utc-offset": -5
-    },
-    "primary-host": {
-     "spoid": "STB85301",
-     "name": "University of Quebec in Trois-Rivieres",
-     "class_code": "SUBG",
-     "class_description": "Geographic SPO",
-     "type_code": "STBR",
-     "type_description": "Student Branch",
-     "section_spoids": "R70021",
-     "region_spoids": "R7",
-     "society_spoids": null,
+     "spoid": "CH10179",
+     "name": "Spain Section Chapter, PE31",
+     "class_code": "SUBT",
+     "class_description": "Technical SPO",
+     "type_code": "CHPT",
+     "type_description": "Chapter",
+     "section_spoids": "R80023",
+     "region_spoids": "R8",
+     "society_spoids": "PE031",
      "report_submitted": null,
      "report_updated": null
     },
     "cohosts": [],
     "header": "",
-    "footer": "",
-    "keywords": " #St-Maurice",
+    "footer": "<p>&nbsp;</p>\r\n<p>&nbsp;</p>",
+    "keywords": "#cyber-security #control-room-of-the-future #advanced-persistent-threats #cascading-failures",
     "tags": [
-     "#St-Maurice"
+     "#cyber-security",
+     "#control-room-of-the-future",
+     "#advanced-persistent-threats",
+     "#cascading-failures"
     ],
     "agenda": null,
-    "contact-email": "justin.vaugeois@uqtr.ca",
+    "contact-email": "jmmaza@us.es",
     "contact-display": "",
     "cosponsor-name": "",
-    "location-type": "physical",
-    "virtual-info": null,
-    "address1": "3351 Bd des Forges",
-    "address2": "",
-    "city": "Trois-Rivieres",
-    "postal-code": "",
-    "building": "",
-    "room-number": "2484",
-    "map-url": "",
+    "location-type": "virtual",
+    "virtual-info": "<ul class=\"list-unstyled\" style=\"list-style: none;\">\r\n<li>Videoconferencia, Madrid, Espa&ntilde;a</li>\r\n</ul>",
+    "address1": null,
+    "address2": null,
+    "city": null,
+    "postal-code": null,
+    "building": null,
+    "room-number": null,
+    "map-url": null,
     "latitude": null,
     "longitude": null,
     "image": null,
     "image-mime-type": null,
-    "registration-start-time": null,
-    "registration-end-time": null,
-    "registration-url": null,
+    "registration-start-time": "2026-10-27T16:00:00.000Z",
+    "registration-end-time": "2026-11-06T10:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/589331",
     "enable-cohost-url": false,
     "cohost-url": null,
     "survey-url": "",
     "cost": false,
     "max-registrations": null,
     "cancelled": false,
-    "uid": "56188FCC-53C3-488D-B844-A3F586C19C75",
+    "uid": "F20E5433-2908-4E77-91E7-771E6499A083",
     "publish": true,
-    "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/589164",
+    "virtual": true,
+    "link": "https://events.vtools.ieee.org/m/589331",
     "ieee-attending": null,
     "guests-attending": null,
-    "created-at": "2026-10-26T18:24:22.000Z",
-    "updated-at": "2026-10-26T18:27:46.000Z",
+    "created-at": "2026-10-27T16:23:45.000Z",
+    "updated-at": "2026-10-27T16:49:40.000Z",
     "pricing": null,
     "speakers": null,
     "media": null,
@@ -651,28 +857,19 @@
    },
    "relationships": {
     "state": {
-     "data": {
-      "type": "states",
-      "id": "412"
-     }
+     "data": null
     },
     "country": {
-     "data": {
-      "type": "countries",
-      "id": "36"
-     }
+     "data": null
     },
     "category": {
      "data": {
       "type": "categories",
-      "id": "4"
+      "id": "2"
      }
     },
     "subcategory": {
-     "data": {
-      "type": "subcategories",
-      "id": "9"
-     }
+     "data": null
     },
     "menus": {
      "data": []
@@ -685,8 +882,8 @@
   "messages": [],
   "paging": {
    "page": "1",
-   "limit": 100,
-   "total_pages": 10
+   "limit": 200,
+   "total_pages": 5
   }
  }
 }

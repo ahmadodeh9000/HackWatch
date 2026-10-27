@@ -2,220 +2,6 @@
  "data": [
   {
    "type": "events",
-   "id": "588216",
-   "attributes": {
-    "id": 588216,
-    "title": "Opening and Launch Ceremony of the IEEE CIS at Yarmouk University",
-    "description": "<p>Join us for the official inauguration ceremony of the IEEE Computational Intelligence Society (CIS) Student Branch Chapter at Yarmouk University. The event marks the official launch of the chapter, introducing our mission, executive committee, and upcoming roadmap of activities in Artificial Intelligence, Machine Learning, and Data Science. The ceremony will feature welcome addresses from university representatives, faculty members, and IEEE Jordan Section officials.</p>",
-    "start-time": "2026-11-17T07:30:00.000Z",
-    "end-time": "2026-11-17T10:30:00.000Z",
-    "time-zone": {
-     "name": "Asia/Baghdad",
-     "utc-offset": 3
-    },
-    "primary-host": {
-     "spoid": "SBC25091G",
-     "name": "Yarmouk University,CIS11",
-     "class_code": "SUBT",
-     "class_description": "Technical SPO",
-     "type_code": "BRCH",
-     "type_description": "Student Branch Chapter",
-     "section_spoids": "R80079",
-     "region_spoids": "R8",
-     "society_spoids": "CIS011",
-     "report_submitted": null,
-     "report_updated": null
-    },
-    "cohosts": [],
-    "header": "",
-    "footer": "",
-    "keywords": "#IEEE #IEEE-CIS #Yarmouk-University  #machine-learning #ieee-computational-intelligence",
-    "tags": [
-     "#IEEE",
-     "#IEEE-CIS",
-     "#Yarmouk-University",
-     "#machine-learning",
-     "#ieee-computational-intelligence"
-    ],
-    "agenda": null,
-    "contact-email": "ammaralomari29@gmail.com",
-    "contact-display": "<p>For inquiries, please contact us at: ammaralomari29@gmail.com</p>",
-    "cosponsor-name": "",
-    "location-type": "physical",
-    "virtual-info": null,
-    "address1": "",
-    "address2": "",
-    "city": "Irbid",
-    "postal-code": "21116",
-    "building": "",
-    "room-number": "",
-    "map-url": "https://maps.app.goo.gl/MRCARN12J6KZDnETA",
-    "latitude": null,
-    "longitude": null,
-    "image": null,
-    "image-mime-type": null,
-    "registration-start-time": "2026-10-25T17:12:00.000Z",
-    "registration-end-time": "2026-11-16T21:00:00.000Z",
-    "registration-url": "https://events.vtools.ieee.org/event/register/588216",
-    "enable-cohost-url": false,
-    "cohost-url": null,
-    "survey-url": "",
-    "cost": false,
-    "max-registrations": 300,
-    "cancelled": false,
-    "uid": "65D2C6B4-F9B4-4B0D-82B4-356441F6D885",
-    "publish": true,
-    "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/588216",
-    "ieee-attending": null,
-    "guests-attending": null,
-    "created-at": "2026-10-22T16:50:58.000Z",
-    "updated-at": "2026-10-25T18:49:17.000Z",
-    "pricing": null,
-    "speakers": null,
-    "media": null,
-    "enhanced-report": null
-   },
-   "relationships": {
-    "state": {
-     "data": {
-      "type": "states",
-      "id": "1031"
-     }
-    },
-    "country": {
-     "data": {
-      "type": "countries",
-      "id": "107"
-     }
-    },
-    "category": {
-     "data": {
-      "type": "categories",
-      "id": "4"
-     }
-    },
-    "subcategory": {
-     "data": {
-      "type": "subcategories",
-      "id": "9"
-     }
-    },
-    "menus": {
-     "data": []
-    }
-   }
-  },
-  {
-   "type": "events",
-   "id": "587642",
-   "attributes": {
-    "id": 587642,
-    "title": "IEEE CS BAU Project Showcase & Membership Day (IEEE Day 2026 celebration)",
-    "description": "<p>Join the IEEE Computer Society at Al-Balqa Applied University as we celebrate IEEE Day 2026!</p>\r\n<p>Visit our booth to:<br>- See live demos of student projects built by IEEE CS BAU members<br>- Learn what IEEE and the IEEE Computer Society offer students: workshops, competitions like IEEEXtreme, and professional growth<br>- Join IEEE / IEEE CS on the spot by scanning our QR code<br>- Enjoy games, Arabic coffee and sweets</p>\r\n<p>A technical session on stage will be announced soon.</p>\r\n<p>Open to all BAU students, faculty and staff, from every major.</p>\r\n<p>Date: Tuesday, November 10, 2026<br>Venue: Al-Balqa Applied University, Princess Janna bint Ghazi Theater<br>Organized by: IEEE Computer Society, BAU</p>\r\n<p>IEEE Day celebrates the first gathering of IEEE's founders in 1884, under the theme \"Leveraging Technology for a Better Tomorrow.\"</p>",
-    "start-time": "2026-11-10T06:00:00.000Z",
-    "end-time": "2026-11-10T12:00:00.000Z",
-    "time-zone": {
-     "name": "Asia/Baghdad",
-     "utc-offset": 3
-    },
-    "primary-host": {
-     "spoid": "SBC63021B",
-     "name": "Al-Balqa Applied University, C16",
-     "class_code": "SUBT",
-     "class_description": "Technical SPO",
-     "type_code": "BRCH",
-     "type_description": "Student Branch Chapter",
-     "section_spoids": "R80079",
-     "region_spoids": "R8",
-     "society_spoids": "C016",
-     "report_submitted": null,
-     "report_updated": null
-    },
-    "cohosts": [],
-    "header": "",
-    "footer": "",
-    "keywords": "#IEEEDay #IEEEDay2026 #computer-society #IEEE_CS #IEEE_BAU_CS #CS_BAU #technology #programming #student-projects #membership\r\n",
-    "tags": [
-     "#IEEEDay",
-     "#IEEEDay2026",
-     "#computer-society",
-     "#IEEE_CS",
-     "#IEEE_BAU_CS",
-     "#CS_BAU",
-     "#technology",
-     "#programming",
-     "#student-projects",
-     "#membership"
-    ],
-    "agenda": "<p>&nbsp;</p>\r\n<p>9:00 - Booths Setup</p>\r\n<p>10:00 - Booth opens: project demos and IEEE CS membership desk<br>11:00 - Technical session on stage (speaker TBA)<br>12:00 - Games and hospitality<br>15:00 - Booth closes</p>",
-    "contact-email": "fuadtamimi@ieee.org",
-    "contact-display": "<p>IEEE Branch Consolure BAU - Dr. Jawdat Al Kassasbeh - jawdat1983@yahoo.com</p>\r\n<p>IEEE CS BAU &ndash; Fuad Al-Tamimi (Chair) - fuadtamimi@ieee.org</p>",
-    "cosponsor-name": "",
-    "location-type": "physical",
-    "virtual-info": null,
-    "address1": "Al Balqa Applied University Engineering Technology College, Princess Janna bint Ghazi Theater",
-    "address2": "",
-    "city": "amman",
-    "postal-code": "11143",
-    "building": "",
-    "room-number": "",
-    "map-url": "https://maps.app.goo.gl/5ZUhvCMvQ3cM9rA1A",
-    "latitude": "32.0249589",
-    "longitude": "35.7167936",
-    "image": null,
-    "image-mime-type": null,
-    "registration-start-time": "2026-10-20T21:00:00.000Z",
-    "registration-end-time": "2026-11-09T19:00:00.000Z",
-    "registration-url": "https://events.vtools.ieee.org/event/register/587642",
-    "enable-cohost-url": false,
-    "cohost-url": null,
-    "survey-url": "",
-    "cost": false,
-    "max-registrations": null,
-    "cancelled": false,
-    "uid": "E3B4F202-EF93-493D-9409-88FF583CE7BF",
-    "publish": true,
-    "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/587642",
-    "ieee-attending": null,
-    "guests-attending": null,
-    "created-at": "2026-10-20T17:54:18.000Z",
-    "updated-at": "2026-10-20T18:23:38.000Z",
-    "pricing": null,
-    "speakers": null,
-    "media": null,
-    "enhanced-report": null
-   },
-   "relationships": {
-    "state": {
-     "data": {
-      "type": "states",
-      "id": "1031"
-     }
-    },
-    "country": {
-     "data": {
-      "type": "countries",
-      "id": "107"
-     }
-    },
-    "category": {
-     "data": {
-      "type": "categories",
-      "id": "2"
-     }
-    },
-    "subcategory": {
-     "data": null
-    },
-    "menus": {
-     "data": []
-    }
-   }
-  },
-  {
-   "type": "events",
    "id": "587477",
    "attributes": {
     "id": 587477,
@@ -335,39 +121,39 @@
   },
   {
    "type": "events",
-   "id": "588419",
+   "id": "587278",
    "attributes": {
-    "id": 588419,
-    "title": "Fiber optic sensors for industrial applications",
-    "description": "<p>Optical fiber technology offers unique opportunities for the development of advanced sensing systems beyond telecommunications. Fiber optic sensors (FOSs) combine excellent metrological performance with compact size, immunity to electromagnetic interference, corrosion resistance, and the ability to perform distributed and multiparameter measurements. These features make them increasingly relevant in a wide range of industrial and scientific applications, including healthcare, structural monitoring, environmental sensing, and precision agriculture.</p>\r\n<p>This seminar will provide an overview of the main types of fiber optic sensors, their operating principles, materials, and strategies for improving their metrological performance, highlighting their capabilities, technological challenges, and practical applications.</p>\r\n<p>The seminar will also present selected research activities carried out at the Laboratory of Measurements and Medical Devices of Universit&agrave; Campus Bio-Medico di Roma, showcasing innovative sensing solutions that combine fiber optic sensors with numerical simulations, additive manufacturing, artificial intelligence, and advanced materials. Applications in healthcare, precision agriculture, worker safety, and collaborative robotics will illustrate the potential of these multidisciplinary approaches to advance sensing technologies and address emerging industrial and societal needs.</p>",
-    "start-time": "2026-11-13T10:30:00.000Z",
-    "end-time": "2026-11-13T12:30:00.000Z",
+    "id": 587278,
+    "title": "IEEE Day at Hijjawi Faculty",
+    "description": "<p>The IEEE Student Branch at Yarmouk University is pleased to announce IEEE Day at Hijjawi Faculty, an event dedicated to celebrating the global IEEE community and its contributions to engineering, technology, and innovation.</p>\r\n<p>The event aims to introduce students to IEEE&rsquo;s mission, vision, and professional opportunities, while highlighting the role of student engagement in advancing technical knowledge, collaboration, and professional development. Through engaging activities and interactive experiences, participants will have the opportunity to learn more about IEEE, explore its various initiatives, and connect with the student branch community.</p>\r\n<p>This event reflects IEEE&rsquo;s commitment to fostering innovation, encouraging collaboration, and empowering the next generation of engineers and technology leaders</p>",
+    "start-time": "2026-11-01T06:00:00.000Z",
+    "end-time": "2026-11-01T11:30:00.000Z",
     "time-zone": {
-     "name": "Europe/Rome",
-     "utc-offset": 1
+     "name": "Asia/Riyadh",
+     "utc-offset": 3
     },
     "primary-host": {
-     "spoid": "SBC11422",
-     "name": "Universita Campus Bio Medico di Roma,SEN39",
+     "spoid": "SBC25091C",
+     "name": "Yarmouk Univ, RA24",
      "class_code": "SUBT",
      "class_description": "Technical SPO",
      "type_code": "BRCH",
      "type_description": "Student Branch Chapter",
-     "section_spoids": "R80011",
+     "section_spoids": "R80079",
      "region_spoids": "R8",
-     "society_spoids": "AES010,AP003,BT002,C016,CAS004,COM019,CT008,DEI032,ED015,EMB018,EMC027,EP021,IA034,IE013,IM009,MAG033,MTT017,OE022,PE031,PHO036,RA024,RL007,SP001,SSC037,UFFC020,VT006",
+     "society_spoids": "RA024",
      "report_submitted": null,
      "report_updated": null
     },
     "cohosts": [
      {
-      "spoid": "STB11422",
-      "name": "Universita Campus Bio Medico Di Roma",
+      "spoid": "STB25091",
+      "name": "Yarmouk University",
       "class_code": "SUBG",
       "class_description": "Geographic SPO",
       "type_code": "STBR",
       "type_description": "Student Branch",
-      "section_spoids": "R80011",
+      "section_spoids": "R80079",
       "region_spoids": "R8",
       "society_spoids": null,
       "report_submitted": null,
@@ -376,53 +162,48 @@
     ],
     "header": "",
     "footer": "",
-    "keywords": "#FiberOpticSensors #OpticalFiberSensing #Sensors #SensingTechnology #IEEE #IEEESensorsCouncil #IndustrialEngineering #SmartSensing #Metrology #Innovation",
+    "keywords": "#ieeeday #hijjawi_faculty  #yarmouk_university #ieeeyu  #collaboration",
     "tags": [
-     "#FiberOpticSensors",
-     "#OpticalFiberSensing",
-     "#Sensors",
-     "#SensingTechnology",
-     "#IEEE",
-     "#IEEESensorsCouncil",
-     "#IndustrialEngineering",
-     "#SmartSensing",
-     "#Metrology",
-     "#Innovation"
+     "#ieeeday",
+     "#hijjawi_faculty",
+     "#yarmouk_university",
+     "#ieeeyu",
+     "#collaboration"
     ],
     "agenda": null,
-    "contact-email": "vincenzo.lavorgna@unicampus.it",
+    "contact-email": "khaledfadi2006@gmail.com",
     "contact-display": "",
     "cosponsor-name": "",
     "location-type": "physical",
     "virtual-info": null,
-    "address1": "Università degli Studi di Palermo",
-    "address2": "Piazza Marina 61",
-    "city": "Palermo",
+    "address1": "irbid/jordan",
+    "address2": "Yarmouk University ",
+    "city": "Irbid",
     "postal-code": "",
-    "building": "",
+    "building": "hijjawi faculty ",
     "room-number": "",
     "map-url": "",
-    "latitude": "38.1173695",
-    "longitude": "13.3699536",
+    "latitude": "32.5351791",
+    "longitude": "35.8566931",
     "image": null,
     "image-mime-type": null,
-    "registration-start-time": null,
-    "registration-end-time": null,
-    "registration-url": null,
-    "enable-cohost-url": false,
-    "cohost-url": null,
+    "registration-start-time": "2026-10-25T21:00:00.000Z",
+    "registration-end-time": "2026-10-27T09:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/587278",
+    "enable-cohost-url": true,
+    "cohost-url": "https://events.vtools.ieee.org/tego_/event/cohost/8F870B6C-A1A9-4851-A09A-BAAA01B0E646",
     "survey-url": "",
     "cost": false,
     "max-registrations": null,
     "cancelled": false,
-    "uid": "1415BD17-D4B0-4A99-99A8-942E522523A6",
+    "uid": "8F870B6C-A1A9-4851-A09A-BAAA01B0E646",
     "publish": true,
     "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/588419",
+    "link": "https://events.vtools.ieee.org/m/587278",
     "ieee-attending": null,
     "guests-attending": null,
-    "created-at": "2026-10-23T12:27:16.000Z",
-    "updated-at": "2026-10-26T09:56:52.000Z",
+    "created-at": "2026-10-19T19:09:25.000Z",
+    "updated-at": "2026-10-24T23:20:57.000Z",
     "pricing": null,
     "speakers": null,
     "media": null,
@@ -432,147 +213,13 @@
     "state": {
      "data": {
       "type": "states",
-      "id": "963"
+      "id": "1031"
      }
     },
     "country": {
      "data": {
       "type": "countries",
-      "id": "103"
-     }
-    },
-    "category": {
-     "data": {
-      "type": "categories",
-      "id": "2"
-     }
-    },
-    "subcategory": {
-     "data": null
-    },
-    "menus": {
-     "data": []
-    }
-   }
-  },
-  {
-   "type": "events",
-   "id": "588375",
-   "attributes": {
-    "id": 588375,
-    "title": "Chips and Startups: Lessons from Scotland's Semiconductor Entrepreneurs",
-    "description": "<p><span data-teams=\"true\">What does it take to turn an idea into a successful company? Join IEEE SSCS Scotland for an evening panel with three leaders from Scotland's semiconductor industry as they share their experiences of building, growing and leading semiconductor businesses.<br><br>Our panellists:<br>- David Milne - Ex-CEO and Co-Founder of Wolfson Microelectronics<br>- Jed Hurwitz - ADI<br>- Simon Quinn - Dukosi<br><br>The panel will cover the journey from early-stage startup to established company, the challenges of commercialising silicon, raising investment, building strong engineering teams, and what the future holds for semiconductor innovation in Scotland. The discussion will be followed by an audience Q&amp;A.<br><br>This event is open to everyone, from undergraduate and postgraduate students considering careers in electronics to engineers thinking about starting their own venture and industry professionals interested in Scotland's rich semiconductor ecosystem.<br><br>Food and refreshments will be provided.<br><br><strong>Event details:</strong><br>Date: Wednesday 25 November 2026<br>Time: 5:00 PM &ndash; 7:00 PM<br>Venue: Yew Lecture Theatre, The Nucleus Building, King's Buildings campus, University of Edinburgh<br>Address: The Nucleus, Thomas Bayes Road, Edinburgh EH9 3FG<br><br></span></p>",
-    "start-time": "2026-11-25T17:00:00.000Z",
-    "end-time": "2026-11-25T19:00:00.000Z",
-    "time-zone": {
-     "name": "Europe/London",
-     "utc-offset": 0
-    },
-    "primary-host": {
-     "spoid": "CH08307",
-     "name": "UK and Ireland Section Chapter, SSC37 Scotland",
-     "class_code": "SUBT",
-     "class_description": "Technical SPO",
-     "type_code": "CHPT",
-     "type_description": "Chapter",
-     "section_spoids": "R80015",
-     "region_spoids": "R8",
-     "society_spoids": "SSC037",
-     "report_submitted": null,
-     "report_updated": null
-    },
-    "cohosts": [
-     {
-      "spoid": "SBC07831",
-      "name": "University of Edinburgh,SSC37",
-      "class_code": "SUBT",
-      "class_description": "Technical SPO",
-      "type_code": "BRCH",
-      "type_description": "Student Branch Chapter",
-      "section_spoids": "R80015",
-      "region_spoids": "R8",
-      "society_spoids": "SSC037",
-      "report_submitted": null,
-      "report_updated": null
-     },
-     {
-      "spoid": "STB07831",
-      "name": "University of Edinburgh",
-      "class_code": "SUBG",
-      "class_description": "Geographic SPO",
-      "type_code": "STBR",
-      "type_description": "Student Branch",
-      "section_spoids": "R80015",
-      "region_spoids": "R8",
-      "society_spoids": null,
-      "report_submitted": null,
-      "report_updated": null
-     }
-    ],
-    "header": "<p><span data-teams=\"true\">Chips and Startups: Lessons from Scotland's Semiconductor Entrepreneurs<br>SSCS Scotland Panel Event | 25 November 2026</span></p>",
-    "footer": "",
-    "keywords": " #chapters #collaboration #sscs #electronics #microelectronics #lead #investment #silicon #stem",
-    "tags": [
-     "#chapters",
-     "#collaboration",
-     "#sscs",
-     "#electronics",
-     "#microelectronics",
-     "#lead",
-     "#investment",
-     "#silicon",
-     "#stem"
-    ],
-    "agenda": null,
-    "contact-email": "ismail.a.darwish@gmail.com",
-    "contact-display": "",
-    "cosponsor-name": "",
-    "location-type": "hybrid",
-    "virtual-info": "<p>Link will be posted closer to the event time&nbsp;</p>",
-    "address1": "Yew Lecture Theatre",
-    "address2": "Thomas Bayes Road",
-    "city": "Edinburgh",
-    "postal-code": "EH9 3FG",
-    "building": "The Nucleus Building",
-    "room-number": "2.07",
-    "map-url": "",
-    "latitude": "55.92218",
-    "longitude": "-3.1730611",
-    "image": null,
-    "image-mime-type": null,
-    "registration-start-time": "2026-10-22T23:00:00.000Z",
-    "registration-end-time": "2026-11-25T00:00:00.000Z",
-    "registration-url": "https://events.vtools.ieee.org/event/register/588375",
-    "enable-cohost-url": false,
-    "cohost-url": null,
-    "survey-url": "",
-    "cost": false,
-    "max-registrations": 120,
-    "cancelled": false,
-    "uid": "114CF365-6D67-459B-89B2-6A9CCA85E883",
-    "publish": true,
-    "virtual": true,
-    "link": "https://events.vtools.ieee.org/m/588375",
-    "ieee-attending": null,
-    "guests-attending": null,
-    "created-at": "2026-10-23T11:15:08.000Z",
-    "updated-at": "2026-10-23T11:35:34.000Z",
-    "pricing": null,
-    "speakers": null,
-    "media": null,
-    "enhanced-report": null
-   },
-   "relationships": {
-    "state": {
-     "data": {
-      "type": "states",
-      "id": "1798"
-     }
-    },
-    "country": {
-     "data": {
-      "type": "countries",
-      "id": "220"
+      "id": "107"
      }
     },
     "category": {
@@ -594,50 +241,543 @@
   },
   {
    "type": "events",
-   "id": "588363",
+   "id": "586685",
    "attributes": {
-    "id": 588363,
-    "title": "Co-Design of Algorithms and Architectures for Machine Learning Inference at the Edge for Video Analytics",
-    "description": "<p style=\"text-align: justify;\"><strong>LECTURE: </strong>Co-Design of Algorithms and Architectures for Machine Learning Inference at the Edge for Video Analytics</p>\r\n<ul style=\"text-align: justify;\" data-path-to-node=\"6\">\r\n<li>\r\n<p data-path-to-node=\"6,0,0\"><strong data-path-to-node=\"6,0,0\" data-index-in-node=\"0\">Speaker:</strong> Dr. Kiran Gunnam (Micron Technology)</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"6,1,0\"><strong data-path-to-node=\"6,1,0\" data-index-in-node=\"0\">Date:</strong> November 10, 2026</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"6,2,0\"><strong data-path-to-node=\"6,2,0\" data-index-in-node=\"0\">Time:</strong> 16:00 CET (Central European Time)</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"6,3,0\"><strong data-path-to-node=\"6,3,0\" data-index-in-node=\"0\">Format:</strong> Virtual Webinar via Google Meet</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"6,4,0\"><strong data-path-to-node=\"6,4,0\" data-index-in-node=\"0\">Organizer:</strong> IEEE Joint Solid-State Circuits (SSC) &amp; Circuits and Systems (CAS) Spanish Chapter</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"6,5,0\"><strong data-path-to-node=\"6,5,0\" data-index-in-node=\"0\">Cost:</strong> Free of charge&nbsp;</p>\r\n</li>\r\n</ul>\r\n<p style=\"text-align: justify;\" data-path-to-node=\"8\"><strong data-path-to-node=\"8\" data-index-in-node=\"0\">ABSTRACT:</strong> Video analytics involve processing video content in real-time, extracting metadata, sending out alerts, and delivering actionable intelligence insights to security staff or other systems. Video analytics products apply artificial intelligence to cameras to recognize temporal and spatial events. Video analytics are needed in various end applications such as quality inspection, industrial process automation, and workplace security. It is crucial to have video analytics performed at the edge on the multiple streams from on-premises cameras to make automated predictions with high accuracy and low latency. This talk explains the co-design of hardware friendly algorithms and corresponding domain specific accelerator architectures for machine learning inference at the edge for video analytics.</p>\r\n<p style=\"text-align: justify;\" data-path-to-node=\"11\"><strong data-path-to-node=\"11\" data-index-in-node=\"0\">ABOUT THE SPEAKER:</strong> <strong data-path-to-node=\"11\" data-index-in-node=\"19\">Dr. Kiran Gunnam</strong> is a distinguished researcher and industry professional at <strong data-path-to-node=\"11\" data-index-in-node=\"95\">Micron Technology</strong>, specializing in domain-specific architectures, signal processing algorithms, and hardware implementations for advanced computing, artificial intelligence, and memory/storage acceleration.</p>\r\n<p style=\"text-align: justify;\" data-path-to-node=\"11\"><strong data-path-to-node=\"13\" data-index-in-node=\"0\">REGISTRATION &amp; ACCESS:</strong> Attendance is free, but <strong data-path-to-node=\"13\" data-index-in-node=\"47\">prior registration is required</strong> to receive the Google Meet connection link.</p>\r\n<p data-path-to-node=\"11\">&nbsp;</p>",
-    "start-time": "2026-11-10T15:00:00.000Z",
-    "end-time": "2026-11-10T16:30:00.000Z",
+    "id": 586685,
+    "title": "IEEE PES&IAS MEETING ",
+    "description": "<p>Meeting with the new PES&amp;IAS Committee in Hashemite University</p>",
+    "start-time": "2026-11-05T11:05:00.000Z",
+    "end-time": "2026-11-05T12:05:00.000Z",
     "time-zone": {
-     "name": "Europe/Madrid",
-     "utc-offset": 1
+     "name": "Africa/Cairo",
+     "utc-offset": 2
     },
     "primary-host": {
-     "spoid": "CH08216",
-     "name": "Spain Section Chapter,CAS04/SSC37",
+     "spoid": "SBC61971D",
+     "name": "Hashemite University, PE31/IA34",
      "class_code": "SUBT",
      "class_description": "Technical SPO",
-     "type_code": "JCHP",
-     "type_description": "Joint Chapter",
-     "section_spoids": "R80023",
+     "type_code": "BRCH",
+     "type_description": "Student Branch Chapter",
+     "section_spoids": "R80079",
      "region_spoids": "R8",
-     "society_spoids": "CAS004,SSC037",
+     "society_spoids": "IA034,PE031",
      "report_submitted": null,
      "report_updated": null
     },
     "cohosts": [],
-    "header": "<h1><strong>Webinar Dr. Kiran Gunnam. iDLP CAS programme.</strong></h1>",
+    "header": "",
     "footer": "",
-    "keywords": "#Algorithm-Hardware Co-design\r\n#Edge Machine Learning\r\n#Video Analytics\r\n#CAS",
+    "keywords": " #ieeehu",
     "tags": [
-     "#Algorithm-Hardware",
-     "#Co-design",
-     "#Edge",
-     "#Machine",
-     "#Learning",
-     "#Video",
-     "#Analytics",
-     "#CAS"
+     "#ieeehu"
     ],
     "agenda": null,
-    "contact-email": "cilujan@us.es",
+    "contact-email": "Zaidmustafashaban@gmail.com",
     "contact-display": "",
     "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "",
+    "address2": "",
+    "city": "Az Zarqa",
+    "postal-code": "",
+    "building": "",
+    "room-number": "",
+    "map-url": "",
+    "latitude": null,
+    "longitude": null,
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": null,
+    "registration-end-time": null,
+    "registration-url": null,
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "416BEC47-95FD-49B7-B757-FDA96CABEC43",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/586685",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-17T16:23:17.000Z",
+    "updated-at": "2026-10-24T10:10:28.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1031"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "107"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "4"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "9"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "586017",
+   "attributes": {
+    "id": 586017,
+    "title": "IEEE GJU SB Officers Kickoff & Training Session",
+    "description": "<p>The first IEEE GJU Student Branch Officers Meeting aims to bring together the newly appointed society board members, provide an opportunity for everyone to get to know each other, and introduce them to their roles and responsibilities.</p>\r\n<p>The meeting will include training sessions covering the fundamentals of serving as an IEEE Society board member, along with an introduction to IEEE vTools and its basic features for managing events and activities.</p>\r\n<p>The goal is to help our officers start the year with a clear understanding of their responsibilities and the tools they need to successfully manage their societies.</p>",
+    "start-time": "2026-11-07T13:00:00.000Z",
+    "end-time": "2026-11-07T21:59:00.000Z",
+    "time-zone": {
+     "name": "Asia/Jerusalem",
+     "utc-offset": 2
+    },
+    "primary-host": {
+     "spoid": "STB04651",
+     "name": "German Jordanian University",
+     "class_code": "SUBG",
+     "class_description": "Geographic SPO",
+     "type_code": "STBR",
+     "type_description": "Student Branch",
+     "section_spoids": "R80079",
+     "region_spoids": "R8",
+     "society_spoids": null,
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [
+     {
+      "spoid": "SBA04651",
+      "name": "German Jordanian University, WIE",
+      "class_code": "SUBO",
+      "class_description": "Organizational SPO",
+      "type_code": "AFFN",
+      "type_description": "Affinity",
+      "section_spoids": "R80079",
+      "region_spoids": "R8",
+      "society_spoids": "WIE050",
+      "report_submitted": null,
+      "report_updated": null
+     },
+     {
+      "spoid": "SBC04651",
+      "name": "German Jordanian University,IE13",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "BRCH",
+      "type_description": "Student Branch Chapter",
+      "section_spoids": "R80079",
+      "region_spoids": "R8",
+      "society_spoids": "IE013",
+      "report_submitted": null,
+      "report_updated": null
+     },
+     {
+      "spoid": "SBC04651A",
+      "name": "German Jordanian University,C16",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "BRCH",
+      "type_description": "Student Branch Chapter",
+      "section_spoids": "R80079",
+      "region_spoids": "R8",
+      "society_spoids": "C016",
+      "report_submitted": null,
+      "report_updated": null
+     },
+     {
+      "spoid": "SBC04651B",
+      "name": "German Jordanian University,EMB18",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "BRCH",
+      "type_description": "Student Branch Chapter",
+      "section_spoids": "R80079",
+      "region_spoids": "R8",
+      "society_spoids": "EMB018",
+      "report_submitted": null,
+      "report_updated": null
+     },
+     {
+      "spoid": "SBC04651C",
+      "name": "German Jordanian University,CT08",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "BRCH",
+      "type_description": "Student Branch Chapter",
+      "section_spoids": "R80079",
+      "region_spoids": "R8",
+      "society_spoids": "CT008",
+      "report_submitted": null,
+      "report_updated": null
+     },
+     {
+      "spoid": "SBC04651D",
+      "name": "German Jordanian University,IA34",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "BRCH",
+      "type_description": "Student Branch Chapter",
+      "section_spoids": "R80079",
+      "region_spoids": "R8",
+      "society_spoids": "IA034",
+      "report_submitted": null,
+      "report_updated": null
+     },
+     {
+      "spoid": "SBC04651E",
+      "name": "German Jordanian University,TEM14",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "BRCH",
+      "type_description": "Student Branch Chapter",
+      "section_spoids": "R80079",
+      "region_spoids": "R8",
+      "society_spoids": "TEM014",
+      "report_submitted": null,
+      "report_updated": null
+     },
+     {
+      "spoid": "SBC04651F",
+      "name": "German Jordanian University,RA24",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "BRCH",
+      "type_description": "Student Branch Chapter",
+      "section_spoids": "R80079",
+      "region_spoids": "R8",
+      "society_spoids": "RA024",
+      "report_submitted": null,
+      "report_updated": null
+     },
+     {
+      "spoid": "SBC04651G",
+      "name": "German Jordanian University,PE31",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "BRCH",
+      "type_description": "Student Branch Chapter",
+      "section_spoids": "R80079",
+      "region_spoids": "R8",
+      "society_spoids": "PE031",
+      "report_submitted": null,
+      "report_updated": null
+     },
+     {
+      "spoid": "SBC04651H",
+      "name": "German Jordanian University,AES10",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "BRCH",
+      "type_description": "Student Branch Chapter",
+      "section_spoids": "R80079",
+      "region_spoids": "R8",
+      "society_spoids": "AES010",
+      "report_submitted": null,
+      "report_updated": null
+     }
+    ],
+    "header": "",
+    "footer": "",
+    "keywords": " #WIE #engineering #gju #ieeegju #tools #societies",
+    "tags": [
+     "#WIE",
+     "#engineering",
+     "#gju",
+     "#ieeegju",
+     "#tools",
+     "#societies"
+    ],
+    "agenda": null,
+    "contact-email": "zoiqassas@ieee.org",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "",
+    "address2": "",
+    "city": "Amman",
+    "postal-code": "",
+    "building": "",
+    "room-number": "",
+    "map-url": "",
+    "latitude": null,
+    "longitude": null,
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": null,
+    "registration-end-time": null,
+    "registration-url": null,
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "4D62F553-0B04-4F4E-BE94-4B3C939C91C2",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/586017",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-15T19:56:04.000Z",
+    "updated-at": "2026-10-15T20:09:31.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1031"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "107"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "4"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "10"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "587491",
+   "attributes": {
+    "id": 587491,
+    "title": "Tour and technical presentations at Hellbender's new facility",
+    "description": "<p>Join the Pittsburgh IEEE Robotics and Automation Society at the Pittsburgh Robotics Network Open House at Hellbender. Hellbender is a Pittsburgh Robotics company that specializes in vision and AI. They also design and build hardware for several Pittsburgh area companies. They have moved into a new larger facility. The evening will include networking, technical presentations, and tours.</p>\r\n<p>To attend the event, you need to register on both Vtools and with the event at <a href=\"https://www.eventbrite.com/e/robotics-tech-happy-hour-hellbender-open-house-tickets-2003512690390\">https://www.eventbrite.com/e/robotics-tech-happy-hour-hellbender-open-house-tickets-2003512690390</a></p>\r\n<p>Register with a company name of IEEE and your present work title and select the free PRN member ticket option.</p>\r\n<p>Check in with Ralph Sprang at the event to receive credit for attendance.</p>",
+    "start-time": "2026-11-17T23:00:00.000Z",
+    "end-time": "2026-11-18T02:00:00.000Z",
+    "time-zone": {
+     "name": "America/New_York",
+     "utc-offset": -5
+    },
+    "primary-host": {
+     "spoid": "CH02134",
+     "name": "Pittsburgh Section Chapter,RA24",
+     "class_code": "SUBT",
+     "class_description": "Technical SPO",
+     "type_code": "CHPT",
+     "type_description": "Chapter",
+     "section_spoids": "R20037",
+     "region_spoids": "R2",
+     "society_spoids": "RA024",
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": " #companies #robotics #Robotics #robotics-and-automation-society",
+    "tags": [
+     "#companies",
+     "#robotics",
+     "#Robotics",
+     "#robotics-and-automation-society"
+    ],
+    "agenda": null,
+    "contact-email": "rsprang@ieee.org",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "4165 Blair Street",
+    "address2": "",
+    "city": "Pittsburgh",
+    "postal-code": "15207",
+    "building": "Roundhouse at Hazelwood Green",
+    "room-number": "",
+    "map-url": "",
+    "latitude": "40.4209345",
+    "longitude": "-79.9507999",
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": "2026-10-21T04:00:00.000Z",
+    "registration-end-time": "2026-11-16T05:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/587491",
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": 10,
+    "cancelled": false,
+    "uid": "0585993A-E0C0-41CC-A74E-762A4360E6ED",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/587491",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-20T12:38:57.000Z",
+    "updated-at": "2026-10-20T14:00:20.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1841"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "221"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "2"
+     }
+    },
+    "subcategory": {
+     "data": null
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "587481",
+   "attributes": {
+    "id": 587481,
+    "title": "Enhancing System Reliability Through Shielded Cable Technologies",
+    "description": "<p><span style=\"font-size: 11.0pt; font-family: 'Calibri',sans-serif; mso-fareast-font-family: 'Times New Roman'; color: black; mso-ansi-language: EN-US; mso-fareast-language: EN-US; mso-bidi-language: AR-SA;\"><span style=\"font-family: arial, helvetica, sans-serif;\">This training will provide a deeper understanding of electromagnetic interference (EMI) and the role of shielding in mitigating its impact. This presentation provides a comprehensive overview of how shielded cable technologies improve system reliability, reduce signal disruption, and protect critical infrastructure. &nbsp;By connecting theory, standards, product solutions, and real-world application practices, this session equips engineers, specifiers, and end users with the knowledge needed to enhance system reliability through effective use of shielded cable technologies.</span><br style=\"mso-special-character: line-break;\"><!--[endif]--></span></p>",
+    "start-time": "2026-12-07T22:00:00.000Z",
+    "end-time": "2026-12-07T23:00:00.000Z",
+    "time-zone": {
+     "name": "America/Chicago",
+     "utc-offset": -6
+    },
+    "primary-host": {
+     "spoid": "R30001",
+     "name": "Alabama Section",
+     "class_code": "SUBG",
+     "class_description": "Geographic SPO",
+     "type_code": "SECT",
+     "type_description": "Section",
+     "section_spoids": "R30001",
+     "region_spoids": "R3",
+     "society_spoids": null,
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [
+     {
+      "spoid": "CH03001",
+      "name": "Alabama Section Chapter, C16",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "CHPT",
+      "type_description": "Chapter",
+      "section_spoids": "R30001",
+      "region_spoids": "R3",
+      "society_spoids": "C016",
+      "report_submitted": null,
+      "report_updated": null
+     },
+     {
+      "spoid": "CH03002",
+      "name": "Alabama Section Chapter, COM19",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "CHPT",
+      "type_description": "Chapter",
+      "section_spoids": "R30001",
+      "region_spoids": "R3",
+      "society_spoids": "COM019",
+      "report_submitted": null,
+      "report_updated": null
+     },
+     {
+      "spoid": "CH03003",
+      "name": "Alabama Section Chapter,PE31",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "CHPT",
+      "type_description": "Chapter",
+      "section_spoids": "R30001",
+      "region_spoids": "R3",
+      "society_spoids": "PE031",
+      "report_submitted": null,
+      "report_updated": null
+     },
+     {
+      "spoid": "CH03004",
+      "name": "Alabama Section Chapter, IA34",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "CHPT",
+      "type_description": "Chapter",
+      "section_spoids": "R30001",
+      "region_spoids": "R3",
+      "society_spoids": "IA034",
+      "report_submitted": null,
+      "report_updated": null
+     }
+    ],
+    "header": "",
+    "footer": "",
+    "keywords": " #internet #router #security #networking #ip-network #cable",
+    "tags": [
+     "#internet",
+     "#router",
+     "#security",
+     "#networking",
+     "#ip-network",
+     "#cable"
+    ],
+    "agenda": null,
+    "contact-email": "roybrown@southernco.com",
+    "contact-display": "<p>Southwire</p>\r\n<p>770-328-2927</p>",
+    "cosponsor-name": "Jay Stewart ",
     "location-type": "virtual",
-    "virtual-info": "<p><strong data-path-to-node=\"13\" data-index-in-node=\"0\">REGISTRATION &amp; ACCESS:</strong> Attendance is free, but <strong data-path-to-node=\"13\" data-index-in-node=\"47\">prior registration is required</strong> to receive the Google Meet connection link.</p>",
+    "virtual-info": "<div class=\"meeting_detail_wrapper\" role=\"region\" aria-label=\"Meeting Information\">\r\n<dl>\r\n<dt title=\"Meeting link:\">\r\n<div class=\"meeting_detail_wrapper\" role=\"region\" aria-label=\"Meeting Information\">\r\n<dl>\r\n<dt title=\"Meeting link:\">\r\n<div class=\"meeting_detail_wrapper\" role=\"region\" aria-label=\"Meeting Information\">\r\n<dl>\r\n<dt title=\"Meeting link:\">Meeting link:</dt>\r\n<dd><a href=\"https://ieeemeetings.webex.com/ieeemeetings/j.php?MTID=m70b4e47ea98ecd81d46f696142c1103d\">https://ieeemeetings.webex.com/ieeemeetings/j.php?MTID=m70b4e47ea98ecd81d46f696142c1103d</a>\r\n<div class=\"el-popover__trigger\">&nbsp;</div>\r\n<a id=\"mdp_copy_meeting_link\" class=\"el-tooltip item copy\" tabindex=\"0\" role=\"button\" aria-label=\"Copy meeting link\"></a></dd>\r\n<dt title=\"Meeting number:\">Meeting number:</dt>\r\n<dd><span id=\"meetingKeySelector\">2530 528 0210</span></dd>\r\n<dt title=\"Password: \">Password:</dt>\r\n<dd id=\"mdp_advanced_info_password\" dir=\"auto\">v5QpPJYkP44</dd>\r\n<dd id=\"mdp_advanced_info_host_key\"></dd>\r\n</dl>\r\n</div>\r\n<div class=\"meeting_detail_wrapper\" role=\"region\" aria-label=\"More ways to join\">\r\n<section>\r\n<dl>\r\n<dt title=\"Join by video system\">Join by video system</dt>\r\n<dd>\r\n<div id=\"mdp_video_address\">Dial <span dir=\"auto\">25305280210@ieeemeetings.webex.com</span></div>\r\n<div id=\"mdp_video_dialing_ip_address\">You can also dial 173.243.2.68 and enter your meeting number.</div>\r\n</dd>\r\n</dl>\r\n</section>\r\n<section>\r\n<dl>\r\n<dt title=\"Join by phone\">Join by phone</dt>\r\n<dd>\r\n<div>\r\n<div id=\"mdp_audio_call_in_numbers\" dir=\"auto\">\r\n<div>\r\n<div><span dir=\"auto\">+1-415-655-0002</span> United States Toll</div>\r\n<div><span dir=\"auto\">1-855-282-6330</span> United States Toll Free</div>\r\n</div>\r\n</div>\r\n<div id=\"mdp_audio_telephony_type\" class=\"accessCodeArea\">Access code: <span dir=\"auto\">2530 528 0210</span></div>\r\n<div class=\"host_pin_area\">Host PIN: 1711</div>\r\n</div>\r\n</dd>\r\n</dl>\r\n</section>\r\n</div>\r\n</dt>\r\n</dl>\r\n</div>\r\n</dt>\r\n</dl>\r\n</div>",
     "address1": null,
     "address2": null,
     "city": null,
@@ -649,23 +789,23 @@
     "longitude": null,
     "image": null,
     "image-mime-type": null,
-    "registration-start-time": "2026-10-22T22:00:00.000Z",
-    "registration-end-time": "2026-11-09T23:00:00.000Z",
-    "registration-url": "https://events.vtools.ieee.org/event/register/588363",
+    "registration-start-time": "2026-10-21T05:00:00.000Z",
+    "registration-end-time": "2026-12-07T18:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/587481",
     "enable-cohost-url": false,
     "cohost-url": null,
     "survey-url": "",
     "cost": false,
     "max-registrations": null,
     "cancelled": false,
-    "uid": "A11EDEDC-484D-4876-9F61-51DF304987F0",
+    "uid": "3C05774C-B2B3-44CD-B12B-311AF0F88535",
     "publish": true,
     "virtual": true,
-    "link": "https://events.vtools.ieee.org/m/588363",
+    "link": "https://events.vtools.ieee.org/m/587481",
     "ieee-attending": null,
     "guests-attending": null,
-    "created-at": "2026-10-23T09:55:07.000Z",
-    "updated-at": "2026-10-23T11:15:28.000Z",
+    "created-at": "2026-10-20T12:03:35.000Z",
+    "updated-at": "2026-10-20T17:07:03.000Z",
     "pricing": null,
     "speakers": null,
     "media": null,
@@ -677,6 +817,112 @@
     },
     "country": {
      "data": null
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "1"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "1"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "587479",
+   "attributes": {
+    "id": 587479,
+    "title": "IEEE Young Researchers Café October 2026 Edition",
+    "description": "<p>Join us for a friendly meet-up where students, early-career researchers, and young professionals can connect, exchange ideas, and find inspiration.&nbsp;This edition features an expert talk on Intellectual Property Law, followed by an open discussion. It is a great opportunity to ask questions and share perspectives on this important topic that many people may be unfamiliar with. This event is in association with the Department of Law, TalTech School of Business and Governance.&nbsp;<br><br></p>",
+    "start-time": "2026-10-30T13:00:00.000Z",
+    "end-time": "2026-10-30T14:30:00.000Z",
+    "time-zone": {
+     "name": "Europe/Tallinn",
+     "utc-offset": 2
+    },
+    "primary-host": {
+     "spoid": "YP80006",
+     "name": "Estonia Section Affinity Group, YP",
+     "class_code": "SUBO",
+     "class_description": "Organizational SPO",
+     "type_code": "AFFN",
+     "type_description": "Affinity",
+     "section_spoids": "R80006",
+     "region_spoids": "R8",
+     "society_spoids": null,
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": " #intellectual-property #career-development #estonia #IEEEYP #TalTech",
+    "tags": [
+     "#intellectual-property",
+     "#career-development",
+     "#estonia",
+     "#IEEEYP",
+     "#TalTech"
+    ],
+    "agenda": null,
+    "contact-email": "sreenathphd@ieee.org",
+    "contact-display": "",
+    "cosponsor-name": "",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "",
+    "address2": "",
+    "city": "Tallinn",
+    "postal-code": "",
+    "building": "U05",
+    "room-number": "103",
+    "map-url": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2031.322575550304!2d24.666894477500975!3d59.39433050581564!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x469295075d56bf79%3A0x797cdc6eee5fdc6!2sU05!5e0!3m2!1sen!2see!4v1792497291243!5m2!1sen!2see\" width=\"400\" height=\"300\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"strict-origin-when-cross-origin",
+    "latitude": null,
+    "longitude": null,
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": "2026-10-20T21:00:00.000Z",
+    "registration-end-time": "2026-10-30T10:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/587479",
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "2DE93472-0366-4A27-9192-7523A49ABBEE",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/587479",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-10-20T11:51:08.000Z",
+    "updated-at": "2026-10-20T12:12:49.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "667"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "66"
+     }
     },
     "category": {
      "data": {
@@ -698,8 +944,8 @@
   "messages": [],
   "paging": {
    "page": "2",
-   "limit": 100,
-   "total_pages": 10
+   "limit": 200,
+   "total_pages": 5
   }
  }
 }

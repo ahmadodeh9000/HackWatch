@@ -9,15 +9,23 @@ in-person events only in Jordan, online events from anywhere, and, for sources
 with `require_tech_keywords`, a tech keyword. The site also hides past events.
 Each source's settings live in [`sources.yaml`](sources.yaml).
 
+**Politeness:** every source is read with an honest User-Agent (`HackWatch/<version>
+(+repo URL)`), respecting its `robots.txt` (paths and `Crawl-delay`, checked 2026-10-27),
+and every candidate is tested **from the GitHub runner** before a scraper is built, with
+`scripts/probe_sources.py` (results on the "Runner probe" issue), because some sites
+block datacenter IPs.
+
 ## Active sources
 
 | Source | Scope | Method | Requests | Raw | Kept | Notes |
 |---|---|---|---|---|---|---|
 | Devpost | worldwide | JSON API `devpost.com/api/hackathons` | 2 | 18 | 18 | First 2 pages (9/page) of ~175. All online. Types limited to hackathon/competition. |
 | Eventbrite | jordan | HTML search pages, JSON-LD `ItemList` | 8 | 11 | 5 | ⚠️ **Blocked in CI** (see below); works from a home connection. 8 tech terms on `/d/jordan/<term>/`; Eventbrite returns the same ~10 Jordan events for any term. Needs a tech keyword. |
-| GDG | jordan | JSON API, 8 Jordan chapters + 1 detail call per upcoming event | 12 | 4 | 4 | Only 3 of 8 chapters had upcoming events. GDG's own event tags and `audience_type` feed type/tag/mode inference. |
+| GDG | jordan | Public chapter pages + event pages (schema.org JSON-LD), 8 Jordan chapters (`bevy` scraper) | 13 | 5 | 5 | Until 2026-10-27 this used `/api/event/`, which **robots.txt disallows**; now it reads the pages visitors see, 2 s apart (Crawl-delay 2). Event pages also give GDG's own tags, `audience_type` and times. |
+| Startup Grind Amman | jordan | Same `bevy` scraper on startupgrind.com/amman/ | 2 | 1 | 1 | Founder/startup talks (tag `startup`). Same platform and robots.txt as GDG. |
+| GJU (German Jordanian University) | jordan | Server-rendered events calendar `/gju-event/month/YYYY-MM`, this month + 2 | 3 | 8 | 2 | 10 s between requests (robots.txt Crawl-delay 10). Lists orientation days and graduations too, so tech keywords are required; kept: ICFT 2026, GJU Future TECH SUMMIT. |
 | JOSA | jordan | HTML `div.preview` cards on josa.ngo/events | 1 | 5 | 5 | Lists recent events; all 5 were past on the run date. Year is inferred (nearest to today). |
-| IEEE (vTools) | jordan | Public vTools Events API v8, filtered client-side to section R80079 | 10 | 14 | 14 | See [IEEE vTools](#ieee-vtools) below; same-branch same-day posts are merged (14 → 11). |
+| IEEE (vTools) | jordan | Public vTools Events API v8, filtered client-side to section R80079 | ~5 | 14 | 14 | See [IEEE vTools](#ieee-vtools) below; same-branch same-day posts are merged (14 → 11). Pages of 200, 60 s apart (robots.txt Crawl-delay 60). |
 | CTFtime | worldwide | Public API `ctftime.org/api/v1/events/`, next 60 days | 1 | 36 | 27 | The 9 dropped are on-site CTFs abroad (Italy, India, Canada, Riyadh...). Tags fixed to ctf + security. The free-text prize field is reduced to an amount ("$900", "€1,500+") or left empty; the full text goes into the description. |
 | Codeforces | worldwide | API `contest.list`, next 30 days | 1 | 6 | 6 | Div. 1/2/3 and Educational rounds only (configurable). Fixture keeps upcoming + 5 finished of ~2000 contests. |
 | Manual | jordan | `manual_events.yaml` | 0 | 1 | 1 | Community/club submissions. Invalid entries are skipped with an error; `hackwatch.cli validate` is strict. |
@@ -34,9 +42,9 @@ Live export on 2026-10-26 after Phases 2–3: 28 events (before IEEE/CTFtime/Cod
 - **So we filter on our side.** Every event has `primary-host.section_spoids` (and co-hosts).
   The IEEE **Jordan Section is `R80079`** (seen on events from Yarmouk, Hashemite, GJU, Mutah,
   BAU, Zarqa, Philadelphia, UJ Aqaba student branches).
-- **Cost:** ~1000 events worldwide in 60 days = ~10 pages of 100 (~0.5 MB, ~4 s each,
-  sometimes much slower; one slow page is retried). Pages of 1000 took over 2 minutes, so
-  100 is the sweet spot. Once a day this is acceptable.
+- **Cost:** ~1000 events worldwide in 60 days. robots.txt asks for `Crawl-delay: 60`, so
+  pages of 200 (~1 MB, ~23 s each) are fetched 60 s apart: ~5 requests, ~7 minutes per
+  daily run. Pages of 1000 took over 2 minutes and timed out. A slow page is retried once.
 - **Better option for later:** ask IEEE staff for a Jordan Section custom feed; then a
   single request with the feed `uid` would replace the paging.
 
@@ -86,12 +94,16 @@ The deploy job publishes a per-source fetch report as
 
 ## Tried and failed
 
-| Source | What happened (checked 2026-10-26) | Verdict |
+| Source | What happened (checked 2026-10-26/27) | Verdict |
 |---|---|---|
-| Orange Jordan | `orange.jo/en/pages/events` returns **404**. No public events feed found. | Skip |
-| ZINC (Zain Innovation Campus) | `zinc.jo` is a client-side React app: the HTML is an empty `<div id="root">`. Would need a headless browser or an undocumented API. | Skip for now |
+| Orange Jordan | `orange.jo/en/pages/events` is **404**; `/en/corporate/media-center/events` exists but lists press releases about past events (inaugurations, launches), not upcoming ones. | Skip |
+| ZINC (Zain Innovation Campus) | `zinc.jo` is a client-side React app; `/api/events` just returns the same empty app shell. Would need a headless browser or an undocumented API. | Skip |
+| Shamal Start / Jordan Start (Irbid) | WordPress with The Events Calendar: a public iCal feed (`/calendar/?ical=1`) and REST API (`/wp-json/tribe/events/v1/events`), allowed by robots.txt and reachable from the runner, but **empty** (0 events since 2025). | Clean but unused; easy to add later if they start publishing events there. |
 | PSUT | `psut.edu.jo/en/events` loads but the event list is rendered client-side. PSUT events arrive via the GDG on Campus PSUT chapter and IEEE. | Skip; covered partly |
+| JUST | `/calendar` (and the `newscenter … List=Events` pages) load from the runner, but the calendar's dates are filled in by scripts; the HTML has none. JUST events arrive via IEEE/GDG chapters. | Skip |
+| HTU | Only a news page and a PDF academic calendar; no events listing. | Skip |
 | University of Jordan | Every page returns a WAF block page ("Request Rejected") to non-browser clients. | Skip (blocks bots) |
+| Startup Grind `/api/` | `startupgrind.com/api/event/?chapter=112` returns all Startup Grind Amman events, but robots.txt disallows `/api/`. | Not used; the public pages are read instead (see Active sources). |
 | Telegram channels | Public previews (`t.me/s/…`) exist, but scraping Telegram is out of scope by project rule. | Not allowed |
 
 Instagram and Facebook are also out of scope by project rule.
@@ -100,7 +112,7 @@ Instagram and Facebook are also out of scope by project rule.
 
 | Source | Finding (2026-10-26) | Verdict |
 |---|---|---|
-| Luma (lu.ma) | The public API (`api.lu.ma/public/v1/...`) answers "Please provide an API key"; keys belong to calendar owners. There's no public search. Each Luma calendar does publish an iCal feed. | Worth it **only** as a generic iCal source for specific Jordan community calendars, if clubs use Luma. |
+| Luma (lu.ma / luma.com) | The public API answers "Please provide an API key" (keys belong to calendar owners), and there's no Amman city page: `luma.com/amman` is the generic Discover page listing other cities. No Jordan tech calendars found. Each calendar does publish an iCal feed. | Worth it **only** as a generic iCal source for specific club calendars, if clubs give us their Luma calendar links. |
 | Meetup | The API is GraphQL behind OAuth (and Meetup Pro for most group data); the old REST API is gone. Few active Jordan tech groups. | Skip; groups can submit events via the issue form. |
 | MLH | `mlh.com/seasons/2027/events` is server-rendered and allowed by robots.txt, but all 87 listed events are in-person, none in Jordan, so nothing would pass our filter. | Skip for now; revisit if MLH lists online events again. |
 | ACM JCPC (Jordanian Collegiate Programming Contest) | One contest a year, announced by the hosting university; no feed. | Add by hand (manual YAML / issue form) each year. |

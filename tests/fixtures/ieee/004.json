@@ -2,78 +2,89 @@
  "data": [
   {
    "type": "events",
-   "id": "582932",
+   "id": "562001",
    "attributes": {
-    "id": 582932,
-    "title": "    IEEE Day 2026",
-    "description": "<p>IEEE Day 2026 is a special occasion that brings together IEEE members, engineering students, professionals, researchers, and technology enthusiasts to celebrate the spirit of innovation, collaboration, and technological advancement.</p>\r\n<p>The event provides an opportunity to connect with like-minded individuals, exchange knowledge and experiences, and explore the role of engineering and technology in shaping the future. Through engaging activities, discussions, and networking opportunities, participants will have the chance to strengthen their technical and professional skills while building meaningful connections within the IEEE community.</p>\r\n<p>IEEE Day 2026 aims to inspire students and young engineers to actively contribute to the engineering community, develop their potential, and transform innovative ideas into solutions that can create a positive impact on society.</p>\r\n<p>Together, we connect, innovate, and shape a better tomorrow.</p>",
-    "start-time": "2026-11-01T07:00:00.000Z",
-    "end-time": "2026-11-01T12:00:00.000Z",
+    "id": 562001,
+    "title": "Sesión Especial de Teoría y Tecnología de Microondas, Compatibilidad Electromagnética, Antenas y Propagación – ARGENCON 2026",
+    "description": "<p class=\"isSelectedEnd\">La octava edici&oacute;n de IEEE ARGENCON 2026 se llevar&aacute; a cabo en la ciudad de C&oacute;rdoba, Argentina, del 11 al 13 de noviembre de 2026. Esta edici&oacute;n est&aacute; coorganizada por la Secci&oacute;n Argentina del IEEE y la Facultad de Ciencias Exactas, F&iacute;sicas y Naturales de la Universidad Nacional de C&oacute;rdoba.</p>\r\n<p class=\"isSelectedEnd\">ARGENCON 2026 incluir&aacute; una sesi&oacute;n especial dedicada a Teor&iacute;a y Tecnolog&iacute;a de Microondas, Compatibilidad Electromagn&eacute;tica, Antenas y Propagaci&oacute;n. Esta sesi&oacute;n est&aacute; enfocada en tecnolog&iacute;as y aplicaciones que operan con ondas electromagn&eacute;ticas en la regi&oacute;n del espectro comprendida entre los MHz y los THz.</p>\r\n<p class=\"isSelectedEnd\">La sesi&oacute;n especial incluir&aacute; las siguientes actividades:</p>\r\n<ul data-spread=\"false\">\r\n<li>Presentaci&oacute;n de trabajos cient&iacute;ficos</li>\r\n<li>Conferencias de disertantes distinguidos</li>\r\n<li>Cursos y workshops</li>\r\n</ul>\r\n<p class=\"isSelectedEnd\">Invitamos a la presentaci&oacute;n de trabajos originales, escritos en ingl&eacute;s o espa&ntilde;ol, relacionados con los siguientes temas de inter&eacute;s (sin limitarse a ellos):</p>\r\n<ul data-spread=\"false\">\r\n<li>Componentes y circuitos pasivos</li>\r\n<li>Dispositivos y circuitos activos</li>\r\n<li>Compatibilidad electromagn&eacute;tica</li>\r\n<li>Integridad de se&ntilde;al</li>\r\n<li>Antenas activas y pasivas</li>\r\n<li>Arreglos de antenas</li>\r\n<li>Sistemas y aplicaciones</li>\r\n<li>T&eacute;cnicas de dise&ntilde;o asistido por computadora</li>\r\n<li>Electromagnetismo computacional</li>\r\n</ul>\r\n<p>Fecha l&iacute;mite de env&iacute;o de trabajos: 29 de junio de 2026</p>\r\n<p>Para obtener m&aacute;s informaci&oacute;n, visite el sitio web del congreso:&nbsp;https://attend.ieee.org/argencon-2026/</p>",
+    "start-time": "2026-11-11T11:30:00.000Z",
+    "end-time": "2026-11-13T19:00:00.000Z",
     "time-zone": {
-     "name": "Asia/Riyadh",
-     "utc-offset": 3
+     "name": "America/Argentina/Buenos_Aires",
+     "utc-offset": -3
     },
     "primary-host": {
-     "spoid": "STB25091",
-     "name": "Yarmouk University",
-     "class_code": "SUBG",
-     "class_description": "Geographic SPO",
-     "type_code": "STBR",
-     "type_description": "Student Branch",
-     "section_spoids": "R80079",
-     "region_spoids": "R8",
-     "society_spoids": null,
+     "spoid": "CH09429",
+     "name": "Argentina Section Chapter, MTT17",
+     "class_code": "SUBT",
+     "class_description": "Technical SPO",
+     "type_code": "CHPT",
+     "type_description": "Chapter",
+     "section_spoids": "R90901",
+     "region_spoids": "R9",
+     "society_spoids": "MTT017",
      "report_submitted": null,
      "report_updated": null
     },
-    "cohosts": [],
+    "cohosts": [
+     {
+      "spoid": "CH09371",
+      "name": "Argentina Section Jt Chapter,AP03/EMC27",
+      "class_code": "SUBT",
+      "class_description": "Technical SPO",
+      "type_code": "JCHP",
+      "type_description": "Joint Chapter",
+      "section_spoids": "R90901",
+      "region_spoids": "R9",
+      "society_spoids": "AP003,EMC027",
+      "report_submitted": null,
+      "report_updated": null
+     }
+    ],
     "header": "",
     "footer": "",
-    "keywords": " #collaboration #engineering-students #networking #IEEE #womens #jordan #yarmouk #shape",
+    "keywords": " #argencon #mtt-s #emcs #ap-s  #argentina",
     "tags": [
-     "#collaboration",
-     "#engineering-students",
-     "#networking",
-     "#IEEE",
-     "#womens",
-     "#jordan",
-     "#yarmouk",
-     "#shape"
+     "#argencon",
+     "#mtt-s",
+     "#emcs",
+     "#ap-s",
+     "#argentina"
     ],
     "agenda": null,
-    "contact-email": "mohammadshakhatreh2002@gmail.com",
+    "contact-email": "lopezlavalle@ing.unlp.edu.ar",
     "contact-display": "",
     "cosponsor-name": "",
     "location-type": "physical",
     "virtual-info": null,
-    "address1": "Hijjawi Faculty for Engineering Technology",
-    "address2": "Yarmouk University",
-    "city": "Irbid",
+    "address1": "Av. Vélez Sarsfield 1611",
+    "address2": "",
+    "city": "Córdoba",
     "postal-code": "",
-    "building": "",
+    "building": "Facultad de Ciencias Exactas, Físicas y Naturales",
     "room-number": "",
-    "map-url": "",
-    "latitude": null,
-    "longitude": null,
+    "map-url": "https://www.google.com/maps/place/FCEFYN-CU/@-31.4357613,-64.1891167,15z/data=!4m6!3m5!1s0x9432a3d3ed41bced:0xe80474a3e32166c5!8m2!3d-31.4354592!4d-64.1930827!16s%2Fg%2F11h9kyw426!5m1!1e1?authuser=0&entry=ttu&g_ep=EgoyMDI2MDMwMi4wIKXMDSoASAFQAw%3D%3D",
+    "latitude": "-31.4368243",
+    "longitude": "-64.1862739",
     "image": null,
     "image-mime-type": null,
     "registration-start-time": null,
     "registration-end-time": null,
-    "registration-url": null,
+    "registration-url": "https://attend.ieee.org/argencon-2026/",
     "enable-cohost-url": false,
     "cohost-url": null,
     "survey-url": "",
     "cost": false,
     "max-registrations": null,
     "cancelled": false,
-    "uid": "DDA7E9ED-A23C-4D57-A4A3-16C8C3C15766",
+    "uid": "07C72897-B03D-453B-A201-0D7FB785FAE4",
     "publish": true,
     "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/582932",
+    "link": "https://events.vtools.ieee.org/m/562001",
     "ieee-attending": null,
     "guests-attending": null,
-    "created-at": "2026-10-06T16:14:19.000Z",
-    "updated-at": "2026-10-24T21:10:12.000Z",
+    "created-at": "2026-05-31T23:19:06.000Z",
+    "updated-at": "2026-06-11T14:42:43.000Z",
     "pricing": null,
     "speakers": null,
     "media": null,
@@ -83,146 +94,13 @@
     "state": {
      "data": {
       "type": "states",
-      "id": "1031"
+      "id": "103"
      }
     },
     "country": {
      "data": {
       "type": "countries",
-      "id": "107"
-     }
-    },
-    "category": {
-     "data": {
-      "type": "categories",
-      "id": "1"
-     }
-    },
-    "subcategory": {
-     "data": {
-      "type": "subcategories",
-      "id": "2"
-     }
-    },
-    "menus": {
-     "data": []
-    }
-   }
-  },
-  {
-   "type": "events",
-   "id": "584169",
-   "attributes": {
-    "id": 584169,
-    "title": "The 10th Montreal Photonics Networking Event",
-    "description": "<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"https://events.vtools.ieee.org/vtools_ui/media/display/bbe6b7dc-360d-4960-ae9d-f82499b42cbb\" width=\"597\" height=\"336\"></p>\r\n<p>You are invited to attend the 10th Montreal Photonics Networking Event on Friday 4th December 2026.</p>\r\n<p>The Montreal Photonics Networking Event is an annual event that brings together students doing research in photonics, as well as the local industry and innovation ecosystem. The event features a poster competition with several prizes and various networking activities to foster professional development. The event&rsquo;s mission is to bring together graduate students to (1) establish a way for students to discuss life as a photonics researcher, (2) enhance research synergies, and (3) connect with the industry for further career development.</p>\r\n<p>-----------------</p>\r\n<p>Vous &ecirc;tes invit&eacute;&middot;e&middot;s &agrave; participer au 10e &eacute;v&eacute;nement de r&eacute;seautage en photonique de Montr&eacute;al le vendredi 4 d&eacute;cembre 2026.</p>\r\n<p>Le Montreal Photonics Networking Event est un &eacute;v&eacute;nement annuel qui rassemble les &eacute;tudiant&middot;e&middot;s qui font de la recherche en photonique, ainsi que l'industrie locale et l'&eacute;cosyst&egrave;me de l'innovation. L'&eacute;v&eacute;nement comprend un concours d'affiches dot&eacute; de plusieurs prix et diverses activit&eacute;s de r&eacute;seautage visant &agrave; favoriser le d&eacute;veloppement professionnel. La mission de l'&eacute;v&eacute;nement est de rassembler les &eacute;tudiant&middot;e&middot;s (1) permettre aux &eacute;tudiant.e.s d'&eacute;change sur la vie de chercheur&middot;e en photonique, (2) am&eacute;liorer les synergies de recherche, et (3) rencontrer des repr&eacute;sentant&middot;e&middot;s de l'industrie pour d&eacute;velopper de nouvelles perspectives de carri&egrave;re</p>\r\n<p>&nbsp;</p>",
-    "start-time": "2026-12-04T14:00:00.000Z",
-    "end-time": "2026-12-04T22:00:00.000Z",
-    "time-zone": {
-     "name": "Canada/Eastern",
-     "utc-offset": -5
-    },
-    "primary-host": {
-     "spoid": "CH07178",
-     "name": "Montreal Section Chapter, PHO36",
-     "class_code": "SUBT",
-     "class_description": "Technical SPO",
-     "type_code": "CHPT",
-     "type_description": "Chapter",
-     "section_spoids": "R70009",
-     "region_spoids": "R7",
-     "society_spoids": "PHO036",
-     "report_submitted": null,
-     "report_updated": null
-    },
-    "cohosts": [
-     {
-      "spoid": "R70009",
-      "name": "Montreal Section",
-      "class_code": "SUBG",
-      "class_description": "Geographic SPO",
-      "type_code": "SECT",
-      "type_description": "Section",
-      "section_spoids": "R70009",
-      "region_spoids": "R7",
-      "society_spoids": null,
-      "report_submitted": null,
-      "report_updated": null
-     },
-     {
-      "spoid": "SBC19011A",
-      "name": "Institut Natl de la Recherche Scientifique,PHO36",
-      "class_code": "SUBT",
-      "class_description": "Technical SPO",
-      "type_code": "BRCH",
-      "type_description": "Student Branch Chapter",
-      "section_spoids": "R70009",
-      "region_spoids": "R7",
-      "society_spoids": "PHO036",
-      "report_submitted": null,
-      "report_updated": null
-     }
-    ],
-    "header": "<p>Call for abstracts // Appel &agrave; r&eacute;sum&eacute;: <a href=\"https://forms.gle/vLeSatFF3jcHyJQp6\">https://forms.gle/vLeSatFF3jcHyJQp6</a></p>",
-    "footer": "",
-    "keywords": "#Photonics #Research #Networking #Montreal  #poster",
-    "tags": [
-     "#Photonics",
-     "#Research",
-     "#Networking",
-     "#Montreal",
-     "#poster"
-    ],
-    "agenda": "<ul>\r\n<li>8:30 AM - 9:30 AM: Booth &amp; poster set-up</li>\r\n<li>9:30 AM - 10:00 AM: Registration general attendees</li>\r\n<li>10:00 AM - 11:00 AM: Poster session #1 dedicated to Dr. Andrea Rovere&nbsp;</li>\r\n<li>11:00 AM - 11:10 AM: Welcome by Chair in conference room&nbsp;</li>\r\n<li>11:10 PM - 12:10 PM: Plenary speaker in conference room&nbsp;</li>\r\n<li>12:15 PM - 1:15 PM: Networking &amp; lunch</li>\r\n<li>1:15 PM - 2:00 PM: Speed-networking</li>\r\n<li>2:00 PM - 2:45 PM: Careers panel</li>\r\n<li>2:45 PM - 3:30 PM: Poster session #2</li>\r\n<li>3:30 PM - 4:00 PM: Free networking</li>\r\n<li>4:00 PM - 4:15 PM: Announcement of presentation competition winners and closing speech&nbsp;</li>\r\n<li>4:15 PM - 5:00 PM: Social networking</li>\r\n</ul>",
-    "contact-email": "matthew.t.posner@ieee.org",
-    "contact-display": "<p>Thank you to our event partners: TBA</p>\r\n<p>Thank you to our sponsors: TBA</p>\r\n<p>Thank you to our regional professional photonics organizations: IEEE Montreal and IEEE Photonics Society. ETS, Polytechnique, McGill, and INRS Optica-SPIE-IPS student chapters.&nbsp;</p>\r\n<p>&nbsp;</p>",
-    "cosponsor-name": "",
-    "location-type": "physical",
-    "virtual-info": null,
-    "address1": "1100 Notre-Dame St W",
-    "address2": "",
-    "city": "Montréal",
-    "postal-code": "H3C 1K3",
-    "building": "Pavillion A",
-    "room-number": "AUDITORIUM A-1600",
-    "map-url": "https://maps.app.goo.gl/n1pmnhgi5qreRL3Y7",
-    "latitude": "45.5150571",
-    "longitude": "-73.5498475",
-    "image": null,
-    "image-mime-type": null,
-    "registration-start-time": "2026-10-10T04:00:00.000Z",
-    "registration-end-time": "2026-12-02T05:00:00.000Z",
-    "registration-url": "https://events.vtools.ieee.org/event/register/584169",
-    "enable-cohost-url": false,
-    "cohost-url": null,
-    "survey-url": "",
-    "cost": false,
-    "max-registrations": 125,
-    "cancelled": false,
-    "uid": "06D117BD-00EB-4B2E-90E8-9C3F2BC2976C",
-    "publish": true,
-    "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/584169",
-    "ieee-attending": null,
-    "guests-attending": null,
-    "created-at": "2026-10-10T17:52:11.000Z",
-    "updated-at": "2026-10-13T19:07:05.000Z",
-    "pricing": null,
-    "speakers": null,
-    "media": null,
-    "enhanced-report": null
-   },
-   "relationships": {
-    "state": {
-     "data": {
-      "type": "states",
-      "id": "412"
-     }
-    },
-    "country": {
-     "data": {
-      "type": "countries",
-      "id": "36"
+      "id": "8"
      }
     },
     "category": {
@@ -235,71 +113,155 @@
      "data": null
     },
     "menus": {
-     "data": [
-      {
-       "type": "menus",
-       "id": "64881"
-      },
-      {
-       "type": "menus",
-       "id": "64882"
-      },
-      {
-       "type": "menus",
-       "id": "64883"
-      },
-      {
-       "type": "menus",
-       "id": "64884"
-      },
-      {
-       "type": "menus",
-       "id": "64885"
-      }
-     ]
+     "data": []
     }
    }
   },
   {
    "type": "events",
-   "id": "584160",
+   "id": "561877",
    "attributes": {
-    "id": 584160,
-    "title": "YP ExCom Meeting",
-    "description": "<p>Virtual Excom Meeting to discuss how the happy hour went and prepare for the next one!</p>",
-    "start-time": "2026-11-15T17:00:00.000Z",
-    "end-time": "2026-11-16T18:00:00.000Z",
+    "id": 561877,
+    "title": "IEEE ITSS R8 Joint Chapters Meetings 2026",
+    "description": "<p>This is a joint technical activity in London and online. It is co-organised by the IEEE Chapter UK/Ireland and IEEE Chapter Benelux Chapter ITSS. It aims to exchange knowledge and experience in developing automated driving systems, and implementing responsible AI at scale for future mobility. A social networking opportunity will also be offered for the IEEE ITSS membership engagement. On-line participation is highly encouraged.</p>",
+    "start-time": "2026-11-05T09:00:00.000Z",
+    "end-time": "2026-11-06T17:00:00.000Z",
     "time-zone": {
-     "name": "America/Chicago",
-     "utc-offset": -6
+     "name": "Europe/London",
+     "utc-offset": 0
     },
     "primary-host": {
-     "spoid": "YP50017",
-     "name": "Houston Section Affinity Group,YP",
-     "class_code": "SUBO",
-     "class_description": "Organizational SPO",
-     "type_code": "AFFN",
-     "type_description": "Affinity",
-     "section_spoids": "R50017",
-     "region_spoids": "R5",
-     "society_spoids": null,
+     "spoid": "CH08524",
+     "name": "Benelux Section Chapter,ITSS38",
+     "class_code": "SUBT",
+     "class_description": "Technical SPO",
+     "type_code": "CHPT",
+     "type_description": "Chapter",
+     "section_spoids": "R80001",
+     "region_spoids": "R8",
+     "society_spoids": "ITSS038",
      "report_submitted": null,
      "report_updated": null
     },
     "cohosts": [],
     "header": "",
     "footer": "",
-    "keywords": "#YP #Excom ",
+    "keywords": "#technology #itss #art #chapters #vehicles #standards",
     "tags": [
-     "#YP",
-     "#Excom"
+     "#technology",
+     "#itss",
+     "#art",
+     "#chapters",
+     "#vehicles",
+     "#standards"
     ],
     "agenda": null,
-    "contact-email": "olivia.zindel@ieee.org",
-    "contact-display": "<p>Debreif the Happy Hour event, and get ready for the next one.</p>",
+    "contact-email": "meng.lu@wklm.eu",
+    "contact-display": "<p>Registration is mandatory, Contact: Meng Lu &lt;meng.lu@wklm.eu&gt;</p>",
+    "cosponsor-name": "ITSS, ITSS UK/Ireland Chapter",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "",
+    "address2": "",
+    "city": "London",
+    "postal-code": "",
+    "building": "",
+    "room-number": "",
+    "map-url": "",
+    "latitude": null,
+    "longitude": null,
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": "2026-05-30T23:00:00.000Z",
+    "registration-end-time": "2026-08-31T23:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/561877",
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": 40,
+    "cancelled": false,
+    "uid": "2EA86098-28CC-4116-9034-1E0478D2933C",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/561877",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-05-30T19:49:25.000Z",
+    "updated-at": "2026-08-18T07:07:31.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1796"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "220"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "2"
+     }
+    },
+    "subcategory": {
+     "data": null
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "561706",
+   "attributes": {
+    "id": 561706,
+    "title": "IEEE Italy Section Biometrics Council Chapter PhD Award 2026",
+    "description": "<p>The IEEE Italy Section Biometrics Council Chapter has launched a call for <strong><span style=\"color: #9d241e;\">PhD Award 2026</span></strong>, in recognition of the best PhD Thesis discussed at an Italian University in the field of Biometric Recognition.</p>\r\n<p>For the 2026 award, the Committee has considered <strong>PhD Theses defended in the period from January 2025 to the deadline of the call, set at </strong><strong>October 2nd, 2026</strong><strong>.</strong></p>\r\n<p>The award will consist of <strong>a diploma and a monetary prize of &euro; 500 </strong>for the author of the best Thesis.</p>\r\n<p>Details were reported at&nbsp;<a href=\"https://ieee-biometrics.org/chapters/italy-chapter/\">https://ieee-biometrics.org/chapters/italy-chapter/</a>&nbsp;</p>\r\n<p>The winner will be announced during a dedicated event, currently planned for November 20, 2026.</p>",
+    "start-time": "2026-11-20T09:00:00.000Z",
+    "end-time": "2026-11-20T09:30:00.000Z",
+    "time-zone": {
+     "name": "Europe/Rome",
+     "utc-offset": 1
+    },
+    "primary-host": {
+     "spoid": "CH08648",
+     "name": "Italy Section Chapter, BIO46",
+     "class_code": "SUBT",
+     "class_description": "Technical SPO",
+     "type_code": "CHPT",
+     "type_description": "Chapter",
+     "section_spoids": "R80011",
+     "region_spoids": "R8",
+     "society_spoids": "C016,CAS004,CIS011,CS023,CT008,IM009,MTT017,RA024,SMC028,SSC037",
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": " #biometrics #PhD #award",
+    "tags": [
+     "#biometrics",
+     "#PhD",
+     "#award"
+    ],
+    "agenda": null,
+    "contact-email": "emanuele.maiorana@uniroma3.it",
+    "contact-display": "",
     "cosponsor-name": "",
     "location-type": "virtual",
-    "virtual-info": "<p>HOUSTON YP EXCOM MEETING<br>Sunday, November 15 &middot; 11:00am &ndash; 12:00pm<br>Time zone: America/Managua<br>Google Meet joining info<br>Video call link: https://meet.google.com/wma-szsc-ohs<br>Or dial: ‪(US) +1 470-485-1481‬ PIN: ‪287 439 642‬#<br>More phone numbers: https://tel.meet/wma-szsc-ohs?pin=7189942857922</p>",
+    "virtual-info": "<p>To participate in the award event, please connect at the following Teams meeting link (to be provided):</p>\r\n<div>&nbsp;</div>",
     "address1": null,
     "address2": null,
     "city": null,
@@ -311,107 +273,6 @@
     "longitude": null,
     "image": null,
     "image-mime-type": null,
-    "registration-start-time": "2026-10-11T05:00:00.000Z",
-    "registration-end-time": "2026-11-15T06:00:00.000Z",
-    "registration-url": "https://events.vtools.ieee.org/event/register/584160",
-    "enable-cohost-url": false,
-    "cohost-url": null,
-    "survey-url": "",
-    "cost": false,
-    "max-registrations": null,
-    "cancelled": false,
-    "uid": "A08FEAEF-63CB-45E6-940D-C9318EAFA653",
-    "publish": true,
-    "virtual": true,
-    "link": "https://events.vtools.ieee.org/m/584160",
-    "ieee-attending": null,
-    "guests-attending": null,
-    "created-at": "2026-10-10T17:11:11.000Z",
-    "updated-at": "2026-10-10T17:15:32.000Z",
-    "pricing": null,
-    "speakers": null,
-    "media": null,
-    "enhanced-report": null
-   },
-   "relationships": {
-    "state": {
-     "data": null
-    },
-    "country": {
-     "data": null
-    },
-    "category": {
-     "data": {
-      "type": "categories",
-      "id": "4"
-     }
-    },
-    "subcategory": {
-     "data": {
-      "type": "subcategories",
-      "id": "9"
-     }
-    },
-    "menus": {
-     "data": []
-    }
-   }
-  },
-  {
-   "type": "events",
-   "id": "584136",
-   "attributes": {
-    "id": 584136,
-    "title": "University of Perugia microwave talk series - Antenna Systems for Space Applications at NASA Jet Propulsion Laboratory",
-    "description": "<p data-path-to-node=\"4\"><span style=\"font-size: 18pt;\"><strong>Microwave talk series at the University of Perugia</strong></span></p>\r\n<p data-path-to-node=\"4\">&nbsp;</p>\r\n<p style=\"language: it; line-height: normal; margin-top: 0pt; margin-bottom: 8.0pt; margin-left: 0in; text-align: center; direction: ltr; unicode-bidi: embed; mso-line-break-override: none; word-break: normal; punctuation-wrap: hanging;\"><span style=\"font-size: 27.0pt; font-family: Aptos; mso-ascii-font-family: Aptos; mso-fareast-font-family: Calibri; mso-bidi-font-family: Arial; mso-ascii-theme-font: minor-latin; color: black; mso-color-index: 1; mso-font-kerning: 12.0pt; language: en-US; font-weight: bold; mso-style-textfill-type: solid; mso-style-textfill-fill-themecolor: text1; mso-style-textfill-fill-color: black; mso-style-textfill-fill-alpha: 100.0%;\">Antenna Systems for Space Applications at NASA Jet Propulsion Laboratory</span><span style=\"font-size: 27.0pt; font-family: Aptos; mso-ascii-font-family: Aptos; mso-fareast-font-family: Calibri; mso-bidi-font-family: Arial; mso-ascii-theme-font: minor-latin; color: black; mso-color-index: 1; mso-font-kerning: 12.0pt; language: en-US; mso-style-textfill-type: solid; mso-style-textfill-fill-themecolor: text1; mso-style-textfill-fill-color: black; mso-style-textfill-fill-alpha: 100.0%;\">&nbsp;</span></p>\r\n<p style=\"language: it; line-height: normal; margin-top: 0pt; margin-bottom: 8.0pt; margin-left: 0in; text-align: center; direction: ltr; unicode-bidi: embed; mso-line-break-override: none; word-break: normal; punctuation-wrap: hanging;\"><span style=\"font-size: 24pt; font-family: Aptos; color: rgb(224, 62, 45); font-weight: bold;\">Dr. Paolo Focardi</span></p>\r\n<p style=\"language: it; line-height: normal; margin-top: 0pt; margin-bottom: 8.0pt; margin-left: 0in; text-align: center; direction: ltr; unicode-bidi: embed; mso-line-break-override: none; word-break: normal; punctuation-wrap: hanging;\"><span style=\"font-size: 18pt; font-family: Aptos; color: black;\">Group Lead for Technology Development and New Business</span></p>\r\n<p style=\"language: it; line-height: normal; margin-top: 0pt; margin-bottom: 8.0pt; margin-left: 0in; text-align: center; direction: ltr; unicode-bidi: embed; mso-line-break-override: none; word-break: normal; punctuation-wrap: hanging;\"><span style=\"font-size: 18pt; font-family: Aptos; color: black;\">Jet Propulsion Laboratory, California Institute of Technology </span></p>\r\n<p data-path-to-node=\"4\"><span style=\"font-size: 12pt;\"><span style=\"font-size: 14.0pt; font-family: Aptos; mso-ascii-font-family: Aptos; mso-fareast-font-family: Calibri; mso-bidi-font-family: Arial; mso-ascii-theme-font: minor-latin; color: black; mso-color-index: 1; mso-font-kerning: 12.0pt; language: en-US; mso-style-textfill-type: solid; mso-style-textfill-fill-themecolor: text1; mso-style-textfill-fill-color: black; mso-style-textfill-fill-alpha: 100.0%;\">Antenna developments for space applications have a long history at NASA Jet Propulsion Laboratory. Starting from the 70&rsquo;s, Voyager, Galileo, Cassini, SRTM and more recently Aquarius, SMAP, SWOT, NISAR and INCUS are just a few major flight projects that required the design and development of very complex antenna systems for telecom, radar and radiometric applications. They were, and in most cases still are, the state of the art in antenna design for space applications. In the past we mostly relied on relatively simple RF models and formulations and did a considerable amount of prototype testing to validate antenna performance. In recent years RF modeling tools like HFSS</span><span style=\"font-size: 14.0pt; font-family: Aptos; mso-ascii-font-family: Aptos; mso-fareast-font-family: Calibri; mso-bidi-font-family: Arial; mso-ascii-theme-font: minor-latin; color: black; mso-color-index: 1; mso-font-kerning: 12.0pt; language: en-US; vertical-align: super; mso-text-raise: 30%; mso-style-textfill-type: solid; mso-style-textfill-fill-themecolor: text1; mso-style-textfill-fill-color: black; mso-style-textfill-fill-alpha: 100.0%;\">TM</span><span style=\"font-size: 14.0pt; font-family: Aptos; mso-ascii-font-family: Aptos; mso-fareast-font-family: Calibri; mso-bidi-font-family: Arial; mso-ascii-theme-font: minor-latin; color: black; mso-color-index: 1; mso-font-kerning: 12.0pt; language: en-US; mso-style-textfill-type: solid; mso-style-textfill-fill-themecolor: text1; mso-style-textfill-fill-color: black; mso-style-textfill-fill-alpha: 100.0%;\">, GRASP</span><span style=\"font-size: 14.0pt; font-family: Aptos; mso-ascii-font-family: Aptos; mso-fareast-font-family: Calibri; mso-bidi-font-family: Arial; mso-ascii-theme-font: minor-latin; color: black; mso-color-index: 1; mso-font-kerning: 12.0pt; language: en-US; vertical-align: super; mso-text-raise: 30%; mso-style-textfill-type: solid; mso-style-textfill-fill-themecolor: text1; mso-style-textfill-fill-color: black; mso-style-textfill-fill-alpha: 100.0%;\">TM</span><span style=\"font-size: 14.0pt; font-family: Aptos; mso-ascii-font-family: Aptos; mso-fareast-font-family: Calibri; mso-bidi-font-family: Arial; mso-ascii-theme-font: minor-latin; color: black; mso-color-index: 1; mso-font-kerning: 12.0pt; language: en-US; mso-style-textfill-type: solid; mso-style-textfill-fill-themecolor: text1; mso-style-textfill-fill-color: black; mso-style-textfill-fill-alpha: 100.0%;\"> and a few more, have reached capabilities that were unimaginable just a few years back. At the same time, computer power and available memory have been increasing steadily. Thanks to this fertile ground it&rsquo;s now possible to run extremely complex RF simulations of very large structures in a relatively short time with very good results. This presentation will guide the audience through a few examples of flight projects where very complex RF models have provided extremely accurate results and allowed the development of very complex instruments, some of which are still flying today. </span></span></p>\r\n<p data-path-to-node=\"4\">&nbsp;</p>\r\n<p data-path-to-node=\"4\"><span style=\"font-size: 12pt;\">Organizers:</span></p>\r\n<p data-path-to-node=\"4\">&nbsp;</p>\r\n<p data-path-to-node=\"4\"><span style=\"font-size: 12pt;\"><strong>Prof. Cristiano Tomassoni&nbsp;</strong></span></p>\r\n<p data-path-to-node=\"4\"><span style=\"font-size: 12pt;\"><span lang=\"EN-US\">Chair, IEEE Italy Section Joint Chapter AP03/MTT17 C&amp;S</span></span></p>\r\n<p data-path-to-node=\"4\"><span style=\"font-size: 12pt;\"><span lang=\"EN-US\">Univ. Of Perugia</span></span></p>\r\n<p data-path-to-node=\"4\">&nbsp;</p>\r\n<p data-path-to-node=\"4\"><span style=\"font-size: 12pt;\"><strong><span lang=\"EN-US\">Prof. Roberto Vincenti Gatti</span></strong></span></p>\r\n<p data-path-to-node=\"4\"><span style=\"font-size: 12pt;\"><span lang=\"EN-US\">Univ. of Perugia</span></span></p>",
-    "start-time": "2026-11-03T14:00:00.000Z",
-    "end-time": "2026-11-03T16:00:00.000Z",
-    "time-zone": {
-     "name": "Europe/Rome",
-     "utc-offset": 1
-    },
-    "primary-host": {
-     "spoid": "CH08017",
-     "name": "Italy Section Jt Chapter, AP03/MTT17 C&S",
-     "class_code": "SUBT",
-     "class_description": "Technical SPO",
-     "type_code": "JCHP",
-     "type_description": "Joint Chapter",
-     "section_spoids": "R80011",
-     "region_spoids": "R8",
-     "society_spoids": "AP003,MTT017",
-     "report_submitted": null,
-     "report_updated": null
-    },
-    "cohosts": [],
-    "header": "",
-    "footer": "<p>This event is organized by the <strong data-path-to-node=\"3,0\" data-index-in-node=\"32\">University of Perugia</strong> in collaboration with the <strong data-path-to-node=\"3,0\" data-index-in-node=\"80\">IEEE <span style=\"font-size: 12pt;\"><span lang=\"EN-US\">Italy Section Joint Chapter AP03/MTT17 Center &amp; South</span></span>&nbsp;</strong></p>",
-    "keywords": "#nasa #application #Antennas #antenna-theory #stem #Engineering;",
-    "tags": [
-     "#nasa",
-     "#application",
-     "#Antennas",
-     "#antenna-theory",
-     "#stem",
-     "#Engineering;"
-    ],
-    "agenda": null,
-    "contact-email": "cristiano.tomassoni@unipg.it",
-    "contact-display": "",
-    "cosponsor-name": "University of Perugia",
-    "location-type": "physical",
-    "virtual-info": null,
-    "address1": "Department of Engineering, University of Perugia",
-    "address2": "Via G. Duranti, 93,",
-    "city": "Perugia",
-    "postal-code": "06125",
-    "building": "Aula Magna",
-    "room-number": "",
-    "map-url": "",
-    "latitude": "43.120633",
-    "longitude": "12.3558299",
-    "image": null,
-    "image-mime-type": null,
     "registration-start-time": null,
     "registration-end-time": null,
     "registration-url": null,
@@ -421,14 +282,14 @@
     "cost": false,
     "max-registrations": null,
     "cancelled": false,
-    "uid": "A1ABA5AF-025B-48D6-B809-C35E538C15BC",
+    "uid": "1AE8AA7A-5C4C-4FAA-B27C-04E70595D2F8",
     "publish": true,
-    "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/584136",
+    "virtual": true,
+    "link": "https://events.vtools.ieee.org/m/561706",
     "ieee-attending": null,
     "guests-attending": null,
-    "created-at": "2026-10-10T15:34:05.000Z",
-    "updated-at": "2026-10-25T17:41:10.000Z",
+    "created-at": "2026-05-29T12:22:15.000Z",
+    "updated-at": "2026-05-29T12:25:09.000Z",
     "pricing": null,
     "speakers": null,
     "media": null,
@@ -436,16 +297,10 @@
    },
    "relationships": {
     "state": {
-     "data": {
-      "type": "states",
-      "id": "966"
-     }
+     "data": null
     },
     "country": {
-     "data": {
-      "type": "countries",
-      "id": "103"
-     }
+     "data": null
     },
     "category": {
      "data": {
@@ -467,8 +322,8 @@
   "messages": [],
   "paging": {
    "page": "5",
-   "limit": 100,
-   "total_pages": 10
+   "limit": 200,
+   "total_pages": 5
   }
  }
 }

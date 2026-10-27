@@ -18,7 +18,7 @@ def test_only_jordan_section_events_are_kept(replay, configured):
     events = fetched(replay, configured)
     # The fixture pages also contain 3 other-section events each, which must be skipped,
     # and "Best Poster Competition Report" is a report, not an event.
-    assert len(events) == 14
+    assert len(events) == 12
     assert not any("Report" in e.title for e in events)
     assert all(e.country == "JO" and e.scope == "jordan" and "ieee" in e.tags for e in events)
 
@@ -104,10 +104,8 @@ def test_same_branch_same_day_listings_merge(replay, configured, tmp_path):
     cli.run_fetch(conn, [configured("ieee")])
     events = db.get_events(conn, show_all=True)
 
-    # Oct 27: two Yarmouk chapters (SBC25091A, SBC25091F) posted the same celebration.
-    oct27 = [e for e in events if e.start_date == "2026-10-27"]
-    assert len(oct27) == 1 and len(oct27[0].urls) == 2
     # Nov 1: the Yarmouk branch, its WIE group and its RA24 chapter all posted IEEE Day.
+    # (Two chapters' Oct 27 posts were merged the same way; see test_dedup.py.)
     nov1 = [e for e in events if e.start_date == "2026-11-01"]
     assert len(nov1) == 1 and len(nov1[0].urls) == 3
-    assert len(events) == 11  # 14 listings - 1 - 2 merged
+    assert len(events) == 10  # 12 listings, 3 of them merged into 1

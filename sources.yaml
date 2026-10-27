@@ -88,6 +88,10 @@ sources:
       # paged through (~10 pages of 100) and those hosted by these sections kept.
       section_spoids: [R80079]   # IEEE Jordan Section
       days_ahead: 60
+      # robots.txt asks for Crawl-delay: 60. Pages of 200 (~23 s each) halve the request
+      # count; ~5 pages a day, ~7 minutes in total.
+      page_size: 200
+      delay_seconds: 60
 
   - name: ctftime
     enabled: true

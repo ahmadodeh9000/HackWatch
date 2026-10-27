@@ -2,91 +2,72 @@
  "data": [
   {
    "type": "events",
-   "id": "585050",
+   "id": "576551",
    "attributes": {
-    "id": 585050,
-    "title": "Yarmouk University IEEE Day Celebration 2026",
-    "description": "<p>Celebrate <strong>IEEE Day</strong> at Yarmouk University! Join us for an inspiring day filled with technology, innovation, and community engagement. Explore cutting-edge student projects, attend interactive technical workshops, network with fellow engineers, and learn more about how IEEE empowers future innovators and tech leaders.</p>",
-    "start-time": "2026-10-27T06:00:00.000Z",
-    "end-time": "2026-10-27T12:00:00.000Z",
+    "id": 576551,
+    "title": "IEEE WIE ZU Opening Event 2026-2027",
+    "description": "<blockquote data-start=\"609\" data-end=\"808\">\r\n<p class=\"PDq2pG_selectionAnchorContainer\" data-start=\"611\" data-end=\"808\">An opening event for IEEE Women in Engineering &ndash; Zarqa University to introduce the chapter, welcome members, and highlight the upcoming activities and opportunities for the 2026&ndash;2027 academic year.</p>\r\n</blockquote>\r\n<p data-start=\"810\" data-end=\"824\">&nbsp;</p>",
+    "start-time": "2026-11-15T08:00:00.000Z",
+    "end-time": "2026-11-15T13:00:00.000Z",
     "time-zone": {
-     "name": "Asia/Riyadh",
-     "utc-offset": 3
+     "name": "Africa/Cairo",
+     "utc-offset": 2
     },
     "primary-host": {
-     "spoid": "SBC25091F",
-     "name": "Yarmouk University,AES10",
-     "class_code": "SUBT",
-     "class_description": "Technical SPO",
-     "type_code": "BRCH",
-     "type_description": "Student Branch Chapter",
+     "spoid": "SBA60173704",
+     "name": "Zarqa University,WIE",
+     "class_code": "SUBO",
+     "class_description": "Organizational SPO",
+     "type_code": "AFFN",
+     "type_description": "Affinity",
      "section_spoids": "R80079",
      "region_spoids": "R8",
-     "society_spoids": "AES010",
+     "society_spoids": "WIE050",
      "report_submitted": null,
      "report_updated": null
     },
-    "cohosts": [
-     {
-      "spoid": "STB25091",
-      "name": "Yarmouk University",
-      "class_code": "SUBG",
-      "class_description": "Geographic SPO",
-      "type_code": "STBR",
-      "type_description": "Student Branch",
-      "section_spoids": "R80079",
-      "region_spoids": "R8",
-      "society_spoids": null,
-      "report_submitted": null,
-      "report_updated": null
-     }
-    ],
-    "header": "<p data-path-to-node=\"4,0\"><strong data-path-to-node=\"4,0\" data-index-in-node=\"0\">IEEE Day 2026 | Yarmouk University</strong></p>\r\n<p data-path-to-node=\"4,1\"><strong data-path-to-node=\"4,1\" data-index-in-node=\"0\">Empowering Technology for Tomorrow</strong></p>\r\n<p data-path-to-node=\"4,2\"><em data-path-to-node=\"4,2\" data-index-in-node=\"0\">Hosted by Yarmouk University IEEE Student Branch</em></p>",
-    "footer": "<p data-path-to-node=\"8,0\">&nbsp;Hijjawi Faculty for Engineering Technology, Yarmouk University &mdash; Irbid, Jordan</p>\r\n<p data-path-to-node=\"8,1\">&nbsp;October 17, 2026 | 09:00 AM &ndash; 03:00 PM</p>\r\n<p data-path-to-node=\"8,4\">&nbsp;</p>\r\n<p data-path-to-node=\"8,5\">&nbsp;</p>",
-    "keywords": " #yarmouk_university #yu #ieee-day  #societies #technology #ieee-societies #jordan",
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": " #WIE #ieee-women-in-engineering",
     "tags": [
-     "#yarmouk_university",
-     "#yu",
-     "#ieee-day",
-     "#societies",
-     "#technology",
-     "#ieee-societies",
-     "#jordan"
+     "#WIE",
+     "#ieee-women-in-engineering"
     ],
-    "agenda": "<div class=\"container\">\r\n<div id=\"model-response-message-contentr_188c6aeac6b66263\" class=\"markdown markdown-main-panel md-content enable-luminous-fast-follows enable-updated-hr-color\" dir=\"ltr\" style=\"--animation-duration: 400ms; --fade-animation-function: ease-out;\" aria-busy=\"false\" aria-live=\"off\">\r\n<ul data-path-to-node=\"7\">\r\n<li>\r\n<ul>\r\n<li>\r\n<p data-path-to-node=\"9,0,0\"><strong data-path-to-node=\"9,0,0\" data-index-in-node=\"0\">09:00 AM &ndash; 09:30 AM:</strong> Registration &amp; Welcoming Reception</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"9,1,0\"><strong data-path-to-node=\"9,1,0\" data-index-in-node=\"0\">09:30 AM &ndash; 10:30 AM:</strong> Official Opening Ceremony <em data-path-to-node=\"9,1,0\" data-index-in-node=\"47\">(Wesam Bushnaq Hall)</em></p>\r\n<ul data-path-to-node=\"9,1,1\">\r\n<li>\r\n<p data-path-to-node=\"9,1,1,0,0\">Opening Remarks</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"9,1,1,1,0\">Speech by Faculty Dean</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"9,1,1,2,0\">Speech by IEEE Student Branch Advisor &amp; Chair</p>\r\n</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"9,2,0\"><strong data-path-to-node=\"9,2,0\" data-index-in-node=\"0\">10:30 AM &ndash; 02:00 PM:</strong> IEEE Societies Exhibition &amp; Outdoor Booths</p>\r\n<ul data-path-to-node=\"9,2,1\">\r\n<li>\r\n<p data-path-to-node=\"9,2,1,0,0\">Interactive booths for all IEEE Student Branch Societies</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"9,2,1,1,0\">Networking, games, and direct engagement with members</p>\r\n</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"9,3,0\"><strong data-path-to-node=\"9,3,0\" data-index-in-node=\"0\">02:00 PM &ndash; 03:00 PM:</strong> Award Ceremony, Giveaways &amp; Closing Remarks <em data-path-to-node=\"9,3,0\" data-index-in-node=\"65\">(Wesam Bushnaq Hall)</em></p>\r\n<ul data-path-to-node=\"9,3,1\">\r\n<li>\r\n<p data-path-to-node=\"9,3,1,0,0\">Distribution of gifts &amp; prizes</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"9,3,1,1,0\">Recognition of outstanding contributors and volunteers</p>\r\n</li>\r\n<li>\r\n<p data-path-to-node=\"9,3,1,2,0\">Group Photo &amp; Wrap-up</p>\r\n</li>\r\n</ul>\r\n</li>\r\n</ul>\r\n</li>\r\n<li>&nbsp;</li>\r\n</ul>\r\n</div>\r\n<!----></div>",
-    "contact-email": "Aessyu2022@gmail.com",
+    "agenda": null,
+    "contact-email": "wiesocietyzu@gmail.com",
     "contact-display": "",
     "cosponsor-name": "",
     "location-type": "physical",
     "virtual-info": null,
-    "address1": "Yarmouk University, University Street",
+    "address1": "",
     "address2": "",
-    "city": "Irbid",
+    "city": "Zarqa",
     "postal-code": "",
-    "building": "Hijjawi Faculty of Engineering Technology",
+    "building": "",
     "room-number": "",
     "map-url": "",
-    "latitude": "32.5351791",
-    "longitude": "35.8566931",
+    "latitude": null,
+    "longitude": null,
     "image": null,
     "image-mime-type": null,
-    "registration-start-time": "2026-10-13T21:00:00.000Z",
-    "registration-end-time": "2026-10-17T05:00:00.000Z",
-    "registration-url": "https://events.vtools.ieee.org/event/register/585050",
+    "registration-start-time": null,
+    "registration-end-time": null,
+    "registration-url": "https://forms.gle/yWjcwUs6ms6D86qs6",
     "enable-cohost-url": false,
     "cohost-url": null,
     "survey-url": "",
     "cost": false,
     "max-registrations": null,
     "cancelled": false,
-    "uid": "E845C9D4-DC09-4909-A8C3-BD681BC711C0",
+    "uid": "F08CADDC-DEE3-44B6-BC92-01EFC2B44048",
     "publish": true,
     "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/585050",
+    "link": "https://events.vtools.ieee.org/m/576551",
     "ieee-attending": null,
     "guests-attending": null,
-    "created-at": "2026-10-13T23:07:54.000Z",
-    "updated-at": "2026-10-16T02:31:29.000Z",
+    "created-at": "2026-09-08T18:57:57.000Z",
+    "updated-at": "2026-09-08T19:24:45.000Z",
     "pricing": null,
     "speakers": null,
     "media": null,
@@ -121,78 +102,77 @@
   },
   {
    "type": "events",
-   "id": "585009",
+   "id": "579451",
    "attributes": {
-    "id": 585009,
-    "title": " IEEE YU Day Celebration 2026",
-    "description": "<p><strong>The IEEE Student Branch at Yarmouk University (YU) is proudly preparing to host an extraordinary IEEE Day celebration, with the organizing team working tirelessly behind the scenes to design a comprehensive and memorable experience for the student community. The event program features a diverse array of engaging interactive activities, insightful sessions, and creative segments that embody the core spirit of IEEE&mdash;leveraging technology for the benefit of humanity. Additionally, the IEEE Computer Society (CS) Chapter is actively preparing a distinct set of fresh and innovative activities tailored to enhance technical skill sets, spark curiosity, and provide valuable hands-on learning experiences and practical challenges. This event highlights the hard work, collaborative energy, and vibrant engineering culture of the IEEE community at Yarmouk University.</strong></p>",
-    "start-time": "2026-10-27T07:30:00.000Z",
-    "end-time": "2026-10-27T11:30:00.000Z",
+    "id": 579451,
+    "title": "EDS Distinguished Lecturer Seminar by Prof. Radu Sporea",
+    "description": "<p class=\"MsoNormal\" style=\"text-align: justify; mso-layout-grid-align: none; text-autospace: none;\"><strong><span lang=\"EN-US\" style=\"font-family: 'Arial',sans-serif; mso-ansi-language: EN-US;\">Abstract:</span></strong><span lang=\"EN-US\" style=\"font-family: 'Arial',sans-serif; mso-ansi-language: EN-US;\"> </span><span style=\"font-family: 'Arial',sans-serif;\">This talk is addressed to those interested in high gain driver and amplifier design with advanced thin-film transistors. It provides a development progression and a forward look toward source-gated transistor application to future edge processing of sensor data, signal conditioning, and current-mode driving. Crucially, the concept can be applied in practically any material system. As such, the talk will present the fundamentals of contact effect engineering and modelling, design rules for successful SGT implementation, and specifics of performance optimisation in thin-film silicon, organic, and oxide semiconductors. Finally, the next step in the evolution of contact-controlled thin-film transistor, the multimodal transistor (MMT) will be briefly introduced.</span></p>",
+    "start-time": "2026-10-29T17:00:00.000Z",
+    "end-time": "2026-10-29T18:00:00.000Z",
     "time-zone": {
-     "name": "Asia/Riyadh",
-     "utc-offset": 3
+     "name": "America/Denver",
+     "utc-offset": -7
     },
     "primary-host": {
-     "spoid": "SBC25091A",
-     "name": "Yarmouk University, C16",
+     "spoid": "CH07111",
+     "name": "Vancouver Section Chapter,ED15",
      "class_code": "SUBT",
      "class_description": "Technical SPO",
-     "type_code": "BRCH",
-     "type_description": "Student Branch Chapter",
-     "section_spoids": "R80079",
-     "region_spoids": "R8",
-     "society_spoids": "C016",
+     "type_code": "CHPT",
+     "type_description": "Chapter",
+     "section_spoids": "R70027",
+     "region_spoids": "R7",
+     "society_spoids": "ED015",
      "report_submitted": null,
      "report_updated": null
     },
     "cohosts": [],
     "header": "",
     "footer": "",
-    "keywords": " #CS_YU #IEEE #IEEEYU #yarmouk #team-working #computer-society #technology #learning",
+    "keywords": "#high-gain-drivers #thin-film-transistors #TFTs #semiconductors #multimodal-transistors #flexible #sensors",
     "tags": [
-     "#CS_YU",
-     "#IEEE",
-     "#IEEEYU",
-     "#yarmouk",
-     "#team-working",
-     "#computer-society",
-     "#technology",
-     "#learning"
+     "#high-gain-drivers",
+     "#thin-film-transistors",
+     "#TFTs",
+     "#semiconductors",
+     "#multimodal-transistors",
+     "#flexible",
+     "#sensors"
     ],
     "agenda": null,
-    "contact-email": "ownmheirat@gmail.com",
+    "contact-email": "mmadachi@sfu.ca",
     "contact-display": "",
     "cosponsor-name": "",
-    "location-type": "physical",
-    "virtual-info": null,
-    "address1": "Yarmouk University",
-    "address2": "",
-    "city": "Irbid",
-    "postal-code": "",
-    "building": "Hijjawi new ",
-    "room-number": "",
+    "location-type": "hybrid",
+    "virtual-info": "<p>In person:</p>\r\n<p>ICT Room 424C</p>\r\n<p>University of Calgary</p>\r\n<p>856 Campus Drive NW</p>\r\n<p>Calgary, Alberta</p>\r\n<p>&nbsp;</p>\r\n<p>Zoom:&nbsp;</p>\r\n<p><span style=\"font-family: 'Verdana',sans-serif; color: white; mso-themecolor: background1; mso-bidi-font-weight: bold;\"><a href=\"https://sfu.zoom.us/j/84648071125?pwd=vXnWrAirHwBfv7aUNJb32KLPiHUbmw.1\"><span style=\"color: white; mso-themecolor: background1;\"><span style=\"color: rgb(0, 0, 0);\">https://sfu.zoom.us/j/84648071125?pwd=vXnWrAirHwBfv7aUNJb32KLPiHUbmw.1</span></span></a></span></p>",
+    "address1": "University of Calgary",
+    "address2": "856 Campus Drive NW",
+    "city": "Calgary",
+    "postal-code": "T2L 0Y2",
+    "building": "ICT",
+    "room-number": "424C",
     "map-url": "",
-    "latitude": "32.5351791",
-    "longitude": "35.8566931",
+    "latitude": "51.080687",
+    "longitude": "-114.130288",
     "image": null,
     "image-mime-type": null,
-    "registration-start-time": null,
-    "registration-end-time": null,
-    "registration-url": null,
+    "registration-start-time": "2026-09-24T06:00:00.000Z",
+    "registration-end-time": "2026-10-29T06:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/579451",
     "enable-cohost-url": false,
     "cohost-url": null,
     "survey-url": "",
     "cost": false,
     "max-registrations": null,
     "cancelled": false,
-    "uid": "1FFF8F73-A77A-4827-BCC1-AE0A61D3E5CB",
+    "uid": "073B70D3-715A-4E64-8590-B723B9B7F209",
     "publish": true,
-    "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/585009",
+    "virtual": true,
+    "link": "https://events.vtools.ieee.org/m/579451",
     "ieee-attending": null,
     "guests-attending": null,
-    "created-at": "2026-10-13T19:20:34.000Z",
-    "updated-at": "2026-10-13T19:28:10.000Z",
+    "created-at": "2026-09-23T11:38:09.000Z",
+    "updated-at": "2026-10-21T22:36:25.000Z",
     "pricing": null,
     "speakers": null,
     "media": null,
@@ -202,27 +182,24 @@
     "state": {
      "data": {
       "type": "states",
-      "id": "1031"
+      "id": "402"
      }
     },
     "country": {
      "data": {
       "type": "countries",
-      "id": "107"
+      "id": "36"
      }
     },
     "category": {
      "data": {
       "type": "categories",
-      "id": "1"
-     }
-    },
-    "subcategory": {
-     "data": {
-      "type": "subcategories",
       "id": "2"
      }
     },
+    "subcategory": {
+     "data": null
+    },
     "menus": {
      "data": []
     }
@@ -230,76 +207,179 @@
   },
   {
    "type": "events",
-   "id": "586009",
+   "id": "579415",
    "attributes": {
-    "id": 586009,
-    "title": "December General Body Meeting",
-    "description": "<p>Come learn about some upcoming events and connect with other members in IEEE. In additon, give feedback for the EECS department during our Town Hall.&nbsp;</p>\r\n<p>Instagram: <a href=\"https://www.instagram.com/psu_ieee/\">https://www.instagram.com/psu_ieee/</a>&nbsp;</p>\r\n<p>Website: <a href=\"https://pennstateieee.org/\">https://pennstateieee.org/</a>&nbsp;</p>\r\n<p>LinkedIn: <a href=\"https://www.linkedin.com/company/official-penn-state-ieee\">https://www.linkedin.com/company/official-penn-state-ieee</a>&nbsp;</p>",
-    "start-time": "2026-12-02T00:00:00.000Z",
-    "end-time": "2026-12-02T01:30:00.000Z",
+    "id": 579415,
+    "title": "IEEE WIE STAR Program: STEM Mentorship & Exposure Session",
+    "description": "<p>The IEEE Women in Engineering (WIE) Student Branch Affinity Group at the University of Eldoret proposes a STEM mentorship and exposure session under the <strong>IEEE WIE Student-Teacher and Research Engineer/Scientist (STAR) Program</strong>.</p>\r\n<p>The session is designed to connect pre-university learners with female university students pursuing different STEM disciplines. Rather than focusing on technical training, the initiative will provide learners with an opportunity to hear real experiences about pursuing STEM, university life, challenges, opportunities, and career pathways.</p>\r\n<p>The session will feature a panel or fireside conversation followed by interactive mentorship circles, allowing learners to ask questions and engage directly with the mentors. The initiative aims to provide relatable STEM role models and encourage learners, particularly girls, to see STEM education and careers as achievable pathways.</p>\r\n<p>Participants and student mentors will receive certificates in recognition of their participation and contribution to the session. IEEE WIE merchandise will also be provided to participating learners.</p>\r\n<p>The activity is proposed in collaboration with the <strong>EldoHub Kids &amp; Teens Program</strong>, in coordination with the EldoHub team.</p>",
+    "start-time": "2026-11-13T06:00:00.000Z",
+    "end-time": "2026-11-13T14:00:00.000Z",
     "time-zone": {
-     "name": "America/New_York",
-     "utc-offset": -5
+     "name": "Africa/Nairobi",
+     "utc-offset": 3
     },
     "primary-host": {
-     "spoid": "SBC01501",
-     "name": "Pennsylvania State University-Univ Park,C16",
-     "class_code": "SUBT",
-     "class_description": "Technical SPO",
-     "type_code": "BRCH",
-     "type_description": "Student Branch Chapter",
-     "section_spoids": "R20007",
-     "region_spoids": "R2",
-     "society_spoids": "C016",
+     "spoid": "SBA60104095",
+     "name": "University of Eldoret,WIE",
+     "class_code": "SUBO",
+     "class_description": "Organizational SPO",
+     "type_code": "AFFN",
+     "type_description": "Affinity",
+     "section_spoids": "R80147",
+     "region_spoids": "R8",
+     "society_spoids": "WIE050",
      "report_submitted": null,
      "report_updated": null
     },
     "cohosts": [],
     "header": "",
     "footer": "",
-    "keywords": " #IEEE #StudentOrg #Updates #Students #Feedback #TownHall",
+    "keywords": " #WIE #UOE #IEEE #stem #mentorship",
     "tags": [
+     "#WIE",
+     "#UOE",
      "#IEEE",
-     "#StudentOrg",
-     "#Updates",
-     "#Students",
-     "#Feedback",
-     "#TownHall"
+     "#stem",
+     "#mentorship"
     ],
-    "agenda": null,
-    "contact-email": "akp6217@psu.edu",
+    "agenda": "<p><strong>Proposed Agenda: IEEE WIE STAR STEM Mentorship &amp; Exposure Session</strong></p>\r\n<p><strong>1. Registration &amp; Welcome</strong> | 15 minutes<br>&bull; Participant registration<br>&bull; Introduction to IEEE WIE and the STAR Program<br>&bull; Welcome remarks</p>\r\n<p><strong>2. Meet the Mentors</strong> | 10 minutes<br>&bull; Introduction of the female STEM mentors<br>&bull; Brief introduction to their disciplines and areas of interest</p>\r\n<p><strong>3. STEM Journeys: Panel/Fireside Conversation</strong> | 30 minutes<br>&bull; How the mentors discovered their interest in STEM<br>&bull; Transition from school to university<br>&bull; Experiences studying STEM<br>&bull; Challenges and lessons learned<br>&bull; Opportunities they have encountered<br>&bull; Career aspirations and current work</p>\r\n<p><strong>4. Learner Q&amp;A</strong> | 15 minutes<br>&bull; Open questions from the learners<br>&bull; Discussion around STEM, university and career pathways</p>\r\n<p><strong>5. Mentorship Circles</strong> | 40 minutes<br>&bull; Small group conversations between learners and mentors<br>&bull; Personal questions and experiences<br>&bull; Discussion of university life, STEM disciplines and career options</p>\r\n<p><strong>6. Reflection &amp; Key Takeaways</strong> | 10 minutes<br>&bull; Learners share key lessons or insights from the session<br>&bull; Closing reflections from mentors</p>\r\n<p><strong>7. Certificates, Recognition &amp; Group Photo</strong> | 15 minutes<br>&bull; Certificates for participating learners<br>&bull; Certificates of appreciation for student mentors and volunteers<br>&bull; Recognition of EldoHub as a collaborating partner<br>&bull; IEEE WIE merchandise presentation<br>&bull; Group photograph</p>\r\n<p><strong>8. Closing Remarks</strong> | 5 minutes</p>",
+    "contact-email": "ieeewieuoeld@gmail.com",
     "contact-display": "",
-    "cosponsor-name": "",
+    "cosponsor-name": "Eldohub Academy",
     "location-type": "physical",
     "virtual-info": null,
     "address1": "",
     "address2": "",
-    "city": "University Park",
-    "postal-code": "16802",
-    "building": "Mount Nittany ",
+    "city": "Eldoret",
+    "postal-code": "",
+    "building": "",
     "room-number": "",
     "map-url": "",
-    "latitude": "40.8147955",
-    "longitude": "-77.8653126",
+    "latitude": null,
+    "longitude": null,
+    "image": null,
+    "image-mime-type": null,
+    "registration-start-time": "2026-10-11T21:00:00.000Z",
+    "registration-end-time": "2026-11-06T21:00:00.000Z",
+    "registration-url": "https://events.vtools.ieee.org/event/register/579415",
+    "enable-cohost-url": false,
+    "cohost-url": null,
+    "survey-url": "",
+    "cost": false,
+    "max-registrations": null,
+    "cancelled": false,
+    "uid": "C5285868-9F06-4AF0-8054-0B3FFFE0953D",
+    "publish": true,
+    "virtual": false,
+    "link": "https://events.vtools.ieee.org/m/579415",
+    "ieee-attending": null,
+    "guests-attending": null,
+    "created-at": "2026-09-23T08:58:45.000Z",
+    "updated-at": "2026-09-25T17:49:58.000Z",
+    "pricing": null,
+    "speakers": null,
+    "media": null,
+    "enhanced-report": null
+   },
+   "relationships": {
+    "state": {
+     "data": {
+      "type": "states",
+      "id": "1039"
+     }
+    },
+    "country": {
+     "data": {
+      "type": "countries",
+      "id": "109"
+     }
+    },
+    "category": {
+     "data": {
+      "type": "categories",
+      "id": "6"
+     }
+    },
+    "subcategory": {
+     "data": {
+      "type": "subcategories",
+      "id": "18"
+     }
+    },
+    "menus": {
+     "data": []
+    }
+   }
+  },
+  {
+   "type": "events",
+   "id": "579410",
+   "attributes": {
+    "id": 579410,
+    "title": "EU Symposium for Digital & Electronics Sustainable Technologies (END'26)",
+    "description": "<p>Europe has the expertise and skills to promote a more responsible digital sector (frugality, regulation, ethics) that creates high-quality jobs. However, mastery of data is just as crucial as mastery of materials and energy when it comes to the operability and sustainability of disruptive digital components and integrated circuits. More sustainable integrated hardware and software solutions will be discussed at the END* symposium in the field of Information &amp; Communication Technologies (ICT).</p>\r\n<p><a href=\"https://end26.sciencesconf.org/?lang=en\">https://end26.sciencesconf.org/?lang=en</a>&nbsp;</p>",
+    "start-time": "2026-12-14T07:30:00.000Z",
+    "end-time": "2026-12-15T17:00:00.000Z",
+    "time-zone": {
+     "name": "Europe/Paris",
+     "utc-offset": 1
+    },
+    "primary-host": {
+     "spoid": "EP021",
+     "name": "IEEE Electronics Packaging Society",
+     "class_code": "SUBT",
+     "class_description": "Technical SPO",
+     "type_code": "SCTY",
+     "type_description": "Society",
+     "section_spoids": null,
+     "region_spoids": null,
+     "society_spoids": "EP021",
+     "report_submitted": null,
+     "report_updated": null
+    },
+    "cohosts": [],
+    "header": "",
+    "footer": "",
+    "keywords": " #europe #sustainability #integrated-circuits",
+    "tags": [
+     "#europe",
+     "#sustainability",
+     "#integrated-circuits"
+    ],
+    "agenda": null,
+    "contact-email": "jcsouriau@cea.fr",
+    "contact-display": "<p><a href=\"mailto:end26@sciencesconf.org\">end26@sciencesconf.org</a></p>\r\n<p>&nbsp;</p>",
+    "cosponsor-name": "IRT Nanoelec",
+    "location-type": "physical",
+    "virtual-info": null,
+    "address1": "",
+    "address2": "",
+    "city": "Grenoble",
+    "postal-code": "",
+    "building": "",
+    "room-number": "",
+    "map-url": "",
+    "latitude": null,
+    "longitude": null,
     "image": null,
     "image-mime-type": null,
     "registration-start-time": null,
     "registration-end-time": null,
-    "registration-url": null,
+    "registration-url": "https://end26.sciencesconf.org/registration?lang=en ",
     "enable-cohost-url": false,
     "cohost-url": null,
     "survey-url": "",
     "cost": false,
     "max-registrations": null,
     "cancelled": false,
-    "uid": "43A7229B-6C23-462F-B951-03F64F9397AF",
+    "uid": "C2CF8215-60E0-46A2-AECF-F79BC056C8E3",
     "publish": true,
     "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/586009",
+    "link": "https://events.vtools.ieee.org/m/579410",
     "ieee-attending": null,
     "guests-attending": null,
-    "created-at": "2026-10-15T19:43:09.000Z",
-    "updated-at": "2026-10-15T19:43:49.000Z",
+    "created-at": "2026-09-23T08:35:07.000Z",
+    "updated-at": "2026-09-23T08:51:12.000Z",
     "pricing": null,
     "speakers": null,
     "media": null,
@@ -309,238 +389,23 @@
     "state": {
      "data": {
       "type": "states",
-      "id": "1841"
+      "id": "699"
      }
     },
     "country": {
      "data": {
       "type": "countries",
-      "id": "221"
+      "id": "72"
      }
     },
     "category": {
      "data": {
       "type": "categories",
-      "id": "3"
+      "id": "2"
      }
     },
     "subcategory": {
-     "data": {
-      "type": "subcategories",
-      "id": "8"
-     }
-    },
-    "menus": {
-     "data": []
-    }
-   }
-  },
-  {
-   "type": "events",
-   "id": "586005",
-   "attributes": {
-    "id": 586005,
-    "title": "November General Body Meeting",
-    "description": "<p>Come learn about some upcoming events and connect with other members in IEEE.</p>\r\n<p>Instagram: <a href=\"https://www.instagram.com/psu_ieee/\">https://www.instagram.com/psu_ieee/</a>&nbsp;</p>\r\n<p>Website: <a href=\"https://pennstateieee.org/\">https://pennstateieee.org/</a>&nbsp;</p>\r\n<p>LinkedIn: <a href=\"https://www.linkedin.com/company/official-penn-state-ieee\">https://www.linkedin.com/company/official-penn-state-ieee</a>&nbsp;</p>",
-    "start-time": "2026-11-04T23:00:00.000Z",
-    "end-time": "2026-11-05T01:00:00.000Z",
-    "time-zone": {
-     "name": "America/New_York",
-     "utc-offset": -5
-    },
-    "primary-host": {
-     "spoid": "SBC01501",
-     "name": "Pennsylvania State University-Univ Park,C16",
-     "class_code": "SUBT",
-     "class_description": "Technical SPO",
-     "type_code": "BRCH",
-     "type_description": "Student Branch Chapter",
-     "section_spoids": "R20007",
-     "region_spoids": "R2",
-     "society_spoids": "C016",
-     "report_submitted": null,
-     "report_updated": null
-    },
-    "cohosts": [],
-    "header": "",
-    "footer": "",
-    "keywords": " #IEEE #StudentOrg #Updates #Students",
-    "tags": [
-     "#IEEE",
-     "#StudentOrg",
-     "#Updates",
-     "#Students"
-    ],
-    "agenda": null,
-    "contact-email": "akp6217@psu.edu",
-    "contact-display": "",
-    "cosponsor-name": "",
-    "location-type": "physical",
-    "virtual-info": null,
-    "address1": "",
-    "address2": "",
-    "city": "University Park",
-    "postal-code": "16802",
-    "building": "Mount Nittany ",
-    "room-number": "",
-    "map-url": "",
-    "latitude": "40.8147955",
-    "longitude": "-77.8653126",
-    "image": null,
-    "image-mime-type": null,
-    "registration-start-time": "2026-10-16T04:00:00.000Z",
-    "registration-end-time": "2026-11-04T05:00:00.000Z",
-    "registration-url": "https://events.vtools.ieee.org/event/register/586005",
-    "enable-cohost-url": false,
-    "cohost-url": null,
-    "survey-url": "",
-    "cost": false,
-    "max-registrations": null,
-    "cancelled": false,
-    "uid": "E64A1026-987F-46CF-BDEE-2021101A3CEE",
-    "publish": true,
-    "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/586005",
-    "ieee-attending": null,
-    "guests-attending": null,
-    "created-at": "2026-10-15T19:40:38.000Z",
-    "updated-at": "2026-10-15T19:42:14.000Z",
-    "pricing": null,
-    "speakers": null,
-    "media": null,
-    "enhanced-report": null
-   },
-   "relationships": {
-    "state": {
-     "data": {
-      "type": "states",
-      "id": "1841"
-     }
-    },
-    "country": {
-     "data": {
-      "type": "countries",
-      "id": "221"
-     }
-    },
-    "category": {
-     "data": {
-      "type": "categories",
-      "id": "3"
-     }
-    },
-    "subcategory": {
-     "data": {
-      "type": "subcategories",
-      "id": "8"
-     }
-    },
-    "menus": {
-     "data": []
-    }
-   }
-  },
-  {
-   "type": "events",
-   "id": "586003",
-   "attributes": {
-    "id": 586003,
-    "title": "Halloween Social  and Escape Room",
-    "description": "<p>Come check out our Escape Room and show off your halloween costume as this Social x Technical Event. There will be an award for best halloween costume and a chance to connect with members and put your problem solving skills to the test.&nbsp;</p>\r\n<p>Instagram: <a href=\"https://www.instagram.com/psu_ieee/\">https://www.instagram.com/psu_ieee/</a>&nbsp;</p>\r\n<p>Website: <a href=\"https://pennstateieee.org/\">https://pennstateieee.org/</a>&nbsp;</p>\r\n<p>LinkedIn: <a href=\"https://www.linkedin.com/company/official-penn-state-ieee\">https://www.linkedin.com/company/official-penn-state-ieee</a>&nbsp;</p>",
-    "start-time": "2026-10-27T22:00:00.000Z",
-    "end-time": "2026-10-28T00:00:00.000Z",
-    "time-zone": {
-     "name": "America/New_York",
-     "utc-offset": -5
-    },
-    "primary-host": {
-     "spoid": "SBC01501",
-     "name": "Pennsylvania State University-Univ Park,C16",
-     "class_code": "SUBT",
-     "class_description": "Technical SPO",
-     "type_code": "BRCH",
-     "type_description": "Student Branch Chapter",
-     "section_spoids": "R20007",
-     "region_spoids": "R2",
-     "society_spoids": "C016",
-     "report_submitted": null,
-     "report_updated": null
-    },
-    "cohosts": [],
-    "header": "",
-    "footer": "",
-    "keywords": " #IEEE #StudentOrg #escaperoom #learning #halloween #problem-solving",
-    "tags": [
-     "#IEEE",
-     "#StudentOrg",
-     "#escaperoom",
-     "#learning",
-     "#halloween",
-     "#problem-solving"
-    ],
-    "agenda": null,
-    "contact-email": "akp6217@psu.edu",
-    "contact-display": "",
-    "cosponsor-name": "",
-    "location-type": "physical",
-    "virtual-info": null,
-    "address1": "",
-    "address2": "",
-    "city": "University Park",
-    "postal-code": "16802",
-    "building": "Mount Nittany ",
-    "room-number": "",
-    "map-url": "",
-    "latitude": "40.8147955",
-    "longitude": "-77.8653126",
-    "image": null,
-    "image-mime-type": null,
-    "registration-start-time": "2026-10-16T04:00:00.000Z",
-    "registration-end-time": "2026-10-27T04:00:00.000Z",
-    "registration-url": "https://events.vtools.ieee.org/event/register/586003",
-    "enable-cohost-url": false,
-    "cohost-url": null,
-    "survey-url": "",
-    "cost": false,
-    "max-registrations": null,
-    "cancelled": false,
-    "uid": "EF71EFB3-1540-4ACA-BA87-59518417C662",
-    "publish": true,
-    "virtual": false,
-    "link": "https://events.vtools.ieee.org/m/586003",
-    "ieee-attending": null,
-    "guests-attending": null,
-    "created-at": "2026-10-15T19:37:50.000Z",
-    "updated-at": "2026-10-15T19:39:24.000Z",
-    "pricing": null,
-    "speakers": null,
-    "media": null,
-    "enhanced-report": null
-   },
-   "relationships": {
-    "state": {
-     "data": {
-      "type": "states",
-      "id": "1841"
-     }
-    },
-    "country": {
-     "data": {
-      "type": "countries",
-      "id": "221"
-     }
-    },
-    "category": {
-     "data": {
-      "type": "categories",
-      "id": "3"
-     }
-    },
-    "subcategory": {
-     "data": {
-      "type": "subcategories",
-      "id": "5"
-     }
+     "data": null
     },
     "menus": {
      "data": []
@@ -553,8 +418,8 @@
   "messages": [],
   "paging": {
    "page": "4",
-   "limit": 100,
-   "total_pages": 10
+   "limit": 200,
+   "total_pages": 5
   }
  }
 }
