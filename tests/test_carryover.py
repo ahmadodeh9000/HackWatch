@@ -89,3 +89,23 @@ def test_command_without_previous_export_does_nothing(tmp_path):
     result = CliRunner().invoke(cli.app, ["carry-over", "--db", str(tmp_path / "t.db"),
                                           "--previous", str(tmp_path / "missing.json")])
     assert result.exit_code == 0 and "nothing carried over" in result.output
+
+
+def test_first_carry_over_sets_stale_since_and_keeps_it(conn):
+    carry_over(conn, PREVIOUS, ["ieee"], today=TODAY)
+    (ev,) = [e for e in db.get_events(conn, show_all=True) if e.title == "IEEE 0"]
+    assert ev.stale_since == "2026-10-27"
+
+
+def test_already_stale_events_keep_their_original_date_and_expire_after_7_days(tmp_path):
+    def again(today, since):
+        c = db.get_connection(tmp_path / f"{today}.db")
+        db.init_db(c)
+        old = [record(f"IEEE {i}", "ieee", start="2026-12-01", stale=True, stale_since=since) for i in range(3)]
+        return carry_over(c, old, ["ieee"], today=today), c
+
+    restored, c = again(date(2026, 11, 3), "2026-10-27")   # 7 days: still kept
+    assert restored == {"ieee": 3}
+    assert {e.stale_since for e in db.get_events(c, show_all=True)} == {"2026-10-27"}
+    restored, _ = again(date(2026, 11, 4), "2026-10-27")   # 8 days: dropped
+    assert restored == {"ieee": 0}

@@ -49,6 +49,7 @@ def init_db(conn: sqlite3.Connection) -> None:
                 sources TEXT NOT NULL DEFAULT '[]',
                 urls TEXT NOT NULL DEFAULT '[]',
                 stale INTEGER NOT NULL DEFAULT 0,
+                stale_since TEXT,
                 first_seen_run_id INTEGER,
                 created_at TEXT DEFAULT CURRENT_TIMESTAMP,
                 updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
@@ -102,6 +103,8 @@ def migrate(conn: sqlite3.Connection) -> None:
             conn.execute(f"ALTER TABLE events ADD COLUMN {col} TEXT NOT NULL DEFAULT '[]';")
     if "stale" not in existing_cols:
         conn.execute("ALTER TABLE events ADD COLUMN stale INTEGER NOT NULL DEFAULT 0;")
+    if "stale_since" not in existing_cols:
+        conn.execute("ALTER TABLE events ADD COLUMN stale_since TEXT;")
 
     had_observations = conn.execute(
         "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'observations'").fetchone()
@@ -128,7 +131,7 @@ def get_latest_fetch_run_id(conn: sqlite3.Connection) -> Optional[int]:
 
 STORED_FIELDS = ("title", "url", "source", "organizer", "prize", "registration_deadline",
                  "start_date", "end_date", "location", "country", "mode", "description",
-                 "type", "tags", "scope", "stale", "host_key")
+                 "type", "tags", "scope", "stale", "stale_since", "host_key")
 
 
 def _prepare(event: Event) -> Event:
@@ -193,11 +196,11 @@ def rebuild_events(conn: sqlite3.Connection) -> int:
                 INSERT INTO events (
                     id, title, url, source, organizer, prize, registration_deadline, start_date,
                     end_date, location, country, is_online, mode, tags, scope, description, type,
-                    sources, urls, stale, first_seen_run_id, created_at, updated_at
+                    sources, urls, stale, stale_since, first_seen_run_id, created_at, updated_at
                 ) VALUES (
                     :id, :title, :url, :source, :organizer, :prize, :registration_deadline, :start_date,
                     :end_date, :location, :country, :is_online, :mode, :tags, :scope, :description, :type,
-                    :sources, :urls, :stale, :first_seen_run_id, :created_at, :updated_at
+                    :sources, :urls, :stale, :stale_since, :first_seen_run_id, :created_at, :updated_at
                 )
             """, {
                 **{f: getattr(ev, f) for f in STORED_FIELDS},
@@ -309,6 +312,7 @@ def _row_to_event(row: sqlite3.Row) -> Event:
         sources=json.loads(row["sources"]) if "sources" in keys else [],
         urls=json.loads(row["urls"]) if "urls" in keys else [],
         stale=bool(row["stale"]) if "stale" in keys else False,
+        stale_since=row["stale_since"] if "stale_since" in keys else None,
         created_at=row["created_at"],
         updated_at=row["updated_at"],
         first_seen_run_id=row["first_seen_run_id"],

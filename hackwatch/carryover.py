@@ -17,6 +17,8 @@ from hackwatch.models import Event
 from hackwatch.scrapers.base import DEFAULT_USER_AGENT
 
 MIN_PREVIOUS_EVENTS = 3
+# A source down this long loses its kept events: they may well be cancelled or moved.
+STALE_MAX_DAYS = 7
 RECORD_FIELDS = ("title", "url", "source", "organizer", "prize", "registration_deadline", "start_date",
                  "end_date", "location", "mode", "description", "type", "tags", "scope")
 
@@ -43,11 +45,22 @@ def _still_upcoming(record: dict, today: date) -> bool:
         return False
 
 
+def _expired(record: dict, today: date, max_days: int) -> bool:
+    since = record.get("stale_since")
+    try:
+        return bool(since) and (today - date.fromisoformat(str(since)[:10])).days > max_days
+    except ValueError:
+        return False
+
+
 def carry_over(conn, previous: List[dict], sources: List[str],
-               min_events: int = MIN_PREVIOUS_EVENTS, today: Optional[date] = None) -> Dict[str, int]:
+               min_events: int = MIN_PREVIOUS_EVENTS, today: Optional[date] = None,
+               max_stale_days: int = STALE_MAX_DAYS) -> Dict[str, int]:
     """Restore events of configured sources that have 0 events now but had >= min_events before.
 
-    Counts use each event's primary `source`. Returns {source: events restored}.
+    Counts use each event's primary `source`. Each restored event keeps the date it
+    first went stale (stale_since); after max_stale_days it is no longer restored.
+    Returns {source: events restored}.
     """
     today = today or date.today()
     by_source: Dict[str, List[dict]] = {}
@@ -61,10 +74,11 @@ def carry_over(conn, previous: List[dict], sources: List[str],
             continue
         events = []
         for record in old:
-            if not _still_upcoming(record, today):
+            if not _still_upcoming(record, today) or _expired(record, today, max_stale_days):
                 continue
             fields = {k: record.get(k) for k in RECORD_FIELDS if record.get(k) is not None}
-            events.append(Event(**fields, stale=True))
+            since = record.get("stale_since") if record.get("stale") else None
+            events.append(Event(**fields, stale=True, stale_since=since or today.isoformat()))
         with conn:
             for event in events:
                 db.write_observation(conn, event, run_id=None)

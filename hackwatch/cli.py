@@ -314,8 +314,9 @@ def carry_over_command(
     lines = []
     for source, n in restored.items():
         had = sum(1 for r in old if r.get("source") == source)
-        lines.append(f"{source} returned no events this run (it had {had} in the last deploy); "
-                     f"kept {n} upcoming events from the last deploy, marked stale.")
+        kept = (f"kept {n} upcoming events from the last deploy, marked stale." if n else
+                "its kept events are over 7 days stale or already over, so none were kept.")
+        lines.append(f"{source} returned no events this run (it had {had} in the last deploy); {kept}")
     for line in lines:
         typer.echo(f"::warning title=Source returned nothing::{line}")
     summary_file = os.environ.get("GITHUB_STEP_SUMMARY")
@@ -407,6 +408,7 @@ def export(
             "sources": ev.sources,
             "urls": ev.urls,
             "stale": ev.stale,
+            "stale_since": ev.stale_since,
             "is_online": ev.is_online,  # legacy, = mode != "in-person"; kept for the current site
         }
         for ev in events
