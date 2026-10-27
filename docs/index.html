@@ -228,6 +228,17 @@ python3 hackwatch.py</pre>
 </footer>
 
 <script>
+// GoatCounter (cookie-free page counts). Set to your site code, e.g. "hackwatch" for
+// https://hackwatch.goatcounter.com. Empty = no analytics script is loaded at all.
+const GOATCOUNTER_CODE = "";
+if (GOATCOUNTER_CODE) {
+  const gc = document.createElement("script");
+  gc.async = true;
+  gc.src = "https://gc.zgo.at/count.js";
+  gc.dataset.goatcounter = `https://${GOATCOUNTER_CODE}.goatcounter.com/count`;
+  document.head.appendChild(gc);
+}
+
 const GITHUB_USER = "ahmadodeh9000";
 const REPO = "HackWatch";
 const REPO_URL = `https://github.com/${GITHUB_USER}/${REPO}`;
