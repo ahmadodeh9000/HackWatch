@@ -18,7 +18,7 @@ from hackwatch.models import (
 from hackwatch.scrapers import get_available_scrapers
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.manual import load_manual_events, load_manual_yaml, parse_manual_dates
-from hackwatch.taxonomy import load_taxonomy, normalize_tags
+from hackwatch.taxonomy import normalize_tags, site_labels
 
 app = typer.Typer(help="HackWatch: Track hackathons and developer events.")
 
@@ -418,12 +418,8 @@ def export(
     typer.echo(f"Exported {len(records)} events to {out}")
 
     if labels:
-        taxonomy = load_taxonomy()
         with open(labels, "w", encoding="utf-8") as f:
-            json.dump({
-                "types": list(VALID_EVENT_TYPES),
-                "tags": {tag: (info or {}).get("label", tag) for tag, info in (taxonomy.get("tags") or {}).items()},
-            }, f, indent=2, ensure_ascii=False)
+            json.dump(site_labels(), f, indent=2, ensure_ascii=False)
         typer.echo(f"Wrote labels to {labels}")
 
     if ics:

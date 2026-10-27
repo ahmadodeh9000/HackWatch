@@ -51,3 +51,25 @@ def normalize_tags(tags: Optional[Iterable[str]], strict: bool = False) -> List[
             raise ValueError(message)
         warnings.warn(message, stacklevel=2)
     return result
+
+
+def site_labels(path: Path = TAXONOMY_PATH) -> dict:
+    """What the website needs from taxonomy.yaml: tag labels and the pinned chips.
+
+    Pinned values that aren't a known type or tag are dropped with a warning, so a
+    typo can't break the deploy (tests check the repo's taxonomy has none).
+    """
+    from hackwatch.models import VALID_EVENT_TYPES  # late import: models imports this module
+
+    taxonomy = load_taxonomy(path)
+    tags = {tag: (info or {}).get("label", tag) for tag, info in (taxonomy.get("tags") or {}).items()}
+    pinned_raw = taxonomy.get("pinned") or {}
+    known = {"type": set(VALID_EVENT_TYPES), "tag": set(tags)}
+    pinned = {}
+    for row in ("type", "tag"):
+        values = [str(v) for v in pinned_raw.get(row) or []]
+        bad = [v for v in values if v not in known[row]]
+        if bad:
+            warnings.warn(f"taxonomy.yaml pinned.{row}: unknown {', '.join(bad)}; ignored", stacklevel=2)
+        pinned[row] = [v for v in values if v in known[row]]
+    return {"types": list(VALID_EVENT_TYPES), "tags": tags, "pinned": pinned}

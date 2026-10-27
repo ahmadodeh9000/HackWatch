@@ -9,6 +9,13 @@
 #   Devpost themes), case-insensitive.
 # - Values set explicitly by a source or in manual_events.yaml always win.
 
+# Filter chips the website always shows, in this order, even when no current event has
+# them (shown as "Robotics (0)", linking to the submission form). Other types and tags
+# appear only when events use them, after these, by count. Written to docs/labels.json.
+pinned:
+  type: [hackathon, competition, workshop, conference, meetup]
+  tag: [robotics, ctf, cp, ai, security]
+
 # Type rules are checked in order and the first match wins. Each field is tried
 # separately: title first, then the source's labels, then the description.
 # So "Reclaim hackathon information session" is a meetup (first rule), and a

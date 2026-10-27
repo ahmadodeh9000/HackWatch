@@ -147,6 +147,10 @@ English and Arabic keyword rules in [`taxonomy.yaml`](taxonomy.yaml). Order of p
 type: explicit value → inferred → the source's `default_type` in `sources.yaml` → `other`.
 Explicit tags are kept as they are; a source's `default_tags` are always added.
 
+**Pinned filter chips.** The site always shows the types and tags listed under `pinned:` in
+`taxonomy.yaml` (with a count, faded at 0, linking to the submission form when empty); other
+values appear only when events use them. The export writes them to `docs/labels.json`.
+
 The JSON export still includes the old `is_online` flag (`true` for online and hybrid) so older versions of the site keep working.
 
 ---

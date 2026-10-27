@@ -133,4 +133,6 @@ def test_export_labels_for_the_site(tmp_path):
     data = json.loads(labels.read_text())
     assert data["tags"]["cp"] == "Competitive programming"
     assert data["types"][-1] == "other"
+    assert data["pinned"] == {"type": ["hackathon", "competition", "workshop", "conference", "meetup"],
+                              "tag": ["robotics", "ctf", "cp", "ai", "security"]}
     assert all("id" in r for r in json.loads((tmp_path / "e.json").read_text()))

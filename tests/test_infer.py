@@ -153,3 +153,24 @@ def test_robotics_and_engineering(title, type_, tags):
     event = ev(title)
     assert infer_type(event) == type_
     assert infer_tags(event) == tags
+
+
+def test_pinned_chips_are_known_types_and_tags():
+    # A typo here would silently drop a chip from the site, so it fails the tests instead.
+    taxonomy = load_taxonomy()
+    assert set(taxonomy["pinned"]["type"]) <= set(VALID_EVENT_TYPES)
+    assert set(taxonomy["pinned"]["tag"]) <= set(taxonomy["tags"])
+
+
+def test_site_labels_ignores_unknown_pinned_values(tmp_path):
+    import warnings
+    from hackwatch.taxonomy import site_labels
+    path = tmp_path / "taxonomy.yaml"
+    path.write_text("pinned:\n  type: [hackathon, party]\n  tag: [ai, robotic]\n"
+                    "tags:\n  ai: {label: AI}\n")
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        labels = site_labels(path)
+    assert labels["pinned"] == {"type": ["hackathon"], "tag": ["ai"]}
+    assert labels["tags"] == {"ai": "AI"}
+    assert any("party" in str(w.message) for w in caught) and any("robotic" in str(w.message) for w in caught)
