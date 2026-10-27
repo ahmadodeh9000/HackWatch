@@ -13,3 +13,4 @@ build/
 settings.json
 settings.json
 events.json
+.claude/
