@@ -40,6 +40,46 @@ You can also edit `manual_events.yaml` directly in a pull request; the PR check 
   description: Optional, a few sentences.
 ```
 
+### No GitHub account? The Google Form
+
+For people without a GitHub account there's also a Google Form. Its responses are imported
+with `hackwatch import-form`, which runs the same checks as `hackwatch validate`, skips links
+that are already in `manual_events.yaml`, and reports invalid rows instead of importing them.
+
+**Maintainer: how to set up the form.** The importer matches each column by the part of the
+question title before ` / `, so the titles must start exactly like this (the Arabic part can
+be changed). Mark the first three and Format, Organizer and Event type as required.
+
+| # | Question title | Type | Settings |
+|---|---|---|---|
+| 1 | `Event title / اسم الفعالية` | Short answer | |
+| 2 | `Event link / رابط الفعالية` | Short answer | Response validation → Text → URL |
+| 3 | `Start date / تاريخ البدء` | Short answer | Response validation → Regular expression → Matches `^\d{4}-\d{2}-\d{2}$`, error text "Use YYYY-MM-DD, e.g. 2026-11-15". (Not the Date question type: its CSV format depends on the sheet's locale.) |
+| 4 | `End date / تاريخ الانتهاء` | Short answer | Same regex; optional |
+| 5 | `Start time / وقت البدء` | Time (or short answer `18:00`) | Optional; Amman time |
+| 6 | `End time / وقت الانتهاء` | Time | Optional |
+| 7 | `Registration deadline / آخر موعد للتسجيل` | Short answer | Same date regex; optional |
+| 8 | `Format / طريقة الحضور` | Multiple choice | Options exactly: `In-person / حضوري`, `Online / عن بعد`, `Hybrid / مدمج` |
+| 9 | `City and venue / المدينة والمكان` | Short answer | Optional (required for in-person/hybrid; the importer checks) |
+| 10 | `Organizer / الجهة المنظمة` | Short answer | |
+| 11 | `Event type / نوع الفعالية` | Multiple choice | Options exactly: `Hackathon / هاكاثون`, `Competition / مسابقة`, `Conference / مؤتمر`, `Workshop / ورشة عمل`, `Meetup / لقاء`, `Other / أخرى` |
+| 12 | `Tags / الوسوم` | Checkboxes | Options (labels from `taxonomy.yaml`): AI & ML, Web, Mobile, Cloud & DevOps, Security, CTF, Competitive programming, Data, Robotics, Robot sumo, Line follower, Drones, Embedded & electronics, IoT, Game dev, AR / VR, Blockchain, Open source, Design & UX, Startups, IEEE, GDG, JOSA |
+| 13 | `Description / الوصف` | Paragraph | Optional |
+| 14 | `Your email (optional) / بريدك الإلكتروني (اختياري)` | Short answer | Optional; never copied into the YAML |
+
+Don't turn on "Collect email addresses" unless you want to; the importer ignores any
+column it doesn't recognise.
+
+**Importing responses:** in the form, *Responses → Download responses (.csv)*, then:
+
+```bash
+python -m hackwatch.cli import-form responses.csv --dry-run   # see what would happen
+python -m hackwatch.cli import-form responses.csv             # append valid, new rows
+git diff manual_events.yaml                                   # review: the form is open to anyone
+```
+
+Re-importing the same CSV later is safe: rows already imported are skipped as duplicates.
+
 ## 2. Add a source (scraper)
 
 Good sources are public, list events in Jordan (or online tech events), and can be read

@@ -9,6 +9,7 @@ import yaml
 
 from hackwatch import db
 from hackwatch.carryover import MIN_PREVIOUS_EVENTS, carry_over, load_json, load_previous
+from hackwatch.formimport import import_csv
 from hackwatch.health import STATUS_URL, ZERO_RUNS_FOR_ISSUE, DryRunIssues, GitHubIssues, sync_issues, update_streaks
 from hackwatch.ics import build_calendar, calendar_events
 from hackwatch.infer import apply_defaults
@@ -368,6 +369,33 @@ def health(
     actions = sync_issues(current, api, threshold=threshold, run_url=run_url, log=typer.echo)
     if not actions:
         typer.echo("No source issues to open or close.")
+
+
+@app.command(name="import-form")
+def import_form(
+    csv_path: Path = typer.Argument(..., help="Google Form responses exported as CSV"),
+    yaml_file: Path = typer.Option(Path("manual_events.yaml"), "--file", help="Path to manual YAML file"),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Check the rows without changing the YAML"),
+):
+    """Add Google Form submissions to manual_events.yaml (validated; duplicates skipped).
+
+    Review the diff before committing: the form is open to anyone.
+    """
+    if not csv_path.exists():
+        typer.echo(f"Error: {csv_path} does not exist")
+        raise typer.Exit(code=1)
+    result = import_csv(csv_path, yaml_file, dry_run=dry_run)
+    verb = "Would add" if dry_run else "Added"
+    for title in result.added:
+        typer.echo(f"{verb}: {title}")
+    for line in result.duplicates:
+        typer.echo(f"Skipped duplicate: {line}")
+    for line in result.errors:
+        typer.echo(f"Error: {line}")
+    typer.echo(f"{verb} {len(result.added)}, skipped {len(result.duplicates)} duplicate(s), "
+               f"{len(result.errors)} invalid.")
+    if result.errors:
+        raise typer.Exit(code=1)
 
 
 @app.command(name="list")
