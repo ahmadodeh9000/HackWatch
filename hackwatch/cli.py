@@ -9,7 +9,9 @@ import yaml
 
 from hackwatch import db
 from hackwatch.carryover import MIN_PREVIOUS_EVENTS, carry_over, load_json, load_previous
+from hackwatch.digest import build_digest, to_markdown, to_text
 from hackwatch.formimport import import_csv
+from hackwatch.pages import write_pages
 from hackwatch.health import STATUS_URL, ZERO_RUNS_FOR_ISSUE, DryRunIssues, GitHubIssues, sync_issues, update_streaks
 from hackwatch.ics import build_calendar, calendar_events
 from hackwatch.infer import apply_defaults
@@ -398,6 +400,28 @@ def import_form(
         raise typer.Exit(code=1)
 
 
+@app.command()
+def digest(
+    week: bool = typer.Option(True, "--week/--no-week", help="The next 7 days (the only period for now)"),
+    fmt: str = typer.Option("text", "--format", "-f", help="text (WhatsApp/Telegram) or markdown"),
+    out: Optional[Path] = typer.Option(None, "--out", "-o", help="Write to a file instead of printing"),
+    db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database"),
+):
+    """'This week in Jordan tech': events in the next 7 days and registrations closing soon."""
+    if fmt not in ("text", "markdown"):
+        typer.echo("Error: --format must be text or markdown")
+        raise typer.Exit(code=1)
+    conn = db.get_connection(db_path)
+    db.init_db(conn)
+    built = build_digest(db.get_events(conn, show_all=False))
+    text = to_text(built) if fmt == "text" else to_markdown(built)
+    if out:
+        out.write_text(text, encoding="utf-8")
+        typer.echo(f"Wrote {len(built.this_week)} events this week ({len(built.closing)} closing soon) to {out}")
+    else:
+        typer.echo(text, nl=False)
+
+
 @app.command(name="list")
 def list_events(
     new: bool = typer.Option(False, "--new", help="Show only events first seen in the last fetch"),
@@ -451,6 +475,8 @@ def export(
     out: Path = typer.Option(Path("events.json"), "--out", "-o", help="Output JSON file path"),
     labels: Optional[Path] = typer.Option(None, "--labels", help="Also write tag/type labels (for the site) to this JSON file"),
     ics: Optional[Path] = typer.Option(None, "--ics", help="Also write an iCalendar feed of Jordan events to this file"),
+    digest_path: Optional[Path] = typer.Option(None, "--digest", help="Also write this week's digest (WhatsApp/Telegram text) here"),
+    pages_dir: Optional[Path] = typer.Option(None, "--pages", help="Also write one shareable HTML page per event into this folder"),
     db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database"),
 ):
     """Export upcoming events to a JSON file."""
@@ -504,6 +530,13 @@ def export(
         with open(ics, "w", encoding="utf-8", newline="") as f:
             f.write(build_calendar(feed))
         typer.echo(f"Wrote {len(feed)} Jordan events to {ics}")
+
+    if digest_path:
+        digest_path.write_text(to_text(build_digest(events)), encoding="utf-8")
+        typer.echo(f"Wrote this week's digest to {digest_path}")
+
+    if pages_dir:
+        typer.echo(f"Wrote {write_pages(events, pages_dir)} event pages to {pages_dir}/")
 
 
 if __name__ == "__main__":

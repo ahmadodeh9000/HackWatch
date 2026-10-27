@@ -6,6 +6,8 @@ docs/events.json
 docs/labels.json
 docs/events.ics
 docs/status.json
+docs/digest.txt
+docs/e/
 *.egg-info/
 dist/
 build/
