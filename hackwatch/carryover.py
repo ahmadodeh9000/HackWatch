@@ -23,17 +23,21 @@ RECORD_FIELDS = ("title", "url", "source", "organizer", "prize", "registration_d
                  "end_date", "location", "mode", "description", "type", "tags", "scope")
 
 
-def load_previous(location: str) -> Optional[List[dict]]:
-    """The previous export from a URL or a local path; None if it can't be read."""
+def load_json(location: str):
+    """JSON from a URL or a local path; None if it can't be read."""
     try:
         if location.startswith(("http://", "https://")):
             resp = requests.get(location, headers={"User-Agent": DEFAULT_USER_AGENT}, timeout=30)
             resp.raise_for_status()
-            data = resp.json()
-        else:
-            data = json.loads(Path(location).read_text(encoding="utf-8"))
+            return resp.json()
+        return json.loads(Path(location).read_text(encoding="utf-8"))
     except (requests.RequestException, OSError, ValueError):
         return None
+
+
+def load_previous(location: str) -> Optional[List[dict]]:
+    """The previous export (a list of events) from a URL or a local path; None if unreadable."""
+    data = load_json(location)
     return data if isinstance(data, list) else None
 
 

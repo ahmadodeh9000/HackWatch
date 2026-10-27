@@ -8,6 +8,7 @@
 #   allowed_types limits which types inference may pick for this source
 #   require_tech_keywords  true = keep only events with a tech keyword (general listings)
 #   infer_tags    false = don't guess tags from the text (default true)
+#   may_be_empty  true = 0 events is normal; no "Source down" issue (default false)
 #   options       passed to the scraper's constructor (names must match its arguments)
 #
 # Status, numbers and failed sources: see SOURCES.md.
@@ -92,5 +93,6 @@ sources:
   - name: manual
     enabled: true
     scope: jordan
+    may_be_empty: true   # an empty manual_events.yaml is fine
     options:
       yaml_path: manual_events.yaml

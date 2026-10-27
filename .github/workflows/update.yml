@@ -20,6 +20,7 @@ permissions:
   pages: write
   id-token: write
   contents: read
+  issues: write   # "Source down: <name>" issues (hackwatch health)
 
 concurrency:
   group: pages
@@ -51,6 +52,14 @@ jobs:
         # Prints a per-source table (HTTP codes, timings, errors) to the log and the job
         # summary, and publishes it as status.json so it's readable without signing in.
         run: python -m hackwatch.cli fetch --report docs/status.json || true
+
+      # Adds zero_streak to status.json; opens/updates a "Source down: <name>" issue after
+      # 2 empty runs in a row and closes it when the source recovers. Never blocks the deploy.
+      - name: Track source health
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m hackwatch.cli health --status docs/status.json
 
       # Per-source guard: a source that had >= 3 events in the live site but returned
       # nothing now (error, block, empty page) keeps those events, marked stale, with a

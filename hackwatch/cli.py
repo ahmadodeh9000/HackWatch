@@ -8,7 +8,8 @@ from pathlib import Path
 import yaml
 
 from hackwatch import db
-from hackwatch.carryover import MIN_PREVIOUS_EVENTS, carry_over, load_previous
+from hackwatch.carryover import MIN_PREVIOUS_EVENTS, carry_over, load_json, load_previous
+from hackwatch.health import STATUS_URL, ZERO_RUNS_FOR_ISSUE, DryRunIssues, GitHubIssues, sync_issues, update_streaks
 from hackwatch.ics import build_calendar, calendar_events
 from hackwatch.infer import apply_defaults
 from hackwatch.models import (
@@ -18,6 +19,7 @@ from hackwatch.models import (
 from hackwatch.scrapers import get_available_scrapers
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.manual import load_manual_events, load_manual_yaml, parse_manual_dates
+from hackwatch.sources import load_sources
 from hackwatch.taxonomy import normalize_tags, site_labels
 
 app = typer.Typer(help="HackWatch: Track hackathons and developer events.")
@@ -326,6 +328,35 @@ def carry_over_command(
                     "\n\nCheck the fetch report above for the HTTP status and error.\n")
     if not lines:
         typer.echo("Every source that had events in the last deploy returned some; nothing carried over.")
+
+
+@app.command()
+def health(
+    status_path: Path = typer.Option(Path("docs/status.json"), "--status", help="This run's fetch report (updated in place)"),
+    previous: str = typer.Option(STATUS_URL, "--previous", help="URL or path of the previously deployed status.json"),
+    threshold: int = typer.Option(ZERO_RUNS_FOR_ISSUE, "--threshold", help="Empty runs in a row before an issue is opened"),
+):
+    """Track sources that keep returning nothing; open/close "Source down" issues.
+
+    Needs GITHUB_TOKEN and GITHUB_REPOSITORY (set in GitHub Actions); without them it
+    only prints what it would do.
+    """
+    current = json.loads(status_path.read_text(encoding="utf-8"))
+    prior = load_json(previous)
+    exempt = [c.name for c in load_sources() if c.may_be_empty]
+    update_streaks(current, prior, exempt)
+    status_path.write_text(json.dumps(current, indent=2, ensure_ascii=False), encoding="utf-8")
+    for row in current["sources"]:
+        if row["zero_streak"]:
+            typer.echo(f"{row['source']}: empty {row['zero_streak']} run(s) in a row")
+    token, repo = os.environ.get("GITHUB_TOKEN"), os.environ.get("GITHUB_REPOSITORY")
+    run_url = None
+    if repo and os.environ.get("GITHUB_RUN_ID"):
+        run_url = f"{os.environ.get('GITHUB_SERVER_URL', 'https://github.com')}/{repo}/actions/runs/{os.environ['GITHUB_RUN_ID']}"
+    api = GitHubIssues(repo, token) if token and repo else DryRunIssues(typer.echo)
+    actions = sync_issues(current, api, threshold=threshold, run_url=run_url, log=typer.echo)
+    if not actions:
+        typer.echo("No source issues to open or close.")
 
 
 @app.command(name="list")
