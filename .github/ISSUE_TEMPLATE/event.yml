@@ -84,8 +84,8 @@ body:
       label: "Tags / الوسوم"
       description: >-
         Optional, comma-separated, from this list / اختياري، مفصولة بفواصل من هذه القائمة:
-        ai, web, mobile, cloud, security, ctf, cp, data, robotics, sumo, line-follower, embedded,
-        iot, game-dev, ar-vr, blockchain, open-source, design, startup, ieee, gdg, josa
+        ai, web, mobile, cloud, security, ctf, cp, data, robotics, sumo, line-follower, drones,
+        embedded, iot, game-dev, ar-vr, blockchain, open-source, design, startup, ieee, gdg, josa
       placeholder: "robotics, sumo, ieee"
     validations:
       required: false

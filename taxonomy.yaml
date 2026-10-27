@@ -21,9 +21,12 @@ types:
                designathon, codefest, game jam, هاكاثون, هكاثون]
   - type: competition
     keywords: [competition, contest, challenge, cup, olympiad, championship, tournament, ctf,
-               capture the flag, treasure hunt, مسابقة, تحدي, بطولة, أولمبياد, اولمبياد]
+               capture the flag, treasure hunt, finals, national final, grand final, final round,
+               qualifier, quals,
+               wro, world robot olympiad, first lego league, fll, robocup, micromouse,
+               مسابقة, تحدي, بطولة, أولمبياد, اولمبياد, سباق, نهائيات, تصفيات]
   - type: conference
-    keywords: [conference, summit, forum, devfest, expo, symposium, congress, convention,
+    keywords: [conference, summit, forum, devfest, expo, exhibition, symposium, congress, convention,
                مؤتمر, قمة, ملتقى, منتدى, معرض]
     labels: [Conference]
   - type: workshop
@@ -86,20 +89,31 @@ tags:
   robotics:
     label: Robotics
     aliases: [robot]
-    keywords: [robot, robotics, روبوت, الروبوتات, روبوتات]
+    # Arabic forms: robot, robots, "the robots", robotics; plus the big school/university
+    # robotics competitions (World Robot Olympiad, FIRST LEGO League, VEX, RoboCup).
+    keywords: [robot, robotics, robotic arm, micromouse, wro, world robot olympiad,
+               first lego league, fll, vex robotics, robocup,
+               روبوت, روبوتات, الروبوتات, الروبوت, روبوتكس, مسابقة روبوت, مسابقة الروبوت, أولمبياد الروبوت]
   sumo:
     label: Robot sumo
     aliases: [robot-sumo]
-    keywords: [sumo, robot sumo, سومو]
+    keywords: [sumo, robot sumo, sumobot, سومو, روبوت السومو]
   line-follower:
     label: Line follower
     aliases: [line-following]
-    keywords: [line follower, line-follower, line following, line tracing, تتبع الخط]
+    keywords: [line follower, line-follower, line following, line tracing, line tracer,
+               تتبع الخط, متتبع الخط, تتبع المسار]
+  drones:
+    label: Drones
+    aliases: [drone, uav]
+    keywords: [drone, uav, quadcopter, multirotor, fpv, طائرة بدون طيار, طائرات بدون طيار,
+               طائرة مسيرة, طائرات مسيرة, الطائرات المسيرة, الطائرة المسيرة, المسيرات, الدرون, درون]
   embedded:
     label: Embedded & electronics
     aliases: [electronics, pcb, arduino, hardware]
-    keywords: [embedded, electronics, pcb, arduino, raspberry pi, microcontroller, fpga, esp32,
-               hardware, إلكترونيات, الكترونيات, أنظمة مدمجة]
+    keywords: [embedded, embedded systems, electronics, pcb, arduino, raspberry pi, microcontroller,
+               fpga, esp32, stm32, hardware, إلكترونيات, الكترونيات, أنظمة مدمجة, الأنظمة المدمجة,
+               متحكمات دقيقة, أردوينو, اردوينو]
   iot:
     label: IoT
     keywords: [iot, internet of things, إنترنت الأشياء, انترنت الاشياء]

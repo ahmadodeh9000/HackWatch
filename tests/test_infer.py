@@ -135,3 +135,21 @@ def test_taxonomy_rules_only_use_known_types_and_tags():
     for tag, info in taxonomy["tags"].items():
         assert tag == tag.lower() and " " not in tag
         assert info.get("label"), f"{tag} needs a label"
+
+
+@pytest.mark.parametrize("title, type_, tags", [
+    ("مسابقة روبوت السومو للجامعات", "competition", ["robotics", "sumo"]),
+    ("مسابقة متتبع الخط", "competition", ["line-follower"]),
+    ("سباق الطائرات المسيرة", "competition", ["drones"]),
+    ("ورشة الأردوينو والأنظمة المدمجة", "workshop", ["embedded"]),
+    ("WRO Jordan 2026 National Final", "competition", ["robotics"]),
+    ("FIRST LEGO League Jordan", "competition", ["robotics"]),
+    ("Drone racing (FPV) workshop", "workshop", ["drones"]),
+    ("Sumo bots and line follower challenge", "competition", ["sumo", "line-follower"]),
+    ("Final Year Projects Exhibition", "conference", []),
+    ("Robotic Process Automation webinar", "meetup", []),  # software, not robots
+])
+def test_robotics_and_engineering(title, type_, tags):
+    event = ev(title)
+    assert infer_type(event) == type_
+    assert infer_tags(event) == tags
