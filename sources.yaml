@@ -24,7 +24,10 @@ sources:
       max_pages: 2
 
   - name: eventbrite
-    enabled: true
+    # Off since 2026-10-28: Eventbrite refuses GitHub's runners (HTTP 405 + captcha on every
+    # request since moving to CI), so the daily run only sent refused requests. The scraper
+    # still works from a home connection: `hackwatch fetch --source eventbrite`. See SOURCES.md.
+    enabled: false
     scope: jordan
     require_tech_keywords: true   # lists everything, incl. parties and sales meetings
     options:

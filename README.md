@@ -21,8 +21,9 @@ calendar feed, a weekly digest and a shareable page per event. Clubs can submit 
 
 - **Jordan-focused**: in-person events only in Jordan; the site shows Jordan events by default, with a
   toggle for worldwide online events
-- **10 sources**: GDG chapters, Startup Grind Amman, IEEE Jordan Section, JOSA, GJU, Eventbrite (Jordan),
-  Devpost, CTFtime, Codeforces, and community submissions; see [SOURCES.md](SOURCES.md)
+- **9 sources in the daily run**: GDG chapters, Startup Grind Amman, IEEE Jordan Section, JOSA, GJU,
+  Devpost, CTFtime, Codeforces, and community submissions. Eventbrite (Jordan) is off in CI because it
+  blocks GitHub's servers; it still runs locally. See [SOURCES.md](SOURCES.md)
 - **Deadline first**: each card leads with when registration closes (or when the event starts);
   start/end times in Amman time
 - **Types and tags** inferred from titles in English and Arabic and from the sources' own labels

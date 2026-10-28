@@ -20,7 +20,7 @@ block datacenter IPs.
 | Source | Scope | Method | Requests | Raw | Kept | Notes |
 |---|---|---|---|---|---|---|
 | Devpost | worldwide | JSON API `devpost.com/api/hackathons` | 2 | 18 | 18 | First 2 pages (9/page) of ~175. All online. Types limited to hackathon/competition. |
-| Eventbrite | jordan | HTML search pages, JSON-LD `ItemList` | 8 | 11 | 5 | ⚠️ **Blocked in CI** (see below); works from a home connection. 8 tech terms on `/d/jordan/<term>/`; Eventbrite returns the same ~10 Jordan events for any term. Needs a tech keyword. |
+| Eventbrite | jordan | HTML search pages, JSON-LD `ItemList` | 8 | 11 | 5 | ⛔ **Disabled in the daily run since 2026-10-28** (`enabled: false`): blocked in CI, see below. Works from a home connection with `fetch --source eventbrite`; single event pages can be added with `add --from-url`. 8 tech terms on `/d/jordan/<term>/`; Eventbrite returns the same ~10 Jordan events for any term. Needs a tech keyword. |
 | GDG | jordan | Public chapter pages + event pages (schema.org JSON-LD), 8 Jordan chapters (`bevy` scraper) | 13 | 5 | 5 | Until 2026-10-27 this used `/api/event/`, which **robots.txt disallows**; now it reads the pages visitors see, 2 s apart (Crawl-delay 2). Event pages also give GDG's own tags, `audience_type` and times. |
 | Startup Grind Amman | jordan | Same `bevy` scraper on startupgrind.com/amman/ | 2 | 1 | 1 | Founder/startup talks (tag `startup`). Same platform and robots.txt as GDG. |
 | GJU (German Jordanian University) | jordan | Server-rendered events calendar `/gju-event/month/YYYY-MM`, this month + 2 | 3 | 8 | 2 | 10 s between requests (robots.txt Crawl-delay 10). Lists orientation days and graduations too, so tech keywords are required; kept: ICFT 2026, GJU Future TECH SUMMIT. |
@@ -63,7 +63,11 @@ The deploy job publishes a per-source fetch report as
   source (`enabled: false`) to stop sending 8 refused requests a day. The official Eventbrite
   API isn't an alternative: it needs a private token and its public event search was removed
   in 2020, so it only lists events of organisations you own.
-  The per-source deploy guard can't help here: it keeps a source's events from the previous
+  **Decision (2026-10-28): option (2).** Every daily run since moving to CI was refused (8 × 405,
+  zero_streak 7), so Eventbrite is disabled in `sources.yaml`; the scraper, its fixtures and
+  tests stay, and issue #2 "Source down: eventbrite" was closed. Re-enable it if Eventbrite
+  stops blocking datacenter IPs (test first with `scripts/probe_sources.py` from the runner).
+  The per-source deploy guard couldn't help here: it keeps a source's events from the previous
   deploy, and no deploy has had Eventbrite events since moving to CI.
 - **IEEE vTools works in CI** (10 × HTTP 200, 28 s in that run). An earlier run returned 0
   IEEE events; its log wasn't readable, so the cause is unknown (most likely a slow or
