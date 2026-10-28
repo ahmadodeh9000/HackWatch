@@ -22,9 +22,11 @@ permissions:
   contents: read
   issues: write   # "Source down: <name>" issues (hackwatch health)
 
+# Runs queue instead of cancelling each other: on 2026-10-28 the late-started daily run
+# cancelled a push run that had just deployed. A cancelled run could also stop mid-deploy.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
