@@ -411,10 +411,17 @@ function fmtDay(d){ return new Intl.DateTimeFormat(locale(), {weekday:"short", d
 function enrich(ev){
   const t = today(), s = parseDate(ev.start_date), e = parseDate(ev.end_date) || s, dl = parseDate(ev.registration_deadline);
   if (s && e < t) return null;
-  let status = "tba", rank = 2, key = Infinity;
-  if (s && s > t){ status = "upcoming"; rank = 0; key = s.getTime(); }
+  // List order: starting today, then ongoing (ending soonest first), then upcoming by date, then TBA.
+  let status = "tba", rank = 3, key = Infinity;
+  if (s && s > t){ status = "upcoming"; rank = 2; key = s.getTime(); }
+  else if (s && s.getTime() === t.getTime()){ status = "ongoing"; rank = 0; key = 0; }
   else if (s){ status = "ongoing"; rank = 1; key = e.getTime(); }
   return {...ev, _s:s, _e:e, _dl: dl && dl >= t ? dl : null, _status:status, _rank:rank, _key:key};
+}
+
+function byListOrder(a, b){
+  return a._rank - b._rank || a._key - b._key || String(a.start_time || "99").localeCompare(String(b.start_time || "99"))
+    || String(a.title).localeCompare(String(b.title));
 }
 
 // The main badge: the registration deadline when there is one, otherwise when it starts.
@@ -673,7 +680,7 @@ async function load(){
     const lm = res.headers.get("Last-Modified");
     const data = await res.json();
     try { LABELS = {...LABELS, ...(await (await fetch("labels.json", {cache:"no-store"})).json())}; } catch(_) { /* optional */ }
-    state.events = data.map(enrich).filter(Boolean).sort((a, b) => a._rank - b._rank || a._key - b._key || String(a.title).localeCompare(String(b.title)));
+    state.events = data.map(enrich).filter(Boolean).sort(byListOrder);
     state.updated = lm ? new Date(lm) : new Date();
     applyLang(state.lang);
   } catch(err){
