@@ -350,5 +350,7 @@ def suggest(out: Extracted) -> Dict[str, str]:
         out.warnings.append("The title looks like club life (low_signal): hidden on the site unless toggled.")
     country = to_iso2(v.get("location") or "")
     if v.get("mode") != "online" and country and country != "JO":
-        out.warnings.append(f"In person outside Jordan ({country}): HackWatch will filter it out.")
+        # Manual entries skip filters.is_relevant, so nothing would stop it: say so here.
+        out.warnings.append(f"In person outside Jordan ({country}): HackWatch only lists in-person events "
+                            "in Jordan; add it only if it's also online.")
     return {k: val for k, val in result.items() if val}
