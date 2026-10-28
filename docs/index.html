@@ -126,7 +126,14 @@ button{font:inherit;color:inherit}
 .card .acts{display:flex;gap:8px;padding-top:2px}
 .card .acts .btn{flex:1;min-height:40px;padding:6px 14px;font-size:.95rem}
 .card .acts .share{flex:none;width:44px;padding:0}
-.share svg{width:20px;height:20px;display:block}
+.share svg,.cal summary svg{width:20px;height:20px;display:block}
+.cal{position:relative;flex:none}
+.cal summary{list-style:none;display:grid;place-items:center;width:44px;min-height:40px;border-radius:999px;border:2px solid var(--accent);color:var(--accent);cursor:pointer}
+.cal summary::-webkit-details-marker{display:none}
+.cal[open] summary{background:var(--accent-soft)}
+.cal .menu{position:absolute;bottom:calc(100% + 6px);inset-inline-end:0;z-index:4;min-width:200px;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:6px;display:flex;flex-direction:column}
+.cal .menu a{padding:10px 12px;border-radius:8px;color:var(--text);text-decoration:none;font-size:.93rem;white-space:nowrap}
+.cal .menu a:hover,.cal .menu a:focus-visible{background:var(--surface-2)}
 .state{grid-column:1/-1;text-align:center;padding:40px 16px;color:var(--muted);font-size:1.05rem}
 .state .emoji{display:block;font-size:2.2rem;margin-bottom:6px}
 .state .hint{display:block;margin-top:10px}
@@ -333,6 +340,7 @@ const STR = {
     online: "Online", alsoOnline: "+ online", stale: "⚠ Not re-checked today",
     staleHint: "This source failed in the latest update; this listing is from the previous one.",
     view: "View event", share: "Share", by: "by",
+    addCal: "Add to calendar", googleCal: "Google Calendar", icsFile: "Apple / Outlook (.ics)",
     noneNamed: what => `No ${what} events yet.`, noneQuery: q => `No events match “${q}”.`, noneAny: "No events match these filters.",
     knowOne: "Know one?", addIt: "Add it →", showWorldwide: n => `Show ${n} worldwide online event${n === 1 ? "" : "s"}`,
     addTitle: "Add your event", addSub: "Running a hackathon, workshop or meetup? Pick whichever is easiest; we review it and it shows up here and in the calendar.",
@@ -367,6 +375,7 @@ const STR = {
     online: "عن بُعد", alsoOnline: "+ عن بُعد", stale: "⚠ لم يُتحقق منها اليوم",
     staleHint: "تعذّر تحديث هذا المصدر في آخر تحديث؛ هذه البيانات من التحديث السابق.",
     view: "تفاصيل الفعالية", share: "مشاركة", by: "من تنظيم",
+    addCal: "أضف إلى التقويم", googleCal: "تقويم Google", icsFile: "Apple / Outlook ‏(.ics)",
     noneNamed: what => `لا توجد فعاليات ${what} بعد.`, noneQuery: q => `لا توجد فعاليات تطابق «${q}».`, noneAny: "لا توجد فعاليات تطابق هذه التصفية.",
     knowOne: "تعرف فعالية؟", addIt: "أضفها ←", showWorldwide: n => `عرض ${n} فعالية عن بُعد من حول العالم`,
     addTitle: "أضف فعاليتك", addSub: "تنظّم هاكاثونًا أو ورشة أو لقاءً؟ اختر الطريقة الأسهل لك؛ نراجعها وتظهر هنا وفي التقويم.",
@@ -473,6 +482,36 @@ const SHARE_ICON = /iPhone|iPad|Macintosh/.test(navigator.userAgent)
   : '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4" stroke="currentColor" stroke-width="2"/></svg>';
 // ALL-CAPS titles get a display version in the export ("MCC Robotics on ..."); see tidy.py.
 function shownTitle(ev){ return ev.display_title || ev.title; }
+const CAL_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>';
+
+// Google Calendar "add event" link. Times are Amman time (ctz); all-day ends are exclusive.
+// A weekly series becomes a repeating event until its last session.
+function googleCalUrl(ev){
+  const ymd = d => `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(d.getDate()).padStart(2, "0")}`;
+  const hm = t => t.replace(":", "") + "00";
+  let dates;
+  if (ev.start_time){
+    const endDay = ev.end_time ? ev._e : ev._s;
+    let end = ev.end_time;
+    if (!end){ const [h, m] = ev.start_time.split(":").map(Number); end = `${String(Math.min(h + 2, 23)).padStart(2, "0")}:${String(m).padStart(2, "0")}`; }
+    dates = `${ymd(ev._s)}T${hm(ev.start_time)}/${ymd(endDay)}T${hm(end)}`;
+  } else {
+    const after = new Date(ev._e); after.setDate(after.getDate() + 1);
+    dates = `${ymd(ev._s)}/${ymd(after)}`;
+  }
+  const where = ev.mode === "online" ? "Online" : (ev.location || "");
+  const details = [ev.description || "", ev.registration_deadline ? `Registration closes: ${ev.registration_deadline}` : "", ev.url].filter(Boolean).join("\n\n");
+  const p = new URLSearchParams({action: "TEMPLATE", text: shownTitle(ev), dates, ctz: "Asia/Amman", details, location: where});
+  if (ev.sessions && ev.series_until) p.set("recur", `RRULE:FREQ=WEEKLY;UNTIL=${ev.series_until.replace(/-/g, "")}T235959Z`);
+  return "https://calendar.google.com/calendar/render?" + p.toString();
+}
+function calMenu(ev){
+  if (!ev._s) return "";
+  const S = T();
+  return `<details class="cal"><summary aria-label="${esc(S.addCal)}: ${esc(shownTitle(ev))}" title="${esc(S.addCal)}">${CAL_ICON}</summary>
+    <div class="menu"><a href="${esc(googleCalUrl(ev))}" target="_blank" rel="noopener">${esc(S.googleCal)}</a>
+    ${ev.id ? `<a href="e/${esc(ev.id)}.ics" download>${esc(S.icsFile)}</a>` : ""}</div></details>`;
+}
 function pageUrl(ev){ return ev.id ? `${SITE_URL}e/${ev.id}.html` : SITE_URL; }
 
 // ─── Filtering ───
@@ -527,6 +566,7 @@ function card(ev){
     </div>
     <div class="acts">
       <a class="btn primary" href="${url}" target="_blank" rel="noopener">${esc(S.view)}</a>
+      ${calMenu(ev)}
       <button class="btn ghost share" type="button" data-share="${esc(ev.id || "")}" aria-label="${esc(S.share)}: ${esc(ev.title)}" title="${esc(S.share)}">${SHARE_ICON}</button>
     </div>
   </article>`;
@@ -674,6 +714,10 @@ $("sheetReset").addEventListener("click", () => {
   ["tag","mode","status","source"].forEach(k => state[k] = "all");
   state.worldwide = state.clubLife = false; $("worldwide").checked = $("clubLife").checked = false;
   setPref(PREFS.worldwide, "0"); setPref(PREFS.clubLife, "0"); setup(); render();
+});
+// One calendar menu open at a time; a click elsewhere closes it.
+document.addEventListener("click", e => {
+  document.querySelectorAll("details.cal[open]").forEach(d => { if (!d.contains(e.target)) d.open = false; });
 });
 $("grid").addEventListener("click", async e => {
   const btn = e.target.closest("[data-share]");

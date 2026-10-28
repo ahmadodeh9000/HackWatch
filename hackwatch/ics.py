@@ -107,18 +107,16 @@ def event_lines(event: Event) -> List[str]:
     return lines
 
 
-def build_calendar(events: Iterable[Event], name: str = "HackWatch: Jordan tech events") -> str:
-    lines = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        f"PRODID:{PRODID}",
-        "CALSCALE:GREGORIAN",
-        "METHOD:PUBLISH",
-        f"X-WR-CALNAME:{escape_text(name)}",
-        "X-WR-TIMEZONE:Asia/Amman",
-        "REFRESH-INTERVAL;VALUE=DURATION:PT12H",
-        "X-PUBLISHED-TTL:PT12H",
-    ]
+def build_calendar(events: Iterable[Event], name: Optional[str] = "HackWatch: Jordan tech events") -> str:
+    """The subscribable feed, or with name=None a one-off file to import (no refresh, no calendar name)."""
+    lines = ["BEGIN:VCALENDAR", "VERSION:2.0", f"PRODID:{PRODID}", "CALSCALE:GREGORIAN", "METHOD:PUBLISH"]
+    if name:
+        lines += [
+            f"X-WR-CALNAME:{escape_text(name)}",
+            "X-WR-TIMEZONE:Asia/Amman",
+            "REFRESH-INTERVAL;VALUE=DURATION:PT12H",
+            "X-PUBLISHED-TTL:PT12H",
+        ]
     for event in sorted(events, key=lambda e: (e.start_date or "", e.title)):
         if event.start_date:
             lines.extend(event_lines(event))

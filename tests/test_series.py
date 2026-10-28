@@ -61,3 +61,17 @@ def test_merged_card_counts_down_to_the_next_session():
 def test_last_session_alone_is_a_normal_event():
     items = merge_series(fix_session_ends(LISTED), today=date(2026, 11, 2))
     assert len(items) == 1 and items[0]["sessions"] is None and items[0]["event"].start_date == "2026-11-07"
+
+
+def test_calendar_file_per_card_has_every_upcoming_session(tmp_path):
+    from hackwatch.pages import write_calendar_files
+    items = merge_series(fix_session_ends(LISTED + [OTHER]), today=date(2026, 10, 28))
+    assert write_calendar_files(items, tmp_path) == 2
+    series_ics = (tmp_path / f"{items[0]['event'].id}.ics").read_text()
+    assert series_ics.count("BEGIN:VEVENT") == 2
+    # 09:00-17:00 Amman (UTC+3) on each Saturday, one day each
+    assert "DTSTART:20261031T060000Z" in series_ics and "DTEND:20261031T140000Z" in series_ics
+    assert "DTSTART:20261107T060000Z" in series_ics
+    assert "REFRESH-INTERVAL" not in series_ics and "X-WR-CALNAME" not in series_ics  # a file, not a feed
+    devfest = (tmp_path / f"{OTHER.id}.ics").read_text()
+    assert "DTSTART;VALUE=DATE:20261128" in devfest

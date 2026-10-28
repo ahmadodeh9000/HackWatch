@@ -12,7 +12,7 @@ from hackwatch.carryover import MIN_PREVIOUS_EVENTS, carry_over, load_json, load
 from hackwatch.digest import build_digest, to_markdown, to_text
 from hackwatch.formimport import import_csv
 from hackwatch.fromurl import extract_from_url, suggest
-from hackwatch.pages import write_pages
+from hackwatch.pages import write_calendar_files, write_pages
 from hackwatch.health import STATUS_URL, ZERO_RUNS_FOR_ISSUE, DryRunIssues, GitHubIssues, sync_issues, update_streaks
 from hackwatch.ics import build_calendar, calendar_events
 from hackwatch.infer import apply_defaults
@@ -545,6 +545,7 @@ def export(
     events = [e for e in fix_session_ends(db.get_events(conn, show_all=False))
               if (e.end_date or e.start_date or "9999")[:10] >= today.isoformat()]
 
+    items = merge_series(events, today)
     records = [
         {
             "id": ev.id,
@@ -576,7 +577,7 @@ def export(
             **({"recurrence": "weekly", "sessions": item["sessions"], "series_until": item["until"]}
                if item["sessions"] else {}),
         }
-        for item in merge_series(events, today)
+        for item in items
         for ev in [item["event"]]
     ]
 
@@ -605,6 +606,7 @@ def export(
 
     if pages_dir:
         typer.echo(f"Wrote {write_pages(events, pages_dir)} event pages to {pages_dir}/")
+        typer.echo(f"Wrote {write_calendar_files(items, pages_dir)} calendar files to {pages_dir}/")
 
 
 if __name__ == "__main__":

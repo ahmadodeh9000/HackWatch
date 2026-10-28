@@ -92,7 +92,7 @@ def merge_series(events: List[Event], today: Optional[date] = None) -> List[dict
         if len(upcoming) == 1:
             out.append({"event": upcoming[0], "sessions": None, "until": None})
             continue
-        out.append({"event": upcoming[0],
+        out.append({"event": upcoming[0], "members": upcoming,
                     "sessions": [{"date": s.start_date, "url": s.url, "id": s.id} for s in upcoming],
                     "until": upcoming[-1].start_date})
     return out

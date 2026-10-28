@@ -12,6 +12,7 @@ from typing import Iterable
 
 from hackwatch.digest import SITE_URL, event_page_url
 from hackwatch.models import Event
+from hackwatch.ics import build_calendar
 from hackwatch.tidy import shown_title
 
 TYPE_LABELS = {"hackathon": "Hackathon", "competition": "Competition", "conference": "Conference",
@@ -94,6 +95,24 @@ p.desc{{margin:16px 0;overflow-wrap:anywhere}}
 </body>
 </html>
 """
+
+
+def write_calendar_files(items: Iterable[dict], out_dir: Path) -> int:
+    """e/<id>.ics per card, for "Add to calendar" (all upcoming sessions for a series).
+
+    `items` are series.merge_series() results; old files are replaced.
+    """
+    out_dir.mkdir(parents=True, exist_ok=True)
+    for old in out_dir.glob("*.ics"):
+        old.unlink()
+    count = 0
+    for item in items:
+        e = item["event"]
+        if e.id and e.start_date:
+            body = build_calendar(item.get("members") or [e], name=None)
+            (out_dir / f"{e.id}.ics").write_text(body, encoding="utf-8", newline="")
+            count += 1
+    return count
 
 
 def write_pages(events: Iterable[Event], out_dir: Path, site: str = SITE_URL) -> int:
