@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 """
-HackWatch — Interactive Terminal Dashboard
+HackWatch — Interactive Terminal Dashboard (UNMAINTAINED)
 Launch with:  python3 hackwatch.py
+
+This dashboard is no longer maintained. It predates start/end times, registration
+deadlines, tags, scope, low_signal and merged sources, so it shows less than the
+website and `python3 -m hackwatch.cli list`. Use those instead.
 """
 
 import json

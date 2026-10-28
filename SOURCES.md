@@ -31,6 +31,8 @@ block datacenter IPs.
 | Manual | jordan | `manual_events.yaml` | 0 | 1 | 1 | Community/club submissions. Invalid entries are skipped with an error; `hackwatch.cli validate` is strict. |
 
 Live export on 2026-10-26 after Phases 2–3: 28 events (before IEEE/CTFtime/Codeforces).
+Live on 2026-10-27 (18:00 UTC deploy): 66 events, 16 in Jordan (5 of them club life), with
+Eventbrite blocked in CI and GJU timing out in that run.
 
 ### IEEE vTools
 
@@ -83,6 +85,17 @@ The deploy job publishes a per-source fetch report as
   are skipped, as are cancelled events. Several chapters of one student branch often post
   the same IEEE Day (e.g. Yarmouk's `STB25091`, `SBC25091A`, `SBA25091`); those merge when
   they're on the same day and their titles overlap.
+- IEEE: dates and times are taken in Amman time, not the event's own time zone (Jordan
+  events are often set to Europe/Istanbul, Asia/Riyadh or Africa/Cairo). A registration end
+  at exactly midnight counts as the day before: vTools stores "closes 20 Oct" as
+  `2026-10-20T21:00Z`, which is 00:00 on the 21st in Amman (checked 2026-10-28 against
+  events 580512, 588216 and 587642).
+- Fake deadlines are dropped: Eventbrite, GDG and JOSA report the start date (or nothing)
+  as the "deadline", so only real registration ends are kept (CTFtime: none; Devpost: the
+  submission end; IEEE: `registration-end-time`; Bevy: `validThrough` only when before the start).
+- Club life (`low_signal`): inaugurations, officer kickoffs, opening ceremonies and awareness
+  days, matched on the title with keywords in `taxonomy.yaml`. On 2026-10-27, 5 of 19 Jordan
+  events, all IEEE.
 
 ### History
 

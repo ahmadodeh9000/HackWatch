@@ -80,6 +80,34 @@ git diff manual_events.yaml                                   # review: the form
 
 Re-importing the same CSV later is safe: rows already imported are skipped as duplicates.
 
+Then paste the form's public link into `GOOGLE_FORM_URL` at the top of the script in
+[`docs/index.html`](docs/index.html); the "Google Form" option appears on the site once it's set.
+
+### Already posted it on Instagram?
+
+Send the post's link to the maintainer (the site shows a "Send us the Instagram post" option
+once `INSTAGRAM_POST_URL` is set in `docs/index.html`). HackWatch never scrapes Instagram,
+Facebook or Telegram; a maintainer adds the event by hand with `hackwatch add`.
+
+### What gets hidden
+
+Events whose title marks them as club life (inaugurations, officer kickoffs, opening
+ceremonies, awareness days) are flagged `low_signal`: they stay in the data but the site hides
+them unless "Show club life events" is on, and they're left out of the calendar feed and the
+weekly digest. The keywords are under `low_signal:` in [`taxonomy.yaml`](taxonomy.yaml).
+
+### Site settings (maintainers)
+
+The top of the script in `docs/index.html` has the links that don't exist yet. Leave one
+empty and its option isn't shown at all:
+
+| Setting | What it is |
+|---|---|
+| `GOOGLE_FORM_URL` | The Google Form above |
+| `INSTAGRAM_POST_URL` | Where to send an Instagram post, e.g. an `ig.me/m/<account>` DM link |
+| `DIGEST_CHANNEL_URL` | WhatsApp/Telegram channel where the weekly digest is posted |
+| `GOATCOUNTER_CODE` | GoatCounter site code (cookie-free page counts); empty = no analytics script |
+
 ## 2. Add a source (scraper)
 
 Good sources are public, list events in Jordan (or online tech events), and can be read
@@ -115,11 +143,12 @@ pip install -r requirements.txt -r requirements-dev.txt
 python -m pytest -q                      # offline, uses tests/fixtures/
 python -m hackwatch.cli validate         # check manual_events.yaml
 python -m hackwatch.cli fetch            # live fetch into hackwatch.db
-python -m hackwatch.cli export --out docs/events.json --labels docs/labels.json --ics docs/events.ics
-python3 -m http.server 8000 --directory docs   # then open http://localhost:8000
+python -m hackwatch.cli export --out docs/events.json --labels docs/labels.json --ics docs/events.ics \
+  --digest docs/digest.txt --pages docs/e
+python3 -m http.server 8000 --directory docs   # then open http://localhost:8000 (?lang=ar for Arabic)
 ```
 
-CI runs Python 3.12. If you have [uv](https://docs.astral.sh/uv/), you can test on it with
+CI runs Python 3.12; changes are also tested on 3.14 before pushing. If you have [uv](https://docs.astral.sh/uv/), you can test on it with
 `uv run --python 3.12 --with-requirements requirements.txt --with pytest python -m pytest -q`.
 
 Please keep pull requests small (one change each) and include tests.

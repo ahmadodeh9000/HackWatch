@@ -1,134 +1,96 @@
 # 🔍 HackWatch
 
-**Tech & engineering events in Jordan: on the web, in your calendar and in your terminal.**
+**Tech & engineering events in Jordan, on the web, in your calendar and in a weekly digest.**
 
 HackWatch collects hackathons, competitions, conferences, workshops and meetups in Jordan, plus online
 events from anywhere (CTFs, Codeforces rounds, online hackathons). In-person events outside Jordan are
-left out. It fetches from several sources daily, merges duplicates, and publishes a website and a
-calendar feed. Clubs can submit their own events through a short bilingual form.
+left out. It fetches from several sources every day, merges duplicates, and publishes a website, a
+calendar feed, a weekly digest and a shareable page per event. Clubs can submit their own events.
 
 ![Python 3.12](https://img.shields.io/badge/python-3.12-blue)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
 
-🌐 **Live site:** https://ahmadodeh9000.github.io/HackWatch/ ·
+🌐 **Site:** https://ahmadodeh9000.github.io/HackWatch/ (English / العربية) ·
 📅 **Calendar feed (Jordan events):** https://ahmadodeh9000.github.io/HackWatch/events.ics ·
+📰 **This week's digest:** [digest.txt](https://ahmadodeh9000.github.io/HackWatch/digest.txt) ·
 ➕ **[Submit an event](https://github.com/ahmadodeh9000/HackWatch/issues/new?template=event.yml)**
 
 ---
 
 ## ✨ Features
 
-- **Jordan-focused** — In-person events only in Jordan; the site shows Jordan events by default, with a toggle for worldwide online events
-- **8 sources** — GDG chapters, IEEE Jordan Section, JOSA, Eventbrite (Jordan), Devpost, CTFtime, Codeforces, and community submissions; see [SOURCES.md](SOURCES.md)
-- **Types, tags and modes** — Inferred from titles (English and Arabic) and the sources' own labels
-- **Duplicates merged** — The same event from several sources appears once, with all its links
-- **Calendar feed** — Subscribe to `events.ics` in Google/Apple/Outlook calendar
-- **Community submissions** — A bilingual issue form; a bot validates it and opens a pull request
-- **Interactive dashboard** — Rich terminal UI with color-coded sources, urgency indicators, and event details
-- **Smart date handling** — Events sorted by date, past events hidden by default, countdown indicators
-- **Local-first** — All data stored in a single `hackwatch.db` SQLite file
-- **Manual events** — Add your own events via YAML, the CLI, or the [issue form](CONTRIBUTING.md)
-- **Search** — Full-text keyword search across titles, organizers, locations, and descriptions
-- **CLI commands** — Also supports traditional CLI via `python3 -m hackwatch.cli`
+- **Jordan-focused**: in-person events only in Jordan; the site shows Jordan events by default, with a
+  toggle for worldwide online events
+- **10 sources**: GDG chapters, Startup Grind Amman, IEEE Jordan Section, JOSA, GJU, Eventbrite (Jordan),
+  Devpost, CTFtime, Codeforces, and community submissions; see [SOURCES.md](SOURCES.md)
+- **Deadline first**: each card leads with when registration closes (or when the event starts);
+  start/end times in Amman time
+- **Types and tags** inferred from titles in English and Arabic and from the sources' own labels
+- **Club life hidden by default**: inaugurations, officer kickoffs and awareness days are flagged
+  `low_signal`, kept in the data and shown with a toggle
+- **Duplicates merged**: the same event from several sources appears once, with all its links
+- **Calendar feed** (`events.ics`) for Google, Apple or Outlook calendar
+- **Weekly digest** (`digest.txt`), ready to forward to WhatsApp or Telegram
+- **Share pages** (`e/<id>.html`) with Open Graph tags, so a shared link previews nicely
+- **Submissions** through a bilingual GitHub issue form (a bot validates it and opens a pull request)
+  or a Google Form (imported with `import-form`)
+- **Reliable deploys**: per-source fallback to the last good data, "Source down" issues after two
+  empty runs, and a check of the live site after every deploy
+- **Free to run**: GitHub Actions and Pages only
 
 ---
 
-## 🚀 Quick Start
-
-### 1. Make a Virtual Environment 
+## 🚀 Quick start (CLI)
 
 ```bash
-python3 -m venv venv
-```
-
-### 2. Activate it
-
-```bash
-source venv/bin/activate
-```
-
-### 3. Install dependencies
-
-```bash
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
+
+python3 -m hackwatch.cli fetch          # fetch every enabled source into hackwatch.db
+python3 -m hackwatch.cli list           # upcoming events in a table
 ```
 
-### 4. Launch the interactive dashboard
+### Commands
 
 ```bash
-python3 hackwatch.py
-```
+# Fetch
+python3 -m hackwatch.cli fetch                         # all enabled sources
+python3 -m hackwatch.cli fetch --source devpost        # one source (even if disabled)
 
-That's it! You'll see a menu like this:
-
-```
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃                   Main Menu                      ┃
-┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
-┃  1  📋  Browse Events                            ┃
-┃  2  🔄  Fetch New Events                         ┃
-┃  3  🆕  Show New Events                          ┃
-┃  4  📊  Dashboard                                ┃
-┃  5  ➕  Add Manual Event                         ┃
-┃  6  🔍  Search Events                            ┃
-┃  0  🚪  Exit                                     ┃
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-```
-
----
-
-## 📖 Usage
-
-### Interactive Mode (recommended)
-
-```bash
-python3 hackwatch.py
-```
-
-| Option | Description |
-|--------|-------------|
-| **1 — Browse Events** | View all upcoming events in a formatted table. Enter a number to see full details. Press `a` to include past events. |
-| **2 — Fetch New Events** | Scrape all sources and store/update events in the database. |
-| **3 — Show New Events** | Display only events first discovered in the latest fetch. |
-| **4 — Dashboard** | Quick stats: total events, upcoming count, this week, new since last fetch, and source breakdown. |
-| **5 — Add Manual Event** | Interactively add an event to `manual_events.yaml`. |
-| **6 — Search Events** | Search by keyword across all event fields. |
-
-### CLI Mode
-
-```bash
-# Fetch events from all sources
-python3 -m hackwatch.cli fetch
-
-# Fetch from a specific source
-python3 -m hackwatch.cli fetch --source devpost
-
-# List upcoming events
-python3 -m hackwatch.cli list
-
-# List all events (including past)
-python3 -m hackwatch.cli list --all
-
-# Show only new events from last fetch
-python3 -m hackwatch.cli list --new
-
-# Filter by type, tag, mode or scope (see "Event fields" below)
+# List and filter (see "Event fields")
+python3 -m hackwatch.cli list                          # upcoming
+python3 -m hackwatch.cli list --all                    # including past
+python3 -m hackwatch.cli list --new                    # first seen in the latest fetch
 python3 -m hackwatch.cli list --type competition --tag robotics
 python3 -m hackwatch.cli list --mode hybrid --scope jordan
 
-# Add a manual event interactively
-python3 -m hackwatch.cli add
-
-# ...or with flags
+# Add an event to manual_events.yaml
+python3 -m hackwatch.cli add                           # prompts for each field
 python3 -m hackwatch.cli add -t "Robot Sumo Cup" -u https://example.com/sumo -d 2026-12-05 \
-  -l "Irbid, Jordan" -o "IEEE JUST" --type competition --mode in-person --tags robotics,sumo,ieee
+  -l "Irbid, Jordan" -o "IEEE JUST" --type competition --mode in-person --tags robotics,sumo,ieee \
+  --start-time 10:00 --end-time 15:00 --deadline 2026-12-01
+python3 -m hackwatch.cli import-form responses.csv     # Google Form responses (CONTRIBUTING.md)
+python3 -m hackwatch.cli validate                      # strict check; exits 1 on any invalid entry
 
-# Check manual_events.yaml strictly (exits 1 on any invalid entry)
-python3 -m hackwatch.cli validate
+# Weekly digest
+python3 -m hackwatch.cli digest --week                 # plain text
+python3 -m hackwatch.cli digest --week --format markdown
 
-# Export upcoming events to JSON, plus tag labels and the calendar feed for the site
-python3 -m hackwatch.cli export --out docs/events.json --labels docs/labels.json --ics docs/events.ics
+# Everything the site needs (what the deploy runs)
+python3 -m hackwatch.cli export --out docs/events.json --labels docs/labels.json \
+  --ics docs/events.ics --digest docs/digest.txt --pages docs/e
 ```
+
+To look at the site locally: `python3 -m http.server 8000 --directory docs`, then open
+http://localhost:8000 (`?lang=ar` for Arabic).
+
+### The terminal dashboard (unmaintained)
+
+`python3 hackwatch.py` opens the old interactive terminal menu. **It is no longer maintained**:
+it predates times, deadlines, tags, `low_signal`, scope and merged sources, so it shows less than
+the site and the CLI, and new features won't be added to it. Use the website or
+`python3 -m hackwatch.cli list` instead. It may be removed later.
 
 ---
 
@@ -136,78 +98,79 @@ python3 -m hackwatch.cli export --out docs/events.json --labels docs/labels.json
 
 | Field | Values | Notes |
 |-------|--------|-------|
-| `type` | `hackathon`, `competition`, `conference`, `workshop`, `meetup`, `other` | `contest` is accepted as `competition`. Unknown or missing → `other`. Devpost events default to `hackathon`. |
-| `mode` | `in-person`, `online`, `hybrid` | Default comes from the location (`Online` → `online`). Hybrid events count as online for filtering. |
-| `tags` | ids from [`taxonomy.yaml`](taxonomy.yaml), e.g. `ai`, `ctf`, `cp`, `robotics`, `sumo`, `ieee` | Aliases work (`cybersecurity` → `security`). Unknown tags are an error in `manual_events.yaml`. |
-| `scope` | `jordan`, `worldwide` | Set per source (Devpost: worldwide; Eventbrite, GDG, JOSA, manual: jordan). Can be overridden per event. |
+| `type` | `hackathon`, `competition`, `conference`, `workshop`, `meetup`, `other` | `contest` is accepted as `competition`. Unknown or missing → `other`. |
+| `mode` | `in-person`, `online`, `hybrid` | Default comes from the location (`Online` → `online`). |
+| `tags` | ids from [`taxonomy.yaml`](taxonomy.yaml), e.g. `ai`, `ctf`, `cp`, `robotics`, `sumo`, `ieee` | Aliases work (`cybersecurity` → `security`). Unknown tags are an error in `manual_events.yaml`. Each tag has an English and an Arabic label. |
+| `scope` | `jordan`, `worldwide` | Set per source in `sources.yaml`; can be overridden per event. |
+| `start_time`, `end_time` | `HH:MM`, Amman time, 24 h | Optional. Without them the event is all-day in the calendar. |
+| `registration_deadline` | `YYYY-MM-DD` | Optional; on or before the last day of the event. |
+| `low_signal` | `true` / `false` | Club life (title matches a `low_signal` keyword in `taxonomy.yaml`). Hidden on the site unless toggled, left out of the calendar feed and the digest. |
+| `stale` | `true` / `false` | The source returned nothing this run, so this is the last deployed copy (dropped after 7 days). |
 
-**Inference.** When a source doesn't set `type` or `tags`, they are guessed from the title,
-the source's own labels (GDG event tags, Devpost themes) and the description, using the
-English and Arabic keyword rules in [`taxonomy.yaml`](taxonomy.yaml). Order of precedence for
-type: explicit value → inferred → the source's `default_type` in `sources.yaml` → `other`.
-Explicit tags are kept as they are; a source's `default_tags` are always added.
+**Inference.** When a source doesn't set `type` or `tags`, they are guessed from the title, the
+source's own labels and the description, using the English and Arabic rules in
+[`taxonomy.yaml`](taxonomy.yaml). Precedence for type: explicit → inferred → the source's
+`default_type` → `other`. A source's `default_tags` are always added.
 
 **Pinned filter chips.** The site always shows the types and tags listed under `pinned:` in
-`taxonomy.yaml` (with a count, faded at 0, linking to the submission form when empty); other
-values appear only when events use them. The export writes them to `docs/labels.json`.
-
-The JSON export still includes the old `is_online` flag (`true` for online and hybrid) so older versions of the site keep working.
+`taxonomy.yaml` (with a count, faded at 0); other values appear only when events use them.
 
 ---
 
-## 📁 Project Structure
+## 📁 Project structure
 
 ```
 HackWatch/
-├── hackwatch.py              ← Interactive dashboard entry point
-├── requirements.txt          ← Python dependencies
-├── manual_events.yaml        ← Manually added events (YAML)
-├── sources.yaml              ← Which sources run, their scope/defaults/options
-├── taxonomy.yaml             ← Allowed event tags and their aliases
-├── SOURCES.md                ← Status of every event source
-├── scripts/                  ← Fixture recorder, CI export check
+├── docs/                     ← The website (GitHub Pages); data files are generated on deploy
+├── manual_events.yaml        ← Community and hand-added events
+├── sources.yaml              ← Which sources run, their scope, defaults and options
+├── taxonomy.yaml             ← Tags (EN/AR labels, aliases), inference rules, pinned chips, low_signal
+├── SOURCES.md                ← Status of every source, tried and failed ones too
+├── CONTRIBUTING.md           ← Submitting events, the Google Form, adding a source
+├── hackwatch.py              ← Old terminal dashboard (unmaintained)
+├── scripts/                  ← Fixture recorder, export/live checks, issue → event, runner probe
 ├── tests/                    ← pytest suite (offline, recorded fixtures)
-├── hackwatch.db              ← SQLite database (auto-created)
 └── hackwatch/
-    ├── __init__.py
     ├── cli.py                ← Typer CLI commands
     ├── models.py             ← Event dataclass, type/mode/scope values
-    ├── taxonomy.py           ← Loads taxonomy.yaml, normalises tags
-    ├── filters.py            ← Which events are kept (Jordan / tech)
-    ├── sources.py            ← Loads sources.yaml, builds scrapers
-    ├── db.py                 ← SQLite database layer
-    └── scrapers/
-        ├── __init__.py
-        ├── base.py           ← BaseScraper (rate-limited HTTP)
-        ├── registry.py       ← @register("name") scraper registry
-        ├── devpost.py        ← Devpost API scraper
-        ├── eventbrite.py     ← Eventbrite LD+JSON scraper
-        ├── gdg.py            ← Google Developer Groups API
-        ├── josa.py           ← JOSA events page scraper
-        └── manual.py         ← YAML file reader
+    ├── db.py                 ← SQLite: per-source observations → merged events
+    ├── dedup.py              ← Which listings are the same event
+    ├── filters.py            ← Which events are kept (Jordan / online / tech)
+    ├── infer.py, taxonomy.py ← Type/tag inference, taxonomy loading
+    ├── carryover.py          ← Keep a silent source's last deployed events (stale)
+    ├── health.py             ← "Source down" issues
+    ├── ics.py, digest.py, pages.py ← Calendar feed, weekly digest, share pages
+    ├── submissions.py, formimport.py ← Shared validation for the issue form and Google Form
+    ├── timeutil.py           ← Source timestamps → Amman dates and times
+    └── scrapers/             ← One module per source type (bevy, vtools, gju, josa, ...)
 ```
 
 ---
 
 ## 🔁 How the daily update works
 
-The `Update HackWatch Events & Deploy` workflow runs every day (and on manual runs):
+The `Update HackWatch Events & Deploy` workflow runs every day at 03:00 UTC, on every push to
+`main`, and by hand:
 
-1. Runs the tests, then fetches every enabled source in `sources.yaml`.
-2. Each source that fetched successfully replaces what it listed before, so cancelled or removed
-   events disappear. A source that errors keeps its old events.
-3. Listings of the same event are merged (same link, or a similar title within a day from another source);
-   precedence is manual > Jordan sources > worldwide feeds.
-4. Exports `events.json`, `labels.json` and `events.ics`, and refuses to deploy if there are 0 events or
-   fewer than half of what's live. Run it manually with **force** after an expected big drop.
+1. Runs the tests, then fetches every enabled source in `sources.yaml` and writes a per-source
+   report (`status.json`, also in the job summary).
+2. `health` counts empty runs per source; after 2 in a row it opens a "Source down: <name>" issue,
+   and closes it when the source recovers.
+3. Each source that fetched replaces what it listed before, so removed events disappear. A source
+   that had events on the live site but returned nothing now keeps them, marked stale, for up to 7 days.
+4. Listings of the same event are merged (same link, or a similar title within a day from another
+   source); precedence is manual > Jordan sources > worldwide feeds.
+5. Exports `events.json`, `labels.json`, `events.ics`, `digest.txt` and `e/<id>.html`, and refuses
+   to deploy if there are 0 events or fewer than half of what's live (run it by hand with **force**
+   after an expected big drop).
+6. Deploys to Pages, then fetches the live `events.json` and `events.ics` and fails if they're
+   missing or empty.
 
-## 🔧 Adding a New Scraper
+## 🔧 Adding a source
 
-1. Create `hackwatch/scrapers/mysource.py` with a `BaseScraper` subclass, registered by name.
-   Constructor arguments become the source's `options` in `sources.yaml`.
-2. Import the module in `hackwatch/scrapers/__init__.py` so it registers.
-3. Add an entry to [`sources.yaml`](sources.yaml) with its `scope` and any `default_type`, `default_tags` and `options`.
-4. Record fixtures (`python scripts/record_fixtures.py mysource`) and add offline tests.
+See [CONTRIBUTING.md](CONTRIBUTING.md#2-add-a-source-scraper). In short: a `BaseScraper` subclass
+registered by name, an entry in `sources.yaml`, recorded fixtures and offline tests. Read
+[SOURCES.md](SOURCES.md) first; check the site's `robots.txt` and test it from the GitHub runner.
 
 ```python
 from hackwatch.models import Event
@@ -226,50 +189,6 @@ class MySourceScraper(BaseScraper):
         return [Event(title="...", url="...", source=self.name)]
 ```
 
-```yaml
-# sources.yaml
-  - name: mysource
-    enabled: true
-    scope: jordan
-    default_tags: [ai]
-    options:
-      url: https://example.com/events
-```
-
-To turn a source off, set `enabled: false`. `fetch --source mysource` still runs it.
-
----
-
-## 📝 Manual Events (YAML)
-
-The easiest way is the [Submit an event](https://github.com/ahmadodeh9000/HackWatch/issues/new?template=event.yml)
-form (see [CONTRIBUTING.md](CONTRIBUTING.md)). You can also add events directly to `manual_events.yaml`:
-
-```yaml
-- title: My Local Hackathon
-  url: https://example.com/hackathon
-  dates: 2026-11-01 to 2026-11-03
-  location: Amman, Jordan
-  organizer: My Org
-  prize: $5000
-  type: hackathon        # hackathon | competition | conference | workshop | meetup | other
-  mode: in-person        # in-person | online | hybrid (optional; default from location)
-  tags: [ai, web]        # optional, from taxonomy.yaml
-  scope: jordan          # optional: jordan (default) | worldwide
-  registration_deadline: 2026-10-25   # optional
-```
-
-Dates must be ISO (`YYYY-MM-DD`). Use either `dates:` (one date, or `start to end`) or `start_date:` / `end_date:`.
-When fetching, an invalid entry (bad date, unknown type/tag/mode, missing title or URL,
-duplicate URL) is skipped with an error naming the entry; the other entries still import.
-To check the file strictly, run:
-
-```bash
-python3 -m hackwatch.cli validate   # exits 1 if any entry is invalid
-```
-
-Then run **Fetch** (option 2) to import them into the database.
-
 ---
 
 ## 📦 Dependencies
@@ -278,12 +197,10 @@ Then run **Fetch** (option 2) to import them into the database.
 |---------|---------|
 | `requests` | HTTP requests for scrapers |
 | `beautifulsoup4` | HTML parsing |
-| `pyyaml` | YAML file handling |
-| `typer` | CLI framework |
-| `rich` | Beautiful terminal output |
-
----
+| `pyyaml` | YAML files |
+| `typer` | CLI |
+| `rich` | Terminal tables |
 
 ## 📄 License
 
-MIT — do whatever you want with it. Happy hacking! 🚀
+MIT. Happy hacking! 🚀
