@@ -327,6 +327,8 @@ const STR = {
     closesToday: "Registration closes today", closesTomorrow: "Registration closes tomorrow",
     closesIn: n => `Registration closes in ${enDays(n)}`,
     today: "Today", tomorrow: "Tomorrow", startsIn: n => `Starts in ${enDays(n)}`,
+    nextIn: n => n === 1 ? "Next session tomorrow" : `Next session in ${enDays(n)}`,
+    every: day => `Every ${day}`, until: d => `until ${d}`,
     endsToday: "Ongoing · ends today", left: n => `Ongoing · ${enDays(n)} left`, tba: "Date TBA",
     online: "Online", alsoOnline: "+ online", stale: "⚠ Not re-checked today",
     staleHint: "This source failed in the latest update; this listing is from the previous one.",
@@ -359,6 +361,8 @@ const STR = {
     closesToday: "يُغلق التسجيل اليوم", closesTomorrow: "يُغلق التسجيل غدًا",
     closesIn: n => `يُغلق التسجيل بعد ${arDays(n)}`,
     today: "اليوم", tomorrow: "غدًا", startsIn: n => `تبدأ بعد ${arDays(n)}`,
+    nextIn: n => n === 1 ? "الجلسة القادمة غدًا" : `الجلسة القادمة بعد ${arDays(n)}`,
+    every: day => `كل يوم ${day.replace(/^ال/, "")}`, until: d => `حتى ${d}`,
     endsToday: "جارية · تنتهي اليوم", left: n => `جارية · يتبقى ${arDays(n)}`, tba: "الموعد يُعلن لاحقًا",
     online: "عن بُعد", alsoOnline: "+ عن بُعد", stale: "⚠ لم يُتحقق منها اليوم",
     staleHint: "تعذّر تحديث هذا المصدر في آخر تحديث؛ هذه البيانات من التحديث السابق.",
@@ -433,6 +437,7 @@ function badge(ev){
   }
   if (ev._status === "upcoming"){
     const n = days(t, ev._s);
+    if (ev.sessions) return {cls: n <= 1 ? "urgent" : n < 7 ? "soon" : "ok", text: S.nextIn(n)};
     return {cls: n <= 1 ? "urgent" : n < 7 ? "soon" : "ok", text: n === 1 ? S.tomorrow : S.startsIn(n)};
   }
   if (ev._status === "ongoing"){
@@ -445,6 +450,12 @@ function badge(ev){
 
 function whenText(ev){
   if (!ev._s) return T().tba;
+  // Weekly series (sessions from the export): "Every Saturday · 09:00 · until 7 Nov".
+  if (ev.sessions && ev.series_until){
+    const day = new Intl.DateTimeFormat(locale(), {weekday:"long"}).format(ev._s);
+    const until = new Intl.DateTimeFormat(locale(), {day:"numeric", month:"short"}).format(parseDate(ev.series_until));
+    return [T().every(day), ev.start_time ? ltr(ev.start_time) : "", T().until(until)].filter(Boolean).join(" · ");
+  }
   let txt = fmtDay(ev._s);
   if (ev._e && ev._e.getTime() !== ev._s.getTime()) txt += " – " + fmtDay(ev._e);
   // Times are wrapped in a left-to-right isolate so "10:00–15:30" isn't reversed in Arabic.

@@ -76,8 +76,13 @@ The deploy job publishes a per-source fetch report as
 
 ### Data-quality notes
 
-- GDG lists multi-session events as separate events (e.g. two "Flutter Bootcamp" dates).
-  Dedup never merges two listings from the same source, so both stay.
+- GDG lists multi-session events as separate events, and the end date isn't the session's:
+  "Flutter Bootcamp" (GDG on Campus PSUT, "three consecutive Saturdays, starting October 24th")
+  is three listings, 09:00–17:00 each, each with an end date two weeks after its start
+  (checked 2026-10-28 on the event page: `endDate` 2026-11-14 for the 31 Oct session). Dedup
+  keeps them apart; `hackwatch/series.py` treats same-title, same-organiser listings a whole
+  number of weeks apart as a weekly series: each listing becomes a one-day session, and the
+  site shows one card ("Every Saturday · 09:00 · until 7 Nov").
 - Codeforces names many rounds identically ("Codeforces Round (Div. 2)"); dates and URLs differ.
 - Eventbrite listings include non-tech events (parties, university sales meetings) and a
   2014 junk listing; the tech-keyword filter drops them. Known false positive kept:

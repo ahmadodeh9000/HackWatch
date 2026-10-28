@@ -20,6 +20,7 @@ from hackwatch.models import (
     Event, VALID_EVENT_TYPES, VALID_MODES, VALID_SCOPES,
     validate_event_type, validate_mode, validate_scope,
 )
+from hackwatch.series import fix_session_ends, merge_series
 from hackwatch.scrapers import get_available_scrapers
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.manual import load_manual_events, load_manual_yaml, parse_manual_dates, parse_manual_item
@@ -537,7 +538,11 @@ def export(
     conn = db.get_connection(db_path)
     db.init_db(conn)
 
-    events = db.get_events(conn, show_all=False)
+    today = datetime.now().date()
+    # Weekly series listed with run-long end dates become one-day sessions (series.py);
+    # sessions that are over by now drop out.
+    events = [e for e in fix_session_ends(db.get_events(conn, show_all=False))
+              if (e.end_date or e.start_date or "9999")[:10] >= today.isoformat()]
 
     records = [
         {
@@ -564,8 +569,12 @@ def export(
             "low_signal": bool(ev.low_signal),
             "stale_since": ev.stale_since,
             "is_online": ev.is_online,  # legacy, = mode != "in-person"; kept for the current site
+            # Weekly series (series.py): this record is the next session; all upcoming ones here.
+            **({"recurrence": "weekly", "sessions": item["sessions"], "series_until": item["until"]}
+               if item["sessions"] else {}),
         }
-        for ev in events
+        for item in merge_series(events, today)
+        for ev in [item["event"]]
     ]
 
     with open(out, "w", encoding="utf-8") as f:
@@ -580,7 +589,7 @@ def export(
 
     if ics:
         # Includes events that ended recently, so subscribers' calendars keep them.
-        feed = calendar_events(db.get_events(conn, show_all=True), scope="jordan")
+        feed = calendar_events(fix_session_ends(db.get_events(conn, show_all=True)), scope="jordan")
         with open(ics, "w", encoding="utf-8", newline="") as f:
             f.write(build_calendar(feed))
         typer.echo(f"Wrote {len(feed)} Jordan events to {ics}")
