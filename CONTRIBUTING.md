@@ -87,7 +87,9 @@ Then paste the form's public link into `GOOGLE_FORM_URL` at the top of the scrip
 
 Send the post's link to the maintainer (the site shows a "Send us the Instagram post" option
 once `INSTAGRAM_POST_URL` is set in `docs/index.html`). HackWatch never scrapes Instagram,
-Facebook or Telegram; a maintainer adds the event by hand with `hackwatch add`.
+Facebook or Telegram; a maintainer adds the event by hand with `hackwatch add`. If the post links
+to a registration page (Luma, Eventbrite, a Google Form…), `hackwatch add --from-url <link>`
+pre-fills most fields from it.
 
 ### What gets hidden
 

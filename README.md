@@ -70,6 +70,8 @@ python3 -m hackwatch.cli add                           # prompts for each field
 python3 -m hackwatch.cli add -t "Robot Sumo Cup" -u https://example.com/sumo -d 2026-12-05 \
   -l "Irbid, Jordan" -o "IEEE JUST" --type competition --mode in-person --tags robotics,sumo,ieee \
   --start-time 10:00 --end-time 15:00 --deadline 2026-12-01
+python3 -m hackwatch.cli add --from-url https://lu.ma/abc123   # pre-filled from the event page, then asks
+python3 -m hackwatch.cli add --from-url <url> --yes --dry-run   # show what it found, save nothing
 python3 -m hackwatch.cli import-form responses.csv     # Google Form responses (CONTRIBUTING.md)
 python3 -m hackwatch.cli validate                      # strict check; exits 1 on any invalid entry
 
@@ -81,6 +83,11 @@ python3 -m hackwatch.cli digest --week --format markdown
 python3 -m hackwatch.cli export --out docs/events.json --labels docs/labels.json \
   --ics docs/events.ics --digest docs/digest.txt --pages docs/e
 ```
+
+`add --from-url` reads the page's schema.org JSON-LD (Luma, Eventbrite, GDG, Startup Grind…), its
+Google Calendar link (IEEE vTools), Open Graph tags, or a Google Form's title and description,
+converts times to Amman time, guesses type and tags like the scrapers do, and validates the entry
+before saving it. It warns when an event would be hidden (club life) or dropped (in person abroad).
 
 To look at the site locally: `python3 -m http.server 8000 --directory docs`, then open
 http://localhost:8000 (`?lang=ar` for Arabic).

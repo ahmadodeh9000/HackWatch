@@ -11,6 +11,7 @@ from hackwatch import db
 from hackwatch.carryover import MIN_PREVIOUS_EVENTS, carry_over, load_json, load_previous
 from hackwatch.digest import build_digest, to_markdown, to_text
 from hackwatch.formimport import import_csv
+from hackwatch.fromurl import extract_from_url, suggest
 from hackwatch.pages import write_pages
 from hackwatch.health import STATUS_URL, ZERO_RUNS_FOR_ISSUE, DryRunIssues, GitHubIssues, sync_issues, update_streaks
 from hackwatch.ics import build_calendar, calendar_events
@@ -130,7 +131,7 @@ def apply_source_defaults(event: Event, scraper: BaseScraper) -> None:
 
 def make_manual_entry(title, url, dates, location, organizer, event_type,
                       mode=None, tags=None, scope=None, start_time=None, end_time=None,
-                      registration_deadline=None) -> dict:
+                      registration_deadline=None, description=None) -> dict:
     """Build a manual_events.yaml entry, raising ValueError on bad input.
 
     Optional fields are only written when given, to keep the YAML short. The entry is
@@ -159,6 +160,8 @@ def make_manual_entry(title, url, dates, location, organizer, event_type,
                        ("registration_deadline", registration_deadline)):
         if (value or "").strip():
             entry[key] = value.strip()
+    if (description or "").strip():
+        entry["description"] = " ".join(description.split())
     parse_manual_item(entry)  # same checks as the import (times, deadline vs. dates...)
     return entry
 
@@ -263,9 +266,46 @@ def add(
     start_time: Optional[str] = typer.Option(None, "--start-time", help="Start time in Amman, 24 h (e.g. 18:00)"),
     end_time: Optional[str] = typer.Option(None, "--end-time", help="End time in Amman, 24 h"),
     deadline: Optional[str] = typer.Option(None, "--deadline", help="Registration deadline (YYYY-MM-DD)"),
+    description: Optional[str] = typer.Option(None, "--description", help="A few sentences about the event"),
+    from_url: Optional[str] = typer.Option(None, "--from-url", help="Pre-fill from the event page (JSON-LD, calendar link, Open Graph, Google Form)"),
+    yes: bool = typer.Option(False, "--yes", "-y", help="With --from-url: don't prompt, use what was found"),
+    dry_run: bool = typer.Option(False, "--dry-run", help="Print the entry instead of saving it"),
     yaml_file: Path = typer.Option(Path("manual_events.yaml"), "--file", help="Path to manual YAML file"),
 ):
     """Add a manual event to manual_events.yaml (prompts if options omitted)."""
+    if from_url:
+        try:
+            found = extract_from_url(from_url)
+        except ValueError as exc:
+            typer.echo(f"Error: {exc}")
+            raise typer.Exit(code=1)
+        guess = suggest(found)
+        typer.echo(f"Found on {from_url}:")
+        for key in ("title", "dates", "start_time", "end_time", "location", "mode", "organizer", "deadline", "type", "tags"):
+            if key in guess:
+                how = found.found_by.get({"dates": "start_date", "deadline": "registration_deadline"}.get(key, key), "inferred")
+                typer.echo(f"  {key:11} {guess[key]}  [{how}]")
+        for warning in found.warnings:
+            typer.echo(f"  ! {warning}")
+        given = {"title": title, "dates": dates, "location": location, "organizer": organizer, "type": event_type,
+                 "mode": mode, "tags": tags, "start_time": start_time, "end_time": end_time, "deadline": deadline}
+        labels = {"title": "Title", "dates": "Dates (e.g. 2026-11-01 to 2026-11-03)", "location": "Location",
+                  "organizer": "Organizer", "type": f"Type ({', '.join(VALID_EVENT_TYPES)})", "mode": "Mode",
+                  "tags": "Tags (comma-separated)", "start_time": "Start time (HH:MM)", "end_time": "End time (HH:MM)",
+                  "deadline": "Registration deadline (YYYY-MM-DD)"}
+        for key, value in given.items():
+            if value is None:
+                given[key] = guess.get(key) if yes else typer.prompt(labels[key], default=guess.get(key, ""), show_default=True)
+        title, dates, location, organizer, event_type, mode, tags, start_time, end_time, deadline = given.values()
+        url = url or from_url
+        description = description or guess.get("description")
+        if yes:
+            if not (title and dates):
+                typer.echo("Error: no title or date found on the page; run without --yes to enter them.")
+                raise typer.Exit(code=1)
+            if not location:
+                typer.echo("  ! No location found; saving it as Online. Edit manual_events.yaml if it's in person.")
+            location, organizer, event_type = location or "Online", organizer or "", event_type or "other"
     if not title:
         title = typer.prompt("Title")
     if not url:
@@ -274,17 +314,20 @@ def add(
         dates = typer.prompt("Dates (e.g. 2026-11-01 to 2026-11-03)", default="")
     if not location:
         location = typer.prompt("Location", default="Online")
-    if not organizer:
+    if organizer is None:  # "" = asked already (or --from-url --yes found none)
         organizer = typer.prompt("Organizer", default="")
     if not event_type:
         event_type = typer.prompt(f"Type ({', '.join(VALID_EVENT_TYPES)})", default="other")
 
     try:
         entry = make_manual_entry(title, url, dates, location, organizer, event_type, mode, tags, scope,
-                                  start_time, end_time, deadline)
+                                  start_time, end_time, deadline, description)
     except ValueError as exc:
         typer.echo(f"Error: {exc}")
         raise typer.Exit(code=1)
+    if dry_run:
+        typer.echo(yaml.safe_dump([entry], sort_keys=False, allow_unicode=True), nl=False)
+        return
 
     updated = save_manual_entry(entry, yaml_file)
     action = "Updated" if updated else "Saved"
