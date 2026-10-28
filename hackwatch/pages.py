@@ -15,6 +15,10 @@ from hackwatch.models import Event
 from hackwatch.ics import build_calendar
 from hackwatch.tidy import shown_title
 
+# GoatCounter site code (cookie-free page counts); the same one is set in docs/index.html.
+# Empty = no analytics script on the share pages.
+GOATCOUNTER_CODE = "hackwatch"
+
 TYPE_LABELS = {"hackathon": "Hackathon", "competition": "Competition", "conference": "Conference",
                "workshop": "Workshop", "meetup": "Meetup", "other": "Event"}
 
@@ -46,6 +50,8 @@ def render_page(e: Event, site: str = SITE_URL) -> str:
     deadline = (f'<p class="deadline">Registration closes {esc(date.fromisoformat(e.registration_deadline[:10]).strftime("%a %-d %b %Y"))}</p>'
                 if e.registration_deadline else "")
     target = e.url if str(e.url).startswith(("http://", "https://")) else site
+    analytics = (f'<script data-goatcounter="https://{GOATCOUNTER_CODE}.goatcounter.com/count" '
+                 'async src="https://gc.zgo.at/count.js"></script>') if GOATCOUNTER_CODE else ""
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -79,6 +85,7 @@ p.desc{{margin:16px 0;overflow-wrap:anywhere}}
 .back{{display:inline-block;margin-top:20px;color:var(--accent)}}
 :focus-visible{{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}}
 </style>
+{analytics}
 </head>
 <body>
 <main>

@@ -107,3 +107,12 @@ def test_cli_digest_and_export_options(tmp_path):
     assert result.exit_code == 0, result.output
     assert "• Soon" in (tmp_path / "digest.txt").read_text()
     assert len(list((tmp_path / "e").glob("*.html"))) == 1
+
+
+def test_event_pages_load_goatcounter(monkeypatch):
+    from hackwatch import pages
+    page = render_page(ev("DevFest", "2026-11-28"))
+    assert '<script data-goatcounter="https://hackwatch.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>' in page
+    assert page.index("gc.zgo.at") < page.index("</head>")
+    monkeypatch.setattr(pages, "GOATCOUNTER_CODE", "")
+    assert "goatcounter" not in render_page(ev("DevFest", "2026-11-28"))

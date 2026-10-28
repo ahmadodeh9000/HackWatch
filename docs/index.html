@@ -302,7 +302,7 @@ const INSTAGRAM_POST_URL = "";     // where to send an Instagram post (e.g. an i
 const DIGEST_CHANNEL_URL = "";     // WhatsApp/Telegram channel for the weekly digest
 // GoatCounter (cookie-free page counts), e.g. "hackwatch" for hackwatch.goatcounter.com.
 // Empty = no analytics script is loaded at all.
-const GOATCOUNTER_CODE = "";
+const GOATCOUNTER_CODE = "hackwatch";   // also set in hackwatch/pages.py for docs/e/*.html
 
 if (GOATCOUNTER_CODE) {
   const gc = document.createElement("script");
