@@ -3,6 +3,7 @@ from datetime import date, datetime, timedelta, timezone
 from typing import Iterable, List, Optional
 
 from hackwatch.models import Event
+from hackwatch.tidy import shown_title
 from hackwatch.timeutil import DEFAULT_TZ, zone
 
 PRODID = "-//HackWatch//Jordan tech events//EN"
@@ -94,7 +95,7 @@ def event_lines(event: Event) -> List[str]:
         f"UID:{event.id}@{UID_DOMAIN}",
         f"DTSTAMP:{_stamp(event)}",
         *_when_lines(event, start, end),
-        f"SUMMARY:{escape_text(event.title)}",
+        f"SUMMARY:{escape_text(shown_title(event))}",
         f"DESCRIPTION:{escape_text(chr(10).join(d for d in details if d))}",
         f"URL:{event.url}",
     ]

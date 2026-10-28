@@ -9,6 +9,7 @@ from datetime import date, timedelta
 from typing import Iterable, List, Optional
 
 from hackwatch.models import Event
+from hackwatch.tidy import shown_title
 
 SITE_URL = "https://ahmadodeh9000.github.io/HackWatch/"
 SUBMIT_URL = "https://github.com/ahmadodeh9000/HackWatch/issues/new?template=event.yml"
@@ -73,12 +74,12 @@ def to_text(digest: Digest, site: str = SITE_URL) -> str:
     if not digest.this_week:
         lines += ["No events listed for this week yet.", "لا توجد فعاليات مدرجة لهذا الأسبوع بعد.", ""]
     for e in digest.this_week:
-        lines += [f"• {_short(e.title)}", f"  {_when(e)} · {_where(e)} · {e.type or 'other'}", f"  {event_page_url(e, site)}", ""]
+        lines += [f"• {_short(shown_title(e))}", f"  {_when(e)} · {_where(e)} · {e.type or 'other'}", f"  {event_page_url(e, site)}", ""]
     if digest.closing:
         lines += ["⏳ Registration closing soon | التسجيل يُغلق قريباً"]
         for e in digest.closing:
             closes = _day(e.registration_deadline).strftime("%a %-d %b")
-            lines += [f"• {_short(e.title)} (closes {closes})", f"  {event_page_url(e, site)}"]
+            lines += [f"• {_short(shown_title(e))} (closes {closes})", f"  {event_page_url(e, site)}"]
         lines.append("")
     lines += [f"All events | كل الفعاليات: {site}", f"Add yours | أضف فعاليتك: {SUBMIT_URL}"]
     return "\n".join(lines) + "\n"
@@ -90,11 +91,11 @@ def to_markdown(digest: Digest, site: str = SITE_URL) -> str:
     if not digest.this_week:
         lines += ["No events listed for this week yet.", ""]
     for e in digest.this_week:
-        lines.append(f"- **[{e.title}]({event_page_url(e, site)})**: {_when(e)} · {_where(e)} · {e.type or 'other'}")
+        lines.append(f"- **[{shown_title(e)}]({event_page_url(e, site)})**: {_when(e)} · {_where(e)} · {e.type or 'other'}")
     if digest.closing:
         lines += ["", "## Registration closing soon · التسجيل يُغلق قريباً", ""]
         for e in digest.closing:
             closes = _day(e.registration_deadline).strftime("%a %-d %b")
-            lines.append(f"- [{e.title}]({event_page_url(e, site)}): closes {closes}")
+            lines.append(f"- [{shown_title(e)}]({event_page_url(e, site)}): closes {closes}")
     lines += ["", f"[All events]({site}) · [Add your event]({SUBMIT_URL})"]
     return "\n".join(lines) + "\n"

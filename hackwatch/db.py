@@ -8,6 +8,7 @@ from typing import List, Optional, Tuple
 from hackwatch.dedup import deduplicate
 from hackwatch.filters import is_in_jordan, is_relevant
 from hackwatch.models import DEFAULT_EVENT_TYPE, Event
+from hackwatch.tidy import clean_location
 from hackwatch.urls import normalize_url
 
 DEFAULT_DB_PATH = Path("hackwatch.db")
@@ -148,6 +149,7 @@ def _prepare(event: Event) -> Event:
         event.scope = "jordan" if is_in_jordan(event) else "worldwide"
     if event.type is None:
         event.type = DEFAULT_EVENT_TYPE
+    event.location = clean_location(event.location)
     return event
 
 

@@ -471,6 +471,8 @@ function whereText(ev){
 const SHARE_ICON = /iPhone|iPad|Macintosh/.test(navigator.userAgent)
   ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M8 10H6a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1h-2"/></svg>'
   : '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4" stroke="currentColor" stroke-width="2"/></svg>';
+// ALL-CAPS titles get a display version in the export ("MCC Robotics on ..."); see tidy.py.
+function shownTitle(ev){ return ev.display_title || ev.title; }
 function pageUrl(ev){ return ev.id ? `${SITE_URL}e/${ev.id}.html` : SITE_URL; }
 
 // ─── Filtering ───
@@ -515,7 +517,7 @@ function card(ev){
   const url = /^https?:\/\//i.test(ev.url || "") ? esc(ev.url) : "#";
   return `<article class="card">
     <span class="pill ${b.cls} status" title="${esc(b.text)}">${esc(b.text)}</span>
-    <h3 dir="auto" title="${esc(ev.title)}">${esc(ev.title)}</h3>
+    <h3 dir="auto" title="${esc(ev.title)}">${esc(shownTitle(ev))}</h3>
     <p class="line" title="${esc(whenText(ev))}">📅 ${esc(whenText(ev))}</p>
     <p class="line" dir="auto" title="${esc(whereText(ev))}">${esc(whereText(ev))}</p>
     ${ev.organizer ? `<p class="line" dir="auto" title="${esc(S.by)} ${esc(ev.organizer)}">👥 ${esc(ev.organizer)}</p>` : ""}
@@ -539,7 +541,7 @@ function renderWeek(){
     const d = days(t, ev._s), when = (d === 0 ? T().today : d === 1 ? T().tomorrow : fmtDay(ev._s)) + (ev.start_time ? " · " + ltr(ev.start_time) : "");
     const url = /^https?:\/\//i.test(ev.url || "") ? esc(ev.url) : "#";
     return `<a class="mini" href="${url}" target="_blank" rel="noopener" title="${esc(ev.title)}">
-      <div class="when">${esc(when)}</div><div class="t" dir="auto">${esc(ev.title)}</div><div class="w" dir="auto">${esc(whereText(ev))}</div></a>`;
+      <div class="when">${esc(when)}</div><div class="t" dir="auto">${esc(shownTitle(ev))}</div><div class="w" dir="auto">${esc(whereText(ev))}</div></a>`;
   }).join("");
 }
 
@@ -678,7 +680,7 @@ $("grid").addEventListener("click", async e => {
   if (!btn) return;
   const ev = state.events.find(x => (x.id || "") === btn.dataset.share);
   if (!ev) return;
-  const url = pageUrl(ev), text = `${ev.title} · ${whenText(ev)}`;
+  const url = pageUrl(ev), text = `${shownTitle(ev)} · ${whenText(ev)}`;
   if (navigator.share){
     try { await navigator.share({title: ev.title, text, url}); return; } catch(err){ if (err && err.name === "AbortError") return; }
   }

@@ -12,6 +12,7 @@ from typing import Iterable
 
 from hackwatch.digest import SITE_URL, event_page_url
 from hackwatch.models import Event
+from hackwatch.tidy import shown_title
 
 TYPE_LABELS = {"hackathon": "Hackathon", "competition": "Competition", "conference": "Conference",
                "workshop": "Workshop", "meetup": "Meetup", "other": "Event"}
@@ -37,6 +38,7 @@ def render_page(e: Event, site: str = SITE_URL) -> str:
     esc = lambda s: html.escape(str(s or ""), quote=True)  # noqa: E731
     url = event_page_url(e, site)
     line = summary_line(e)
+    title = shown_title(e)
     description = " ".join((e.description or "").split())
     teaser = (description[:157] + "…") if len(description) > 160 else description
     og_description = f"{line}. {teaser}" if teaser else line
@@ -48,19 +50,19 @@ def render_page(e: Event, site: str = SITE_URL) -> str:
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{esc(e.title)} · HackWatch</title>
+<title>{esc(title)} · HackWatch</title>
 <meta name="description" content="{esc(og_description)}">
 <link rel="canonical" href="{esc(url)}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HackWatch: tech &amp; engineering events in Jordan">
-<meta property="og:title" content="{esc(e.title)}">
+<meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(og_description)}">
 <meta property="og:url" content="{esc(url)}">
 <meta property="og:image" content="{esc(site.rstrip('/'))}/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{esc(e.title)}">
+<meta name="twitter:title" content="{esc(title)}">
 <meta name="twitter:description" content="{esc(og_description)}">
 <meta name="twitter:image" content="{esc(site.rstrip('/'))}/og.png">
 <style>
@@ -80,7 +82,7 @@ p.desc{{margin:16px 0;overflow-wrap:anywhere}}
 <body>
 <main>
   <article class="card">
-    <h1>{esc(e.title)}</h1>
+    <h1>{esc(title)}</h1>
     <p class="meta">{esc(line)}</p>
     {f'<p class="org">by {esc(e.organizer)}</p>' if e.organizer else ''}
     {deadline}

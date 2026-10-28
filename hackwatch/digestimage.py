@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import List, Optional, Sequence
 
 from hackwatch.digest import Digest, _day, _short, _where
+from hackwatch.tidy import shown_title
 
 WIDTH, HEIGHT = 1080, 1350
 MARGIN = 72
@@ -144,7 +145,7 @@ def render(digest: Digest, path: Path) -> List[str]:
     reserved = (64 + 54 * min(2, len(digest.closing)) if digest.closing else 0) + 56
     shown = 0
     for e in digest.this_week:
-        title = EMOJI.sub("", e.title).strip()
+        title = EMOJI.sub("", shown_title(e)).strip()
         title_font = fonts.get(title, 38, True)
         lines = _wrap(draw, _short(title, 90), title_font, inner - 48, 2)
         block = 40 + 10 + len(lines) * 48 + 40 + 38
@@ -189,7 +190,7 @@ def render(digest: Digest, path: Path) -> List[str]:
                 break
             closes = _day(e.registration_deadline).strftime("%a %-d %b").upper()
             x = MARGIN + _pill(draw, MARGIN, y, closes, fonts.get("A", 24, True), SOON_BG, SOON_FG, height=40) + 14
-            title = EMOJI.sub("", e.title).strip()
+            title = EMOJI.sub("", shown_title(e)).strip()
             title = _wrap(draw, title, fonts.get(title, 30), WIDTH - MARGIN - x, 1)[0]
             _text(draw, (x, y + 2), title, fonts.get(title, 30), TEXT, WIDTH - MARGIN - x)
             y += 54
