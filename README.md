@@ -30,7 +30,8 @@ calendar feed, a weekly digest and a shareable page per event. Clubs can submit 
   `low_signal`, kept in the data and shown with a toggle
 - **Duplicates merged**: the same event from several sources appears once, with all its links
 - **Calendar feed** (`events.ics`) for Google, Apple or Outlook calendar
-- **Weekly digest** (`digest.txt`), ready to forward to WhatsApp or Telegram
+- **Weekly digest** (`digest.txt`), ready to forward to WhatsApp or Telegram, and as an image
+  (`digest.png`, 1080×1350, English and Arabic headings) for stories and groups
 - **Share pages** (`e/<id>.html`) with Open Graph tags, so a shared link previews nicely
 - **Submissions** through a bilingual GitHub issue form (a bot validates it and opens a pull request)
   or a Google Form (imported with `import-form`)
@@ -78,10 +79,11 @@ python3 -m hackwatch.cli validate                      # strict check; exits 1 o
 # Weekly digest
 python3 -m hackwatch.cli digest --week                 # plain text
 python3 -m hackwatch.cli digest --week --format markdown
+python3 -m hackwatch.cli digest --png digest.png       # also a 1080x1350 image (English + Arabic headings)
 
 # Everything the site needs (what the deploy runs)
 python3 -m hackwatch.cli export --out docs/events.json --labels docs/labels.json \
-  --ics docs/events.ics --digest docs/digest.txt --pages docs/e
+  --ics docs/events.ics --digest docs/digest.txt --digest-png docs/digest.png --pages docs/e
 ```
 
 `add --from-url` reads the page's schema.org JSON-LD (Luma, Eventbrite, GDG, Startup Grind…), its
@@ -167,7 +169,7 @@ The `Update HackWatch Events & Deploy` workflow runs every day at 03:00 UTC, on 
    that had events on the live site but returned nothing now keeps them, marked stale, for up to 7 days.
 4. Listings of the same event are merged (same link, or a similar title within a day from another
    source); precedence is manual > Jordan sources > worldwide feeds.
-5. Exports `events.json`, `labels.json`, `events.ics`, `digest.txt` and `e/<id>.html`, and refuses
+5. Exports `events.json`, `labels.json`, `events.ics`, `digest.txt`, `digest.png` and `e/<id>.html`, and refuses
    to deploy if there are 0 events or fewer than half of what's live (run it by hand with **force**
    after an expected big drop).
 6. Deploys to Pages, then fetches the live `events.json` and `events.ics` and fails if they're
@@ -207,6 +209,7 @@ class MySourceScraper(BaseScraper):
 | `pyyaml` | YAML files |
 | `typer` | CLI |
 | `rich` | Terminal tables |
+| `Pillow` | `digest.png` (Arabic needs libraqm + FriBiDi; the deploy job installs them) |
 
 ## 📄 License
 

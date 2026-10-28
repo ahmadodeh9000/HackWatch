@@ -7,6 +7,7 @@ docs/labels.json
 docs/events.ics
 docs/status.json
 docs/digest.txt
+docs/digest.png
 docs/e/
 *.egg-info/
 dist/

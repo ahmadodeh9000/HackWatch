@@ -4,3 +4,4 @@ pyyaml>=6.0
 typer>=0.9.0
 rich>=13.0.0
 pycountry
+Pillow>=10.0   # digest.png

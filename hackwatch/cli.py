@@ -199,6 +199,13 @@ def save_manual_entry(entry: dict, yaml_file: Path) -> bool:
     return updated
 
 
+def _render_digest_png(built, path: Path) -> None:
+    from hackwatch.digestimage import render
+    for warning in render(built, path):
+        typer.echo(f"Warning: {warning}", err=True)
+    typer.echo(f"Wrote the digest image ({len(built.this_week)} events this week) to {path}")
+
+
 @app.command()
 def fetch(
     source: Optional[str] = typer.Option(None, "--source", "-s", help="Only this source from sources.yaml (runs even if disabled)"),
@@ -448,6 +455,7 @@ def digest(
     week: bool = typer.Option(True, "--week/--no-week", help="The next 7 days (the only period for now)"),
     fmt: str = typer.Option("text", "--format", "-f", help="text (WhatsApp/Telegram) or markdown"),
     out: Optional[Path] = typer.Option(None, "--out", "-o", help="Write to a file instead of printing"),
+    png: Optional[Path] = typer.Option(None, "--png", help="Also render a 1080x1350 image of it here (needs Pillow)"),
     db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database"),
 ):
     """'This week in Jordan tech': events in the next 7 days and registrations closing soon."""
@@ -458,6 +466,8 @@ def digest(
     db.init_db(conn)
     built = build_digest(db.get_events(conn, show_all=False))
     text = to_text(built) if fmt == "text" else to_markdown(built)
+    if png:
+        _render_digest_png(built, png)
     if out:
         out.write_text(text, encoding="utf-8")
         typer.echo(f"Wrote {len(built.this_week)} events this week ({len(built.closing)} closing soon) to {out}")
@@ -519,6 +529,7 @@ def export(
     labels: Optional[Path] = typer.Option(None, "--labels", help="Also write tag/type labels (for the site) to this JSON file"),
     ics: Optional[Path] = typer.Option(None, "--ics", help="Also write an iCalendar feed of Jordan events to this file"),
     digest_path: Optional[Path] = typer.Option(None, "--digest", help="Also write this week's digest (WhatsApp/Telegram text) here"),
+    digest_png: Optional[Path] = typer.Option(None, "--digest-png", help="Also render this week's digest as a 1080x1350 PNG here"),
     pages_dir: Optional[Path] = typer.Option(None, "--pages", help="Also write one shareable HTML page per event into this folder"),
     db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database"),
 ):
@@ -577,6 +588,8 @@ def export(
     if digest_path:
         digest_path.write_text(to_text(build_digest(events)), encoding="utf-8")
         typer.echo(f"Wrote this week's digest to {digest_path}")
+    if digest_png:
+        _render_digest_png(build_digest(events), digest_png)
 
     if pages_dir:
         typer.echo(f"Wrote {write_pages(events, pages_dir)} event pages to {pages_dir}/")
