@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from hackwatch.models import Event
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.registry import register
-from hackwatch.timeutil import local_date, local_time
+from hackwatch.timeutil import deadline_date, local_date, local_time
 
 LOCATION_MODES = {"physical": "in-person", "virtual": "online", "hybrid": "hybrid"}
 # Posts that report on a past activity rather than announce one. vTools has no field for
@@ -75,7 +75,6 @@ class VToolsScraper(BaseScraper):
                     continue
                 if attrs.get("cancelled") or REPORT_RE.search(attrs["title"]):
                     continue
-                tz = (attrs.get("time-zone") or {}).get("name")
                 mode = LOCATION_MODES.get(str(attrs.get("location-type") or "").lower(), "in-person")
                 # City names are typed freely ("amman", "Az Zarqa"); capitalise all-lowercase ones.
                 place = [p.strip() for p in (attrs.get("building"), attrs.get("city")) if p and p.strip()]
@@ -88,10 +87,11 @@ class VToolsScraper(BaseScraper):
                     source=self.name,
                     organizer=host.get("name"),
                     prize="N/A",
-                    registration_deadline=local_date(attrs.get("registration-end-time"), tz),
-                    start_date=local_date(attrs.get("start-time"), tz),
-                    end_date=local_date(attrs.get("end-time"), tz),
-                    # Clock times in Amman: some Jordan events are set to e.g. Europe/Istanbul.
+                    # Dates and clock times in Amman: the event's own time zone is often
+                    # wrong (Jordan events set to Europe/Istanbul or Africa/Cairo).
+                    registration_deadline=deadline_date(attrs.get("registration-end-time")),
+                    start_date=local_date(attrs.get("start-time")),
+                    end_date=local_date(attrs.get("end-time")),
                     start_time=local_time(attrs.get("start-time")),
                     end_time=local_time(attrs.get("end-time")),
                     mode=mode,

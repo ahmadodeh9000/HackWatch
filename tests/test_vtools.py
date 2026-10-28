@@ -109,3 +109,14 @@ def test_same_branch_same_day_listings_merge(replay, configured, tmp_path):
     nov1 = [e for e in events if e.start_date == "2026-11-01"]
     assert len(nov1) == 1 and len(nov1[0].urls) == 3
     assert len(events) == 10  # 12 listings, 3 of them merged into 1
+
+
+def test_registration_deadline_midnight_means_the_day_before(replay, configured):
+    by_url = {e.url: e for e in fetched(replay, configured)}
+    # registration-end-time 2026-10-20T21:00Z = 00:00 on the 21st in Amman: closes end of the 20th.
+    assert by_url["https://events.vtools.ieee.org/m/580512"].registration_deadline == "2026-10-20"
+    # 2026-11-16T21:00Z, event on the 17th: closes the day before, not on the day.
+    assert by_url["https://events.vtools.ieee.org/m/588216"].registration_deadline == "2026-11-16"
+    # 2026-11-09T19:00Z = 22:00 in Amman: that same day.
+    assert by_url["https://events.vtools.ieee.org/m/587642"].registration_deadline == "2026-11-09"
+    assert by_url["https://events.vtools.ieee.org/m/589111"].registration_deadline is None

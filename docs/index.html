@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>HackWatch - Tech & engineering events in Jordan</title>
-<meta name="description" content="Never miss a tech or engineering event in Jordan. Online events worldwide, in-person events in Jordan. Open source.">
+<meta name="description" content="Never miss a tech or engineering event in Jordan: hackathons, competitions, workshops, conferences and meetups, plus online events. Open source.">
 <meta property="og:title" content="HackWatch - Tech & engineering events in Jordan">
-<meta property="og:description" content="Tech and engineering events in Jordan, plus online events worldwide. Clubs can submit events with a short form.">
+<meta property="og:description" content="Hackathons, competitions, workshops and meetups in Jordan, plus online events. Clubs can add their events with a short form.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://ahmadodeh9000.github.io/HackWatch/">
 <meta property="og:image" content="https://ahmadodeh9000.github.io/HackWatch/og.png">
@@ -16,222 +16,284 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://ahmadodeh9000.github.io/HackWatch/og.png">
 <meta name="twitter:title" content="HackWatch - Tech & engineering events in Jordan">
-<meta name="twitter:description" content="Online events worldwide, in-person events in Jordan. Open source.">
+<meta name="twitter:description" content="Tech and engineering events in Jordan, plus online events. Open source.">
+<meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#15161c" media="(prefers-color-scheme: dark)">
 <style>
 :root{
-  --bg:#faf8f5; --surface:#ffffff; --text:#1f2430; --muted:#5d6475; --border:#e8e3db;
-  --accent:#4f46e5; --accent-ink:#ffffff; --accent-soft:#eceafe;
-  --green-bg:#dcf5e5; --green-fg:#17653a;
-  --amber-bg:#fdecc8; --amber-fg:#8a5300;
-  --blue-bg:#dbeafe; --blue-fg:#1e4fa3;
-  --gray-bg:#ebe8e2; --gray-fg:#555;
-  --shadow:0 2px 10px rgba(40,30,10,.07); --shadow-lift:0 10px 28px rgba(40,30,10,.13);
+  --bg:#faf8f5; --surface:#ffffff; --surface-2:#f3f0ea; --text:#1f2430; --muted:#555c6d; --border:#e4dfd6;
+  --accent:#4338ca; --accent-ink:#ffffff; --accent-soft:#e9e7fd;
+  --urgent-bg:#fde2e1; --urgent-fg:#8f1d1a;
+  --soon-bg:#fdecc8; --soon-fg:#7a4a00;
+  --ok-bg:#dcf5e5; --ok-fg:#145a33;
+  --info-bg:#dbeafe; --info-fg:#1e4a96;
+  --gray-bg:#ece9e3; --gray-fg:#4d5260;
+  --shadow:0 1px 2px rgba(40,30,10,.06),0 4px 14px rgba(40,30,10,.06);
   --radius:16px;
-  --src-devpost:#d9ecff; --src-devpost-fg:#1b4f8a;
-  --src-eventbrite:#ffe3d1; --src-eventbrite-fg:#9a3d0a;
-  --src-gdg:#dcf5e5; --src-gdg-fg:#17653a;
-  --src-josa:#f1e1ff; --src-josa-fg:#6b2aa0;
-  --src-manual:#fff0b8; --src-manual-fg:#7a5a00;
-  --src-ieee:#dbeafe; --src-ieee-fg:#00629b;
-  --src-ctftime:#fee2e2; --src-ctftime-fg:#991b1b;
-  --src-codeforces:#e0e7ff; --src-codeforces-fg:#3730a3;
-  --src-other:#ebe8e2; --src-other-fg:#555;
-  --mode-in-person:#fdecc8; --mode-in-person-fg:#8a5300;
-  --mode-online:#eceafe; --mode-online-fg:#4f46e5;
-  --mode-hybrid:#dcf5e5; --mode-hybrid-fg:#17653a;
   --type-hackathon:#e0f2fe; --type-hackathon-fg:#075985;
   --type-competition:#fce7f3; --type-competition-fg:#9d174d;
-  --type-other:#ebe8e2; --type-other-fg:#555;
   --type-conference:#f3e8ff; --type-conference-fg:#6b21a8;
   --type-workshop:#dcfce7; --type-workshop-fg:#166534;
-  --type-meetup:#fff7ed; --type-meetup-fg:#9a3412;
+  --type-meetup:#ffedd5; --type-meetup-fg:#9a3412;
+  --type-other:#ece9e3; --type-other-fg:#4d5260;
 }
 @media (prefers-color-scheme:dark){
   :root{
-    --bg:#15161c; --surface:#1e2029; --text:#eceef4; --muted:#a3a9ba; --border:#2c2f3b;
-    --accent:#8b85ff; --accent-ink:#12121a; --accent-soft:#2a2850;
-    --green-bg:#16402a; --green-fg:#8ee0ae;
-    --amber-bg:#4a3510; --amber-fg:#ffd27a;
-    --blue-bg:#1a3358; --blue-fg:#9cc4ff;
-    --gray-bg:#2b2e39; --gray-fg:#b5bacb;
-    --shadow:0 2px 10px rgba(0,0,0,.35); --shadow-lift:0 10px 28px rgba(0,0,0,.5);
-    --src-devpost:#183556; --src-devpost-fg:#9cc9ff;
-    --src-eventbrite:#4a2812; --src-eventbrite-fg:#ffb98a;
-    --src-gdg:#16402a; --src-gdg-fg:#8ee0ae;
-    --src-josa:#3a1f56; --src-josa-fg:#d8b2ff;
-    --src-manual:#463a10; --src-manual-fg:#ffe07a;
-    --src-ieee:#0f3550; --src-ieee-fg:#8fd0ff;
-    --src-ctftime:#4c1414; --src-ctftime-fg:#fca5a5;
-    --src-codeforces:#272a5c; --src-codeforces-fg:#c7d2fe;
-    --src-other:#2b2e39; --src-other-fg:#b5bacb;
-    --mode-in-person:#4a3510; --mode-in-person-fg:#ffd27a;
-    --mode-online:#2a2850; --mode-online-fg:#b6b2ff;
-    --mode-hybrid:#16402a; --mode-hybrid-fg:#8ee0ae;
-    --type-hackathon:#0c4a6e; --type-hackathon-fg:#7dd3fc;
-    --type-competition:#500724; --type-competition-fg:#f9a8d4;
-    --type-other:#2b2e39; --type-other-fg:#b5bacb;
-    --type-conference:#3b0764; --type-conference-fg:#d8b4fe;
-    --type-workshop:#14532d; --type-workshop-fg:#86efac;
-    --type-meetup:#431407; --type-meetup-fg:#fdba74;
+    --bg:#15161c; --surface:#1e2029; --surface-2:#262935; --text:#eceef4; --muted:#a9afbf; --border:#30333f;
+    --accent:#a5a1ff; --accent-ink:#14132b; --accent-soft:#2c2a55;
+    --urgent-bg:#4c1715; --urgent-fg:#ffb4ae;
+    --soon-bg:#4a3510; --soon-fg:#ffd27a;
+    --ok-bg:#16402a; --ok-fg:#8ee0ae;
+    --info-bg:#1a3358; --info-fg:#a8cbff;
+    --gray-bg:#2b2e39; --gray-fg:#c0c5d3;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 4px 14px rgba(0,0,0,.3);
+    --type-hackathon:#0c4a6e; --type-hackathon-fg:#9bdcfd;
+    --type-competition:#5a0b2c; --type-competition-fg:#fbb6d6;
+    --type-conference:#3b0764; --type-conference-fg:#dcc0ff;
+    --type-workshop:#14532d; --type-workshop-fg:#9af0b8;
+    --type-meetup:#4a1c09; --type-meetup-fg:#fdc394;
+    --type-other:#2b2e39; --type-other-fg:#c0c5d3;
   }
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+[hidden]{display:none!important}  /* classes like .btn set display, which would override hidden */
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans Arabic",Tahoma,Arial,sans-serif}
+[dir="rtl"] body{line-height:1.6}
 a{color:var(--accent)}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
-.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+button{font:inherit;color:inherit}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0}
+.brand{font-weight:800;font-size:1.1rem;letter-spacing:-.01em;text-decoration:none;color:var(--text)}
+.brand span{color:var(--accent)}
+.lang{border:1.5px solid var(--border);background:var(--surface);border-radius:999px;padding:6px 14px;cursor:pointer;font-weight:600;min-height:40px}
 
 /* hero */
-.hero{padding:56px 0 36px;text-align:center}
-.hero h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.1;margin:0 0 12px;letter-spacing:-.02em}
-.hero p{margin:0 auto 24px;max-width:560px;color:var(--muted);font-size:1.1rem}
-.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn{display:inline-block;padding:12px 22px;border-radius:999px;font-weight:600;text-decoration:none;border:2px solid var(--accent);cursor:pointer;font-size:1rem;font-family:inherit}
+.hero{padding:8px 0 4px}
+.hero h1{font-size:clamp(1.55rem,5.5vw,2.4rem);line-height:1.15;margin:0 0 8px;letter-spacing:-.02em}
+.hero p{margin:0 0 14px;color:var(--muted);max-width:620px}
+.hero .actions{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:10px 18px;border-radius:999px;font-weight:600;text-decoration:none;border:2px solid var(--accent);cursor:pointer;font-size:.98rem}
 .btn.primary{background:var(--accent);color:var(--accent-ink)}
-.btn.secondary{background:transparent;color:var(--accent)}
-.btn:hover{transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--accent)}
+
+/* this week */
+.week{margin:18px 0 6px}
+.week h2,.section-title{font-size:1.05rem;margin:0 0 8px}
+.strip{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 10px;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.mini{flex:none;width:220px;scroll-snap-align:start;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:10px 12px;text-decoration:none;color:var(--text);box-shadow:var(--shadow)}
+.mini .when{font-size:.82rem;font-weight:700;color:var(--accent)}
+.mini .t{font-weight:600;font-size:.95rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin:2px 0}
+.mini .w{font-size:.82rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* controls */
-.controls{position:sticky;top:0;z-index:10;background:var(--bg);padding:12px 0 8px;border-bottom:1px solid var(--border)}
-.search{width:100%;padding:14px 18px;border-radius:999px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:1rem;font-family:inherit}
+.controls{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0 6px;border-bottom:1px solid var(--border);margin-top:10px}
+.searchrow{display:flex;gap:8px}
+.search{flex:1;min-width:0;min-height:46px;padding:10px 16px;border-radius:999px;border:2px solid var(--border);background:var(--surface);color:var(--text);font-size:1rem}
 .search:focus{border-color:var(--accent);outline:none}
+.filters-btn{position:relative;flex:none;min-height:46px;padding:0 16px;border-radius:999px;border:2px solid var(--border);background:var(--surface);cursor:pointer;font-weight:600}
+.badge{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;margin-inline-start:6px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-size:.75rem;font-weight:700}
+.badge[hidden]{display:none}
 .row{display:flex;align-items:center;gap:8px;margin-top:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
-.row .label{flex:none;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);min-width:64px}
-.chip{flex:none;padding:7px 14px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-size:.92rem;font-family:inherit}
+.chip{flex:none;min-height:38px;padding:6px 13px;border-radius:999px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;font-size:.92rem;white-space:nowrap}
 .chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
-.chip .n{margin-left:4px;opacity:.7;font-variant-numeric:tabular-nums;font-weight:400}
-/* Pinned chips with no events right now stay visible and clickable, just quieter. */
-.chip.zero{opacity:.55;border-style:dashed}
+.chip .n{margin-inline-start:4px;opacity:.75;font-variant-numeric:tabular-nums;font-weight:400}
+.chip.zero{opacity:.6;border-style:dashed}
 .chip.zero[aria-pressed="true"]{opacity:1;border-style:solid}
-.state a,.state button{font:inherit;font-weight:600}
-.state .hint{display:block;margin-top:10px;font-size:.98rem}
-.linkbtn{background:none;border:none;color:var(--accent);cursor:pointer;padding:0;text-decoration:underline}
-.meta{display:flex;justify-content:space-between;align-items:center;margin:14px 0 6px;color:var(--muted);font-size:.95rem}
-.scope{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:.95rem;cursor:pointer;width:fit-content}
-.scope input{width:20px;height:20px;accent-color:var(--accent);margin:0;cursor:pointer}
-.pill.tag{background:var(--gray-bg);color:var(--gray-fg);font-weight:600}
-.subscribe{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:4px 0 0;font-size:.95rem;color:var(--muted)}
-.clear{background:none;border:none;color:var(--accent);font-weight:600;cursor:pointer;font-size:.95rem;font-family:inherit;display:none}
-.clear.show{display:inline}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:12px 0 4px;color:var(--muted);font-size:.93rem}
+.linkbtn{background:none;border:none;color:var(--accent);cursor:pointer;padding:4px 0;font-weight:600;text-decoration:underline;text-underline-offset:2px}
 
-/* cards */
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:18px;padding:12px 0 40px}
-/* min-width:0 lets a card shrink below its widest content (a long pill would otherwise
-   widen the card and make the whole page scroll sideways on phones). */
-.card{min-width:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;transition:transform .18s,box-shadow .18s}
-.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
-.top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-.card h3{margin:0;font-size:1.12rem;line-height:1.3;min-width:0;overflow-wrap:anywhere}
-.info,.org{overflow-wrap:anywhere}
-.org{margin:0;color:var(--muted);font-size:.92rem}
-/* Pills are always one line: long values (prizes, organisers) are cut with "…"; the full text is in title. */
-.pill{display:inline-block;padding:3px 11px;border-radius:999px;font-size:.78rem;font-weight:700;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}
-.pill.upcoming{background:var(--green-bg);color:var(--green-fg)}
-.pill.soon{background:var(--amber-bg);color:var(--amber-fg)}
-.pill.ongoing{background:var(--blue-bg);color:var(--blue-fg)}
-.pill.tba{background:var(--gray-bg);color:var(--gray-fg)}
-.pill.fmt{background:var(--accent-soft);color:var(--accent)}
-.pill.prize{background:var(--amber-bg);color:var(--amber-fg)}
-.pill.src{text-transform:uppercase;letter-spacing:.04em;font-size:.72rem}
-.tags{display:flex;gap:6px;flex-wrap:wrap;min-width:0}
-.tags .pill{min-width:0}
-.top .pill{flex:none;max-width:45%}
-.info{margin:0;color:var(--muted);font-size:.93rem}
-.desc{margin:0;font-size:.93rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;color:var(--text);opacity:.9}
-.card .btn{margin-top:auto;text-align:center;padding:9px 16px;font-size:.95rem}
-
-/* states */
-.state{text-align:center;padding:48px 16px;color:var(--muted);font-size:1.1rem;grid-column:1/-1}
-.state .emoji{display:block;font-size:2.4rem;margin-bottom:8px}
+/* cards: fixed, compact layout; every pill is one line */
+/* align-items:start: a card is as tall as its content, no blank space under short ones */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));align-items:start;gap:12px;padding:8px 0 32px}
+.card{min-width:0;display:flex;flex-direction:column;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;box-shadow:var(--shadow)}
+.status{align-self:flex-start;max-width:100%}
+.card h3{margin:0;font-size:1.05rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+.line{margin:0;color:var(--muted);font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pills{display:flex;gap:6px;overflow:hidden;min-width:0;height:24px}
+.pill{flex:none;display:inline-block;padding:3px 10px;border-radius:999px;font-size:.76rem;font-weight:700;line-height:18px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.pill.shrink{flex:0 1 auto;min-width:0}
+.pill.urgent{background:var(--urgent-bg);color:var(--urgent-fg)}
+.pill.soon{background:var(--soon-bg);color:var(--soon-fg)}
+.pill.ok{background:var(--ok-bg);color:var(--ok-fg)}
+.pill.info{background:var(--info-bg);color:var(--info-fg)}
+.pill.gray{background:var(--gray-bg);color:var(--gray-fg)}
+.pill.tag{flex:0 1 auto;min-width:0;background:var(--surface-2);color:var(--muted);font-weight:600}
+.card .acts{display:flex;gap:8px;padding-top:2px}
+.card .acts .btn{flex:1;min-height:40px;padding:6px 14px;font-size:.95rem}
+.card .acts .share{flex:none;width:44px;padding:0}
+.share svg{width:20px;height:20px;display:block}
+.state{grid-column:1/-1;text-align:center;padding:40px 16px;color:var(--muted);font-size:1.05rem}
+.state .emoji{display:block;font-size:2.2rem;margin-bottom:6px}
+.state .hint{display:block;margin-top:10px}
 
 /* sections */
-section.block{padding:36px 0}
-section.block h2{margin:0 0 8px;font-size:1.6rem}
-section.block>.wrap>p{color:var(--muted);margin:0 0 18px}
-.callout{background:var(--accent-soft);border-radius:var(--radius);padding:24px;border:1px solid var(--border)}
-.callout p{margin:0 0 16px}
-pre{margin:0 0 16px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;overflow-x:auto;font:.9rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--text)}
-footer{padding:32px 0 48px;text-align:center;color:var(--muted);font-size:.92rem;border-top:1px solid var(--border)}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}.card:hover,.btn:hover{transform:none}}
-@media (max-width:520px){.hero{padding:36px 0 24px}.grid{grid-template-columns:1fr}}
-/* Six filter rows would cover ~40% of a phone screen if they stayed pinned. */
-@media (max-width:720px){.controls{position:static}}
+section.block{padding:28px 0;border-top:1px solid var(--border)}
+section.block h2{margin:0 0 6px;font-size:1.35rem}
+section.block > .wrap > p{color:var(--muted);margin:0 0 16px}
+.ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.way{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:8px}
+.way h3{margin:0;font-size:1rem}
+.way p{margin:0;color:var(--muted);font-size:.93rem}
+.way .btn{margin-top:auto;align-self:flex-start}
+footer{padding:24px 0 40px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--border);text-align:center}
+
+/* filters sheet: bottom sheet on phones, side panel on wide screens */
+dialog.sheet{border:none;padding:0;background:var(--surface);color:var(--text);width:100%;max-width:100%;max-height:88vh;margin:auto 0 0;border-radius:20px 20px 0 0;box-shadow:0 -8px 30px rgba(0,0,0,.25)}
+dialog.sheet::backdrop{background:rgba(10,10,20,.45)}
+.sheet-head{position:sticky;top:0;background:var(--surface);display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border);z-index:1}
+.sheet-head h2{margin:0;font-size:1.1rem}
+.sheet-body{padding:6px 16px 16px;overflow-y:auto}
+.sheet-body h3{font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin:16px 0 6px}
+[dir="rtl"] .sheet-body h3{text-transform:none;letter-spacing:0}
+.sheet-body .row{flex-wrap:wrap;overflow:visible}
+.toggle{display:flex;align-items:center;gap:10px;min-height:44px;cursor:pointer}
+.toggle input{width:22px;height:22px;accent-color:var(--accent);margin:0}
+.sheet-foot{position:sticky;bottom:0;background:var(--surface);display:flex;gap:10px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--border)}
+.sheet-foot .btn{flex:1}
+.x{border:none;background:var(--surface-2);border-radius:999px;width:40px;height:40px;cursor:pointer;font-size:1.2rem}
+@media (min-width:900px){
+  dialog.sheet{width:420px;height:100vh;max-height:100vh;margin:0 0 0 auto;border-radius:0}
+  [dir="rtl"] dialog.sheet{margin:0 auto 0 0}
+  .controls{padding-top:14px}
+}
+@media (max-width:720px){ .controls{position:static} }
+@media (prefers-reduced-motion:no-preference){
+  .card,.mini{transition:transform .15s ease,box-shadow .15s ease}
+  .card:hover,.mini:hover{transform:translateY(-2px)}
+}
 </style>
 </head>
 <body>
-
-<header class="hero">
-  <div class="wrap">
-    <h1>Never miss a tech or engineering event in Jordan 🇯🇴</h1>
-    <p>Hackathons, competitions, conferences, workshops and meetups in Jordan, plus online events from anywhere. Updated daily.</p>
-    <div class="btns">
-      <a class="btn primary" href="#events">Browse events</a>
-      <a class="btn secondary" href="#add">Add your club's event</a>
-    </div>
+<div class="wrap">
+  <div class="top">
+    <a class="brand" href="./">Hack<span>Watch</span></a>
+    <button class="lang" id="langBtn" type="button" lang="ar">العربية</button>
   </div>
-</header>
+
+  <header class="hero">
+    <h1 data-i18n="heroTitle">Tech & engineering events in Jordan 🇯🇴</h1>
+    <p data-i18n="heroSub">Hackathons, competitions, workshops, conferences and meetups, updated daily.</p>
+    <div class="actions">
+      <a class="btn primary" href="#add" data-i18n="addCta">Add your event</a>
+      <a class="btn ghost" href="#subscribe" data-i18n="subscribeCta">📅 Subscribe</a>
+    </div>
+  </header>
+
+  <section class="week" id="week" hidden aria-labelledby="weekTitle">
+    <h2 id="weekTitle" data-i18n="thisWeek">This week</h2>
+    <div class="strip" id="strip"></div>
+  </section>
+</div>
 
 <main>
   <div class="controls">
     <div class="wrap">
-      <input id="search" class="search" type="search" placeholder="Search events, organizers, locations..." aria-label="Search events" autocomplete="off">
-      <label class="scope"><input type="checkbox" id="worldwide"> Include worldwide online events</label>
-      <label class="scope"><input type="checkbox" id="clubLife"> Show club life events (inaugurations, officer kickoffs…)</label>
-      <div class="row" id="rowType" role="group" aria-label="Filter by type"><span class="label">Type</span></div>
-      <div class="row" id="rowTag" role="group" aria-label="Filter by tag"><span class="label">Tags</span></div>
-      <div class="row" id="rowMode" role="group" aria-label="Filter by mode"><span class="label">Mode</span></div>
-      <div class="row" id="rowStatus" role="group" aria-label="Filter by status"><span class="label">Status</span></div>
-      <div class="row" id="rowSource" role="group" aria-label="Filter by source"><span class="label">Source</span></div>
+      <div class="searchrow">
+        <label class="sr" for="search" data-i18n="searchLabel">Search events</label>
+        <input id="search" class="search" type="search" autocomplete="off" data-i18n-placeholder="searchPh" placeholder="Search events, clubs, places…">
+        <button class="filters-btn" id="filtersBtn" type="button" aria-haspopup="dialog" aria-controls="sheet">
+          <span data-i18n="filters">Filters</span><span class="badge" id="activeBadge" hidden>0</span>
+        </button>
+      </div>
+      <div class="row" id="rowType" role="group" data-i18n-aria="type"></div>
     </div>
   </div>
 
   <div class="wrap" id="events">
     <div class="meta">
-      <span id="count" aria-live="polite">Loading events...</span>
-      <button id="clear" class="clear" type="button">Clear filters</button>
+      <span id="count" aria-live="polite"></span>
+      <button id="clear" class="linkbtn" type="button" hidden data-i18n="clear">Clear filters</button>
     </div>
-    <p class="subscribe">
-      <a id="subscribe" href="events.ics">📅 Subscribe in your calendar</a>
-      <span>Jordan events only · <a id="icsLink" href="events.ics">.ics link</a> for Google Calendar (“From URL”)</span>
-    </p>
     <div class="grid" id="grid"></div>
   </div>
 
   <section class="block" id="add">
     <div class="wrap">
-      <h2>Add your club's event</h2>
-      <p>Running a hackathon, competition, workshop or meetup? Fill in a short form (English or Arabic). After a quick review it appears here and in the calendar feed.</p>
-      <div class="callout">
-        <p>You'll need: the event's title, link, date(s), format (in-person, online or hybrid), city and venue, organizer and type. Dates are written like <code>2026-11-15</code>.</p>
-        <p dir="rtl" lang="ar">أضف فعالية ناديك عبر نموذج قصير بالعربية أو الإنجليزية، وستظهر هنا بعد المراجعة.</p>
-        <a class="btn primary" id="submitLink" href="#" target="_blank" rel="noopener">Submit an event</a>
+      <h2 data-i18n="addTitle">Add your event</h2>
+      <p data-i18n="addSub">Running a hackathon, workshop or meetup? Pick whichever is easiest; we review it and it shows up here and in the calendar.</p>
+      <div class="ways">
+        <div class="way" id="wayGoogle">
+          <h3 data-i18n="wayGoogle">Google Form</h3>
+          <p data-i18n="wayGoogleSub">No account needed. Takes two minutes.</p>
+          <a class="btn primary" id="googleForm" href="#" target="_blank" rel="noopener" data-i18n="openForm">Open the form</a>
+        </div>
+        <div class="way">
+          <h3 data-i18n="wayGithub">GitHub form</h3>
+          <p data-i18n="wayGithubSub">If you have a GitHub account. A bot checks it for you.</p>
+          <a class="btn ghost" id="githubForm" href="#" target="_blank" rel="noopener" data-i18n="openForm">Open the form</a>
+        </div>
+        <div class="way" id="wayInsta">
+          <h3 data-i18n="wayInsta">Send us the Instagram post</h3>
+          <p data-i18n="wayInstaSub">Already announced it? Send us the link and we'll add it.</p>
+          <a class="btn ghost" id="instaLink" href="#" target="_blank" rel="noopener" data-i18n="sendPost">Send the post</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="block" id="cli">
+  <section class="block" id="subscribe">
     <div class="wrap">
-      <h2>Prefer your terminal?</h2>
-      <p>HackWatch is open source. Run the same dashboard locally.</p>
-<pre>git clone https://github.com/ahmadodeh9000/HackWatch.git
-cd HackWatch
-pip install -r requirements.txt
-python3 hackwatch.py</pre>
+      <h2 data-i18n="subTitle">Never miss one</h2>
+      <p data-i18n="subSub">Jordan events in your calendar, or a short list every week.</p>
+      <div class="ways">
+        <div class="way">
+          <h3 data-i18n="calTitle">Calendar</h3>
+          <p data-i18n="calSub">Apple, Outlook or Google Calendar. Updates by itself.</p>
+          <a class="btn primary" id="webcal" href="events.ics" data-i18n="calBtn">📅 Subscribe</a>
+          <a class="linkbtn" id="icsLink" href="events.ics" data-i18n="calGoogle">Google Calendar: copy this link and use "From URL"</a>
+        </div>
+        <div class="way">
+          <h3 data-i18n="digestTitle">Weekly digest</h3>
+          <p data-i18n="digestSub">"This week in Jordan tech", ready to forward.</p>
+          <a class="btn ghost" id="digestChannel" href="#" target="_blank" rel="noopener" data-i18n="digestJoin">Join the channel</a>
+          <a class="linkbtn" href="digest.txt" data-i18n="digestRead">Read this week's digest</a>
+        </div>
+      </div>
     </div>
   </section>
 </main>
 
 <footer>
   <div class="wrap">
-    Open source on <a id="repoLink" href="#">GitHub</a> · <span id="updated"></span>
+    <span data-i18n="footer">Open source on</span> <a id="repoLink" href="#">GitHub</a> · <span id="updated"></span>
   </div>
 </footer>
 
+<dialog class="sheet" id="sheet" aria-labelledby="sheetTitle">
+  <div class="sheet-head">
+    <h2 id="sheetTitle" data-i18n="filters">Filters</h2>
+    <button class="x" id="sheetClose" type="button" data-i18n-aria="close" aria-label="Close">✕</button>
+  </div>
+  <div class="sheet-body">
+    <label class="toggle"><input type="checkbox" id="worldwide"> <span data-i18n="worldwide">Include worldwide online events</span></label>
+    <label class="toggle"><input type="checkbox" id="clubLife"> <span data-i18n="clubLife">Show club life events (inaugurations, officer kickoffs…)</span></label>
+    <h3 data-i18n="tags">Tags</h3><div class="row" id="rowTag" role="group"></div>
+    <h3 data-i18n="mode">Format</h3><div class="row" id="rowMode" role="group"></div>
+    <h3 data-i18n="status">Status</h3><div class="row" id="rowStatus" role="group"></div>
+    <h3 data-i18n="source">Source</h3><div class="row" id="rowSource" role="group"></div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn ghost" id="sheetReset" type="button" data-i18n="reset">Reset</button>
+    <button class="btn primary" id="sheetDone" type="button"></button>
+  </div>
+</dialog>
+
 <script>
-// GoatCounter (cookie-free page counts). Set to your site code, e.g. "hackwatch" for
-// https://hackwatch.goatcounter.com. Empty = no analytics script is loaded at all.
+// ─── Settings: fill these in when the links exist (empty = that option isn't shown) ───
+const GITHUB_USER = "ahmadodeh9000";
+const REPO = "HackWatch";
+const GOOGLE_FORM_URL = "";        // Google Form for submissions without a GitHub account
+const INSTAGRAM_POST_URL = "";     // where to send an Instagram post (e.g. an ig.me/m/... DM link)
+const DIGEST_CHANNEL_URL = "";     // WhatsApp/Telegram channel for the weekly digest
+// GoatCounter (cookie-free page counts), e.g. "hackwatch" for hackwatch.goatcounter.com.
+// Empty = no analytics script is loaded at all.
 const GOATCOUNTER_CODE = "";
+
 if (GOATCOUNTER_CODE) {
   const gc = document.createElement("script");
   gc.async = true;
@@ -240,266 +302,382 @@ if (GOATCOUNTER_CODE) {
   document.head.appendChild(gc);
 }
 
-const GITHUB_USER = "ahmadodeh9000";
-const REPO = "HackWatch";
 const REPO_URL = `https://github.com/${GITHUB_USER}/${REPO}`;
-document.getElementById("repoLink").href = REPO_URL;
-document.getElementById("submitLink").href = `${REPO_URL}/issues/new?template=event.yml`;
-
 const SITE_URL = `https://${GITHUB_USER}.github.io/${REPO}/`;
-document.getElementById("subscribe").href = SITE_URL.replace(/^https:/, "webcal:") + "events.ics";
-document.getElementById("icsLink").href = SITE_URL + "events.ics";
-
-const state = {events:[], q:"", source:"all", mode:"all", status:"all", type:"all", tag:"all", worldwide:false};
-const FILTERS = ["source","mode","status","type","tag"];
-const KNOWN_SRC = ["devpost","eventbrite","gdg","josa","ieee","ctftime","codeforces","manual"];
-const TYPES = ["hackathon","competition","conference","workshop","meetup","other"];
-const MODES = {"in-person":"📍 In-person","online":"🌐 Online","hybrid":"🔀 Hybrid"};
-let TAG_LABELS = {};
-let PINNED = {type: [], tag: []};  // from labels.json (taxonomy.yaml "pinned")
-const PREF_KEY = "hackwatch.includeWorldwide";
-const CLUB_PREF_KEY = "hackwatch.showClubLife";
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
-function parseDate(s){
-  if(!s) return null;
-  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(s));
-  return m ? new Date(+m[1], +m[2]-1, +m[3]) : null;
+// ─── Text in both languages. Arabic numbers use Latin digits (ar-JO-u-nu-latn). ───
+function arDays(n){ return n === 1 ? "يوم واحد" : n === 2 ? "يومين" : n <= 10 ? `${n} أيام` : `${n} يومًا`; }
+function enDays(n){ return `${n} day${n === 1 ? "" : "s"}`; }
+const STR = {
+  en: {
+    heroTitle: "Tech & engineering events in Jordan 🇯🇴",
+    heroSub: "Hackathons, competitions, workshops, conferences and meetups, updated daily.",
+    addCta: "Add your event", subscribeCta: "📅 Subscribe", thisWeek: "This week",
+    searchLabel: "Search events", searchPh: "Search events, clubs, places…", filters: "Filters", clear: "Clear filters",
+    type: "Type", tags: "Tags", mode: "Format", status: "Status", source: "Source", all: "All",
+    worldwide: "Include worldwide online events", clubLife: "Show club life events (inaugurations, officer kickoffs…)",
+    reset: "Reset", close: "Close", show: n => `Show ${n} event${n === 1 ? "" : "s"}`,
+    count: n => `${n} event${n === 1 ? "" : "s"}`,
+    types: {hackathon:"Hackathon", competition:"Competition", conference:"Conference", workshop:"Workshop", meetup:"Meetup", other:"Other"},
+    modes: {"in-person":"📍 In-person", online:"🌐 Online", hybrid:"🔀 Hybrid"},
+    statuses: {upcoming:"Upcoming", ongoing:"Ongoing"},
+    closesToday: "Registration closes today", closesTomorrow: "Registration closes tomorrow",
+    closesIn: n => `Registration closes in ${enDays(n)}`,
+    today: "Today", tomorrow: "Tomorrow", startsIn: n => `Starts in ${enDays(n)}`,
+    endsToday: "Ongoing · ends today", left: n => `Ongoing · ${enDays(n)} left`, tba: "Date TBA",
+    online: "Online", alsoOnline: "+ online", stale: "⚠ Not re-checked today",
+    staleHint: "This source failed in the latest update; this listing is from the previous one.",
+    view: "View event", share: "Share", by: "by",
+    noneNamed: what => `No ${what} events yet.`, noneQuery: q => `No events match “${q}”.`, noneAny: "No events match these filters.",
+    knowOne: "Know one?", addIt: "Add it →", showWorldwide: n => `Show ${n} worldwide online event${n === 1 ? "" : "s"}`,
+    addTitle: "Add your event", addSub: "Running a hackathon, workshop or meetup? Pick whichever is easiest; we review it and it shows up here and in the calendar.",
+    wayGoogle: "Google Form", wayGoogleSub: "No account needed. Takes two minutes.", openForm: "Open the form",
+    wayGithub: "GitHub form", wayGithubSub: "If you have a GitHub account. A bot checks it for you.",
+    wayInsta: "Send us the Instagram post", wayInstaSub: "Already announced it? Send us the link and we'll add it.", sendPost: "Send the post",
+    subTitle: "Never miss one", subSub: "Jordan events in your calendar, or a short list every week.",
+    calTitle: "Calendar", calSub: "Apple, Outlook or Google Calendar. Updates by itself.", calBtn: "📅 Subscribe",
+    calGoogle: "Google Calendar: copy this link and use \"From URL\"",
+    digestTitle: "Weekly digest", digestSub: "\"This week in Jordan tech\", ready to forward.", digestJoin: "Join the channel",
+    digestRead: "Read this week's digest", footer: "Open source on", updated: d => `Updated ${d}`,
+    loadError: "Couldn't load events. Refresh to try again.", langButton: "العربية",
+  },
+  ar: {
+    heroTitle: "فعاليات التقنية والهندسة في الأردن 🇯🇴",
+    heroSub: "هاكاثونات ومسابقات وورش عمل ومؤتمرات ولقاءات، تُحدَّث يوميًا.",
+    addCta: "أضف فعاليتك", subscribeCta: "📅 اشترك", thisWeek: "هذا الأسبوع",
+    searchLabel: "ابحث في الفعاليات", searchPh: "ابحث عن فعالية أو نادٍ أو مكان…", filters: "التصفية", clear: "مسح التصفية",
+    type: "النوع", tags: "الوسوم", mode: "طريقة الحضور", status: "الحالة", source: "المصدر", all: "الكل",
+    worldwide: "أظهر الفعاليات عن بُعد من حول العالم", clubLife: "أظهر فعاليات الأندية (افتتاحات، انطلاق الهيئات…)",
+    reset: "إعادة ضبط", close: "إغلاق", show: n => `عرض ${n} فعالية`,
+    count: n => `${n} فعالية`,
+    types: {hackathon:"هاكاثون", competition:"مسابقة", conference:"مؤتمر", workshop:"ورشة عمل", meetup:"لقاء", other:"أخرى"},
+    modes: {"in-person":"📍 حضوري", online:"🌐 عن بُعد", hybrid:"🔀 مدمج"},
+    statuses: {upcoming:"قادمة", ongoing:"جارية"},
+    closesToday: "يُغلق التسجيل اليوم", closesTomorrow: "يُغلق التسجيل غدًا",
+    closesIn: n => `يُغلق التسجيل بعد ${arDays(n)}`,
+    today: "اليوم", tomorrow: "غدًا", startsIn: n => `تبدأ بعد ${arDays(n)}`,
+    endsToday: "جارية · تنتهي اليوم", left: n => `جارية · يتبقى ${arDays(n)}`, tba: "الموعد يُعلن لاحقًا",
+    online: "عن بُعد", alsoOnline: "+ عن بُعد", stale: "⚠ لم يُتحقق منها اليوم",
+    staleHint: "تعذّر تحديث هذا المصدر في آخر تحديث؛ هذه البيانات من التحديث السابق.",
+    view: "تفاصيل الفعالية", share: "مشاركة", by: "من تنظيم",
+    noneNamed: what => `لا توجد فعاليات ${what} بعد.`, noneQuery: q => `لا توجد فعاليات تطابق «${q}».`, noneAny: "لا توجد فعاليات تطابق هذه التصفية.",
+    knowOne: "تعرف فعالية؟", addIt: "أضفها ←", showWorldwide: n => `عرض ${n} فعالية عن بُعد من حول العالم`,
+    addTitle: "أضف فعاليتك", addSub: "تنظّم هاكاثونًا أو ورشة أو لقاءً؟ اختر الطريقة الأسهل لك؛ نراجعها وتظهر هنا وفي التقويم.",
+    wayGoogle: "نموذج Google", wayGoogleSub: "لا تحتاج إلى حساب. يستغرق دقيقتين.", openForm: "افتح النموذج",
+    wayGithub: "نموذج GitHub", wayGithubSub: "إن كان لديك حساب GitHub. يتحقق منه بوت تلقائيًا.",
+    wayInsta: "أرسل لنا منشور إنستغرام", wayInstaSub: "أعلنتَ عنها بالفعل؟ أرسل لنا الرابط وسنضيفها.", sendPost: "أرسل المنشور",
+    subTitle: "لا تفوّت أي فعالية", subSub: "فعاليات الأردن في تقويمك، أو قائمة قصيرة كل أسبوع.",
+    calTitle: "التقويم", calSub: "تقويم Apple أو Outlook أو Google. يتحدث تلقائيًا.", calBtn: "📅 اشترك",
+    calGoogle: "تقويم Google: انسخ هذا الرابط واستخدم «من عنوان URL»",
+    digestTitle: "الملخص الأسبوعي", digestSub: "«هذا الأسبوع في التقنية بالأردن»، جاهز للمشاركة.", digestJoin: "انضم إلى القناة",
+    digestRead: "اقرأ ملخص هذا الأسبوع", footer: "مشروع مفتوح المصدر على", updated: d => `آخر تحديث ${d}`,
+    loadError: "تعذّر تحميل الفعاليات. حدّث الصفحة للمحاولة مجددًا.", langButton: "English",
+  },
+};
+
+const TYPES = ["hackathon","competition","conference","workshop","meetup","other"];
+const MODES = ["in-person","online","hybrid"];
+const FILTERS = ["type","tag","mode","status","source"];
+const PREFS = {lang:"hackwatch.lang", worldwide:"hackwatch.includeWorldwide", clubLife:"hackwatch.showClubLife"};
+let LABELS = {tags:{}, tags_ar:{}, pinned:{type:[], tag:[]}};
+
+const state = {events:[], q:"", type:"all", tag:"all", mode:"all", status:"all", source:"all",
+               worldwide:false, clubLife:false, lang:"en", updated:null};
+
+function getPref(key){ try { return localStorage.getItem(key); } catch(_) { return null; } }
+function setPref(key, value){ try { localStorage.setItem(key, value); } catch(_) { /* private mode */ } }
+
+function T(){ return STR[state.lang]; }
+function locale(){ return state.lang === "ar" ? "ar-JO-u-nu-latn" : "en-GB"; }
+function tagLabel(t){ return (state.lang === "ar" ? LABELS.tags_ar[t] : LABELS.tags[t]) || LABELS.tags[t] || t; }
+function valueLabel(key, v){
+  if (key === "type") return T().types[v] || v;
+  if (key === "tag") return tagLabel(v);
+  if (key === "mode") return T().modes[v] || v;
+  if (key === "status") return T().statuses[v] || v;
+  return v;
 }
+
+// ─── Dates ───
+function parseDate(s){ const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(s || "")); return m ? new Date(+m[1], +m[2]-1, +m[3]) : null; }
 function today(){ const n = new Date(); return new Date(n.getFullYear(), n.getMonth(), n.getDate()); }
-function dayDiff(a,b){ return Math.round((b-a)/86400000); }
-function plural(n,w){ return `${n} ${w}${n===1?"":"s"}`; }
-function isFakePrize(p){
-  if(p == null) return true;
-  const t = String(p).trim().toLowerCase();
-  return !t || ["n/a","na","-","tbd","none","null","unknown"].includes(t);
-}
+function days(a, b){ return Math.round((b - a) / 86400000); }
+function ltr(s){ return "\u2066" + s + "\u2069"; }
+function fmtDay(d){ return new Intl.DateTimeFormat(locale(), {weekday:"short", day:"numeric", month:"short"}).format(d); }
 
 function enrich(ev){
-  const t = today();
-  const s = parseDate(ev.start_date);
-  const e = parseDate(ev.end_date) || s;
-  let status, label, key, rank;
-  if(!s){ status="tba"; label="Date TBA"; key=Infinity; rank=2; }
-  else if(e < t){ return null; }
-  else if(s > t){
-    const d = dayDiff(t,s);
-    status = d < 7 ? "soon" : "upcoming";
-    label = d === 1 ? "Tomorrow" : `in ${plural(d,"day")}`;
-    key = s.getTime(); rank = 0;
-  } else {
-    const d = dayDiff(t,e);
-    status = "ongoing";
-    label = d === 0 ? "Ends today" : `Ongoing · ends in ${plural(d,"day")}`;
-    key = e.getTime(); rank = 1;
+  const t = today(), s = parseDate(ev.start_date), e = parseDate(ev.end_date) || s, dl = parseDate(ev.registration_deadline);
+  if (s && e < t) return null;
+  let status = "tba", rank = 2, key = Infinity;
+  if (s && s > t){ status = "upcoming"; rank = 0; key = s.getTime(); }
+  else if (s){ status = "ongoing"; rank = 1; key = e.getTime(); }
+  return {...ev, _s:s, _e:e, _dl: dl && dl >= t ? dl : null, _status:status, _rank:rank, _key:key};
+}
+
+// The main badge: the registration deadline when there is one, otherwise when it starts.
+function badge(ev){
+  const t = today(), S = T();
+  if (ev._dl){
+    const n = days(t, ev._dl);
+    return {cls: n <= 3 ? "urgent" : n <= 7 ? "soon" : "info", text: n === 0 ? S.closesToday : n === 1 ? S.closesTomorrow : S.closesIn(n)};
   }
-  return {...ev, _status:status, _label:label, _key:key, _rank:rank};
+  if (ev._status === "upcoming"){
+    const n = days(t, ev._s);
+    return {cls: n <= 1 ? "urgent" : n < 7 ? "soon" : "ok", text: n === 1 ? S.tomorrow : S.startsIn(n)};
+  }
+  if (ev._status === "ongoing"){
+    const n = days(t, ev._e);
+    if (days(t, ev._s) === 0 && n === 0) return {cls:"urgent", text:S.today};
+    return {cls:"info", text: n === 0 ? S.endsToday : S.left(n)};
+  }
+  return {cls:"gray", text:S.tba};
 }
 
-function fmtRange(ev){
-  const a = ev.start_date, b = ev.end_date;
-  if(!a) return "Date to be announced";
-  return b && b !== a ? `${a} → ${b}` : a;
+function whenText(ev){
+  if (!ev._s) return T().tba;
+  let txt = fmtDay(ev._s);
+  if (ev._e && ev._e.getTime() !== ev._s.getTime()) txt += " – " + fmtDay(ev._e);
+  // Times are wrapped in a left-to-right isolate so "10:00–15:30" isn't reversed in Arabic.
+  if (ev.start_time) txt += ` · ${ltr(ev.start_time + (ev.end_time && ev._e.getTime() === ev._s.getTime() ? "–" + ev.end_time : ""))}`;
+  return txt;
 }
+function whereText(ev){
+  if (ev.mode === "online") return "🌐 " + T().online;
+  const place = String(ev.location || "").replace(/, Jordan$/, "");
+  return "📍 " + (place || "—") + (ev.mode === "hybrid" ? " " + T().alsoOnline : "");
+}
+// The share icon people know on their platform: Apple's box-and-arrow, elsewhere three linked dots.
+const SHARE_ICON = /iPhone|iPad|Macintosh/.test(navigator.userAgent)
+  ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M8 7l4-4 4 4"/><path d="M8 10H6a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-9a1 1 0 0 0-1-1h-2"/></svg>'
+  : '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4" stroke="currentColor" stroke-width="2"/></svg>';
+function pageUrl(ev){ return ev.id ? `${SITE_URL}e/${ev.id}.html` : SITE_URL; }
 
-function inScope(ev){
-  return (state.worldwide || ev.scope === "jordan") && (state.clubLife || !ev.low_signal);
-}
-// Does ev have value `val` for filter row `key`?
+// ─── Filtering ───
+function inScope(ev){ return (state.worldwide || ev.scope === "jordan") && (state.clubLife || !ev.low_signal); }
 function hasValue(ev, key, val){
-  switch(key){
+  switch (key){
     case "type": return (ev.type || "other") === val;
     case "tag": return (ev.tags || []).includes(val);
     case "mode": return ev.mode === val;
     case "source": return (ev.sources || [ev.source]).includes(val);
-    case "status": return val === "upcoming" ? (ev._status === "upcoming" || ev._status === "soon") : ev._status === val;
+    case "status": return ev._status === val;
   }
   return false;
 }
-// skip: a row to ignore, so a chip's count shows what clicking it would give.
 function matches(ev, skip){
-  if(!inScope(ev)) return false;
-  for(const key of FILTERS){
-    if(key !== skip && state[key] !== "all" && !hasValue(ev, key, state[key])) return false;
-  }
-  if(state.q){
-    const hay = [ev.title, ev.organizer, ev.location, ev.description, ...(ev.tags || []).map(tagLabel)].join(" ").toLowerCase();
+  if (!inScope(ev)) return false;
+  for (const key of FILTERS) if (key !== skip && state[key] !== "all" && !hasValue(ev, key, state[key])) return false;
+  if (state.q){
+    const hay = [ev.title, ev.organizer, ev.location, ev.description, ...(ev.tags || []).flatMap(t => [LABELS.tags[t], LABELS.tags_ar[t]])].join(" ").toLowerCase();
     return state.q.split(/\s+/).filter(Boolean).every(w => hay.includes(w));
   }
   return true;
 }
+function sheetActive(){
+  return ["tag","mode","status","source"].filter(k => state[k] !== "all").length + (state.worldwide ? 1 : 0) + (state.clubLife ? 1 : 0);
+}
 
-function tagLabel(t){ return TAG_LABELS[t] || t; }
+// ─── Rendering ───
 function card(ev){
-  const src = KNOWN_SRC.includes(ev.source) ? ev.source : "other";
-  const mode = MODES[ev.mode] ? ev.mode : "in-person";
-  const type = TYPES.includes(ev.type) ? ev.type : "other";
-  const more = (ev.sources || []).length > 1 ? ` +${ev.sources.length - 1}` : "";
-  const alsoOn = ` title="${more ? "Also listed on: " + esc(ev.sources.slice(1).join(", ")) : "Source: " + esc(ev.source || "other")}"`;
-  const tags = (ev.tags || []).map(t => `<span class="pill tag" title="${esc(tagLabel(t))}">#${esc(tagLabel(t))}</span>`).join("");
-  const prize = isFakePrize(ev.prize) ? "" : `<span class="pill prize" title="${esc(ev.prize)}">🏆 ${esc(ev.prize)}</span>`;
-  const org = ev.organizer ? `<p class="org">by ${esc(ev.organizer)}</p>` : "";
-  const desc = ev.description ? `<p class="desc">${esc(ev.description)}</p>` : "";
+  const S = T(), b = badge(ev), type = TYPES.includes(ev.type) ? ev.type : "other";
+  const prize = ev.prize && !/^(n\/a|na|-|tbd|none)$/i.test(String(ev.prize).trim())
+    ? `<span class="pill soon shrink" title="${esc(ev.prize)}">🏆 ${esc(ev.prize)}</span>` : "";
+  const stale = ev.stale ? `<span class="pill gray shrink" title="${esc(S.staleHint)}">${esc(S.stale)}</span>` : "";
+  const tags = (ev.tags || []).slice(0, 3).map(t => `<span class="pill tag" title="${esc(tagLabel(t))}">#${esc(tagLabel(t))}</span>`).join("");
+  const sources = (ev.sources || [ev.source]).join(", ");
   const url = /^https?:\/\//i.test(ev.url || "") ? esc(ev.url) : "#";
   return `<article class="card">
-    <div class="top"><h3>${esc(ev.title)}</h3><span class="pill ${ev._status}" title="${esc(ev._label)}">${esc(ev._label)}</span></div>
-    ${org}
-    <div class="tags">
-      <span class="pill" style="background:var(--type-${type});color:var(--type-${type}-fg)">${esc(type)}</span>
-      <span class="pill" style="background:var(--mode-${mode});color:var(--mode-${mode}-fg)">${MODES[mode]}</span>
-      <span class="pill src" style="background:var(--src-${src});color:var(--src-${src}-fg)"${alsoOn}>${esc(ev.source || "other")}${more}</span>
-      ${prize}
-      ${ev.stale ? `<span class="pill tba" title="This source failed or returned nothing in the latest update, so this listing is from the previous update.">⚠ Not re-checked today</span>` : ""}
+    <span class="pill ${b.cls} status" title="${esc(b.text)}">${esc(b.text)}</span>
+    <h3 dir="auto" title="${esc(ev.title)}">${esc(ev.title)}</h3>
+    <p class="line" title="${esc(whenText(ev))}">📅 ${esc(whenText(ev))}</p>
+    <p class="line" dir="auto" title="${esc(whereText(ev))}">${esc(whereText(ev))}</p>
+    ${ev.organizer ? `<p class="line" dir="auto" title="${esc(S.by)} ${esc(ev.organizer)}">👥 ${esc(ev.organizer)}</p>` : ""}
+    <div class="pills">
+      <span class="pill" style="background:var(--type-${type});color:var(--type-${type}-fg)" title="${esc(sources)}">${esc(S.types[type])}</span>
+      ${prize}${stale}${tags}
     </div>
-    ${tags ? `<div class="tags">${tags}</div>` : ""}
-    <p class="info">📅 ${esc(fmtRange(ev))}</p>
-    <p class="info">${mode === "online" ? "🌐 Online" : "📍 " + esc(ev.location || "Location TBA") + (mode === "hybrid" ? " · also online" : "")}</p>
-    ${desc}
-    <a class="btn primary" href="${url}" target="_blank" rel="noopener">View event</a>
+    <div class="acts">
+      <a class="btn primary" href="${url}" target="_blank" rel="noopener">${esc(S.view)}</a>
+      <button class="btn ghost share" type="button" data-share="${esc(ev.id || "")}" aria-label="${esc(S.share)}: ${esc(ev.title)}" title="${esc(S.share)}">${SHARE_ICON}</button>
+    </div>
   </article>`;
 }
 
+function renderWeek(){
+  const t = today(), end = new Date(t); end.setDate(end.getDate() + 6);
+  const list = state.events.filter(ev => ev.scope === "jordan" && (state.clubLife || !ev.low_signal) && ev._s && ev._s >= t && ev._s <= end)
+    .sort((a, b) => a._s - b._s || String(a.start_time || "").localeCompare(String(b.start_time || "")));
+  $("week").hidden = !list.length;
+  $("strip").innerHTML = list.map(ev => {
+    const d = days(t, ev._s), when = (d === 0 ? T().today : d === 1 ? T().tomorrow : fmtDay(ev._s)) + (ev.start_time ? " · " + ltr(ev.start_time) : "");
+    const url = /^https?:\/\//i.test(ev.url || "") ? esc(ev.url) : "#";
+    return `<a class="mini" href="${url}" target="_blank" rel="noopener" title="${esc(ev.title)}">
+      <div class="when">${esc(when)}</div><div class="t" dir="auto">${esc(ev.title)}</div><div class="w" dir="auto">${esc(whereText(ev))}</div></a>`;
+  }).join("");
+}
+
 function formUrl(){
-  // GitHub issue forms prefill a field from a query parameter named after its id.
   const tag = state.tag !== "all" ? `&tags=${encodeURIComponent(state.tag)}` : "";
   return `${REPO_URL}/issues/new?template=event.yml${tag}`;
 }
-
-function emptyMessage(){
-  const what = [state.tag !== "all" ? tagLabel(state.tag) : "", state.type !== "all" ? state.type : ""]
-    .filter(Boolean).join(" ");
-  const onlyNamedFilters = FILTERS.every(k => k === "tag" || k === "type" || state[k] === "all");
-  if(state.q) return `No events match “${esc(state.q)}”${what ? ` in ${esc(what)}` : ""}.`;
-  if(what && onlyNamedFilters) return `No ${esc(what)} events yet.`;
-  return "No events match these filters.";
-}
-
 function renderEmpty(){
-  // Would the same filters find something among the worldwide events?
-  const saved = state.worldwide;
-  state.worldwide = true;
+  const S = T();
+  const named = [state.tag !== "all" ? tagLabel(state.tag) : "", state.type !== "all" ? S.types[state.type] : ""].filter(Boolean).join(" ");
+  const onlyNamed = ["mode","status","source"].every(k => state[k] === "all");
+  const msg = state.q ? S.noneQuery(esc(state.q)) : named && onlyNamed ? S.noneNamed(esc(named)) : S.noneAny;
+  const saved = state.worldwide; state.worldwide = true;
   const elsewhere = saved ? 0 : state.events.filter(e => matches(e)).length;
   state.worldwide = saved;
-  const worldwideHint = elsewhere
-    ? `<span class="hint"><button type="button" class="linkbtn" id="showWorldwide">Show ${plural(elsewhere, "worldwide online event")}</button></span>` : "";
-  $("grid").innerHTML = `<div class="state"><span class="emoji">🔍</span>${emptyMessage()}
-    <span class="hint">Know one? <a href="${formUrl()}" target="_blank" rel="noopener">Add it →</a></span>${worldwideHint}</div>`;
+  $("grid").innerHTML = `<div class="state"><span class="emoji">🔍</span>${msg}
+    <span class="hint">${esc(S.knowOne)} <a href="${formUrl()}" target="_blank" rel="noopener">${esc(S.addIt)}</a></span>
+    ${elsewhere ? `<span class="hint"><button type="button" class="linkbtn" id="showWorldwide">${esc(S.showWorldwide(elsewhere))}</button></span>` : ""}</div>`;
   const btn = $("showWorldwide");
-  if(btn) btn.addEventListener("click", () => { $("worldwide").checked = true; $("worldwide").dispatchEvent(new Event("change")); });
+  if (btn) btn.addEventListener("click", () => { state.worldwide = true; $("worldwide").checked = true; setPref(PREFS.worldwide, "1"); setup(); render(); });
 }
 
-function updateChipCounts(){
+function updateChips(){
   document.querySelectorAll(".chip").forEach(b => {
     const key = b.dataset.key, val = b.dataset.val;
     const n = state.events.filter(e => matches(e, key) && (val === "all" || hasValue(e, key, val))).length;
     b.querySelector(".n").textContent = `(${n})`;
     b.classList.toggle("zero", n === 0);
-    b.setAttribute("aria-label", `${b.dataset.label}, ${plural(n, "event")}`);
+    b.setAttribute("aria-pressed", state[key] === val);
   });
 }
 
 function render(){
   const list = state.events.filter(e => matches(e));
-  if(!list.length) renderEmpty();
-  else $("grid").innerHTML = list.map(card).join("");
-  $("count").textContent = `Showing ${plural(list.length,"event")}`;
-  const active = state.q || FILTERS.some(k => state[k] !== "all");
-  $("clear").classList.toggle("show", !!active);
-  updateChipCounts();
+  if (!list.length) renderEmpty(); else $("grid").innerHTML = list.map(card).join("");
+  $("count").textContent = T().count(list.length);
+  const active = state.q || FILTERS.some(k => state[k] !== "all") || state.worldwide || state.clubLife;
+  $("clear").hidden = !active;
+  const n = sheetActive();
+  $("activeBadge").hidden = !n; $("activeBadge").textContent = n;
+  $("sheetDone").textContent = T().show(list.length);
+  updateChips();
+  renderWeek();
 }
 
-function chips(rowId, key, options){
+function chips(rowId, key, values){
   const row = $(rowId);
-  row.querySelectorAll(".chip").forEach(n => n.remove());
-  options.forEach(([val,label]) => {
+  row.innerHTML = "";
+  row.setAttribute("aria-label", T()[key === "tag" ? "tags" : key]);
+  [["all", T().all], ...values.map(v => [v, valueLabel(key, v)])].forEach(([val, label]) => {
     const b = document.createElement("button");
     b.type = "button"; b.className = "chip";
-    b.append(label);
-    const n = document.createElement("span"); n.className = "n";
-    b.append(n);
-    b.setAttribute("aria-pressed", state[key] === val);
-    b.addEventListener("click", () => { state[key] = val; syncChips(); render(); });
     b.dataset.key = key; b.dataset.val = val; b.dataset.label = label;
+    b.append(label);
+    const n = document.createElement("span"); n.className = "n"; b.append(n);
+    b.addEventListener("click", () => { state[key] = val; render(); });
     row.appendChild(b);
   });
 }
-function syncChips(){
-  document.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", state[b.dataset.key] === b.dataset.val));
-}
 
-// Chip order is decided here (on load and when the scope changes), not on every click,
-// so chips don't jump around: pinned values first (taxonomy.yaml -> labels.json, in that
-// order, shown even with 0 events), then values that occur in scope, most events first.
+// Chip order is fixed when the data, scope or language changes (not on every click):
+// pinned values first (taxonomy.yaml -> labels.json), then the rest by count.
 function setup(){
   const pool = state.events.filter(inScope);
   const values = key => {
     const counts = new Map();
-    for(const e of pool){
-      const vals = key === "tag" ? (e.tags || []) : key === "source" ? (e.sources || [e.source])
-                 : key === "type" ? [e.type || "other"] : [e[key]];
+    for (const e of pool){
+      const vals = key === "tag" ? (e.tags || []) : key === "source" ? (e.sources || [e.source]) : key === "type" ? [e.type || "other"] : [e[key]];
       vals.forEach(v => counts.set(v, (counts.get(v) || 0) + 1));
     }
-    const pinned = PINNED[key] || [];
-    const rest = [...counts.keys()].filter(v => !pinned.includes(v))
-      .sort((a, b) => counts.get(b) - counts.get(a) || String(a).localeCompare(String(b)));
+    const pinned = (LABELS.pinned || {})[key] || [];
+    const rest = [...counts.keys()].filter(v => !pinned.includes(v)).sort((a, b) => counts.get(b) - counts.get(a) || String(a).localeCompare(String(b)));
     return [...pinned, ...rest];
   };
-  const rows = {
-    type: values("type"),
-    tag: values("tag"),
-    mode: Object.keys(MODES).filter(m => values("mode").includes(m)),
-    status: ["upcoming", "ongoing"],
-    source: values("source"),
-  };
-  for(const key of FILTERS){
-    if(state[key] !== "all" && !rows[key].includes(state[key])) state[key] = "all";
-  }
-  const cap = t => t.charAt(0).toUpperCase() + t.slice(1);
-  chips("rowType","type",[["all","All"],...rows.type.map(t => [t, cap(t)])]);
-  chips("rowTag","tag",[["all","All"],...rows.tag.map(t => [t, tagLabel(t)])]);
-  chips("rowMode","mode",[["all","All"],...rows.mode.map(m => [m, MODES[m]])]);
-  chips("rowStatus","status",[["all","All"],["upcoming","Upcoming"],["ongoing","Ongoing"]]);
-  chips("rowSource","source",[["all","All"],...rows.source.map(s => [s, s])]);
+  const rows = {type: values("type"), tag: values("tag"), mode: MODES.filter(m => values("mode").includes(m)),
+                status: ["upcoming","ongoing"], source: values("source")};
+  for (const key of FILTERS) if (state[key] !== "all" && !rows[key].includes(state[key])) state[key] = "all";
+  chips("rowType","type",rows.type); chips("rowTag","tag",rows.tag); chips("rowMode","mode",rows.mode);
+  chips("rowStatus","status",rows.status); chips("rowSource","source",rows.source);
 }
 
-function loadPref(key = PREF_KEY){ try { return localStorage.getItem(key) === "1"; } catch(_) { return false; } }
-function savePref(on, key = PREF_KEY){ try { localStorage.setItem(key, on ? "1" : "0"); } catch(_) { /* private mode etc. */ } }
-state.worldwide = loadPref();
-$("worldwide").checked = state.worldwide;
-state.clubLife = loadPref(CLUB_PREF_KEY);
-$("clubLife").checked = state.clubLife;
-$("clubLife").addEventListener("change", e => {
-  state.clubLife = e.target.checked; savePref(state.clubLife, CLUB_PREF_KEY); setup(); render();
-});
-$("worldwide").addEventListener("change", e => {
-  state.worldwide = e.target.checked; savePref(state.worldwide); setup(); render();
-});
+// ─── Language ───
+function initialLang(){
+  const fromUrl = new URLSearchParams(location.search).get("lang");
+  if (fromUrl === "ar" || fromUrl === "en") return fromUrl;
+  const saved = getPref(PREFS.lang);
+  if (saved === "ar" || saved === "en") return saved;
+  return (navigator.language || "").toLowerCase().startsWith("ar") ? "ar" : "en";
+}
+function applyLang(lang){
+  state.lang = lang;
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  const S = T();
+  document.querySelectorAll("[data-i18n]").forEach(el => { const v = S[el.dataset.i18n]; if (typeof v === "string") el.textContent = v; });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => el.placeholder = S[el.dataset.i18nPlaceholder]);
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", S[el.dataset.i18nAria]));
+  $("langBtn").textContent = S.langButton;
+  $("langBtn").lang = lang === "ar" ? "en" : "ar";
+  if (state.updated) $("updated").textContent = S.updated(new Intl.DateTimeFormat(locale(), {day:"numeric", month:"short", year:"numeric"}).format(state.updated));
+  if (state.events.length){ setup(); render(); }
+}
 
+// ─── Wiring ───
+$("repoLink").href = REPO_URL;
+$("githubForm").href = `${REPO_URL}/issues/new?template=event.yml`;
+$("webcal").href = SITE_URL.replace(/^https:/, "webcal:") + "events.ics";
+$("icsLink").href = SITE_URL + "events.ics";
+// Options without a link yet are left out entirely (no "Coming soon").
+for (const [link, hide, url] of [["googleForm","wayGoogle",GOOGLE_FORM_URL],["instaLink","wayInsta",INSTAGRAM_POST_URL],["digestChannel","digestChannel",DIGEST_CHANNEL_URL]]){
+  if (url) $(link).href = url; else $(hide).hidden = true;
+}
+$("langBtn").addEventListener("click", () => { const next = state.lang === "ar" ? "en" : "ar"; setPref(PREFS.lang, next); applyLang(next); });
 $("search").addEventListener("input", e => { state.q = e.target.value.trim().toLowerCase(); render(); });
 $("clear").addEventListener("click", () => {
-  state.q=""; FILTERS.forEach(k => state[k] = "all");
-  $("search").value=""; syncChips(); render();
+  state.q = ""; $("search").value = ""; FILTERS.forEach(k => state[k] = "all");
+  state.worldwide = state.clubLife = false; $("worldwide").checked = $("clubLife").checked = false;
+  setPref(PREFS.worldwide, "0"); setPref(PREFS.clubLife, "0"); setup(); render();
 });
+for (const [id, key] of [["worldwide","worldwide"],["clubLife","clubLife"]]){
+  $(id).addEventListener("change", e => { state[key] = e.target.checked; setPref(PREFS[key], e.target.checked ? "1" : "0"); setup(); render(); });
+}
+const sheet = $("sheet");
+$("filtersBtn").addEventListener("click", () => { if (sheet.showModal) sheet.showModal(); else sheet.setAttribute("open", ""); });
+const closeSheet = () => { if (sheet.close) sheet.close(); else sheet.removeAttribute("open"); $("filtersBtn").focus(); };
+$("sheetClose").addEventListener("click", closeSheet);
+$("sheetDone").addEventListener("click", closeSheet);
+sheet.addEventListener("click", e => { if (e.target === sheet) closeSheet(); });  // tap on the backdrop
+$("sheetReset").addEventListener("click", () => {
+  ["tag","mode","status","source"].forEach(k => state[k] = "all");
+  state.worldwide = state.clubLife = false; $("worldwide").checked = $("clubLife").checked = false;
+  setPref(PREFS.worldwide, "0"); setPref(PREFS.clubLife, "0"); setup(); render();
+});
+$("grid").addEventListener("click", async e => {
+  const btn = e.target.closest("[data-share]");
+  if (!btn) return;
+  const ev = state.events.find(x => (x.id || "") === btn.dataset.share);
+  if (!ev) return;
+  const url = pageUrl(ev), text = `${ev.title} · ${whenText(ev)}`;
+  if (navigator.share){
+    try { await navigator.share({title: ev.title, text, url}); return; } catch(err){ if (err && err.name === "AbortError") return; }
+  }
+  window.open(`https://wa.me/?text=${encodeURIComponent(text + "\n" + url)}`, "_blank", "noopener");
+});
+
+state.worldwide = getPref(PREFS.worldwide) === "1";
+state.clubLife = getPref(PREFS.clubLife) === "1";
+$("worldwide").checked = state.worldwide; $("clubLife").checked = state.clubLife;
+applyLang(initialLang());
+
 async function load(){
-  try{
+  try {
     const res = await fetch("events.json", {cache:"no-store"});
-    if(!res.ok) throw new Error(res.status);
+    if (!res.ok) throw new Error(res.status);
     const lm = res.headers.get("Last-Modified");
     const data = await res.json();
-    try {
-      const labels = await (await fetch("labels.json", {cache:"no-store"})).json();
-      TAG_LABELS = labels.tags || {};
-      PINNED = {type: [], tag: [], ...(labels.pinned || {})};
-    } catch(_) { /* labels are optional; tag ids are shown instead */ }
-    state.events = data.map(enrich).filter(Boolean)
-      .sort((a,b) => a._rank - b._rank || a._key - b._key || String(a.title).localeCompare(String(b.title)));
-    const when = lm ? new Date(lm) : new Date();
-    $("updated").textContent = "Last updated " + when.toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"});
-    setup(); render();
-  }catch(err){
+    try { LABELS = {...LABELS, ...(await (await fetch("labels.json", {cache:"no-store"})).json())}; } catch(_) { /* optional */ }
+    state.events = data.map(enrich).filter(Boolean).sort((a, b) => a._rank - b._rank || a._key - b._key || String(a.title).localeCompare(String(b.title)));
+    state.updated = lm ? new Date(lm) : new Date();
+    applyLang(state.lang);
+  } catch(err){
     $("count").textContent = "";
-    $("grid").innerHTML = `<div class="state"><span class="emoji">😕</span>Couldn't load events - refresh to try again</div>`;
+    $("grid").innerHTML = `<div class="state"><span class="emoji">😕</span>${esc(T().loadError)}</div>`;
   }
 }
 load();

@@ -63,49 +63,58 @@ types:
 tags:
   ai:
     label: AI & ML
+    label_ar: الذكاء الاصطناعي
     aliases: [ml, machine-learning, artificial-intelligence, genai]
     keywords: [ai, a.i., artificial intelligence, machine learning, deep learning, llm, genai,
                generative ai, agentic, computer vision, nlp, ذكاء اصطناعي, الذكاء الاصطناعي, تعلم الآلة]
     labels: [Machine Learning/AI]
   web:
     label: Web
+    label_ar: الويب
     aliases: [web-dev, frontend, backend]
     keywords: [web, web development, frontend, front-end, backend, back-end, full stack, full-stack,
                javascript, react, html, css, تطوير المواقع, الويب]
     labels: [Web]
   mobile:
     label: Mobile
+    label_ar: تطبيقات الجوال
     aliases: [android, ios, flutter]
     keywords: [mobile, android, ios, flutter, react native, kotlin, swift, app development, تطبيقات الموبايل, الهواتف]
     labels: [Mobile]
   cloud:
     label: Cloud & DevOps
+    label_ar: السحابة وDevOps
     aliases: [devops]
     keywords: [cloud, aws, azure, gcp, google cloud, devops, ci/cd, kubernetes, docker, serverless, الحوسبة السحابية]
     labels: [DevOps, Serverless, Google Cloud]
   security:
     label: Security
+    label_ar: الأمن السيبراني
     aliases: [cybersecurity, cyber, infosec]
     keywords: [security, cybersecurity, cyber, infosec, penetration testing, pentest, ethical hacking,
                malware, oidc, least-privilege, أمن سيبراني, الأمن السيبراني, سيبراني, امن المعلومات]
     labels: [Cybersecurity]
   ctf:
     label: CTF
+    label_ar: مسابقات CTF
     aliases: [capture-the-flag]
     keywords: [ctf, capture the flag, jeopardy ctf]
   cp:
     label: Competitive programming
+    label_ar: البرمجة التنافسية
     aliases: [competitive-programming, icpc]
     keywords: [competitive programming, icpc, acm, codeforces, leetcode, programming contest,
                coding contest, البرمجة التنافسية]
   data:
     label: Data
+    label_ar: البيانات
     aliases: [data-science, analytics]
     keywords: [data science, data analytics, data analysis, data engineering, big data, datathon,
                analytics, علم البيانات, تحليل البيانات]
     labels: [Data Analytics, Databases]
   robotics:
     label: Robotics
+    label_ar: الروبوتات
     aliases: [robot]
     # Arabic forms: robot, robots, "the robots", robotics; plus the big school/university
     # robotics competitions (World Robot Olympiad, FIRST LEGO League, VEX, RoboCup).
@@ -114,63 +123,77 @@ tags:
                روبوت, روبوتات, الروبوتات, الروبوت, روبوتكس, مسابقة روبوت, مسابقة الروبوت, أولمبياد الروبوت]
   sumo:
     label: Robot sumo
+    label_ar: روبوت السومو
     aliases: [robot-sumo]
     keywords: [sumo, robot sumo, sumobot, سومو, روبوت السومو]
   line-follower:
     label: Line follower
+    label_ar: تتبع الخط
     aliases: [line-following]
     keywords: [line follower, line-follower, line following, line tracing, line tracer,
                تتبع الخط, متتبع الخط, تتبع المسار]
   drones:
     label: Drones
+    label_ar: الطائرات المسيّرة
     aliases: [drone, uav]
     keywords: [drone, uav, quadcopter, multirotor, fpv, طائرة بدون طيار, طائرات بدون طيار,
                طائرة مسيرة, طائرات مسيرة, الطائرات المسيرة, الطائرة المسيرة, المسيرات, الدرون, درون]
   embedded:
     label: Embedded & electronics
+    label_ar: الأنظمة المدمجة والإلكترونيات
     aliases: [electronics, pcb, arduino, hardware]
     keywords: [embedded, embedded systems, electronics, pcb, arduino, raspberry pi, microcontroller,
                fpga, esp32, stm32, hardware, إلكترونيات, الكترونيات, أنظمة مدمجة, الأنظمة المدمجة,
                متحكمات دقيقة, أردوينو, اردوينو]
   iot:
     label: IoT
+    label_ar: إنترنت الأشياء
     keywords: [iot, internet of things, إنترنت الأشياء, انترنت الاشياء]
     labels: [IoT]
   game-dev:
     label: Game dev
+    label_ar: تطوير الألعاب
     aliases: [gamedev, games, game-jam]
     keywords: [game jam, game dev, game development, gamedev, gaming, games industry, unity, unreal,
                pocket gamer, تطوير الألعاب]
     labels: [Gaming]
   ar-vr:
     label: AR / VR
+    label_ar: الواقع المعزز والافتراضي
     aliases: [ar, vr, xr]
     keywords: [ar, vr, xr, augmented reality, virtual reality, mixed reality, الواقع الافتراضي, الواقع المعزز]
     labels: [AR/VR]
   blockchain:
     label: Blockchain
+    label_ar: بلوكتشين
     aliases: [web3]
     # Not "crypto": in CTFs it means cryptography.
     keywords: [blockchain, web3, cryptocurrency, ethereum, solana, smart contract, بلوكتشين]
     labels: [Blockchain]
   open-source:
     label: Open source
+    label_ar: المصادر المفتوحة
     aliases: [opensource, oss]
     keywords: [open source, open-source, foss, hacktoberfest, linux, مفتوح المصدر, المصادر المفتوحة]
   design:
     label: Design & UX
+    label_ar: التصميم وتجربة المستخدم
     aliases: [ux, ui]
     keywords: [ux, ui/ux, user experience, figma, product design, تصميم تجربة المستخدم]
     labels: [Design]
   startup:
     label: Startups
+    label_ar: الشركات الناشئة
     keywords: [startup, entrepreneurship, entrepreneur, founder, ريادة الأعمال, ريادة, شركات ناشئة]
   ieee:
     label: IEEE
+    label_ar: IEEE
     keywords: [ieee]
   gdg:
     label: GDG
+    label_ar: GDG
     keywords: [gdg, google developer group, google developer groups, devfest]
   josa:
     label: JOSA
+    label_ar: JOSA
     keywords: [josa, jordan open source association]

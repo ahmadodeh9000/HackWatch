@@ -72,4 +72,6 @@ def site_labels(path: Path = TAXONOMY_PATH) -> dict:
         if bad:
             warnings.warn(f"taxonomy.yaml pinned.{row}: unknown {', '.join(bad)}; ignored", stacklevel=2)
         pinned[row] = [v for v in values if v in known[row]]
-    return {"types": list(VALID_EVENT_TYPES), "tags": tags, "pinned": pinned}
+    tags_ar = {tag: (info or {}).get("label_ar") or tags[tag]
+               for tag, info in (taxonomy.get("tags") or {}).items()}
+    return {"types": list(VALID_EVENT_TYPES), "tags": tags, "tags_ar": tags_ar, "pinned": pinned}

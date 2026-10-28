@@ -198,3 +198,10 @@ def test_low_signal_only_looks_at_the_title():
 def test_explicit_low_signal_wins():
     assert apply_defaults(ev("Inauguration Ceremony", low_signal=False)).low_signal is False
     assert apply_defaults(ev("Hackathon", low_signal=True)).low_signal is True
+
+
+def test_every_tag_has_an_arabic_label():
+    from hackwatch.taxonomy import site_labels
+    labels = site_labels()
+    assert set(labels["tags_ar"]) == set(labels["tags"])
+    assert all(info.get("label_ar") for info in load_taxonomy()["tags"].values())

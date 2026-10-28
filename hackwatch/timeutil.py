@@ -1,5 +1,5 @@
 """Turn source timestamps into the local calendar date people will see."""
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Optional, Union
 
 try:
@@ -51,3 +51,18 @@ def local_date(value: Union[str, int, float, None], tz: Optional[str] = DEFAULT_
         if moment.tzinfo is None:
             moment = moment.replace(tzinfo=timezone.utc)
     return moment.astimezone(zone(tz)).date().isoformat()
+
+
+def deadline_date(value: Union[str, int, float, None], tz: Optional[str] = DEFAULT_TZ) -> Optional[str]:
+    """Like local_date, for a registration end: exactly midnight means 'end of the day before'.
+
+    vTools stores "registration closes 20 Oct" as 2026-10-20T21:00Z, which is 00:00 on
+    the 21st in Amman; people read that as the 20th.
+    """
+    moment = _moment(value)
+    if not moment:
+        return None
+    local = moment.astimezone(zone(tz))
+    if (local.hour, local.minute, local.second) == (0, 0, 0):
+        local -= timedelta(days=1)
+    return local.date().isoformat()
