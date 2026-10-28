@@ -44,3 +44,19 @@ def test_location_is_cleaned_when_stored(tmp_path):
     (ev,) = db.get_events(conn, show_all=True)
     assert ev.location == "Amman, Jordan"
     assert ev.title == "MCC ROBOTICS ON PROESTHICS WORKSHOP"   # stored as the source wrote it
+
+
+@pytest.mark.parametrize("location, mode, city", [
+    ("Princess Sumaya University for Technology, Amman, Jordan", "in-person", "amman"),
+    ("AlHussein Technical University (Soft Area), عمّان, Jordan", "in-person", "amman"),
+    ("Az Zarqa, Jordan", "in-person", "zarqa"),
+    ("The University of Jordan – Aqaba, Aqaba, Jordan", "in-person", "aqaba"),
+    ("Al-Balqa Applied University, Salt, Jordan", "hybrid", "salt"),
+    ("إربد", "in-person", "irbid"),
+    ("Mafraq, Jordan", "in-person", None),
+    ("Online", "online", None),
+])
+def test_city_of(location, mode, city):
+    from hackwatch.tidy import city_of
+    assert city_of(Event(title="x", url="https://x", source="manual", location=location, mode=mode,
+                         scope="jordan")) == city

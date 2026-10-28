@@ -281,6 +281,7 @@ dialog.sheet::backdrop{background:rgba(10,10,20,.45)}
   <div class="sheet-body">
     <label class="toggle"><input type="checkbox" id="worldwide"> <span data-i18n="worldwide">Include worldwide online events</span></label>
     <label class="toggle"><input type="checkbox" id="clubLife"> <span data-i18n="clubLife">Show club life events (inaugurations, officer kickoffs…)</span></label>
+    <h3 data-i18n="city">City</h3><div class="row" id="rowCity" role="group"></div>
     <h3 data-i18n="tags">Tags</h3><div class="row" id="rowTag" role="group"></div>
     <h3 data-i18n="mode">Format</h3><div class="row" id="rowMode" role="group"></div>
     <h3 data-i18n="status">Status</h3><div class="row" id="rowStatus" role="group"></div>
@@ -325,7 +326,8 @@ const STR = {
     heroSub: "Hackathons, competitions, workshops, conferences and meetups, updated daily.",
     addCta: "Add your event", subscribeCta: "📅 Subscribe", thisWeek: "This week",
     searchLabel: "Search events", searchPh: "Search events, clubs, places…", filters: "Filters", clear: "Clear filters",
-    type: "Type", tags: "Tags", mode: "Format", status: "Status", source: "Source", all: "All",
+    type: "Type", tags: "Tags", mode: "Format", status: "Status", source: "Source", all: "All", city: "City",
+    cities: {amman:"Amman", irbid:"Irbid", zarqa:"Zarqa", aqaba:"Aqaba", salt:"Salt", online:"🌐 Online"},
     worldwide: "Include worldwide online events", clubLife: "Show club life events (inaugurations, officer kickoffs…)",
     reset: "Reset", close: "Close", show: n => `Show ${n} event${n === 1 ? "" : "s"}`,
     count: n => `${n} event${n === 1 ? "" : "s"}`,
@@ -364,7 +366,8 @@ const STR = {
     heroSub: "هاكاثونات ومسابقات وورش عمل ومؤتمرات ولقاءات، تُحدَّث يوميًا.",
     addCta: "أضف فعاليتك", subscribeCta: "📅 اشترك", thisWeek: "هذا الأسبوع",
     searchLabel: "ابحث في الفعاليات", searchPh: "ابحث عن فعالية أو نادٍ أو مكان…", filters: "التصفية", clear: "مسح التصفية",
-    type: "النوع", tags: "الوسوم", mode: "طريقة الحضور", status: "الحالة", source: "المصدر", all: "الكل",
+    type: "النوع", tags: "الوسوم", mode: "طريقة الحضور", status: "الحالة", source: "المصدر", all: "الكل", city: "المدينة",
+    cities: {amman:"عمّان", irbid:"إربد", zarqa:"الزرقاء", aqaba:"العقبة", salt:"السلط", online:"🌐 عن بُعد"},
     worldwide: "أظهر الفعاليات عن بُعد من حول العالم", clubLife: "أظهر فعاليات الأندية (افتتاحات، انطلاق الهيئات…)",
     reset: "إعادة ضبط", close: "إغلاق", show: n => `عرض ${n} فعالية`,
     count: n => `${n} فعالية`,
@@ -402,11 +405,13 @@ const STR = {
 
 const TYPES = ["hackathon","competition","conference","workshop","meetup","other"];
 const MODES = ["in-person","online","hybrid"];
-const FILTERS = ["type","tag","mode","status","source"];
+const FILTERS = ["type","city","tag","mode","status","source"];
+// Fixed list (the export sets `city`, see tidy.py); "online" also covers hybrid events.
+const CITIES = ["amman","irbid","zarqa","aqaba","salt","online"];
 const PREFS = {lang:"hackwatch.lang", worldwide:"hackwatch.includeWorldwide", clubLife:"hackwatch.showClubLife"};
 let LABELS = {tags:{}, tags_ar:{}, pinned:{type:[], tag:[]}};
 
-const state = {events:[], q:"", type:"all", tag:"all", mode:"all", status:"all", source:"all",
+const state = {events:[], q:"", type:"all", city:"all", tag:"all", mode:"all", status:"all", source:"all",
                worldwide:false, clubLife:false, lang:"en", updated:null};
 
 function getPref(key){ try { return localStorage.getItem(key); } catch(_) { return null; } }
@@ -420,6 +425,7 @@ function valueLabel(key, v){
   if (key === "tag") return tagLabel(v);
   if (key === "mode") return T().modes[v] || v;
   if (key === "status") return T().statuses[v] || v;
+  if (key === "city") return T().cities[v] || v;
   return v;
 }
 
@@ -538,6 +544,7 @@ function hasValue(ev, key, val){
     case "mode": return ev.mode === val;
     case "source": return (ev.sources || [ev.source]).includes(val);
     case "status": return ev._status === val;
+    case "city": return val === "online" ? ev.mode !== "in-person" : ev.city === val;
   }
   return false;
 }
@@ -551,7 +558,7 @@ function matches(ev, skip, typeChip){
   return true;
 }
 function sheetActive(){
-  return ["tag","mode","status","source"].filter(k => state[k] !== "all").length + (state.worldwide ? 1 : 0) + (state.clubLife ? 1 : 0);
+  return ["city","tag","mode","status","source"].filter(k => state[k] !== "all").length + (state.worldwide ? 1 : 0) + (state.clubLife ? 1 : 0);
 }
 
 // ─── Rendering ───
@@ -604,7 +611,7 @@ function formUrl(){
 function renderEmpty(){
   const S = T();
   const named = [state.tag !== "all" ? tagLabel(state.tag) : "", state.type !== "all" ? S.types[state.type] : ""].filter(Boolean).join(" ");
-  const onlyNamed = ["mode","status","source"].every(k => state[k] === "all");
+  const onlyNamed = ["city","mode","status","source"].every(k => state[k] === "all");
   const msg = state.q ? S.noneQuery(esc(state.q)) : named && onlyNamed ? S.noneNamed(esc(named)) : S.noneAny;
   const saved = state.worldwide; state.worldwide = true;
   const elsewhere = saved ? 0 : state.events.filter(e => matches(e)).length;
@@ -669,10 +676,10 @@ function setup(){
     return [...pinned, ...rest];
   };
   const rows = {type: values("type"), tag: values("tag"), mode: MODES.filter(m => values("mode").includes(m)),
-                status: ["upcoming","ongoing"], source: values("source")};
+                status: ["upcoming","ongoing"], source: values("source"), city: CITIES};
   for (const key of FILTERS) if (state[key] !== "all" && !rows[key].includes(state[key])) state[key] = "all";
   chips("rowType","type",rows.type); chips("rowTag","tag",rows.tag); chips("rowMode","mode",rows.mode);
-  chips("rowStatus","status",rows.status); chips("rowSource","source",rows.source);
+  chips("rowStatus","status",rows.status); chips("rowSource","source",rows.source); chips("rowCity","city",rows.city);
 }
 
 // ─── Language ───
@@ -723,7 +730,7 @@ $("sheetClose").addEventListener("click", closeSheet);
 $("sheetDone").addEventListener("click", closeSheet);
 sheet.addEventListener("click", e => { if (e.target === sheet) closeSheet(); });  // tap on the backdrop
 $("sheetReset").addEventListener("click", () => {
-  ["tag","mode","status","source"].forEach(k => state[k] = "all");
+  ["city","tag","mode","status","source"].forEach(k => state[k] = "all");
   state.worldwide = state.clubLife = false; $("worldwide").checked = $("clubLife").checked = false;
   setPref(PREFS.worldwide, "0"); setPref(PREFS.clubLife, "0"); setup(); render();
 });

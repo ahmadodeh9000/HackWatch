@@ -115,7 +115,14 @@ the site and the CLI, and new features won't be added to it. Use the website or
 | `start_time`, `end_time` | `HH:MM`, Amman time, 24 h | Optional. Without them the event is all-day in the calendar. |
 | `registration_deadline` | `YYYY-MM-DD` | Optional; on or before the last day of the event. |
 | `low_signal` | `true` / `false` | Club life (title matches a `low_signal` keyword in `taxonomy.yaml`). Hidden on the site unless toggled, left out of the calendar feed and the digest. |
+| `cost`, `certificate`, `open_to` | `free`/`paid`; `true`/`false`; `anyone`/`students`/`members` | Optional; unknown = not shown. GDG/Startup Grind fill `cost` from the ticket price. Asked (optional) on both forms. |
 | `stale` | `true` / `false` | The source returned nothing this run, so this is the last deployed copy (dropped after 7 days). |
+
+**Export-only fields** in `events.json`: `display_title` (ALL-CAPS titles in title case, for
+display; `title` stays as the source wrote it), `city` (amman, irbid, zarqa, aqaba, salt; for the
+site's city filter), and for a weekly series (same source, title and organiser, whole weeks apart)
+`recurrence: weekly`, `sessions` and `series_until`, with the record's dates being the next session.
+Each card also gets `e/<id>.ics` for "Add to calendar".
 
 **Inference.** When a source doesn't set `type` or `tags`, they are guessed from the title, the
 source's own labels and the description, using the English and Arabic rules in

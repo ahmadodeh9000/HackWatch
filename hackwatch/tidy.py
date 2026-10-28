@@ -89,3 +89,25 @@ def display_title(title: str) -> str:
 
 def shown_title(event: Event) -> str:
     return display_title(event.title or "")
+
+
+# City filter on the site. First match in the location wins; Arabic spellings included.
+CITIES = (
+    ("amman", re.compile(r"\bamman\b|عمّان|عمان", re.I)),
+    ("irbid", re.compile(r"\birbid\b|إربد|اربد", re.I)),
+    ("zarqa", re.compile(r"\b(?:az[- ])?zarqa\b|الزرقاء", re.I)),
+    ("aqaba", re.compile(r"\baqaba\b|العقبة", re.I)),
+    ("salt", re.compile(r"\b(?:al[- ])?salt\b|السلط", re.I)),
+)
+
+
+def city_of(event: Event) -> Optional[str]:
+    """'amman' | 'irbid' | 'zarqa' | 'aqaba' | 'salt' for Jordan events held there, else None.
+
+    Online-only events have no city (the site's "Online" chip goes by mode instead).
+    """
+    if event.mode == "online" or event.scope != "jordan":
+        return None
+    text = event.location or ""
+    found = [(m.start(), name) for name, rx in CITIES for m in [rx.search(text)] if m]
+    return min(found)[1] if found else None

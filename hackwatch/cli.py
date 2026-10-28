@@ -21,7 +21,7 @@ from hackwatch.models import (
     validate_event_type, validate_mode, validate_scope,
 )
 from hackwatch.series import fix_session_ends, merge_series
-from hackwatch.tidy import shown_title
+from hackwatch.tidy import city_of, shown_title
 from hackwatch.scrapers import get_available_scrapers
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.manual import load_manual_events, load_manual_yaml, parse_manual_dates, parse_manual_item
@@ -571,6 +571,7 @@ def export(
             "end_time": ev.end_time,
             "registration_deadline": ev.registration_deadline,
             "location": ev.location,
+            "city": city_of(ev),   # for the site's city filter (tidy.py)
             "organizer": ev.organizer,
             "prize": ev.prize,
             "description": ev.description,
