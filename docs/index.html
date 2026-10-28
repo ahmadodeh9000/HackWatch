@@ -474,7 +474,13 @@ const SHARE_ICON = /iPhone|iPad|Macintosh/.test(navigator.userAgent)
 function pageUrl(ev){ return ev.id ? `${SITE_URL}e/${ev.id}.html` : SITE_URL; }
 
 // ─── Filtering ───
-function inScope(ev){ return (state.worldwide || ev.scope === "jordan") && (state.clubLife || !ev.low_signal); }
+// Online hackathons from anywhere belong under the Hackathon chip even with the worldwide
+// toggle off (Jordan has few of its own): counted in that chip, listed when it's selected.
+function inScope(ev, type = state.type){
+  if (!state.clubLife && ev.low_signal) return false;
+  if (state.worldwide || ev.scope === "jordan") return true;
+  return type === "hackathon" && (ev.type || "other") === "hackathon" && ev.mode !== "in-person";
+}
 function hasValue(ev, key, val){
   switch (key){
     case "type": return (ev.type || "other") === val;
@@ -485,8 +491,8 @@ function hasValue(ev, key, val){
   }
   return false;
 }
-function matches(ev, skip){
-  if (!inScope(ev)) return false;
+function matches(ev, skip, typeChip){
+  if (!inScope(ev, skip === "type" && typeChip !== undefined ? typeChip : state.type)) return false;
   for (const key of FILTERS) if (key !== skip && state[key] !== "all" && !hasValue(ev, key, state[key])) return false;
   if (state.q){
     const hay = [ev.title, ev.organizer, ev.location, ev.description, ...(ev.tags || []).flatMap(t => [LABELS.tags[t], LABELS.tags_ar[t]])].join(" ").toLowerCase();
@@ -559,7 +565,7 @@ function renderEmpty(){
 function updateChips(){
   document.querySelectorAll(".chip").forEach(b => {
     const key = b.dataset.key, val = b.dataset.val;
-    const n = state.events.filter(e => matches(e, key) && (val === "all" || hasValue(e, key, val))).length;
+    const n = state.events.filter(e => matches(e, key, key === "type" ? val : undefined) && (val === "all" || hasValue(e, key, val))).length;
     b.querySelector(".n").textContent = `(${n})`;
     b.classList.toggle("zero", n === 0);
     b.setAttribute("aria-pressed", state[key] === val);
@@ -597,7 +603,7 @@ function chips(rowId, key, values){
 // Chip order is fixed when the data, scope or language changes (not on every click):
 // pinned values first (taxonomy.yaml -> labels.json), then the rest by count.
 function setup(){
-  const pool = state.events.filter(inScope);
+  const pool = state.events.filter(e => inScope(e));
   const values = key => {
     const counts = new Map();
     for (const e of pool){
