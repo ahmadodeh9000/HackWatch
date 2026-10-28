@@ -54,6 +54,9 @@ def init_db(conn: sqlite3.Connection) -> None:
                 stale INTEGER NOT NULL DEFAULT 0,
                 low_signal INTEGER NOT NULL DEFAULT 0,
                 stale_since TEXT,
+                cost TEXT,
+                certificate INTEGER,
+                open_to TEXT,
                 first_seen_run_id INTEGER,
                 created_at TEXT DEFAULT CURRENT_TIMESTAMP,
                 updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
@@ -114,6 +117,9 @@ def migrate(conn: sqlite3.Connection) -> None:
     for col in ("start_time", "end_time"):
         if col not in existing_cols:
             conn.execute(f"ALTER TABLE events ADD COLUMN {col} TEXT;")
+    for col, kind in (("cost", "TEXT"), ("certificate", "INTEGER"), ("open_to", "TEXT")):
+        if col not in existing_cols:
+            conn.execute(f"ALTER TABLE events ADD COLUMN {col} {kind};")
 
     had_observations = conn.execute(
         "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'observations'").fetchone()
@@ -140,7 +146,8 @@ def get_latest_fetch_run_id(conn: sqlite3.Connection) -> Optional[int]:
 
 STORED_FIELDS = ("title", "url", "source", "organizer", "prize", "registration_deadline",
                  "start_date", "end_date", "start_time", "end_time", "location", "country", "mode", "description",
-                 "type", "tags", "scope", "stale", "stale_since", "host_key", "low_signal")
+                 "type", "tags", "scope", "stale", "stale_since", "host_key", "low_signal",
+                 "cost", "certificate", "open_to")
 
 
 def _prepare(event: Event) -> Event:
@@ -206,11 +213,13 @@ def rebuild_events(conn: sqlite3.Connection) -> int:
                 INSERT INTO events (
                     id, title, url, source, organizer, prize, registration_deadline, start_date,
                     end_date, start_time, end_time, location, country, is_online, mode, tags, scope, description, type,
-                    sources, urls, stale, stale_since, low_signal, first_seen_run_id, created_at, updated_at
+                    sources, urls, stale, stale_since, low_signal, cost, certificate, open_to,
+                    first_seen_run_id, created_at, updated_at
                 ) VALUES (
                     :id, :title, :url, :source, :organizer, :prize, :registration_deadline, :start_date,
                     :end_date, :start_time, :end_time, :location, :country, :is_online, :mode, :tags, :scope, :description, :type,
-                    :sources, :urls, :stale, :stale_since, :low_signal, :first_seen_run_id, :created_at, :updated_at
+                    :sources, :urls, :stale, :stale_since, :low_signal, :cost, :certificate, :open_to,
+                    :first_seen_run_id, :created_at, :updated_at
                 )
             """, {
                 **{f: getattr(ev, f) for f in STORED_FIELDS},
@@ -222,6 +231,7 @@ def rebuild_events(conn: sqlite3.Connection) -> int:
                 "urls": json.dumps(ev.urls),
                 "stale": 1 if ev.stale else 0,
                 "low_signal": 1 if ev.low_signal else 0,
+                "certificate": None if ev.certificate is None else int(ev.certificate),
                 "first_seen_run_id": ev.first_seen_run_id,
                 "created_at": ev.created_at,
                 "updated_at": ev.updated_at,
@@ -327,6 +337,9 @@ def _row_to_event(row: sqlite3.Row) -> Event:
         stale=bool(row["stale"]) if "stale" in keys else False,
         stale_since=row["stale_since"] if "stale_since" in keys else None,
         low_signal=bool(row["low_signal"]) if "low_signal" in keys else False,
+        cost=row["cost"] if "cost" in keys else None,
+        certificate=None if "certificate" not in keys or row["certificate"] is None else bool(row["certificate"]),
+        open_to=row["open_to"] if "open_to" in keys else None,
         created_at=row["created_at"],
         updated_at=row["updated_at"],
         first_seen_run_id=row["first_seen_run_id"],

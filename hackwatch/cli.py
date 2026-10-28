@@ -133,7 +133,8 @@ def apply_source_defaults(event: Event, scraper: BaseScraper) -> None:
 
 def make_manual_entry(title, url, dates, location, organizer, event_type,
                       mode=None, tags=None, scope=None, start_time=None, end_time=None,
-                      registration_deadline=None, description=None) -> dict:
+                      registration_deadline=None, description=None, cost=None, certificate=None,
+                      open_to=None) -> dict:
     """Build a manual_events.yaml entry, raising ValueError on bad input.
 
     Optional fields are only written when given, to keep the YAML short. The entry is
@@ -164,6 +165,12 @@ def make_manual_entry(title, url, dates, location, organizer, event_type,
             entry[key] = value.strip()
     if (description or "").strip():
         entry["description"] = " ".join(description.split())
+    if (cost or "").strip():
+        entry["cost"] = cost.strip().lower()
+    if certificate is not None:
+        entry["certificate"] = bool(certificate)
+    if (open_to or "").strip():
+        entry["open_to"] = open_to.strip().lower()
     parse_manual_item(entry)  # same checks as the import (times, deadline vs. dates...)
     return entry
 
@@ -276,6 +283,9 @@ def add(
     end_time: Optional[str] = typer.Option(None, "--end-time", help="End time in Amman, 24 h"),
     deadline: Optional[str] = typer.Option(None, "--deadline", help="Registration deadline (YYYY-MM-DD)"),
     description: Optional[str] = typer.Option(None, "--description", help="A few sentences about the event"),
+    cost: Optional[str] = typer.Option(None, "--cost", help="free | paid"),
+    certificate: Optional[bool] = typer.Option(None, "--certificate/--no-certificate", help="Attendees get a certificate"),
+    open_to: Optional[str] = typer.Option(None, "--open-to", help="anyone | students | members"),
     from_url: Optional[str] = typer.Option(None, "--from-url", help="Pre-fill from the event page (JSON-LD, calendar link, Open Graph, Google Form)"),
     yes: bool = typer.Option(False, "--yes", "-y", help="With --from-url: don't prompt, use what was found"),
     dry_run: bool = typer.Option(False, "--dry-run", help="Print the entry instead of saving it"),
@@ -330,7 +340,7 @@ def add(
 
     try:
         entry = make_manual_entry(title, url, dates, location, organizer, event_type, mode, tags, scope,
-                                  start_time, end_time, deadline, description)
+                                  start_time, end_time, deadline, description, cost, certificate, open_to)
     except ValueError as exc:
         typer.echo(f"Error: {exc}")
         raise typer.Exit(code=1)
@@ -571,6 +581,10 @@ def export(
             "urls": ev.urls,
             "stale": ev.stale,
             "low_signal": bool(ev.low_signal),
+            # Optional facts (None = unknown; the site shows nothing then).
+            "cost": ev.cost,
+            "certificate": ev.certificate,
+            "open_to": ev.open_to,
             "stale_since": ev.stale_since,
             "is_online": ev.is_online,  # legacy, = mode != "in-person"; kept for the current site
             # Weekly series (series.py): this record is the next session; all upcoming ones here.

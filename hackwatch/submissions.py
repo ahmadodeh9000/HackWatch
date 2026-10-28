@@ -26,7 +26,14 @@ LABELS = {
     "event type": "type",
     "tags": "tags",
     "description": "description",
+    "cost": "cost",
+    "certificate": "certificate",
+    "open to": "open_to",
 }
+# Answers to the optional dropdowns ("Free / مجاني"); "Not sure" or no answer = unknown.
+COSTS = {"free": "free", "paid": "paid"}
+CERTIFICATE = {"yes": True, "no": False}
+OPEN_TO = {"anyone": "anyone", "students": "students", "members": "members"}
 NO_RESPONSE = "_No response_"
 MAX_LEN = {"title": 200, "url": 500, "location": 200, "organizer": 200, "tags": 300, "description": 2000}
 
@@ -48,6 +55,12 @@ def parse_issue_form(body: str) -> Dict[str, str]:
 def first_word(choice: str) -> str:
     """'In-person / حضوري' -> 'in-person'."""
     return choice.split(" / ")[0].strip().lower()
+
+
+def _choice(answer) -> str:
+    """'Students / الطلاب' or 'Students only' -> 'students'."""
+    words = first_word(answer or "").split()
+    return words[0] if words else ""
 
 
 def build_entry(fields: Dict[str, str]) -> dict:
@@ -79,6 +92,9 @@ def build_entry(fields: Dict[str, str]) -> dict:
         start_time=fields.get("start_time", "") or None,
         end_time=fields.get("end_time", "") or None,
         registration_deadline=fields.get("registration_deadline", "") or None,
+        cost=COSTS.get(_choice(fields.get("cost"))),
+        certificate=CERTIFICATE.get(_choice(fields.get("certificate"))),
+        open_to=OPEN_TO.get(_choice(fields.get("open_to"))),
     )
     if not re.match(r"^https?://", entry["url"]):
         raise ValueError("event link must start with http:// or https://")

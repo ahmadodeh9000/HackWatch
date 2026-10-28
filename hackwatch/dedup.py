@@ -102,7 +102,7 @@ def group_duplicates(events: List[Event]) -> List[List[Event]]:
 
 
 MERGED_FIELDS = ("organizer", "prize", "registration_deadline", "start_date", "end_date", "start_time", "end_time",
-                 "location", "country", "description")
+                 "location", "country", "description", "cost", "open_to")
 
 
 def merge(group: List[Event]) -> Event:
@@ -123,6 +123,8 @@ def merge(group: List[Event]) -> Event:
         merged.tags += [t for t in e.tags if t not in merged.tags]
     merged.stale = all(e.stale for e in ordered)  # one fresh listing is enough
     merged.low_signal = all(e.low_signal for e in ordered)
+    if merged.certificate is None:  # False is an answer too, so not in MERGED_FIELDS
+        merged.certificate = next((e.certificate for e in ordered if e.certificate is not None), None)
     merged.stale_since = min((e.stale_since for e in ordered if e.stale_since), default=None) if merged.stale else None
     merged.sources = list(dict.fromkeys(e.source for e in ordered))
     merged.urls = list(dict.fromkeys(e.url for e in ordered))

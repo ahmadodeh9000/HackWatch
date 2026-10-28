@@ -57,6 +57,23 @@ def validate_time(value, field: str = "time") -> str:
 
 
 VALID_SCOPES = ("jordan", "worldwide")
+# Optional facts for people deciding whether to go; None = unknown (nothing is shown).
+VALID_COSTS = ("free", "paid")
+VALID_OPEN_TO = ("anyone", "students", "members")
+
+
+def validate_cost(value) -> Optional[str]:
+    v = str(value).strip().lower()
+    if v not in VALID_COSTS:
+        raise ValueError(f"cost must be one of {', '.join(VALID_COSTS)}, got {value!r}")
+    return v
+
+
+def validate_open_to(value) -> Optional[str]:
+    v = str(value).strip().lower()
+    if v not in VALID_OPEN_TO:
+        raise ValueError(f"open_to must be one of {', '.join(VALID_OPEN_TO)}, got {value!r}")
+    return v
 
 
 def validate_scope(value: str) -> str:
@@ -113,6 +130,10 @@ class Event:
     # Who listed it, when a source can tell (IEEE: the student branch number). Two
     # same-day listings from one source with the same host_key may be merged (dedup.py).
     host_key: Optional[str] = None
+    # free | paid; True/False = gives a certificate; anyone | students | members. None = unknown.
+    cost: Optional[str] = None
+    certificate: Optional[bool] = None
+    open_to: Optional[str] = None
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
     first_seen_run_id: Optional[int] = None
@@ -131,6 +152,8 @@ class Event:
         self.tags = normalize_tags(self.tags)
         if self.scope is not None:
             self.scope = validate_scope(self.scope)
+        self.cost = validate_cost(self.cost) if self.cost else None
+        self.open_to = validate_open_to(self.open_to) if self.open_to else None
         if not self.country:
             self.country = to_iso2(self.location)
         self.url = clean_url(self.url)

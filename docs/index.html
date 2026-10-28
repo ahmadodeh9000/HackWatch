@@ -122,6 +122,7 @@ button{font:inherit;color:inherit}
 .pill.ok{background:var(--ok-bg);color:var(--ok-fg)}
 .pill.info{background:var(--info-bg);color:var(--info-fg)}
 .pill.gray{background:var(--gray-bg);color:var(--gray-fg)}
+.pill.fact{background:var(--surface-2);color:var(--text);font-weight:600}
 .pill.tag{flex:0 1 auto;min-width:0;background:var(--surface-2);color:var(--muted);font-weight:600}
 .card .acts{display:flex;gap:8px;padding-top:2px}
 .card .acts .btn{flex:1;min-height:40px;padding:6px 14px;font-size:.95rem}
@@ -341,6 +342,10 @@ const STR = {
     staleHint: "This source failed in the latest update; this listing is from the previous one.",
     view: "View event", share: "Share", by: "by",
     addCal: "Add to calendar", googleCal: "Google Calendar", icsFile: "Apple / Outlook (.ics)",
+    facts: {free: "🎟\u00a0Free", paid: "🎟\u00a0Paid", certificate: "📜\u00a0Certificate",
+            anyone: "🌍\u00a0Open to all", students: "🎓\u00a0Students", members: "🔒\u00a0Members"},
+    factHints: {free: "Free to attend", paid: "Paid ticket", certificate: "Attendees get a certificate",
+                anyone: "Open to anyone", students: "For students", members: "For members only"},
     noneNamed: what => `No ${what} events yet.`, noneQuery: q => `No events match “${q}”.`, noneAny: "No events match these filters.",
     knowOne: "Know one?", addIt: "Add it →", showWorldwide: n => `Show ${n} worldwide online event${n === 1 ? "" : "s"}`,
     addTitle: "Add your event", addSub: "Running a hackathon, workshop or meetup? Pick whichever is easiest; we review it and it shows up here and in the calendar.",
@@ -376,6 +381,10 @@ const STR = {
     staleHint: "تعذّر تحديث هذا المصدر في آخر تحديث؛ هذه البيانات من التحديث السابق.",
     view: "تفاصيل الفعالية", share: "مشاركة", by: "من تنظيم",
     addCal: "أضف إلى التقويم", googleCal: "تقويم Google", icsFile: "Apple / Outlook ‏(.ics)",
+    facts: {free: "🎟\u00a0مجاني", paid: "🎟\u00a0مدفوع", certificate: "📜\u00a0شهادة",
+            anyone: "🌍\u00a0للجميع", students: "🎓\u00a0للطلاب", members: "🔒\u00a0للأعضاء"},
+    factHints: {free: "الحضور مجاني", paid: "بتذكرة مدفوعة", certificate: "يحصل الحضور على شهادة",
+                anyone: "مفتوحة للجميع", students: "للطلاب", members: "للأعضاء فقط"},
     noneNamed: what => `لا توجد فعاليات ${what} بعد.`, noneQuery: q => `لا توجد فعاليات تطابق «${q}».`, noneAny: "لا توجد فعاليات تطابق هذه التصفية.",
     knowOne: "تعرف فعالية؟", addIt: "أضفها ←", showWorldwide: n => `عرض ${n} فعالية عن بُعد من حول العالم`,
     addTitle: "أضف فعاليتك", addSub: "تنظّم هاكاثونًا أو ورشة أو لقاءً؟ اختر الطريقة الأسهل لك؛ نراجعها وتظهر هنا وفي التقويم.",
@@ -553,6 +562,9 @@ function card(ev){
   const stale = ev.stale ? `<span class="pill gray shrink" title="${esc(S.staleHint)}">${esc(S.stale)}</span>` : "";
   const tags = (ev.tags || []).slice(0, 3).map(t => `<span class="pill tag" title="${esc(tagLabel(t))}">#${esc(tagLabel(t))}</span>`).join("");
   const sources = (ev.sources || [ev.source]).join(", ");
+  // Cost, certificate, open_to: shown only when known (a missing certificate isn't shown either).
+  const facts = [ev.cost, ev.certificate === true ? "certificate" : null, ev.open_to].filter(k => k && S.facts[k])
+    .map(k => `<span class="pill fact" title="${esc(S.factHints[k])}">${esc(S.facts[k])}</span>`).join("");
   const url = /^https?:\/\//i.test(ev.url || "") ? esc(ev.url) : "#";
   return `<article class="card">
     <span class="pill ${b.cls} status" title="${esc(b.text)}">${esc(b.text)}</span>
@@ -562,7 +574,7 @@ function card(ev){
     ${ev.organizer ? `<p class="line" dir="auto" title="${esc(S.by)} ${esc(ev.organizer)}">👥 ${esc(ev.organizer)}</p>` : ""}
     <div class="pills">
       <span class="pill" style="background:var(--type-${type});color:var(--type-${type}-fg)" title="${esc(sources)}">${esc(S.types[type])}</span>
-      ${prize}${stale}${tags}
+      ${facts}${prize}${stale}${tags}
     </div>
     <div class="acts">
       <a class="btn primary" href="${url}" target="_blank" rel="noopener">${esc(S.view)}</a>

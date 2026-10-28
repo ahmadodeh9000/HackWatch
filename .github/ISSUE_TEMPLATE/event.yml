@@ -113,6 +113,40 @@ body:
       placeholder: "robotics, sumo, ieee"
     validations:
       required: false
+  - type: dropdown
+    id: cost
+    attributes:
+      label: "Cost / التكلفة"
+      description: "Optional / اختياري"
+      options:
+        - "Free / مجاني"
+        - "Paid / مدفوع"
+        - "Not sure / غير متأكد"
+    validations:
+      required: false
+  - type: dropdown
+    id: certificate
+    attributes:
+      label: "Certificate / شهادة"
+      description: "Do attendees get a certificate? Optional / هل يحصل الحضور على شهادة؟ اختياري"
+      options:
+        - "Yes / نعم"
+        - "No / لا"
+        - "Not sure / غير متأكد"
+    validations:
+      required: false
+  - type: dropdown
+    id: open_to
+    attributes:
+      label: "Open to / الفعالية مفتوحة لـ"
+      description: "Optional / اختياري"
+      options:
+        - "Anyone / الجميع"
+        - "Students / الطلاب"
+        - "Members / الأعضاء"
+        - "Not sure / غير متأكد"
+    validations:
+      required: false
   - type: textarea
     id: description
     attributes:

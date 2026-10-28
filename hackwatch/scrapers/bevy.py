@@ -71,6 +71,14 @@ def parse_event_page(html: str) -> Optional[dict]:
     return {"event": event, "tags": [str(t) for t in tags], "audience": audience.group(1) if audience else None}
 
 
+def _cost(price) -> Optional[str]:
+    """Bevy ticket price: 0 (an RSVP) = free, more = paid, missing = unknown."""
+    try:
+        return None if price is None or price == "" else ("free" if float(price) == 0 else "paid")
+    except (TypeError, ValueError):
+        return None
+
+
 def _location(event: dict, mode: str) -> str:
     if mode == "online":
         return "Online"
@@ -132,6 +140,7 @@ class BevyScraper(BaseScraper):
         if deadline and start_date and deadline >= start_date:
             deadline = None
         return Event(
+            cost=_cost(offers.get("price")),
             title=" ".join(str(ev.get("name") or "").split()),
             url=url,
             source=self.name,

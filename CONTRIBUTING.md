@@ -37,6 +37,9 @@ You can also edit `manual_events.yaml` directly in a pull request; the PR check 
   start_time: "09:00"                  # optional, Amman time, 24 h
   end_time: "17:00"                    # optional
   registration_deadline: 2026-11-10    # optional, must be on or before the last day
+  cost: free                           # optional: free | paid
+  certificate: true                    # optional: true | false
+  open_to: students                    # optional: anyone | students | members
   description: Optional, a few sentences.
 ```
 
@@ -65,6 +68,9 @@ be changed). Mark the first three and Format, Organizer and Event type as requir
 | 11 | `Event type / نوع الفعالية` | Multiple choice | Options exactly: `Hackathon / هاكاثون`, `Competition / مسابقة`, `Conference / مؤتمر`, `Workshop / ورشة عمل`, `Meetup / لقاء`, `Other / أخرى` |
 | 12 | `Tags / الوسوم` | Checkboxes | Options (labels from `taxonomy.yaml`): AI & ML, Web, Mobile, Cloud & DevOps, Security, CTF, Competitive programming, Data, Robotics, Robot sumo, Line follower, Drones, Embedded & electronics, IoT, Game dev, AR / VR, Blockchain, Open source, Design & UX, Startups, IEEE, GDG, JOSA |
 | 13 | `Description / الوصف` | Paragraph | Optional |
+| 13a | `Cost / التكلفة` | Multiple choice | Optional; options `Free / مجاني`, `Paid / مدفوع`, `Not sure / غير متأكد` |
+| 13b | `Certificate / شهادة` | Multiple choice | Optional; `Yes / نعم`, `No / لا`, `Not sure / غير متأكد` |
+| 13c | `Open to / الفعالية مفتوحة لـ` | Multiple choice | Optional; `Anyone / الجميع`, `Students / الطلاب`, `Members / الأعضاء`, `Not sure / غير متأكد` |
 | 14 | `Your email (optional) / بريدك الإلكتروني (اختياري)` | Short answer | Optional; never copied into the YAML |
 
 Don't turn on "Collect email addresses" unless you want to; the importer ignores any

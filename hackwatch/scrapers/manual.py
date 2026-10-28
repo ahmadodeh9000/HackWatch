@@ -6,7 +6,8 @@ from pathlib import Path
 from typing import List, Optional, Tuple
 import yaml
 
-from hackwatch.models import Event, validate_event_type, validate_mode, validate_scope, validate_time
+from hackwatch.models import (Event, validate_cost, validate_event_type, validate_mode, validate_open_to,
+                              validate_scope, validate_time)
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.registry import register
 from hackwatch.taxonomy import normalize_tags
@@ -128,6 +129,9 @@ def parse_manual_item(item: dict) -> Event:
         scope=validate_scope(item["scope"]) if item.get("scope") else None,
         description=item.get("description"),
         type=validate_event_type(item["type"], strict=True) if item.get("type") else None,
+        cost=validate_cost(item["cost"]) if item.get("cost") else None,
+        certificate=_bool_field(item, "certificate"),
+        open_to=validate_open_to(item["open_to"]) if item.get("open_to") else None,
     )
 
 
