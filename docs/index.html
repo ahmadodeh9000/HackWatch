@@ -17,6 +17,7 @@
 <meta name="twitter:image" content="https://ahmadodeh9000.github.io/HackWatch/og.png">
 <meta name="twitter:title" content="HackWatch - Tech & engineering events in Jordan">
 <meta name="twitter:description" content="Tech and engineering events in Jordan, plus online events. Open source.">
+<link rel="alternate" type="application/atom+xml" title="HackWatch: new tech events in Jordan" href="feed.xml">
 <meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#15161c" media="(prefers-color-scheme: dark)">
 <style>
@@ -284,6 +285,7 @@ dialog.sheet::backdrop{background:rgba(10,10,20,.45)}
           <p data-i18n="digestSub">"This week in Jordan tech", ready to forward.</p>
           <a class="btn ghost" id="digestChannel" href="#" target="_blank" rel="noopener" data-i18n="digestJoin">Join the channel</a>
           <a class="linkbtn" href="digest.txt" data-i18n="digestRead">Read this week's digest</a>
+          <a class="linkbtn" href="feed.xml" data-i18n="feedLink">New events as a feed (RSS/Atom)</a>
           <a class="linkbtn" href="digest.png" target="_blank" rel="noopener" data-i18n="digestImage">This week as an image (for stories and groups)</a>
         </div>
       </div>
@@ -391,7 +393,7 @@ const STR = {
     calTitle: "Calendar", calSub: "Apple, Outlook or Google Calendar. Updates by itself.", calBtn: "📅 Subscribe",
     calGoogle: "Google Calendar: copy this link and use \"From URL\"",
     digestTitle: "Weekly digest", digestSub: "\"This week in Jordan tech\", ready to forward.", digestJoin: "Join the channel",
-    digestRead: "Read this week's digest", digestImage: "This week as an image (for stories and groups)", footer: "Open source on", updated: d => `Updated ${d}`,
+    feedLink: "New events as a feed (RSS/Atom)", digestRead: "Read this week's digest", digestImage: "This week as an image (for stories and groups)", footer: "Open source on", updated: d => `Updated ${d}`,
     loadError: "Couldn't load events. Refresh to try again.", langButton: "العربية",
   },
   ar: {
@@ -440,7 +442,7 @@ const STR = {
     calTitle: "التقويم", calSub: "تقويم Apple أو Outlook أو Google. يتحدث تلقائيًا.", calBtn: "📅 اشترك",
     calGoogle: "تقويم Google: انسخ هذا الرابط واستخدم «من عنوان URL»",
     digestTitle: "الملخص الأسبوعي", digestSub: "«هذا الأسبوع في التقنية بالأردن»، جاهز للمشاركة.", digestJoin: "انضم إلى القناة",
-    digestRead: "اقرأ ملخص هذا الأسبوع", digestImage: "ملخص الأسبوع كصورة (للقصص والمجموعات)", footer: "مشروع مفتوح المصدر على", updated: d => `آخر تحديث ${d}`,
+    feedLink: "الفعاليات الجديدة كخلاصة (RSS/Atom)", digestRead: "اقرأ ملخص هذا الأسبوع", digestImage: "ملخص الأسبوع كصورة (للقصص والمجموعات)", footer: "مشروع مفتوح المصدر على", updated: d => `آخر تحديث ${d}`,
     loadError: "تعذّر تحميل الفعاليات. حدّث الصفحة للمحاولة مجددًا.", langButton: "English",
   },
 };

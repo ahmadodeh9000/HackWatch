@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ahmadodeh9000.github.io/HackWatch/sitemap.xml

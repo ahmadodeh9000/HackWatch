@@ -8,6 +8,8 @@ docs/events.ics
 docs/status.json
 docs/digest.txt
 docs/digest.png
+docs/sitemap.xml
+docs/feed.xml
 docs/e/
 *.egg-info/
 dist/

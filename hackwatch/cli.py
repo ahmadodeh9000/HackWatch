@@ -10,6 +10,7 @@ import yaml
 from hackwatch import db
 from hackwatch.carryover import MIN_PREVIOUS_EVENTS, carry_over, load_json, load_previous
 from hackwatch.digest import build_digest, to_markdown, to_text
+from hackwatch.feeds import build_feed, build_sitemap, first_seen_dates
 from hackwatch.formimport import import_csv
 from hackwatch.fromurl import extract_from_url, suggest
 from hackwatch.pages import write_calendar_files, write_pages
@@ -552,6 +553,9 @@ def export(
     ics: Optional[Path] = typer.Option(None, "--ics", help="Also write an iCalendar feed of Jordan events to this file"),
     digest_path: Optional[Path] = typer.Option(None, "--digest", help="Also write this week's digest (WhatsApp/Telegram text) here"),
     digest_png: Optional[Path] = typer.Option(None, "--digest-png", help="Also render this week's digest as a 1080x1350 PNG here"),
+    sitemap: Optional[Path] = typer.Option(None, "--sitemap", help="Also write sitemap.xml (site + share pages) here"),
+    feed_path: Optional[Path] = typer.Option(None, "--feed", help="Also write an Atom feed of new Jordan events here"),
+    previous: Optional[str] = typer.Option(None, "--previous", help="URL or path of the last deployed events.json, to keep each event's first_seen date"),
     pages_dir: Optional[Path] = typer.Option(None, "--pages", help="Also write one shareable HTML page per event into this folder"),
     db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database"),
 ):
@@ -566,6 +570,8 @@ def export(
               if (e.end_date or e.start_date or "9999")[:10] >= today.isoformat()]
 
     items = merge_series(events, today)
+    # CI starts from an empty database, so "new" is only known by comparing with the last deploy.
+    first_seen = first_seen_dates(load_json(previous)) if previous else {}
     records = [
         {
             "id": ev.id,
@@ -592,6 +598,7 @@ def export(
             "urls": ev.urls,
             "stale": ev.stale,
             "low_signal": bool(ev.low_signal),
+            "first_seen": first_seen.get(ev.id, today.isoformat()),
             # Optional facts (None = unknown; the site shows nothing then).
             "cost": ev.cost,
             "certificate": ev.certificate,
@@ -628,6 +635,13 @@ def export(
         typer.echo(f"Wrote this week's digest to {digest_path}")
     if digest_png:
         _render_digest_png(build_digest(events), digest_png)
+
+    if sitemap:
+        sitemap.write_text(build_sitemap([item["event"] for item in items]), encoding="utf-8")
+        typer.echo(f"Wrote the sitemap to {sitemap}")
+    if feed_path:
+        feed_path.write_text(build_feed([item["event"] for item in items], first_seen), encoding="utf-8")
+        typer.echo(f"Wrote the feed to {feed_path}")
 
     if pages_dir:
         typer.echo(f"Wrote {write_pages(events, pages_dir)} event pages to {pages_dir}/")

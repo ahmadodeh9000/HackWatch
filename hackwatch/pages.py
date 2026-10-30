@@ -12,6 +12,7 @@ from typing import Iterable
 
 from hackwatch.digest import SITE_URL, event_page_url
 from hackwatch.models import Event
+from hackwatch.feeds import jsonld_script
 from hackwatch.ics import build_calendar
 from hackwatch.tidy import shown_title
 
@@ -85,6 +86,7 @@ p.desc{{margin:16px 0;overflow-wrap:anywhere}}
 .back{{display:inline-block;margin-top:20px;color:var(--accent)}}
 :focus-visible{{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}}
 </style>
+{jsonld_script(e, site)}
 {analytics}
 </head>
 <body>
