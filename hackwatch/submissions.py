@@ -29,6 +29,11 @@ LABELS = {
     "cost": "cost",
     "certificate": "certificate",
     "open to": "open_to",
+    # The "Connect your club's calendar" form (calendar.yml)
+    "club or organization": "calendar_name",
+    "calendar link": "calendar_url",
+    "city": "calendar_city",
+    "public page": "calendar_page",
 }
 # Answers to the optional dropdowns ("Free / مجاني"); "Not sure" or no answer = unknown.
 COSTS = {"free": "free", "paid": "paid"}

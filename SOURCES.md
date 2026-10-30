@@ -28,6 +28,7 @@ block datacenter IPs.
 | IEEE (vTools) | jordan | Public vTools Events API v8, filtered client-side to section R80079 | ~5 | 14 | 14 | See [IEEE vTools](#ieee-vtools) below; same-branch same-day posts are merged (14 → 11). Pages of 200, 60 s apart (robots.txt Crawl-delay 60). |
 | CTFtime | worldwide | Public API `ctftime.org/api/v1/events/`, next 60 days | 1 | 36 | 27 | The 9 dropped are on-site CTFs abroad (Italy, India, Canada, Riyadh...). Tags fixed to ctf + security. The free-text prize field is reduced to an amount ("$900", "€1,500+") or left empty; the full text goes into the description. |
 | Codeforces | worldwide | API `contest.list`, next 30 days | 1 | 6 | 6 | Div. 1/2/3 and Educational rounds only (configurable). Fixture keeps upcoming + 5 finished of ~2000 contests. |
+| Clubs (`ics` scraper) | jordan | Public iCal feeds listed in [`calendars.yaml`](calendars.yaml) | 1 per calendar | 0 | 0 | None connected yet. Weekly repeats are expanded; other repeat rules list their first date. |
 | Manual | jordan | `manual_events.yaml` | 0 | 1 | 1 | Community/club submissions. Invalid entries are skipped with an error; `hackwatch.cli validate` is strict. |
 
 Live export on 2026-10-26 after Phases 2–3: 28 events (before IEEE/CTFtime/Codeforces).

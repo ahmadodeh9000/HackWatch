@@ -143,6 +143,12 @@ button{font:inherit;color:inherit}
 section.block{padding:28px 0;border-top:1px solid var(--border)}
 section.block h2{margin:0 0 6px;font-size:1.35rem}
 section.block > .wrap > p{color:var(--muted);margin:0 0 16px}
+.steps{margin:0;padding-inline-start:20px;color:var(--muted);font-size:.93rem}
+.steps li{margin:4px 0}
+.connect{margin-top:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.connect h3{margin:0 0 6px;font-size:1rem}
+.connect p{margin:0 0 8px;color:var(--muted);font-size:.93rem}
+.connect .btn{margin-top:10px}
 .ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
 .way{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;display:flex;flex-direction:column;gap:8px}
 .way h3{margin:0;font-size:1rem}
@@ -240,6 +246,24 @@ dialog.sheet::backdrop{background:rgba(10,10,20,.45)}
           <p data-i18n="wayInstaSub">Already announced it? Send us the link and we'll add it.</p>
           <a class="btn ghost" id="instaLink" href="#" target="_blank" rel="noopener" data-i18n="sendPost">Send the post</a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="connect">
+    <div class="wrap">
+      <h2 data-i18n="connectTitle">Connect your club's calendar</h2>
+      <p data-i18n="connectSub">Already keep a Google Calendar? Connect it once and every new event appears here within a day, with no forms.</p>
+      <div class="connect">
+        <h3 data-i18n="connectHow">Get your calendar's public link</h3>
+        <ol class="steps">
+          <li data-i18n="connect1">On a computer, open Google Calendar and go to Settings (the gear icon).</li>
+          <li data-i18n="connect2">Under "Settings for my calendars", choose your club's calendar.</li>
+          <li data-i18n="connect3">In "Access permissions", tick "Make available to public".</li>
+          <li data-i18n="connect4">In "Integrate calendar", copy "Public address in iCal format" (it ends in .ics).</li>
+          <li data-i18n="connect5">Send it to us with the form. We check it once, then it updates by itself.</li>
+        </ol>
+        <a class="btn primary" id="calendarForm" href="#" target="_blank" rel="noopener" data-i18n="connectBtn">Connect a calendar</a>
       </div>
     </div>
   </section>
@@ -354,6 +378,15 @@ const STR = {
     wayGoogle: "Google Form", wayGoogleSub: "No account needed. Takes two minutes.", openForm: "Open the form",
     wayGithub: "GitHub form", wayGithubSub: "If you have a GitHub account. A bot checks it for you.",
     wayInsta: "Send us the Instagram post", wayInstaSub: "Already announced it? Send us the link and we'll add it.", sendPost: "Send the post",
+    connectTitle: "Connect your club's calendar",
+    connectSub: "Already keep a Google Calendar? Connect it once and every new event appears here within a day, with no forms.",
+    connectHow: "Get your calendar's public link",
+    connect1: "On a computer, open Google Calendar and go to Settings (the gear icon).",
+    connect2: "Under \"Settings for my calendars\", choose your club's calendar.",
+    connect3: "In \"Access permissions\", tick \"Make available to public\".",
+    connect4: "In \"Integrate calendar\", copy \"Public address in iCal format\" (it ends in .ics).",
+    connect5: "Send it to us with the form. We check it once, then it updates by itself.",
+    connectBtn: "Connect a calendar",
     subTitle: "Never miss one", subSub: "Jordan events in your calendar, or a short list every week.",
     calTitle: "Calendar", calSub: "Apple, Outlook or Google Calendar. Updates by itself.", calBtn: "📅 Subscribe",
     calGoogle: "Google Calendar: copy this link and use \"From URL\"",
@@ -394,6 +427,15 @@ const STR = {
     wayGoogle: "نموذج Google", wayGoogleSub: "لا تحتاج إلى حساب. يستغرق دقيقتين.", openForm: "افتح النموذج",
     wayGithub: "نموذج GitHub", wayGithubSub: "إن كان لديك حساب GitHub. يتحقق منه بوت تلقائيًا.",
     wayInsta: "أرسل لنا منشور إنستغرام", wayInstaSub: "أعلنتَ عنها بالفعل؟ أرسل لنا الرابط وسنضيفها.", sendPost: "أرسل المنشور",
+    connectTitle: "اربط تقويم ناديك",
+    connectSub: "لديكم تقويم Google؟ اربطوه مرة واحدة وستظهر كل فعالية جديدة هنا خلال يوم، دون تعبئة نماذج.",
+    connectHow: "احصل على الرابط العام لتقويمك",
+    connect1: "من جهاز كمبيوتر، افتح تقويم Google ثم الإعدادات (رمز الترس).",
+    connect2: "ضمن «إعدادات تقاويمي»، اختر تقويم ناديك.",
+    connect3: "في «أذونات الوصول»، فعّل «إتاحة للجميع».",
+    connect4: "في «دمج التقويم»، انسخ «العنوان العام بتنسيق iCal» (ينتهي بـ ‎.ics).",
+    connect5: "أرسله إلينا عبر النموذج. نراجعه مرة واحدة، ثم يتحدّث تلقائيًا.",
+    connectBtn: "اربط تقويمًا",
     subTitle: "لا تفوّت أي فعالية", subSub: "فعاليات الأردن في تقويمك، أو قائمة قصيرة كل أسبوع.",
     calTitle: "التقويم", calSub: "تقويم Apple أو Outlook أو Google. يتحدث تلقائيًا.", calBtn: "📅 اشترك",
     calGoogle: "تقويم Google: انسخ هذا الرابط واستخدم «من عنوان URL»",
@@ -710,6 +752,7 @@ function applyLang(lang){
 // ─── Wiring ───
 $("repoLink").href = REPO_URL;
 $("githubForm").href = `${REPO_URL}/issues/new?template=event.yml`;
+$("calendarForm").href = `${REPO_URL}/issues/new?template=calendar.yml`;
 $("webcal").href = SITE_URL.replace(/^https:/, "webcal:") + "events.ics";
 $("icsLink").href = SITE_URL + "events.ics";
 // Options without a link yet are left out entirely (no "Coming soon").

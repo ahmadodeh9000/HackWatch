@@ -21,7 +21,7 @@ def test_registry_has_all_scrapers():
 
 def test_repo_sources_yaml_builds_every_source():
     scrapers = {s.name: s for s in get_available_scrapers(include_disabled=True)}
-    assert set(scrapers) == {"devpost", "eventbrite", "gdg", "startupgrind", "josa", "gju", "ieee", "ctftime",
+    assert set(scrapers) == {"devpost", "eventbrite", "gdg", "startupgrind", "josa", "gju", "ieee", "clubs", "ctftime",
                              "codeforces", "manual"}
     assert scrapers["ieee"].section_spoids == {"R80079"}
     assert scrapers["devpost"].default_scope == "worldwide" and scrapers["devpost"].default_type == "hackathon"

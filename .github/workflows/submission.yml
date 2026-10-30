@@ -72,7 +72,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -B "$branch"
-          git add manual_events.yaml
+          git add manual_events.yaml calendars.yaml
           git commit -F "$OUT/commit-msg.txt"
           # Re-approving after an edit updates the same branch/PR.
           git push --force origin "$branch"

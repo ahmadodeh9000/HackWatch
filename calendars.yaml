@@ -1,0 +1,7 @@
+# Clubs' public calendars, read every day by the `clubs` source. Most are added by the bot after
+# a maintainer approves a "Connect your club's calendar" issue; see CONTRIBUTING.md.
+#
+# - name: IEEE Example Student Branch     # shown as the organizer
+#   url: https://calendar.google.com/calendar/ical/.../public/basic.ics
+#   city: Amman                           # optional, used when an event has no location of its own
+#   page: https://example.com/events      # optional, where cards link when an event has no link

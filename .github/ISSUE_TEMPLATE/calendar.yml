@@ -1,0 +1,44 @@
+name: "Connect your club's calendar / اربط تقويم ناديك"
+description: "Publish your club's events on HackWatch automatically from a public calendar. / انشر فعاليات ناديك تلقائياً من تقويم عام."
+title: "[Calendar] "
+labels: ["calendar submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Once connected, new events in your calendar appear on HackWatch within a day.
+        **To get the link in Google Calendar:** Settings → pick your calendar → *Access permissions*: tick "Make available to public" → *Integrate calendar*: copy "Public address in iCal format".
+
+        بعد الربط، تظهر الفعاليات الجديدة في تقويمك على HackWatch خلال يوم.
+        **للحصول على الرابط من تقويم Google:** الإعدادات ← اختر التقويم ← *أذونات الوصول*: فعّل «إتاحة للجميع» ← *دمج التقويم*: انسخ «العنوان العام بتنسيق iCal».
+  - type: input
+    id: name
+    attributes:
+      label: "Club or organization / النادي أو الجهة"
+      description: "Shown as the organizer of its events. / يظهر كجهة منظمة للفعاليات."
+      placeholder: "IEEE Student Branch, Example University"
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: "Calendar link / رابط التقويم"
+      description: "The public iCal address, starting with https:// and usually ending in .ics. / العنوان العام بتنسيق iCal."
+      placeholder: "https://calendar.google.com/calendar/ical/.../public/basic.ics"
+    validations:
+      required: true
+  - type: input
+    id: city
+    attributes:
+      label: "City / المدينة"
+      description: "Optional: used when an event has no location. / اختياري: يُستخدم إذا لم يكن للفعالية مكان."
+      placeholder: "Amman"
+    validations:
+      required: false
+  - type: input
+    id: page
+    attributes:
+      label: "Public page / الصفحة العامة"
+      description: "Optional: where people find details if an event has no link. / اختياري: حيث يجد الناس التفاصيل إذا لم يكن للفعالية رابط."
+    validations:
+      required: false

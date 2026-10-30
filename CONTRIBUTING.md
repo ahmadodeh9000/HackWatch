@@ -104,6 +104,29 @@ ceremonies, awareness days) are flagged `low_signal`: they stay in the data but 
 them unless "Show club life events" is on, and they're left out of the calendar feed and the
 weekly digest. The keywords are under `low_signal:` in [`taxonomy.yaml`](taxonomy.yaml).
 
+### Connect your club's calendar
+
+If your club keeps a public calendar, connect it once: new events show up within a day, without
+a form each time. (The events are published without further review, so a maintainer checks the
+calendar really is the club's before connecting it.)
+
+1. On a computer, open [Google Calendar](https://calendar.google.com) → Settings (gear icon).
+2. Under "Settings for my calendars", choose your club's calendar.
+3. In "Access permissions", tick "Make available to public".
+4. In "Integrate calendar", copy "Public address in iCal format" (it ends in `.ics`).
+5. Send it with the **[Connect your club's calendar](https://github.com/ahmadodeh9000/HackWatch/issues/new?template=calendar.yml)** form.
+
+**اربط تقويم ناديك.** إذا كان لناديكم تقويم عام، فاربطوه مرة واحدة وستظهر الفعاليات الجديدة خلال يوم، دون تعبئة نموذج كل مرة.
+
+1. من جهاز كمبيوتر، افتح [تقويم Google](https://calendar.google.com) ثم الإعدادات (رمز الترس).
+2. ضمن «إعدادات تقاويمي»، اختر تقويم ناديك.
+3. في «أذونات الوصول»، فعّل «إتاحة للجميع».
+4. في «دمج التقويم»، انسخ «العنوان العام بتنسيق iCal» (ينتهي بـ `.ics`).
+5. أرسله عبر نموذج **[اربط تقويم ناديك](https://github.com/ahmadodeh9000/HackWatch/issues/new?template=calendar.yml)**.
+
+Any public iCal link works (Outlook, Apple, a university's calendar). Maintainers: approving the
+issue checks the link is a real calendar and opens a PR adding it to [`calendars.yaml`](calendars.yaml).
+
 ### Site settings (maintainers)
 
 The top of the script in `docs/index.html` has the links that don't exist yet. Leave one

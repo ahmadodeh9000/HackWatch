@@ -122,6 +122,14 @@ sources:
       # Regular rated rounds only; remove to include every contest.
       include: ['\bDiv\. ?[123]\b', '^Educational Codeforces Round']
 
+  - name: clubs
+    scraper: ics
+    enabled: true
+    scope: jordan
+    may_be_empty: true   # no calendars connected yet
+    options:
+      calendars_path: calendars.yaml
+
   - name: manual
     enabled: true
     scope: jordan

@@ -13,11 +13,15 @@ import subprocess
 import sys
 from pathlib import Path
 
+import requests
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from hackwatch import submissions  # noqa: E402
 from hackwatch.submissions import build_entry, parse_issue_form  # noqa: E402,F401
+from hackwatch.scrapers.base import DEFAULT_USER_AGENT  # noqa: E402
+from hackwatch.scrapers.ics import load_calendars, parse_ics, validate_calendar  # noqa: E402
+from hackwatch.urls import normalize_url  # noqa: E402
 
 
 
@@ -25,9 +29,40 @@ def append_entry(yaml_path: Path, entry: dict, issue_number: str) -> None:
     submissions.append_entry(yaml_path, entry, f"Submitted in issue #{issue_number}")
 
 
+def add_calendar(fields: dict, path: Path, out_dir: Path, number: str, repo: str) -> None:
+    """A calendar issue: check the link really is a calendar, append it. ValueError if not."""
+    entry = {"name": fields.get("calendar_name", "").strip(), "url": fields.get("calendar_url", "").strip()}
+    for key, field in (("city", "calendar_city"), ("page", "calendar_page")):
+        if fields.get(field, "").strip():
+            entry[key] = fields[field].strip()
+    validate_calendar(entry)
+    if normalize_url(entry["url"]) in {normalize_url(c["url"]) for c in load_calendars(path)}:
+        raise ValueError("this calendar is already connected")
+    try:
+        resp = requests.get(entry["url"], timeout=30, headers={"User-Agent": DEFAULT_USER_AGENT})
+        resp.raise_for_status()
+    except requests.RequestException as exc:
+        raise ValueError(f"couldn't read the calendar link ({type(exc).__name__}); is the calendar public?")
+    if "BEGIN:VCALENDAR" not in resp.text[:2000]:
+        raise ValueError("that link isn't an iCal calendar; use the link ending in .ics")
+    submissions.append_entry(path, entry, f"Submitted in issue #{number}")
+    name = entry["name"]
+    (out_dir / "pr-title.txt").write_text(f"Connect calendar: {name}"[:240], encoding="utf-8")
+    (out_dir / "commit-msg.txt").write_text(f"Connect calendar: {name}\n\nFrom issue #{number}.\n", encoding="utf-8")
+    (out_dir / "pr-body.md").write_text(
+        f"Connects the calendar submitted in #{number} (`calendars.yaml`). It holds "
+        f"{len(parse_ics(resp.text))} events in total.\n\n"
+        f"```yaml\n{yaml.safe_dump([entry], sort_keys=False, allow_unicode=True, width=100)}```\n\n"
+        f"Check it's really that club's calendar before merging: its events go on the site without further review.\n\n"
+        f"Closes #{number}\n" + (f"\nIssue: https://github.com/{repo}/issues/{number}\n" if repo else ""),
+        encoding="utf-8")
+    print(f"Added calendar {name!r} from issue #{number}")
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--yaml", type=Path, default=Path("manual_events.yaml"))
+    parser.add_argument("--calendars", type=Path, default=Path("calendars.yaml"))
     parser.add_argument("--out-dir", type=Path, required=True)
     args = parser.parse_args(argv)
     args.out_dir.mkdir(parents=True, exist_ok=True)
@@ -47,8 +82,15 @@ def main(argv=None) -> int:
         print(problems, file=sys.stderr)
         return 1
 
+    fields = parse_issue_form(os.environ.get("ISSUE_BODY", ""))
+    if "calendar_url" in fields:
+        try:
+            add_calendar(fields, args.calendars, args.out_dir, number, repo)
+        except ValueError as exc:
+            return fail(str(exc))
+        return 0
     try:
-        entry = build_entry(parse_issue_form(os.environ.get("ISSUE_BODY", "")))
+        entry = build_entry(fields)
     except ValueError as exc:
         return fail(str(exc))
 
