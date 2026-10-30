@@ -127,6 +127,15 @@ calendar really is the club's before connecting it.)
 Any public iCal link works (Outlook, Apple, a university's calendar). Maintainers: approving the
 issue checks the link is a real calendar and opens a PR adding it to [`calendars.yaml`](calendars.yaml).
 
+### Bot PRs and the held PR check (maintainers)
+
+GitHub holds the `PR check` run on PRs from `github-actions[bot]` (shown as `action_required`).
+It's cosmetic: `main` has no required checks, and the `hackwatch/validate` status shows the real result.
+
+The first bot PR needs "Approve and run workflows" once; after one bot PR is merged, GitHub should
+stop holding them. If it doesn't, switch the submission workflow to a fine-grained PAT scoped to
+this repo (contents + pull-requests write).
+
 ### The candidate list (maintainers)
 
 Every day `hackwatch discover` looks at the pages in [`discovery.yaml`](discovery.yaml) (respecting
