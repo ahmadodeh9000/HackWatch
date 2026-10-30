@@ -703,7 +703,7 @@ function applyLang(lang){
   document.querySelectorAll("[data-i18n-aria]").forEach(el => el.setAttribute("aria-label", S[el.dataset.i18nAria]));
   $("langBtn").textContent = S.langButton;
   $("langBtn").lang = lang === "ar" ? "en" : "ar";
-  if (state.updated) $("updated").textContent = S.updated(new Intl.DateTimeFormat(locale(), {day:"numeric", month:"short", year:"numeric"}).format(state.updated));
+  if (state.updated) $("updated").textContent = S.updated(new Intl.DateTimeFormat(locale(), {day:"numeric", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit", hourCycle:"h23", timeZone:"Asia/Amman"}).format(state.updated));
   if (state.events.length){ setup(); render(); }
 }
 
@@ -763,10 +763,12 @@ async function load(){
     const res = await fetch("events.json", {cache:"no-store"});
     if (!res.ok) throw new Error(res.status);
     const lm = res.headers.get("Last-Modified");
+    let generated = null;
+    try { generated = (await (await fetch("status.json", {cache:"no-store"})).json()).generated_at; } catch(_) { /* falls back to the file date */ }
     const data = await res.json();
     try { LABELS = {...LABELS, ...(await (await fetch("labels.json", {cache:"no-store"})).json())}; } catch(_) { /* optional */ }
     state.events = data.map(enrich).filter(Boolean).sort(byListOrder);
-    state.updated = lm ? new Date(lm) : new Date();
+    state.updated = generated ? new Date(generated) : lm ? new Date(lm) : null;
     applyLang(state.lang);
   } catch(err){
     $("count").textContent = "";

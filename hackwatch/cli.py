@@ -13,7 +13,7 @@ from hackwatch.digest import build_digest, to_markdown, to_text
 from hackwatch.formimport import import_csv
 from hackwatch.fromurl import extract_from_url, suggest
 from hackwatch.pages import write_calendar_files, write_pages
-from hackwatch.health import STATUS_URL, ZERO_RUNS_FOR_ISSUE, DryRunIssues, GitHubIssues, sync_issues, update_streaks
+from hackwatch.health import sync_freshness, STATUS_URL, ZERO_RUNS_FOR_ISSUE, DryRunIssues, GitHubIssues, sync_issues, update_streaks
 from hackwatch.ics import build_calendar, calendar_events
 from hackwatch.infer import apply_defaults
 from hackwatch.models import (
@@ -433,6 +433,16 @@ def health(
     actions = sync_issues(current, api, threshold=threshold, run_url=run_url, log=typer.echo)
     if not actions:
         typer.echo("No source issues to open or close.")
+
+
+@app.command()
+def freshness(
+    status_url: str = typer.Option(STATUS_URL, "--status", help="URL or path of the deployed status.json"),
+):
+    """Open/update a "Site not updating" issue if the last deploy is over 36 hours old."""
+    token, repo = os.environ.get("GITHUB_TOKEN"), os.environ.get("GITHUB_REPOSITORY")
+    api = GitHubIssues(repo, token) if token and repo else DryRunIssues(typer.echo)
+    sync_freshness(load_json(status_url), api, log=typer.echo)
 
 
 @app.command(name="import-form")

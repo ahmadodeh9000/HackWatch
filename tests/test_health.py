@@ -94,3 +94,53 @@ def test_health_command_writes_streaks_and_dry_runs_without_token(tmp_path, monk
     assert "opened #(dry run) Source down: ieee" in result.output
     written = {r["source"]: r["zero_streak"] for r in json.loads(status.read_text())["sources"]}
     assert written == {"ieee": 2, "manual": 0}
+
+
+class FreshnessIssues:
+    def __init__(self, open_issue=None):
+        self.open_issue, self.calls = open_issue, []
+
+    def find_open(self, title):
+        assert title == "Site not updating"
+        return self.open_issue
+
+    def create(self, title, body):
+        self.calls.append(("create", body))
+        return {"number": 9}
+
+    def update(self, number, body):
+        self.calls.append(("update", number))
+
+    def comment(self, number, body):
+        self.calls.append(("comment", number))
+
+    def close(self, number):
+        self.calls.append(("close", number))
+
+
+def _freshness(generated_at, open_issue=None):
+    from datetime import datetime, timezone
+    from hackwatch.health import sync_freshness
+    api = FreshnessIssues(open_issue)
+    status = {"generated_at": generated_at} if generated_at else None
+    result = sync_freshness(status, api, now=datetime(2026, 10, 30, 12, tzinfo=timezone.utc), log=lambda m: None)
+    return result, api.calls
+
+
+def test_freshness_quiet_when_recent():
+    assert _freshness("2026-10-29T09:20:09+00:00") == ("fresh", [])
+
+
+def test_freshness_opens_issue_after_36_hours():
+    result, calls = _freshness("2026-10-28T23:00:00+00:00")
+    assert result == "opened" and calls[0][0] == "create" and "37 hours" in calls[0][1]
+
+
+def test_freshness_updates_open_issue_and_treats_unreadable_as_stale():
+    assert _freshness("2026-10-20T00:00:00+00:00", {"number": 4}) == ("updated", [("update", 4)])
+    result, calls = _freshness(None)
+    assert result == "opened" and "couldn't read" in calls[0][1]
+
+
+def test_freshness_closes_issue_on_recovery():
+    assert _freshness("2026-10-30T03:00:00+00:00", {"number": 4}) == ("closed", [("comment", 4), ("close", 4)])

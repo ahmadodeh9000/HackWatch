@@ -5,6 +5,7 @@ previously deployed status.json. At ZERO_RUNS_FOR_ISSUE consecutive empty runs a
 issue "Source down: <name>" is opened (or its description updated); when the source
 returns events again the issue gets a comment and is closed.
 """
+from datetime import datetime, timezone
 from typing import Callable, Dict, Iterable, List, Optional
 
 import requests
@@ -150,3 +151,48 @@ class DryRunIssues:
 
     def close(self, number):
         return {}
+
+
+FRESHNESS_TITLE = "Site not updating"
+MAX_AGE_HOURS = 36
+
+
+def age_hours(status: Optional[dict], now: datetime) -> Optional[float]:
+    """Hours since the deployed status.json was generated; None if it's missing or unreadable."""
+    try:
+        made = datetime.fromisoformat(str((status or {}).get("generated_at")).replace("Z", "+00:00"))
+        return (now - made).total_seconds() / 3600
+    except ValueError:
+        return None
+
+
+def sync_freshness(status: Optional[dict], api, now: Optional[datetime] = None, max_age: float = MAX_AGE_HOURS,
+                   log: Callable[[str], None] = print) -> str:
+    """Open/update the "Site not updating" issue when the last deploy is too old; close it after."""
+    now = now or datetime.now(timezone.utc)
+    age = age_hours(status, now)
+    existing = api.find_open(FRESHNESS_TITLE)
+    if age is not None and age <= max_age:
+        if existing:
+            api.comment(existing["number"], f"✅ The site updated {age:.0f} hours ago. Closing.")
+            api.close(existing["number"])
+            log(f"closed #{existing['number']}")
+            return "closed"
+        log(f"Fresh: last deploy {age:.1f} hours ago.")
+        return "fresh"
+    seen = "couldn't read the live status.json" if age is None else f"the last successful deploy was **{age:.0f} hours ago**"
+    body = "\n".join([
+        f"HackWatch normally deploys every day, but {seen} (limit: {max_age:.0f} hours).",
+        "",
+        f"- Live report: {STATUS_URL}",
+        "- Check the runs of the *Update HackWatch Events & Deploy* workflow in the Actions tab.",
+        "",
+        f"_Checked {now.strftime('%Y-%m-%d %H:%M')} UTC. Updated every 6 hours; closed automatically once the site is fresh._",
+    ])
+    if existing:
+        api.update(existing["number"], body)
+        log(f"updated #{existing['number']}")
+        return "updated"
+    created = api.create(FRESHNESS_TITLE, body)
+    log(f"opened #{created['number']}")
+    return "opened"
