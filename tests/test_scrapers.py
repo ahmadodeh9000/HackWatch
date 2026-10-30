@@ -58,11 +58,16 @@ def test_gdg_reads_public_chapter_and_event_pages(replay, configured):
     # Only links above each chapter page's "Past events" heading are followed.
     assert sorted(e.title for e in events) == [
         "DevFest Amman 2026",
+        "From Awareness to Impact: Emotional Intelligence is the Key",  # co-hosted by GDG Aqaba
+        "GDG Aqaba - devfest 2026",
         "Mastering Research Papers: How to Read Them Effectively",
+        "Stand Out & Connect: the Power of Personal Branding",          # &amp; in the page
         "🚀 Flutter Bootcamp: Learn App Development",
         "🚀 Flutter Bootcamp: Learn App Development",
         "🚀 Flutter Bootcamp: Learn App Development",
     ]
+    aqaba = by_title(events)["GDG Aqaba - devfest 2026"]
+    assert aqaba.location == "iPARK Aqaba, Aqaba, Jordan" and aqaba.country == "JO"  # the page says "US"
     devfest = by_title(events)["DevFest Amman 2026"]
     assert devfest.organizer == "GDG Amman"  # from og:title
     assert (devfest.start_date, devfest.start_time, devfest.end_time) == ("2026-11-28", "11:00", "19:00")

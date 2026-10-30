@@ -76,5 +76,47 @@
     "url": "https://gdg.community.dev/gdg-on-campus-al-balqa-applied-university-salt-jordan/",
     "status": 200,
     "file": "012.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/gdg-aqaba/",
+    "status": 200,
+    "file": "013.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/events/details/google-gdg-aqaba-presents-gdg-aqaba-devfest-2026/",
+    "status": 200,
+    "file": "014.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/events/details/google-gdg-on-campus-sudan-university-of-science-technology-khartoum-sudan-presents-from-awareness-to-impact-emotional-intelligence-is-the-key/",
+    "status": 200,
+    "file": "015.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/events/details/google-gdg-on-campus-sudan-university-of-science-technology-khartoum-sudan-presents-stand-out-amp-connect-the-power-of-personal-branding/",
+    "status": 200,
+    "file": "016.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/gdg-on-campus-amman-arab-university-amman-jordan/",
+    "status": 200,
+    "file": "017.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/gdg-on-campus-german-jordanian-university-madaba-jordan/",
+    "status": 200,
+    "file": "018.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/gdg-on-campus-middle-east-university-amman-jordan/",
+    "status": 200,
+    "file": "019.html"
   }
 ]

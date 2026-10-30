@@ -43,8 +43,8 @@ sources:
     default_tags: [gdg]
     options:
       # Public chapter pages (gdg.community.dev/<slug>/) and event pages; the /api/ path
-      # is disallowed in robots.txt. Irbid and Zarqa have no city chapters; the JUST
-      # Irbid campus chapter was removed (404).
+      # is disallowed in robots.txt. Irbid and Zarqa have no city chapters. The list is every
+      # chapter with country Jordan on gdg.community.dev/chapters/ (checked 2026-10-30).
       base_url: https://gdg.community.dev
       chapters:
         - gdg-amman
@@ -55,6 +55,10 @@ sources:
         - gdg-on-campus-al-zaytoonah-university-of-jordan-amman-jordan
         - gdg-on-campus-applied-science-private-university-amman-jordan
         - gdg-on-campus-al-balqa-applied-university-salt-jordan
+        - gdg-aqaba
+        - gdg-on-campus-amman-arab-university-amman-jordan
+        - gdg-on-campus-german-jordanian-university-madaba-jordan
+        - gdg-on-campus-middle-east-university-amman-jordan
 
   - name: startupgrind
     scraper: bevy

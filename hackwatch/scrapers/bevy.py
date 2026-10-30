@@ -5,6 +5,7 @@ visitor sees instead: each chapter page links its upcoming events, and each even
 page carries a schema.org Event in JSON-LD (dates, place, attendance mode, and the
 registration close time in offers.validThrough), plus the chapter's own event tags.
 """
+import html
 import json
 import re
 from typing import List, Optional
@@ -12,6 +13,7 @@ from urllib.parse import urljoin, urlsplit
 
 from bs4 import BeautifulSoup
 
+from hackwatch.filters import JORDAN_RE
 from hackwatch.models import Event
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.registry import register
@@ -90,7 +92,11 @@ def _location(event: dict, mode: str) -> str:
         address = {"streetAddress": address}
     venue = place.get("name") if place.get("name") not in (None, "", "TBA") else None
     city = address.get("addressLocality")
-    country = "Jordan" if address.get("addressCountry") in ("JO", "Jordan") else address.get("addressCountry")
+    country = address.get("addressCountry")
+    # Bevy's country can be wrong: GDG Aqaba's DevFest at iPARK, Aqaba says "US". A Jordanian
+    # city or venue wins, else the filter would drop the event as abroad.
+    if country in ("JO", "Jordan") or JORDAN_RE.search(f"{venue or ''} {city or ''}"):
+        country = "Jordan"
     parts = [p for p in (venue or address.get("streetAddress"), city, country) if p]
     return ", ".join(dict.fromkeys(parts)) or "TBA"
 
@@ -141,7 +147,7 @@ class BevyScraper(BaseScraper):
             deadline = None
         return Event(
             cost=_cost(offers.get("price")),
-            title=" ".join(str(ev.get("name") or "").split()),
+            title=" ".join(html.unescape(str(ev.get("name") or "")).split()),
             url=url,
             source=self.name,
             organizer=organizer,

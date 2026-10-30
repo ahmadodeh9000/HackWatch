@@ -25,7 +25,7 @@ def test_repo_sources_yaml_builds_every_source():
                              "codeforces", "manual"}
     assert scrapers["ieee"].section_spoids == {"R80079"}
     assert scrapers["devpost"].default_scope == "worldwide" and scrapers["devpost"].default_type == "hackathon"
-    assert scrapers["gdg"].default_tags == ["gdg"] and len(scrapers["gdg"].chapters) == 8
+    assert scrapers["gdg"].default_tags == ["gdg"] and len(scrapers["gdg"].chapters) == 12
     assert scrapers["startupgrind"].chapters == ["amman"]
     assert sorted(n for n, s in scrapers.items() if s.require_tech_keywords) == ["eventbrite", "gju"]
     worldwide = {n for n, s in scrapers.items() if s.default_scope == "worldwide"}
