@@ -1,3 +1,17 @@
-# Community-submitted events. Most are added by the bot after a maintainer approves a
-# "Submit an event" issue; see CONTRIBUTING.md for the format and an example entry.
-# Check this file with:  python -m hackwatch.cli validate
+- title: GDG Aqaba - devfest 2026
+  url: https://gdg.community.dev/events/details/google-gdg-aqaba-presents-gdg-aqaba-devfest-2026/
+  dates: '2026-12-26'
+  location: iPARK Aqaba, pr.Haya street, US
+  organizer: GDG Aqaba
+  type: conference
+  mode: in-person
+  tags:
+  - ai
+  - mobile
+  - cloud
+  - gdg
+  start_time: '12:00'
+  end_time: '15:00'
+  description: Join GDG Aqaba DevFest 2026 to explore the latest technologies, discover
+    new ideas, and connect with developers and tech enthusiasts. Learn, share, and
+    grow with our community!
