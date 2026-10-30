@@ -65,8 +65,8 @@ def main(argv=None) -> int:
     (args.out_dir / "pr-body.md").write_text(
         f"Adds the event submitted in #{number} to `manual_events.yaml`.\n\n"
         f"```yaml\n{yaml.safe_dump([entry], sort_keys=False, allow_unicode=True, width=100)}```\n\n"
-        "`hackwatch validate` passed in the submission workflow. (PRs opened by GitHub Actions "
-        "don't trigger the PR check workflow, so validation runs before the PR is opened.)\n\n"
+        "`hackwatch validate` passed in the submission workflow. The PR check on this PR waits "
+        "for a maintainer to approve it (GitHub's rule for first-time contributors).\n\n"
         f"Closes #{number}\n"
         + (f"\nIssue: https://github.com/{repo}/issues/{number}\n" if repo else ""), encoding="utf-8")
     print(f"Added {title!r} from issue #{number}")

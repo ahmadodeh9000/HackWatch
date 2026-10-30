@@ -1,7 +1,7 @@
 name: PR check
 
-# Runs on pull requests opened by people (bot PRs from submission.yml don't
-# trigger workflows; that workflow validates before opening its PR).
+# Runs on every pull request. GitHub holds it for approval on the bot's PRs from
+# submission.yml ("action_required") until a maintainer approves it on the PR page.
 on:
   pull_request:
   workflow_dispatch:

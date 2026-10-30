@@ -7,9 +7,9 @@ name: Event submission
 # ONLY through the ISSUE_BODY environment variable and never written into a
 # run: script with ${{ }}, which would let a crafted issue run shell commands.
 #
-# PRs opened with GITHUB_TOKEN don't trigger other workflows (so the PR check
-# in ci.yml won't run on them); that's why `hackwatch validate` runs here,
-# before the PR is opened.
+# `hackwatch validate` runs here, before the PR is opened. GitHub holds the PR check
+# (ci.yml) on these PRs until a maintainer approves it, because github-actions[bot] counts
+# as a first-time contributor (the run shows "action_required", with no jobs).
 
 on:
   issues:
