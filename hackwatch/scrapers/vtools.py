@@ -13,6 +13,14 @@ LOCATION_MODES = {"physical": "in-person", "virtual": "online", "hybrid": "hybri
 # Posts that report on a past activity rather than announce one. vTools has no field for
 # this (enhanced-report is empty on them), so the title is the only signal.
 REPORT_RE = re.compile(r"\breports?\b|تقرير", re.I)
+# Reports also come dated in the future and titled like events ("Booth Participation at IEEE
+# Day - AAU", 27 Nov: "The Student Branch hosted an exhibition booth..."), so the description
+# counts too: past-tense wording, unless it also invites people to come.
+PAST_TENSE_RE = re.compile(
+    r"\b(?:hosted(?! by)|organi[sz]ed(?! by)|(?:was|were) (?:held|conducted|organi[sz]ed|hosted)|took place|"
+    r"participated in|concluded|attended by)\b|أقيمت|أقيم|عُقدت|عقدت|تم عقد|تم تنظيم", re.I)
+INVITATION_RE = re.compile(
+    r"\b(?:join|register|registration|will|invited?|don'?t miss|come|upcoming event|aims? to)\b|انضم|سجل|سجّل|ندعو|سيتم|ستقام", re.I)
 # Student branch (STB), its chapters (SBC... + letter) and affinity groups (SBA) share the
 # branch number: STB25091, SBC25091A and SBA25091 are all Yarmouk University.
 BRANCH_SPOID_RE = re.compile(r"^(?:STB|SBC|SBA)(\d+)")
@@ -21,6 +29,10 @@ BRANCH_SPOID_RE = re.compile(r"^(?:STB|SBC|SBA)(\d+)")
 def branch_key(spoid: str) -> str:
     m = BRANCH_SPOID_RE.match(spoid or "")
     return f"branch-{m.group(1)}" if m else (spoid or "")
+
+
+def reads_like_report(description: str) -> bool:
+    return bool(PAST_TENSE_RE.search(description or "")) and not INVITATION_RE.search(description or "")
 
 
 def html_to_text(html: str, limit: int = 600) -> str:
@@ -74,6 +86,8 @@ class VToolsScraper(BaseScraper):
                 if not attrs.get("title") or not self._in_sections(attrs):
                     continue
                 if attrs.get("cancelled") or REPORT_RE.search(attrs["title"]):
+                    continue
+                if reads_like_report(html_to_text(attrs.get("description"))):
                     continue
                 mode = LOCATION_MODES.get(str(attrs.get("location-type") or "").lower(), "in-person")
                 # City names are typed freely ("amman", "Az Zarqa"); capitalise all-lowercase ones.
