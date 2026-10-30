@@ -1,0 +1,49 @@
+name: Candidate ticked
+
+# A maintainer ticked a box in the "Candidate events" issue: open a PR for that event.
+#
+# Security: the issue body is passed to Python ONLY through the ISSUE_BODY environment variable,
+# never written into a run: script with ${{ }}. Only the repository owner's edits count, and the
+# bot's own edits of the issue are ignored by the same check.
+on:
+  issues:
+    types: [edited]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: candidates
+  cancel-in-progress: false
+
+jobs:
+  open-pr:
+    if: github.event.issue.title == 'Candidate events' && github.event.sender.login == github.repository_owner
+    runs-on: ubuntu-latest
+    env:
+      ISSUE_NUMBER: ${{ github.event.issue.number }}
+      ISSUE_BODY: ${{ github.event.issue.body }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Open a PR per newly ticked line
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          python scripts/candidate_to_pr.py

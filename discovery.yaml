@@ -1,0 +1,11 @@
+# Pages the daily discovery run looks at for Jordan tech events we don't list yet. Finds go to the
+# "Candidate events" issue for a human to pick; nothing here is ever published on its own.
+# robots.txt is respected. A page that redirects elsewhere (luma.com/amman -> /discover, as of
+# 2026-10-30: Luma has no Amman page) is skipped and reported in the issue.
+pages:
+  - {name: Luma Amman, url: "https://luma.com/amman"}
+  - {name: JUST calendar, url: "https://www.just.edu.jo/calendar/Pages/default.aspx"}
+  - {name: PSUT events, url: "https://www.psut.edu.jo/en/events"}
+  - {name: ASU events, url: "https://www.asu.edu.jo/en/events/"}
+  - {name: Shamal Start, url: "https://www.shamalstart.com/calendar/"}
+  - {name: int@j events, url: "https://www.intaj.net/media-center/events"}

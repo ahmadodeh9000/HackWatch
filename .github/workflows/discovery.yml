@@ -1,0 +1,35 @@
+name: Discover candidate events
+
+# Daily: looks for Jordan tech events we don't list and updates the one "Candidate events" issue.
+# It only writes to that issue; nothing is published (see candidates.yml for what a tick does).
+on:
+  schedule:
+    - cron: "15 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # The two Google secrets are optional: without them the searches are skipped.
+      - name: Update the "Candidate events" issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GOOGLE_CSE_KEY: ${{ secrets.GOOGLE_CSE_KEY }}
+          GOOGLE_CSE_ID: ${{ secrets.GOOGLE_CSE_ID }}
+        run: python -m hackwatch.cli discover

@@ -446,6 +446,19 @@ def freshness(
     sync_freshness(load_json(status_url), api, log=typer.echo)
 
 
+@app.command()
+def discover(
+    pages_file: Path = typer.Option(Path("discovery.yaml"), "--pages", help="Pages to look at"),
+    listed: str = typer.Option("https://ahmadodeh9000.github.io/HackWatch/events.json", "--listed", help="URL or path of events.json, to skip what's listed"),
+):
+    """Look for Jordan tech events we don't list and update the "Candidate events" issue. Publishes nothing."""
+    from hackwatch.discovery import run
+    pages = (yaml.safe_load(pages_file.read_text(encoding="utf-8")) or {}).get("pages") or []
+    token, repo = os.environ.get("GITHUB_TOKEN"), os.environ.get("GITHUB_REPOSITORY")
+    api = GitHubIssues(repo, token) if token and repo else DryRunIssues(typer.echo)
+    run(pages, load_json(listed) or [], api, log=typer.echo)
+
+
 @app.command(name="import-form")
 def import_form(
     csv_path: Path = typer.Argument(..., help="Google Form responses exported as CSV"),

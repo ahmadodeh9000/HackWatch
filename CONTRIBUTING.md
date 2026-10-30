@@ -127,6 +127,14 @@ calendar really is the club's before connecting it.)
 Any public iCal link works (Outlook, Apple, a university's calendar). Maintainers: approving the
 issue checks the link is a real calendar and opens a PR adding it to [`calendars.yaml`](calendars.yaml).
 
+### The candidate list (maintainers)
+
+Every day `hackwatch discover` looks at the pages in [`discovery.yaml`](discovery.yaml) (respecting
+robots.txt) and updates one **Candidate events** issue with a checklist of Jordan tech events we
+don't list. Nothing is published from it: ticking a box opens a PR through `hackwatch add --from-url`,
+and merging that PR is what publishes the event. Delete a line to dismiss it for good.
+Optional web searches run when the `GOOGLE_CSE_KEY` and `GOOGLE_CSE_ID` secrets exist.
+
 ### Site settings (maintainers)
 
 The top of the script in `docs/index.html` has the links that don't exist yet. Leave one
