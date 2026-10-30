@@ -530,12 +530,14 @@ function calMenu(ev){
 function pageUrl(ev){ return ev.id ? `${SITE_URL}e/${ev.id}.html` : SITE_URL; }
 
 // ─── Filtering ───
-// Online hackathons from anywhere belong under the Hackathon chip even with the worldwide
-// toggle off (Jordan has few of its own): counted in that chip, listed when it's selected.
-function inScope(ev, type = state.type){
+// Online hackathons, CTFs and programming contests from anywhere belong under their chips even
+// with the worldwide toggle off (Jordan has few of its own): counted there, listed when selected.
+const WORLD_TAGS = ["ctf","cp"];
+function inScope(ev, type = state.type, tag = state.tag){
   if (!state.clubLife && ev.low_signal) return false;
   if (state.worldwide || ev.scope === "jordan") return true;
-  return type === "hackathon" && (ev.type || "other") === "hackathon" && ev.mode !== "in-person";
+  if (ev.mode === "in-person") return false;
+  return (type === "hackathon" && ev.type === "hackathon") || (WORLD_TAGS.includes(tag) && (ev.tags || []).includes(tag));
 }
 function hasValue(ev, key, val){
   switch (key){
@@ -548,8 +550,9 @@ function hasValue(ev, key, val){
   }
   return false;
 }
-function matches(ev, skip, typeChip){
-  if (!inScope(ev, skip === "type" && typeChip !== undefined ? typeChip : state.type)) return false;
+function matches(ev, skip, chip){
+  const forChip = chip !== undefined;
+  if (!inScope(ev, forChip && skip === "type" ? chip : state.type, forChip && skip === "tag" ? chip : state.tag)) return false;
   for (const key of FILTERS) if (key !== skip && state[key] !== "all" && !hasValue(ev, key, state[key])) return false;
   if (state.q){
     const hay = [ev.title, ev.organizer, ev.location, ev.description, ...(ev.tags || []).flatMap(t => [LABELS.tags[t], LABELS.tags_ar[t]])].join(" ").toLowerCase();
@@ -626,7 +629,7 @@ function renderEmpty(){
 function updateChips(){
   document.querySelectorAll(".chip").forEach(b => {
     const key = b.dataset.key, val = b.dataset.val;
-    const n = state.events.filter(e => matches(e, key, key === "type" ? val : undefined) && (val === "all" || hasValue(e, key, val))).length;
+    const n = state.events.filter(e => matches(e, key, key === "type" || key === "tag" ? val : undefined) && (val === "all" || hasValue(e, key, val))).length;
     b.querySelector(".n").textContent = `(${n})`;
     b.classList.toggle("zero", n === 0);
     b.setAttribute("aria-pressed", state[key] === val);
