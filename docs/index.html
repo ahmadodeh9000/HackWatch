@@ -369,6 +369,7 @@ const STR = {
     online: "Online", alsoOnline: "+ online", stale: "⚠ Not re-checked today",
     staleHint: "This source failed in the latest update; this listing is from the previous one.",
     view: "View event", share: "Share", by: "by",
+    worldwideTag: "🌍\u00a0Worldwide", worldwideHint: "Not in Jordan: an online event open worldwide",
     addCal: "Add to calendar", googleCal: "Google Calendar", icsFile: "Apple / Outlook (.ics)",
     facts: {free: "🎟\u00a0Free", paid: "🎟\u00a0Paid", certificate: "📜\u00a0Certificate",
             anyone: "🌍\u00a0Open to all", students: "🎓\u00a0Students", members: "🔒\u00a0Members"},
@@ -418,6 +419,7 @@ const STR = {
     online: "عن بُعد", alsoOnline: "+ عن بُعد", stale: "⚠ لم يُتحقق منها اليوم",
     staleHint: "تعذّر تحديث هذا المصدر في آخر تحديث؛ هذه البيانات من التحديث السابق.",
     view: "تفاصيل الفعالية", share: "مشاركة", by: "من تنظيم",
+    worldwideTag: "🌍\u00a0عالمي", worldwideHint: "ليست في الأردن: فعالية عن بُعد مفتوحة عالميًا",
     addCal: "أضف إلى التقويم", googleCal: "تقويم Google", icsFile: "Apple / Outlook ‏(.ics)",
     facts: {free: "🎟\u00a0مجاني", paid: "🎟\u00a0مدفوع", certificate: "📜\u00a0شهادة",
             anyone: "🌍\u00a0للجميع", students: "🎓\u00a0للطلاب", members: "🔒\u00a0للأعضاء"},
@@ -628,6 +630,7 @@ function card(ev){
     ${ev.organizer ? `<p class="line" dir="auto" title="${esc(S.by)} ${esc(ev.organizer)}">👥 ${esc(ev.organizer)}</p>` : ""}
     <div class="pills">
       <span class="pill" style="background:var(--type-${type});color:var(--type-${type}-fg)" title="${esc(sources)}">${esc(S.types[type])}</span>
+      ${ev.scope === "jordan" ? "" : `<span class="pill info" title="${esc(S.worldwideHint)}">${esc(S.worldwideTag)}</span>`}
       ${facts}${prize}${stale}${tags}
     </div>
     <div class="acts">
