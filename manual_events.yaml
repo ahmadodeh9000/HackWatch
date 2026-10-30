@@ -1,3 +1,19 @@
 # Community-submitted events. Most are added by the bot after a maintainer approves a
 # "Submit an event" issue; see CONTRIBUTING.md for the format and an example entry.
 # Check this file with:  python -m hackwatch.cli validate
+# Submitted in issue #11
+- title: '[TEST] HackWatch submission flow check (do not merge)'
+  url: https://example.com/hackwatch-submission-test-2026-10-30
+  dates: '2026-12-12'
+  location: King Hussein Business Park, Amman
+  organizer: HackWatch maintainers (test)
+  type: workshop
+  mode: in-person
+  tags:
+  - robotics
+  - ai
+  start_time: '10:00'
+  end_time: '14:00'
+  registration_deadline: '2026-12-05'
+  description: Automated end-to-end test of the submission workflow. This issue and its PR will be closed
+    without merging.
