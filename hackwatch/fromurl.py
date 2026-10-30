@@ -21,6 +21,7 @@ from urllib.parse import parse_qs, urlparse
 import requests
 from bs4 import BeautifulSoup
 
+from hackwatch.filters import JORDAN_RE
 from hackwatch.scrapers.base import DEFAULT_USER_AGENT, block_hint
 from hackwatch.timeutil import local_date, local_time
 
@@ -109,6 +110,9 @@ def _place(location) -> tuple:
                       "Jordan" if str(country).upper() in ("JO", "JOR") else country]
         elif address:
             parts.append(address)
+        # Bevy can name the wrong country (GDG Aqaba's iPARK says "US"): a Jordanian place wins.
+        if isinstance(address, dict) and JORDAN_RE.search(f"{place.get('name') or ''} {address.get('addressLocality') or ''}"):
+            parts[-1] = "Jordan"
         seen = []
         for part in parts:
             part = " ".join(str(part or "").split()).strip(", ")

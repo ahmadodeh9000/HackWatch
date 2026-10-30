@@ -27,6 +27,7 @@ from hackwatch.scrapers import get_available_scrapers
 from hackwatch.scrapers.base import BaseScraper
 from hackwatch.scrapers.manual import load_manual_events, load_manual_yaml, parse_manual_dates, parse_manual_item
 from hackwatch.sources import load_sources
+from hackwatch.submissions import append_entry
 from hackwatch.taxonomy import normalize_tags, site_labels
 
 app = typer.Typer(help="HackWatch: Track hackathons and developer events.")
@@ -202,7 +203,9 @@ def save_manual_entry(entry: dict, yaml_file: Path) -> bool:
             updated = True
             break
     if not updated:
-        existing_events.append(entry)
+        # Appending keeps the file's comments, which a rewrite would drop.
+        append_entry(yaml_file, entry, f"Added with hackwatch add ({entry['url']})")
+        return False
 
     with open(yaml_file, "w", encoding="utf-8") as f:
         yaml.safe_dump(existing_events, f, sort_keys=False, allow_unicode=True)

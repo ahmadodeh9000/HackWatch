@@ -122,3 +122,20 @@ def test_fetch_errors_are_readable(monkeypatch):
     monkeypatch.setattr(requests, "get", boom)
     with pytest.raises(ValueError, match="couldn't fetch"):
         fromurl.fetch_html("https://example.com")
+
+
+def test_jordanian_place_beats_a_wrong_country():
+    html = ('<script type="application/ld+json">{"@type":"Event","name":"GDG Aqaba DevFest","startDate":"2026-12-26",'
+            '"location":{"@type":"Place","name":"iPARK Aqaba","address":{"streetAddress":"pr.Haya street",'
+            '"addressLocality":"Aqaba","addressCountry":"US"}}}</script>')
+    assert extract(html, "https://x.test/e").values["location"] == "iPARK Aqaba, pr.Haya street, Jordan"
+
+
+def test_add_keeps_the_comments_in_the_yaml(tmp_path):
+    path = tmp_path / "m.yaml"
+    path.write_text("# Community-submitted events\n# keep me\n")
+    result = CliRunner().invoke(cli.app, ["add", "--file", str(path), "-t", "Hack", "-u", "https://x.test/h",
+                                          "-d", "2026-12-05", "-l", "Amman, Jordan", "-o", "Club", "--type", "hackathon"])
+    assert result.exit_code == 0, result.output
+    text = path.read_text()
+    assert "# keep me" in text and yaml.safe_load(text)[0]["title"] == "Hack"

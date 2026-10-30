@@ -131,6 +131,19 @@ The deploy job publishes a per-source fetch report as
 
 Instagram and Facebook are also out of scope by project rule.
 
+## Discovery queue (`discovery.yaml`), checked 2026-10-30
+
+| Page | From a home connection | From GitHub's runner |
+|---|---|---|
+| int@j events | 200, real listings (JITEX 2027, Pocket Gamer Connects, AI: From Adoption to Impact) | **HTTP 403, Cloudflare challenge** |
+| ASU events | 200, placeholder text only | Connection refused |
+| PSUT events | 200, no dated events in the HTML | 200, 0 finds |
+| JUST calendar | 200, academic calendar only | 200, 0 finds |
+| Shamal Start | 200, empty calendar | 200, 0 finds |
+| Luma Amman | Redirects to /discover (no Amman page) | Same; skipped |
+
+As with Eventbrite, blocks aren't worked around. The queue's results are in the "Candidate events" issue.
+
 ## Candidates (not built)
 
 | Source | Finding (2026-10-26) | Verdict |
