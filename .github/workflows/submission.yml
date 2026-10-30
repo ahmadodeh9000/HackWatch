@@ -7,9 +7,8 @@ name: Event submission
 # ONLY through the ISSUE_BODY environment variable and never written into a
 # run: script with ${{ }}, which would let a crafted issue run shell commands.
 #
-# `hackwatch validate` runs here, before the PR is opened. GitHub holds the PR check
-# (ci.yml) on these PRs until a maintainer approves it, because github-actions[bot] counts
-# as a first-time contributor (the run shows "action_required", with no jobs).
+# `hackwatch validate` runs here, before the PR is opened, and its result is set as the
+# "hackwatch/validate" commit status on the PR's head commit. ci.yml skips event/* branches.
 
 on:
   issues:
@@ -19,6 +18,7 @@ permissions:
   contents: write
   pull-requests: write
   issues: write
+  statuses: write   # the "hackwatch/validate" commit status
 
 concurrency:
   group: submission-${{ github.event.issue.number }}
@@ -76,6 +76,9 @@ jobs:
           git commit -F "$OUT/commit-msg.txt"
           # Re-approving after an edit updates the same branch/PR.
           git push --force origin "$branch"
+          # Only reached when the validation step above passed.
+          gh api "repos/$GH_REPO/statuses/$(git rev-parse HEAD)" \
+            -f state=success -f context=hackwatch/validate -f description="hackwatch validate passed"
           if gh pr view "$branch" --json url --jq .url > "$OUT/pr-url.txt" 2>/dev/null; then
             echo "Updated existing PR $(cat "$OUT/pr-url.txt")"
           else

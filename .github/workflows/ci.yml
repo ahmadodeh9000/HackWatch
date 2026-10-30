@@ -1,7 +1,9 @@
 name: PR check
 
-# Runs on every pull request. GitHub holds it for approval on the bot's PRs from
-# submission.yml ("action_required") until a maintainer approves it on the PR page.
+# Runs on pull requests opened by people. The bot's event/* PRs are skipped: submission.yml has
+# already validated them and sets the "hackwatch/validate" commit status instead. A pull_request
+# trigger has no filter for the head branch, so the condition is on the job. A fork's branch
+# called event/* still gets the full check.
 on:
   pull_request:
   workflow_dispatch:
@@ -11,6 +13,7 @@ permissions:
 
 jobs:
   check:
+    if: ${{ !(startsWith(github.head_ref, 'event/') && github.event.pull_request.head.repo.full_name == github.repository) }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
