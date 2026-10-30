@@ -7,7 +7,7 @@ from xml.sax.saxutils import escape
 
 from hackwatch.digest import SITE_URL, event_page_url
 from hackwatch.models import Event
-from hackwatch.tidy import shown_title
+from hackwatch.tidy import shown_organizer, shown_title
 
 ATTENDANCE = {"online": "OnlineEventAttendanceMode", "in-person": "OfflineEventAttendanceMode",
               "hybrid": "MixedEventAttendanceMode"}
@@ -41,7 +41,7 @@ def event_jsonld(e: Event, site: str = SITE_URL) -> dict:
     if e.description:
         data["description"] = " ".join(e.description.split())[:500]
     if e.organizer:
-        data["organizer"] = {"@type": "Organization", "name": e.organizer}
+        data["organizer"] = {"@type": "Organization", "name": shown_organizer(e)}
     if e.cost == "free":
         data["isAccessibleForFree"] = True
     return {k: v for k, v in data.items() if v is not None}
@@ -86,7 +86,7 @@ def build_feed(events: Iterable[Event], first_seen: Dict[str, str], site: str = 
         when = first_seen.get(e.id, today) + "T00:00:00Z"
         place = "Online" if e.mode == "online" else (e.location or "")
         start = " ".join(filter(None, [e.start_date, e.start_time]))
-        summary = " · ".join(filter(None, [start, place, e.organizer]))
+        summary = " · ".join(filter(None, [start, place, shown_organizer(e)]))
         if e.description:
             summary += "\n\n" + " ".join(e.description.split())[:400]
         entries.append(

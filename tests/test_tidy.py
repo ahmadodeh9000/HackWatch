@@ -60,3 +60,44 @@ def test_city_of(location, mode, city):
     from hackwatch.tidy import city_of
     assert city_of(Event(title="x", url="https://x", source="manual", location=location, mode=mode,
                          scope="jordan")) == city
+
+
+@pytest.mark.parametrize("raw, shown", [
+    ("GDG on Campus Al-Zaytoonah University of Jordan - Amman , Jordan", "GDG on Campus Al-Zaytoonah University of Jordan"),
+    ("GDG on Campus Al-Balqa' Applied University - Salt, Jordan", "GDG on Campus Al-Balqa' Applied University"),
+    ("GDG Amman", "GDG Amman"),
+    ("Amman Arab University - Jordan,PE31", "Amman Arab University - Jordan,PE31"),
+    ("The University of Jordan-Aqaba", "The University of Jordan-Aqaba"),
+    ("University - Dubai, UAE", "University - Dubai, UAE"),
+])
+def test_shown_organizer(raw, shown):
+    from hackwatch.tidy import shown_organizer
+    event = Event(title="x", url="https://x", source="gdg", organizer=raw)
+    assert shown_organizer(event) == shown and event.organizer == raw
+
+
+def test_export_keeps_stored_organizer_and_adds_display_one(tmp_path):
+    import json
+    from typer.testing import CliRunner
+    from hackwatch import cli
+    conn = db.get_connection(tmp_path / "t.db")
+    db.init_db(conn)
+    db.upsert_event(conn, Event(title="Talk", url="https://x/1", source="gdg", location="Online", mode="online",
+                                start_date=(date.today() + timedelta(days=9)).isoformat(),
+                                organizer="GDG on Campus X University - Amman , Jordan"))
+    out = tmp_path / "e.json"
+    assert CliRunner().invoke(cli.app, ["export", "--db", str(tmp_path / "t.db"), "--out", str(out)]).exit_code == 0
+    (rec,) = json.loads(out.read_text())
+    assert rec["organizer"] == "GDG on Campus X University - Amman , Jordan"
+    assert rec["display_organizer"] == "GDG on Campus X University"
+
+
+def test_devpost_deadline_says_submissions_on_page_and_calendar():
+    from hackwatch.ics import event_lines
+    from hackwatch.pages import render_page
+    dev = Event(title="Hack", url="https://d/1", source="devpost", start_date="2026-11-01", end_date="2026-11-20",
+                registration_deadline="2026-11-20", location="Online", mode="online")
+    assert "Submissions close Fri 20 Nov 2026" in render_page(dev)
+    assert "Submissions close: 2026-11-20" in "".join(event_lines(dev))
+    ieee = Event(title="T", url="https://i/1", source="ieee", start_date="2026-11-21", registration_deadline="2026-11-20")
+    assert "Registration closes Fri 20 Nov 2026" in render_page(ieee)

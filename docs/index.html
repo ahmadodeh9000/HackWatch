@@ -362,6 +362,8 @@ const STR = {
     statuses: {upcoming:"Upcoming", ongoing:"Ongoing"},
     closesToday: "Registration closes today", closesTomorrow: "Registration closes tomorrow",
     closesIn: n => `Registration closes in ${enDays(n)}`,
+    submitToday: "Submissions close today", submitTomorrow: "Submissions close tomorrow",
+    submitIn: n => `Submissions close in ${enDays(n)}`, submitDetail: "Submissions close",
     today: "Today", tomorrow: "Tomorrow", startsIn: n => `Starts in ${enDays(n)}`,
     nextIn: n => n === 1 ? "Next session tomorrow" : `Next session in ${enDays(n)}`,
     every: day => `Every ${day}`, until: d => `until ${d}`,
@@ -412,6 +414,8 @@ const STR = {
     statuses: {upcoming:"قادمة", ongoing:"جارية"},
     closesToday: "يُغلق التسجيل اليوم", closesTomorrow: "يُغلق التسجيل غدًا",
     closesIn: n => `يُغلق التسجيل بعد ${arDays(n)}`,
+    submitToday: "آخر موعد للتسليم اليوم", submitTomorrow: "آخر موعد للتسليم غدًا",
+    submitIn: n => `آخر موعد للتسليم بعد ${arDays(n)}`, submitDetail: "آخر موعد للتسليم",
     today: "اليوم", tomorrow: "غدًا", startsIn: n => `تبدأ بعد ${arDays(n)}`,
     nextIn: n => n === 1 ? "الجلسة القادمة غدًا" : `الجلسة القادمة بعد ${arDays(n)}`,
     every: day => `كل يوم ${day.replace(/^ال/, "")}`, until: d => `حتى ${d}`,
@@ -503,7 +507,9 @@ function badge(ev){
   const t = today(), S = T();
   if (ev._dl){
     const n = days(t, ev._dl);
-    return {cls: n <= 3 ? "urgent" : n <= 7 ? "soon" : "info", text: n === 0 ? S.closesToday : n === 1 ? S.closesTomorrow : S.closesIn(n)};
+    // Devpost's date is when projects are due, not when registration closes.
+    const [zero, one, many] = ev.source === "devpost" ? [S.submitToday, S.submitTomorrow, S.submitIn] : [S.closesToday, S.closesTomorrow, S.closesIn];
+    return {cls: n <= 3 ? "urgent" : n <= 7 ? "soon" : "info", text: n === 0 ? zero : n === 1 ? one : many(n)};
   }
   if (ev._status === "upcoming"){
     const n = days(t, ev._s);
@@ -561,7 +567,7 @@ function googleCalUrl(ev){
     dates = `${ymd(ev._s)}/${ymd(after)}`;
   }
   const where = ev.mode === "online" ? "Online" : (ev.location || "");
-  const details = [ev.description || "", ev.registration_deadline ? `Registration closes: ${ev.registration_deadline}` : "", ev.url].filter(Boolean).join("\n\n");
+  const details = [ev.description || "", ev.registration_deadline ? `${ev.source === "devpost" ? "Submissions close" : "Registration closes"}: ${ev.registration_deadline}` : "", ev.url].filter(Boolean).join("\n\n");
   const p = new URLSearchParams({action: "TEMPLATE", text: shownTitle(ev), dates, ctz: "Asia/Amman", details, location: where});
   if (ev.sessions && ev.series_until) p.set("recur", `RRULE:FREQ=WEEKLY;UNTIL=${ev.series_until.replace(/-/g, "")}T235959Z`);
   return "https://calendar.google.com/calendar/render?" + p.toString();
@@ -596,6 +602,12 @@ function hasValue(ev, key, val){
   }
   return false;
 }
+// In the Hackathon/CTF/CP lists, events closing within 2 days go last, so the first cards are ones
+// a student can still join (sort is stable: the usual order holds within each group).
+function closingSoon(ev){
+  const left = ev._dl ? days(today(), ev._dl) : ev._rank === 1 ? days(today(), ev._e) : Infinity;
+  return left <= 2 ? 1 : 0;
+}
 function matches(ev, skip, chip){
   const forChip = chip !== undefined;
   if (!inScope(ev, forChip && skip === "type" ? chip : state.type, forChip && skip === "tag" ? chip : state.tag)) return false;
@@ -627,7 +639,7 @@ function card(ev){
     <h3 dir="auto" title="${esc(ev.title)}">${esc(shownTitle(ev))}</h3>
     <p class="line" title="${esc(whenText(ev))}">📅 ${esc(whenText(ev))}</p>
     <p class="line" dir="auto" title="${esc(whereText(ev))}">${esc(whereText(ev))}</p>
-    ${ev.organizer ? `<p class="line" dir="auto" title="${esc(S.by)} ${esc(ev.organizer)}">👥 ${esc(ev.organizer)}</p>` : ""}
+    ${ev.organizer ? `<p class="line" dir="auto" title="${esc(S.by)} ${esc(ev.organizer)}">👥 ${esc(ev.display_organizer || ev.organizer)}</p>` : ""}
     <div class="pills">
       <span class="pill" style="background:var(--type-${type});color:var(--type-${type}-fg)" title="${esc(sources)}">${esc(S.types[type])}</span>
       ${ev.scope === "jordan" ? "" : `<span class="pill info" title="${esc(S.worldwideHint)}">${esc(S.worldwideTag)}</span>`}
@@ -685,6 +697,7 @@ function updateChips(){
 
 function render(){
   const list = state.events.filter(e => matches(e));
+  if (state.type === "hackathon" || WORLD_TAGS.includes(state.tag)) list.sort((a, b) => closingSoon(a) - closingSoon(b));
   if (!list.length) renderEmpty(); else $("grid").innerHTML = list.map(card).join("");
   $("count").textContent = T().count(list.length);
   const active = state.q || FILTERS.some(k => state[k] !== "all") || state.worldwide || state.clubLife;

@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import List, Optional, Sequence
 
 from hackwatch.digest import Digest, _day, _short, _where
-from hackwatch.tidy import shown_title
+from hackwatch.tidy import shown_organizer, shown_title
 
 WIDTH, HEIGHT = 1080, 1350
 MARGIN = 72
@@ -161,7 +161,7 @@ def render(digest: Digest, path: Path) -> List[str]:
         for line in lines:
             _text(draw, (MARGIN + 24, ty), line, title_font, TEXT, inner - 48)
             ty += 48
-        where = EMOJI.sub("", _where(e) + (f" · {e.organizer}" if e.organizer else "")).strip()
+        where = EMOJI.sub("", _where(e) + (f" · {shown_organizer(e)}" if e.organizer else "")).strip()
         where = _wrap(draw, where, fonts.get(where, 29), inner - 48, 1)[0]
         _text(draw, (MARGIN + 24, ty + 2), where, fonts.get(where, 29), MUTED, inner - 48)
         y += block

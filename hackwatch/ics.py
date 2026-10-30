@@ -3,7 +3,7 @@ from datetime import date, datetime, timedelta, timezone
 from typing import Iterable, List, Optional
 
 from hackwatch.models import Event
-from hackwatch.tidy import shown_title
+from hackwatch.tidy import deadline_phrase, shown_organizer, shown_title
 from hackwatch.timeutil import DEFAULT_TZ, zone
 
 PRODID = "-//HackWatch//Jordan tech events//EN"
@@ -79,9 +79,9 @@ def event_lines(event: Event) -> List[str]:
         end = start
     details = [event.description or ""]
     if event.registration_deadline:
-        details.append(f"Registration closes: {event.registration_deadline}")
+        details.append(f"{deadline_phrase(event)}: {event.registration_deadline}")
     if event.organizer:
-        details.append(f"Organizer: {event.organizer}")
+        details.append(f"Organizer: {shown_organizer(event)}")
     if event.prize and event.prize != "N/A":
         details.append(f"Prize: {event.prize}")
     details.append(f"Type: {event.type or 'other'} · {event.mode}")

@@ -14,7 +14,7 @@ from hackwatch.digest import SITE_URL, event_page_url
 from hackwatch.models import Event
 from hackwatch.feeds import jsonld_script
 from hackwatch.ics import build_calendar
-from hackwatch.tidy import shown_title
+from hackwatch.tidy import deadline_phrase, shown_organizer, shown_title
 
 # GoatCounter site code (cookie-free page counts); the same one is set in docs/index.html.
 # Empty = no analytics script on the share pages.
@@ -48,7 +48,7 @@ def render_page(e: Event, site: str = SITE_URL) -> str:
     description = " ".join((e.description or "").split())
     teaser = (description[:157] + "…") if len(description) > 160 else description
     og_description = f"{line}. {teaser}" if teaser else line
-    deadline = (f'<p class="deadline">Registration closes {esc(date.fromisoformat(e.registration_deadline[:10]).strftime("%a %-d %b %Y"))}</p>'
+    deadline = (f'<p class="deadline">{deadline_phrase(e)} {esc(date.fromisoformat(e.registration_deadline[:10]).strftime("%a %-d %b %Y"))}</p>'
                 if e.registration_deadline else "")
     target = e.url if str(e.url).startswith(("http://", "https://")) else site
     analytics = (f'<script data-goatcounter="https://{GOATCOUNTER_CODE}.goatcounter.com/count" '
@@ -94,7 +94,7 @@ p.desc{{margin:16px 0;overflow-wrap:anywhere}}
   <article class="card">
     <h1>{esc(title)}</h1>
     <p class="meta">{esc(line)}</p>
-    {f'<p class="org">by {esc(e.organizer)}</p>' if e.organizer else ''}
+    {f'<p class="org">by {esc(shown_organizer(e))}</p>' if e.organizer else ''}
     {deadline}
     {f'<p class="desc">{esc(description[:600])}</p>' if description else ''}
     <a class="btn" href="{esc(target)}" rel="noopener">Go to the event page →</a>

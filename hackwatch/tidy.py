@@ -91,6 +91,20 @@ def shown_title(event: Event) -> str:
     return display_title(event.title or "")
 
 
+# Chapter names end in their place: "GDG on Campus X University - Amman , Jordan".
+ORGANIZER_PLACE = re.compile(r"\s+-\s+[^,-]+?\s*,\s*Jordan\s*$", re.I)
+
+
+def shown_organizer(event: Event) -> Optional[str]:
+    """The organizer without a trailing " - <City>, Jordan"; for display, the stored name stays."""
+    return ORGANIZER_PLACE.sub("", event.organizer) if event.organizer else event.organizer
+
+
+def deadline_phrase(event: Event) -> str:
+    """Devpost's date is the submission deadline, not when registration closes."""
+    return "Submissions close" if event.source == "devpost" else "Registration closes"
+
+
 # City filter on the site. First match in the location wins; Arabic spellings included.
 CITIES = (
     ("amman", re.compile(r"\bamman\b|عمّان|عمان", re.I)),
