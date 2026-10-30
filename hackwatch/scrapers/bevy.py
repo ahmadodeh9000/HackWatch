@@ -24,6 +24,19 @@ ATTENDANCE_MODES = {"OfflineEventAttendanceMode": "in-person", "OnlineEventAtten
 AUDIENCE_MODES = {"IN_PERSON": "in-person", "VIRTUAL": "online", "HYBRID": "hybrid"}
 AUDIENCE_RE = re.compile(r"""["']audience_type["']\s*:\s*["'](\w+)["']""")
 DETAILS_RE = re.compile(r"^(/events/details/[^/]+/)")
+# /events/details/google-gdg-aqaba-presents-devfest/ -> google-gdg-aqaba
+HOST_RE = re.compile(r"/events/details/(.+?)-presents-")
+
+
+def own_chapter(url: str, chapters: List[str]) -> Optional[str]:
+    """Which of `chapters` hosts this event, from its URL. Chapter pages also list events
+    they only co-host: GDG Aqaba's lists GDG on Campus Sudan University's."""
+    m = HOST_RE.search(urlsplit(url).path)
+    if m:
+        for slug in chapters:
+            if m.group(1) == slug or m.group(1).endswith("-" + slug):
+                return slug
+    return None
 
 
 def upcoming_event_links(html: str, base_url: str, limit: int) -> List[str]:
@@ -116,19 +129,23 @@ class BevyScraper(BaseScraper):
         self.organizer = organizer
 
     def fetch(self) -> List[Event]:
+        # Chapter pages first: an event may be listed on another chapter's page than its own.
+        pages = {slug: self.get(urljoin(self.base_url, slug.strip("/") + "/")).text for slug in self.chapters}
+        names = {slug: chapter_name(html) for slug, html in pages.items()}
         events: List[Event] = []
         seen = set()
-        for slug in self.chapters:
-            chapter_html = self.get(urljoin(self.base_url, slug.strip("/") + "/")).text
-            name = chapter_name(chapter_html)
-            organizer = self.organizer.format(chapter=name) if name else None
-            for url in upcoming_event_links(chapter_html, self.base_url, self.max_events_per_chapter):
+        for html in pages.values():
+            for url in upcoming_event_links(html, self.base_url, self.max_events_per_chapter):
                 if url in seen:
                     continue  # co-hosted events appear on several chapter pages
                 seen.add(url)
+                host = own_chapter(url, self.chapters)
+                if not host:
+                    continue  # another chapter's event, only co-hosted by one of ours
                 page = parse_event_page(self.get(url).text)
                 if page:
-                    events.append(self._event(url, page, organizer))
+                    name = names[host]
+                    events.append(self._event(url, page, self.organizer.format(chapter=name) if name else None))
         return events
 
     def _event(self, url: str, page: dict, organizer: Optional[str]) -> Event:

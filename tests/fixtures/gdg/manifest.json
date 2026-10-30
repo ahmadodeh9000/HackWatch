@@ -91,18 +91,6 @@
   },
   {
     "method": "GET",
-    "url": "https://gdg.community.dev/events/details/google-gdg-on-campus-sudan-university-of-science-technology-khartoum-sudan-presents-from-awareness-to-impact-emotional-intelligence-is-the-key/",
-    "status": 200,
-    "file": "015.html"
-  },
-  {
-    "method": "GET",
-    "url": "https://gdg.community.dev/events/details/google-gdg-on-campus-sudan-university-of-science-technology-khartoum-sudan-presents-stand-out-amp-connect-the-power-of-personal-branding/",
-    "status": 200,
-    "file": "016.html"
-  },
-  {
-    "method": "GET",
     "url": "https://gdg.community.dev/gdg-on-campus-amman-arab-university-amman-jordan/",
     "status": 200,
     "file": "017.html"
