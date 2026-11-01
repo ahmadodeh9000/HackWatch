@@ -21,7 +21,7 @@ MIN_PREVIOUS_EVENTS = 3
 STALE_MAX_DAYS = 7
 RECORD_FIELDS = ("title", "url", "source", "organizer", "prize", "registration_deadline", "start_date",
                  "end_date", "start_time", "end_time", "low_signal", "location", "mode", "description", "type", "tags", "scope",
-                 "cost", "certificate", "open_to")
+                 "cost", "certificate", "open_to", "registration_url")
 
 
 def load_json(location: str):

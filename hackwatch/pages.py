@@ -98,6 +98,7 @@ p.desc{{margin:16px 0;overflow-wrap:anywhere}}
     {deadline}
     {f'<p class="desc">{esc(description[:600])}</p>' if description else ''}
     <a class="btn" href="{esc(target)}" rel="noopener">Go to the event page →</a>
+    {f'<a class="btn" href="{esc(e.registration_url)}" rel="noopener">Register →</a>' if str(e.registration_url or "").startswith(("http://", "https://")) else ''}
   </article>
   <a class="back" href="{esc(site)}">← All tech &amp; engineering events in Jordan</a>
 </main>

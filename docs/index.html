@@ -370,7 +370,7 @@ const STR = {
     endsToday: "Ongoing · ends today", left: n => `Ongoing · ${enDays(n)} left`, tba: "Date TBA",
     online: "Online", alsoOnline: "+ online", stale: "⚠ Not re-checked today",
     staleHint: "This source failed in the latest update; this listing is from the previous one.",
-    view: "View event", share: "Share", by: "by",
+    view: "View event", register: "Register", share: "Share", by: "by",
     worldwideTag: "🌍\u00a0Worldwide", worldwideHint: "Not in Jordan: an online event open worldwide",
     addCal: "Add to calendar", googleCal: "Google Calendar", icsFile: "Apple / Outlook (.ics)",
     facts: {free: "🎟\u00a0Free", paid: "🎟\u00a0Paid", certificate: "📜\u00a0Certificate",
@@ -422,7 +422,7 @@ const STR = {
     endsToday: "جارية · تنتهي اليوم", left: n => `جارية · يتبقى ${arDays(n)}`, tba: "الموعد يُعلن لاحقًا",
     online: "عن بُعد", alsoOnline: "+ عن بُعد", stale: "⚠ لم يُتحقق منها اليوم",
     staleHint: "تعذّر تحديث هذا المصدر في آخر تحديث؛ هذه البيانات من التحديث السابق.",
-    view: "تفاصيل الفعالية", share: "مشاركة", by: "من تنظيم",
+    view: "تفاصيل الفعالية", register: "التسجيل", share: "مشاركة", by: "من تنظيم",
     worldwideTag: "🌍\u00a0عالمي", worldwideHint: "ليست في الأردن: فعالية عن بُعد مفتوحة عالميًا",
     addCal: "أضف إلى التقويم", googleCal: "تقويم Google", icsFile: "Apple / Outlook ‏(.ics)",
     facts: {free: "🎟\u00a0مجاني", paid: "🎟\u00a0مدفوع", certificate: "📜\u00a0شهادة",
@@ -647,6 +647,7 @@ function card(ev){
     </div>
     <div class="acts">
       <a class="btn primary" href="${url}" target="_blank" rel="noopener">${esc(S.view)}</a>
+      ${/^https?:\/\//i.test(ev.registration_url || "") ? `<a class="btn ghost" href="${esc(ev.registration_url)}" target="_blank" rel="noopener">${esc(S.register)}</a>` : ""}
       ${calMenu(ev)}
       <button class="btn ghost share" type="button" data-share="${esc(ev.id || "")}" aria-label="${esc(S.share)}: ${esc(ev.title)}" title="${esc(S.share)}">${SHARE_ICON}</button>
     </div>

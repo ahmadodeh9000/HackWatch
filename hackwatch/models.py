@@ -134,6 +134,8 @@ class Event:
     cost: Optional[str] = None
     certificate: Optional[bool] = None
     open_to: Optional[str] = None
+    # A separate sign-up link, when the source has one (`url` stays the event's page).
+    registration_url: Optional[str] = None
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
     first_seen_run_id: Optional[int] = None

@@ -1,0 +1,14 @@
+[
+  {
+    "method": "GET",
+    "url": "https://ras-uj.site/sitemap.xml",
+    "status": 200,
+    "file": "000.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://ras-uj.site/e/2026-11-12-arduino-fundamentals-applied-robotics",
+    "status": 200,
+    "file": "001.html"
+  }
+]

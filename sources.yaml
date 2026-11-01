@@ -100,6 +100,17 @@ sources:
       page_size: 200
       delay_seconds: 60
 
+  - name: rasuj
+    scraper: rasuj
+    enabled: true
+    scope: jordan
+    default_tags: [robotics, ieee]
+    may_be_empty: true   # a student club: no upcoming events between terms is normal
+    options:
+      organizer: IEEE RAS UJ
+      city: Amman
+      open_to: students
+
   - name: ctftime
     enabled: true
     scope: worldwide

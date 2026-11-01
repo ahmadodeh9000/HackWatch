@@ -31,6 +31,8 @@ CANDIDATES = [
     ("JUST calendar", "https://www.just.edu.jo/calendar", "calendar", 2),
     ("Luma Amman", "https://luma.com/amman", "__NEXT_DATA__", 2),
     ("IEEE vTools API", "https://events.vtools.ieee.org/RST/events/api/public/v8/events/list?limit=1", '"data"', 2),
+    ("IEEE RAS UJ sitemap", "https://ras-uj.site/sitemap.xml", "/e/", 2),
+    ("IEEE RAS UJ event page", "https://ras-uj.site/e/2026-11-12-arduino-fundamentals-applied-robotics", "ev-data", 2),
     ("Eventbrite Jordan (known blocked)", "https://www.eventbrite.com/d/jordan/tech/", "application/ld+json", 2),
 ]
 

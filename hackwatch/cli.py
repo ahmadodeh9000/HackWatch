@@ -621,6 +621,7 @@ def export(
             "cost": ev.cost,
             "certificate": ev.certificate,
             "open_to": ev.open_to,
+            "registration_url": ev.registration_url,
             "stale_since": ev.stale_since,
             "is_online": ev.is_online,  # legacy, = mode != "in-person"; kept for the current site
             # Weekly series (series.py): this record is the next session; all upcoming ones here.
