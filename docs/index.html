@@ -115,7 +115,8 @@ button{font:inherit;color:inherit}
 .status{align-self:flex-start;max-width:100%}
 .card h3{margin:0;font-size:1.05rem;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
 .line{margin:0;color:var(--muted);font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pills{display:flex;gap:6px;overflow:hidden;min-width:0;height:24px}
+/* One row of whole pills: those that don't fit wrap to a second row, which the height hides. */
+.pills{display:flex;flex-wrap:wrap;gap:6px;overflow:hidden;min-width:0;height:24px}
 .pill{flex:none;display:inline-block;padding:3px 10px;border-radius:999px;font-size:.76rem;font-weight:700;line-height:18px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .pill.shrink{flex:0 1 auto;min-width:0}
 .pill.urgent{background:var(--urgent-bg);color:var(--urgent-fg)}
@@ -124,9 +125,9 @@ button{font:inherit;color:inherit}
 .pill.info{background:var(--info-bg);color:var(--info-fg)}
 .pill.gray{background:var(--gray-bg);color:var(--gray-fg)}
 .pill.fact{background:var(--surface-2);color:var(--text);font-weight:600}
-.pill.tag{flex:0 1 auto;min-width:0;background:var(--surface-2);color:var(--muted);font-weight:600}
-.card .acts{display:flex;gap:8px;padding-top:2px}
-.card .acts .btn{flex:1;min-height:40px;padding:6px 14px;font-size:.95rem}
+.pill.tag{background:var(--surface-2);color:var(--muted);font-weight:600}
+.card .acts{display:flex;align-items:center;gap:8px;padding-top:2px}
+.card .acts .btn{flex:1;min-width:0;min-height:40px;padding:6px 10px;font-size:.95rem;white-space:nowrap}
 .card .acts .share{flex:none;width:44px;padding:0}
 .share svg,.cal summary svg{width:20px;height:20px;display:block}
 .cal{position:relative;flex:none}
@@ -370,7 +371,7 @@ const STR = {
     endsToday: "Ongoing · ends today", left: n => `Ongoing · ${enDays(n)} left`, tba: "Date TBA",
     online: "Online", alsoOnline: "+ online", stale: "⚠ Not re-checked today",
     staleHint: "This source failed in the latest update; this listing is from the previous one.",
-    view: "View event", register: "Register", share: "Share", by: "by",
+    view: "View event", details: "Details", register: "Register", share: "Share", by: "by",
     worldwideTag: "🌍\u00a0Worldwide", worldwideHint: "Not in Jordan: an online event open worldwide",
     addCal: "Add to calendar", googleCal: "Google Calendar", icsFile: "Apple / Outlook (.ics)",
     facts: {free: "🎟\u00a0Free", paid: "🎟\u00a0Paid", certificate: "📜\u00a0Certificate",
@@ -422,7 +423,7 @@ const STR = {
     endsToday: "جارية · تنتهي اليوم", left: n => `جارية · يتبقى ${arDays(n)}`, tba: "الموعد يُعلن لاحقًا",
     online: "عن بُعد", alsoOnline: "+ عن بُعد", stale: "⚠ لم يُتحقق منها اليوم",
     staleHint: "تعذّر تحديث هذا المصدر في آخر تحديث؛ هذه البيانات من التحديث السابق.",
-    view: "تفاصيل الفعالية", register: "التسجيل", share: "مشاركة", by: "من تنظيم",
+    view: "تفاصيل الفعالية", details: "التفاصيل", register: "التسجيل", share: "مشاركة", by: "من تنظيم",
     worldwideTag: "🌍\u00a0عالمي", worldwideHint: "ليست في الأردن: فعالية عن بُعد مفتوحة عالميًا",
     addCal: "أضف إلى التقويم", googleCal: "تقويم Google", icsFile: "Apple / Outlook ‏(.ics)",
     facts: {free: "🎟\u00a0مجاني", paid: "🎟\u00a0مدفوع", certificate: "📜\u00a0شهادة",
@@ -630,6 +631,7 @@ function card(ev){
   const stale = ev.stale ? `<span class="pill gray shrink" title="${esc(S.staleHint)}">${esc(S.stale)}</span>` : "";
   const tags = (ev.tags || []).slice(0, 3).map(t => `<span class="pill tag" title="${esc(tagLabel(t))}">#${esc(tagLabel(t))}</span>`).join("");
   const sources = (ev.sources || [ev.source]).join(", ");
+  const hasRegister = /^https?:\/\//i.test(ev.registration_url || "");
   // Cost, certificate, open_to: shown only when known (a missing certificate isn't shown either).
   const facts = [ev.cost, ev.certificate === true ? "certificate" : null, ev.open_to].filter(k => k && S.facts[k])
     .map(k => `<span class="pill fact" title="${esc(S.factHints[k])}">${esc(S.facts[k])}</span>`).join("");
@@ -646,8 +648,8 @@ function card(ev){
       ${facts}${prize}${stale}${tags}
     </div>
     <div class="acts">
-      <a class="btn primary" href="${url}" target="_blank" rel="noopener">${esc(S.view)}</a>
-      ${/^https?:\/\//i.test(ev.registration_url || "") ? `<a class="btn ghost" href="${esc(ev.registration_url)}" target="_blank" rel="noopener">${esc(S.register)}</a>` : ""}
+      <a class="btn primary" href="${url}" target="_blank" rel="noopener">${esc(hasRegister ? S.details : S.view)}</a>
+      ${hasRegister ? `<a class="btn ghost" href="${esc(ev.registration_url)}" target="_blank" rel="noopener">${esc(S.register)}</a>` : ""}
       ${calMenu(ev)}
       <button class="btn ghost share" type="button" data-share="${esc(ev.id || "")}" aria-label="${esc(S.share)}: ${esc(ev.title)}" title="${esc(S.share)}">${SHARE_ICON}</button>
     </div>
