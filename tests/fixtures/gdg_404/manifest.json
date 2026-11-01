@@ -1,0 +1,20 @@
+[
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/gdg-amman/",
+    "status": 200,
+    "file": "000.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/events/details/google-gdg-amman-presents-devfest-amman-2026/",
+    "status": 200,
+    "file": "001.html"
+  },
+  {
+    "method": "GET",
+    "url": "https://gdg.community.dev/gdg-on-campus-al-hussein-technical-university-amman-jordan/",
+    "status": 404,
+    "file": ""
+  }
+]

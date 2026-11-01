@@ -79,7 +79,14 @@ class VToolsScraper(BaseScraper):
         events = []
         page, total_pages = 1, 1
         while page <= min(total_pages, self.max_pages):
-            data = self._page(page)
+            try:
+                data = self._page(page)
+            except Exception as exc:
+                if page == 1:
+                    raise   # without page 1 there's no way to know what's there
+                self.note_failure(f"page {page}", exc)
+                page += 1
+                continue
             total_pages = int(((data.get("meta") or {}).get("paging") or {}).get("total_pages") or 1)
             for item in data.get("data") or []:
                 attrs = item.get("attributes") or {}

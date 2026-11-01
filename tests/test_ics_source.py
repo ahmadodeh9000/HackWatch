@@ -164,3 +164,25 @@ def test_issue_form_rejects_a_page_that_is_not_a_calendar(tmp_path, monkeypatch)
     assert "isn't an iCal" in (tmp_path / "o" / "errors.md").read_text()
     code, _ = submit(tmp_path, monkeypatch, FORM.format(url="http://example.com/a.ics"))
     assert code == 1 and "https://" in (tmp_path / "o" / "errors.md").read_text()
+
+
+def test_one_bad_calendar_keeps_the_others(tmp_path, monkeypatch):
+    import requests
+    path = tmp_path / "c.yaml"
+    path.write_text("- {name: Good, url: 'https://g.test/a.ics', city: Irbid}\n- {name: Bad, url: 'https://b.test/a.ics'}\n")
+    scraper = IcsScraper(calendars_path=str(path), delay_seconds=0)
+
+    class Page:
+        text = ICS.replace("20261110", "20991110").replace("20261120", "20991120")
+
+    def get(url, **kw):
+        if "b.test" in url:
+            raise requests.ConnectionError("down")
+        return Page
+    monkeypatch.setattr(scraper, "get", get)
+    scraper.days_ahead = 40000
+    assert scraper.fetch() and [f["part"] for f in scraper.partial_failures] == ["Bad"]
+    monkeypatch.setattr(scraper, "get", lambda url, **kw: (_ for _ in ()).throw(requests.ConnectionError("down")))
+    scraper.partial_failures = []
+    with pytest.raises(RuntimeError, match="all calendars failed"):
+        scraper.fetch()

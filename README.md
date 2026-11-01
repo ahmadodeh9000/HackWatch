@@ -172,9 +172,12 @@ The `Update HackWatch Events & Deploy` workflow runs every day at 03:00 UTC, on 
 1. Runs the tests, then fetches every enabled source in `sources.yaml` and writes a per-source
    report (`status.json`, also in the job summary).
 2. `health` counts empty runs per source; after 2 in a row it opens a "Source down: <name>" issue,
-   and closes it when the source recovers.
+   and closes it when the source recovers. When one chapter, page or calendar of a source fails, it's
+   skipped and the rest is kept; after 3 runs in a row it gets its own "Source partly down: <source>
+   (<part>)" issue.
 3. Each source that fetched replaces what it listed before, so removed events disappear. A source
-   that had events on the live site but returned nothing now keeps them, marked stale, for up to 7 days.
+   that had events on the live site but returned nothing now keeps them, marked stale, for up to 7 days;
+   so do the missing events of a source where only some parts failed.
 4. Listings of the same event are merged (same link, or a similar title within a day from another
    source); precedence is manual > Jordan sources > worldwide feeds.
 5. Exports `events.json`, `labels.json`, `events.ics`, `digest.txt`, `digest.png` and `e/<id>.html`, and refuses

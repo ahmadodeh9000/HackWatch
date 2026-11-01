@@ -130,7 +130,14 @@ class BevyScraper(BaseScraper):
 
     def fetch(self) -> List[Event]:
         # Chapter pages first: an event may be listed on another chapter's page than its own.
-        pages = {slug: self.get(urljoin(self.base_url, slug.strip("/") + "/")).text for slug in self.chapters}
+        pages = {}
+        for slug in self.chapters:
+            try:
+                pages[slug] = self.get(urljoin(self.base_url, slug.strip("/") + "/")).text
+            except Exception as exc:
+                self.note_failure(slug, exc)
+        if not pages:
+            raise RuntimeError(f"all {len(self.chapters)} chapter pages failed; first: {self.partial_failures[0]['error']}")
         names = {slug: chapter_name(html) for slug, html in pages.items()}
         events: List[Event] = []
         seen = set()
@@ -142,10 +149,13 @@ class BevyScraper(BaseScraper):
                 host = own_chapter(url, self.chapters)
                 if not host:
                     continue  # another chapter's event, only co-hosted by one of ours
-                page = parse_event_page(self.get(url).text)
-                if page:
-                    name = names[host]
-                    events.append(self._event(url, page, self.organizer.format(chapter=name) if name else None))
+                name = names.get(host)
+                try:
+                    page = parse_event_page(self.get(url).text)
+                    if page:
+                        events.append(self._event(url, page, self.organizer.format(chapter=name) if name else None))
+                except Exception as exc:
+                    self.note_failure(host, exc)
         return events
 
     def _event(self, url: str, page: dict, organizer: Optional[str]) -> Event:

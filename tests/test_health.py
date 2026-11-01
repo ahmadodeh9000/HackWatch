@@ -144,3 +144,81 @@ def test_freshness_updates_open_issue_and_treats_unreadable_as_stale():
 
 def test_freshness_closes_issue_on_recovery():
     assert _freshness("2026-10-30T03:00:00+00:00", {"number": 4}) == ("closed", [("comment", 4), ("close", 4)])
+
+
+CHAPTER = "gdg-on-campus-x"
+
+
+def part_row(failed=True, ok=True):
+    return {"source": "gdg", "ok": ok, "fetched": 5, "kept": 5,
+            "partial_failures": [{"part": CHAPTER, "error": "HTTPError: 404"}] if failed else []}
+
+
+class PartIssues:
+    def __init__(self, open_titles=()):
+        self.open, self.calls = {t: {"number": 7} for t in open_titles}, []
+
+    def find_open(self, title):
+        return self.open.get(title)
+
+    def create(self, title, body):
+        self.calls.append(("create", title, body))
+        return {"number": 8}
+
+    def update(self, number, body):
+        self.calls.append(("update", number, body))
+
+    def comment(self, number, body):
+        self.calls.append(("comment", number))
+
+    def close(self, number):
+        self.calls.append(("close", number))
+
+
+def streak_after(runs):
+    from hackwatch.health import update_streaks
+    previous = None
+    for row in runs:
+        previous = update_streaks({"sources": [row]}, previous)
+    return previous
+
+
+def test_part_streak_counts_runs_in_a_row_and_resets():
+    assert streak_after([part_row(), part_row()])["sources"][0]["part_streaks"] == {CHAPTER: 2}
+    assert streak_after([part_row(), part_row(False), part_row()])["sources"][0]["part_streaks"] == {CHAPTER: 1}
+    # A run where the whole source failed doesn't count or clear it.
+    assert streak_after([part_row(), part_row(False, ok=False)])["sources"][0]["part_streaks"] == {CHAPTER: 1}
+
+
+def test_part_issue_only_after_three_runs_and_source_stays_up():
+    from hackwatch.health import sync_issues
+    title = f"Source partly down: gdg ({CHAPTER})"
+    two = PartIssues()
+    sync_issues(streak_after([part_row(), part_row()]), two, log=lambda m: None)
+    assert two.calls == []
+    three = PartIssues()
+    actions = sync_issues(streak_after([part_row()] * 3), three, log=lambda m: None)
+    assert three.calls[0][:2] == ("create", title) and "HTTPError: 404" in three.calls[0][2]
+    assert actions == [f"opened #8 {title}"]
+    assert not any("Source down" in a for a in actions)
+    four = PartIssues([title])
+    sync_issues(streak_after([part_row()] * 4), four, log=lambda m: None)
+    assert four.calls[0][:2] == ("update", 7)
+
+
+def test_part_issue_closes_when_it_works_again():
+    from hackwatch.health import sync_issues
+    title = f"Source partly down: gdg ({CHAPTER})"
+    api = PartIssues([title])
+    sync_issues(streak_after([part_row(), part_row(), part_row(), part_row(False)]), api, log=lambda m: None)
+    assert api.calls == [("comment", 7), ("close", 7)]
+
+
+def test_exempt_sources_still_track_parts():
+    from hackwatch.health import sync_issues, update_streaks
+    previous = None
+    for _ in range(3):
+        previous = update_streaks({"sources": [{**part_row(), "source": "clubs"}]}, previous, exempt=["clubs"])
+    api = PartIssues()
+    sync_issues(previous, api, log=lambda m: None)
+    assert api.calls[0][1] == f"Source partly down: clubs ({CHAPTER})"

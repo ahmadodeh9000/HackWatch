@@ -11,7 +11,6 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 from urllib.parse import quote, unquote
 
-import requests
 import yaml
 from bs4 import BeautifulSoup
 
@@ -184,14 +183,13 @@ class IcsScraper(BaseScraper):
 
     def fetch(self) -> List[Event]:
         calendars = load_calendars(self.calendars_path)
-        events, failures = [], []
+        events = []
         for calendar in calendars:
             try:
                 text = self.get(calendar["url"]).text
-            except requests.RequestException as exc:
-                failures.append(f"{calendar['name']}: {type(exc).__name__}")
-                continue
-            events += events_from_ics(text, calendar, self.name, date.today(), self.days_ahead)
-        if calendars and len(failures) == len(calendars):
-            raise RuntimeError("all calendars failed: " + "; ".join(failures))
+                events += events_from_ics(text, calendar, self.name, date.today(), self.days_ahead)
+            except Exception as exc:
+                self.note_failure(calendar["name"], exc)
+        if calendars and len(self.partial_failures) == len(calendars):
+            raise RuntimeError("all calendars failed: " + "; ".join(f["part"] for f in self.partial_failures))
         return events

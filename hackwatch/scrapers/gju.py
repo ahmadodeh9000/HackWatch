@@ -9,6 +9,7 @@ from datetime import date
 from typing import List, Optional
 from urllib.parse import urljoin
 
+import requests
 from bs4 import BeautifulSoup
 
 from hackwatch.models import Event
@@ -61,8 +62,15 @@ class GJUScraper(BaseScraper):
     def fetch(self, today: Optional[date] = None) -> List[Event]:
         today = today or date.today()
         events, seen = [], set()
-        for key in month_keys(today, self.months_ahead):
-            html = self.get(f"{self.base_url.rstrip('/')}/gju-event/month/{key}").text
+        keys = month_keys(today, self.months_ahead)
+        for key in keys:
+            try:
+                html = self.get(f"{self.base_url.rstrip('/')}/gju-event/month/{key}").text
+            except requests.ConnectTimeout:
+                raise   # the whole site is unreachable: don't wait ~2 minutes for each month
+            except Exception as exc:
+                self.note_failure(key, exc)
+                continue
             for item in parse_month(html, self.base_url):
                 if item["url"] in seen:
                     continue  # multi-day events show up in every month they span
@@ -80,4 +88,6 @@ class GJUScraper(BaseScraper):
                     country="JO",
                     description=description,
                 ))
+        if len(self.partial_failures) == len(keys):
+            raise RuntimeError(f"all {len(keys)} months failed; first: {self.partial_failures[0]['error']}")
         return events

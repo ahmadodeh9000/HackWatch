@@ -109,3 +109,19 @@ def test_already_stale_events_keep_their_original_date_and_expire_after_7_days(t
     assert {e.stale_since for e in db.get_events(c, show_all=True)} == {"2026-10-27"}
     restored, _ = again(date(2026, 11, 4), "2026-10-27")   # 8 days: dropped
     assert restored == {"ieee": 0}
+
+
+def test_partly_failed_source_keeps_its_missing_events_only(conn):
+    from hackwatch import db
+    from hackwatch.carryover import carry_over
+    from hackwatch.models import Event
+    from datetime import date
+    db.write_observation(conn, Event(title="Fresh", url="https://g/fresh", source="gdg", start_date="2026-12-01",
+                                     scope="jordan", type="other"), None)
+    db.rebuild_events(conn)
+    previous = [{"title": "Fresh", "url": "https://g/fresh", "source": "gdg", "start_date": "2026-12-01", "scope": "jordan"},
+                {"title": "From failed chapter", "url": "https://g/old", "source": "gdg", "start_date": "2026-12-02", "scope": "jordan", "type": "other"}]
+    assert carry_over(conn, previous, ["gdg"], today=date(2026, 11, 1)) == {}     # nothing failed: it's just gone
+    assert carry_over(conn, previous, ["gdg"], today=date(2026, 11, 1), partly_failed=["gdg"]) == {"gdg": 1}
+    events = {e.title: e for e in db.get_events(conn, show_all=True)}
+    assert events["From failed chapter"].stale and not events["Fresh"].stale

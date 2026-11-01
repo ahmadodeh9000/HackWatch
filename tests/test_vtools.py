@@ -152,3 +152,25 @@ def test_past_tense_report_is_skipped(monkeypatch):
     monkeypatch.setattr(scraper, "_page", lambda page: {"data": [
         item(1, "The Student Branch hosted a booth at the fair."), item(2, "Visit our booth at the fair!")]})
     assert [e.url.rsplit("/", 1)[-1] for e in scraper.fetch()] == ["2"]
+
+
+def test_a_later_page_failing_keeps_the_other_pages(monkeypatch):
+    host = {"section_spoids": "R80079", "name": "X"}
+    def page(n):
+        if n == 2:
+            raise requests.ConnectionError("down")
+        return {"meta": {"paging": {"total_pages": 3}}, "data": [
+            {"id": n, "attributes": {"title": f"Event {n}", "primary-host": host, "start-time": "2026-12-01T09:00:00Z"}}]}
+    scraper = VToolsScraper(section_spoids=["R80079"], delay_seconds=0)
+    monkeypatch.setattr(scraper, "_page", page)
+    assert [e.title for e in scraper.fetch()] == ["Event 1", "Event 3"]
+    assert scraper.partial_failures[0]["part"] == "page 2"
+
+
+def test_the_first_page_failing_fails_the_source(monkeypatch):
+    def page(n):
+        raise requests.ConnectionError("down")
+    scraper = VToolsScraper(section_spoids=["R80079"], delay_seconds=0)
+    monkeypatch.setattr(scraper, "_page", page)
+    with pytest.raises(requests.ConnectionError):
+        scraper.fetch()

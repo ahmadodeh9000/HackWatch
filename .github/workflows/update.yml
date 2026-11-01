@@ -74,9 +74,9 @@ jobs:
 
       # Per-source guard: a source that had >= 3 events in the live site but returned
       # nothing now (error, block, empty page) keeps those events, marked stale, with a
-      # warning in the job summary.
+      # warning in the job summary. Same for what's missing when only some of a source's pages failed.
       - name: Keep last deployed events of sources that returned nothing
-        run: python -m hackwatch.cli carry-over --previous https://ahmadodeh9000.github.io/HackWatch/events.json
+        run: python -m hackwatch.cli carry-over --status docs/status.json --previous https://ahmadodeh9000.github.io/HackWatch/events.json
 
       - name: Export events (events.json, labels.json, events.ics, digest, share pages)
         run: >

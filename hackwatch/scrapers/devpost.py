@@ -115,8 +115,13 @@ class DevpostScraper(BaseScraper):
                 "status[]": ["upcoming", "open"],
                 "page": page
             }
-            resp = self.get(self.api_url, params=params)
-            data = resp.json()
+            try:
+                data = self.get(self.api_url, params=params).json()
+            except Exception as exc:
+                if page == 1:
+                    raise
+                self.note_failure(f"page {page}", exc)
+                break
             hackathons = data.get("hackathons", [])
             if not hackathons:
                 break

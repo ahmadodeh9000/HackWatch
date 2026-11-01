@@ -8,13 +8,14 @@ marks them stale, so the site can say they weren't re-checked today.
 import json
 from datetime import date
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, Iterable, List, Optional
 
 import requests
 
 from hackwatch import db
 from hackwatch.models import Event
 from hackwatch.scrapers.base import DEFAULT_USER_AGENT
+from hackwatch.urls import normalize_url
 
 MIN_PREVIOUS_EVENTS = 3
 # A source down this long loses its kept events: they may well be cancelled or moved.
@@ -60,12 +61,13 @@ def _expired(record: dict, today: date, max_days: int) -> bool:
 
 def carry_over(conn, previous: List[dict], sources: List[str],
                min_events: int = MIN_PREVIOUS_EVENTS, today: Optional[date] = None,
-               max_stale_days: int = STALE_MAX_DAYS) -> Dict[str, int]:
+               max_stale_days: int = STALE_MAX_DAYS, partly_failed: Iterable[str] = ()) -> Dict[str, int]:
     """Restore events of configured sources that have 0 events now but had >= min_events before.
 
     Counts use each event's primary `source`. Each restored event keeps the date it
     first went stale (stale_since); after max_stale_days it is no longer restored.
-    Returns {source: events restored}.
+    Sources in `partly_failed` (a chapter or page failed, the rest worked) also get back
+    their events that are missing now, whatever the counts. Returns {source: events restored}.
     """
     today = today or date.today()
     by_source: Dict[str, List[dict]] = {}
@@ -75,10 +77,14 @@ def carry_over(conn, previous: List[dict], sources: List[str],
     restored: Dict[str, int] = {}
     for source in sources:
         old = by_source.get(source, [])
-        if len(old) < min_events or db.count_observations(conn, source) > 0:
+        partly = source in partly_failed
+        if not partly and (len(old) < min_events or db.count_observations(conn, source) > 0):
             continue
+        present = {row["url_key"] for row in conn.execute("SELECT url_key FROM observations WHERE source = ?", (source,))}
         events = []
         for record in old:
+            if normalize_url(record.get("url") or "") in present:
+                continue
             if not _still_upcoming(record, today) or _expired(record, today, max_stale_days):
                 continue
             fields = {k: record.get(k) for k in RECORD_FIELDS if record.get(k) is not None}
@@ -87,7 +93,8 @@ def carry_over(conn, previous: List[dict], sources: List[str],
         with conn:
             for event in events:
                 db.write_observation(conn, event, run_id=None)
-        restored[source] = len(events)
+        if events or not partly:
+            restored[source] = len(events)
     if restored:
         db.rebuild_events(conn)
     return restored

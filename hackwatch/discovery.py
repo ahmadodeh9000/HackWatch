@@ -245,8 +245,12 @@ def run(pages: List[dict], listed: List[dict], api, fetcher: Optional[PoliteFetc
     found: List[Candidate] = []
     report: List[Tuple[str, str, int]] = []
     for page in pages:
-        html, note = fetcher.fetch(page["url"])
-        finds = candidates_from_html(html, page["url"], page["name"], today) if html else []
+        # One page failing in any way never stops the others.
+        try:
+            html, note = fetcher.fetch(page["url"])
+            finds = candidates_from_html(html, page["url"], page["name"], today) if html else []
+        except Exception as exc:
+            finds, note = [], type(exc).__name__
         fresh = not_listed(finds, listed)
         report.append((page["name"], note, len(fresh)))
         found += fresh

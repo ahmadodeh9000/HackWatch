@@ -13,6 +13,7 @@ import requests
 from hackwatch.scrapers.base import DEFAULT_USER_AGENT
 
 ZERO_RUNS_FOR_ISSUE = 2
+PART_RUNS_FOR_ISSUE = 3
 ISSUE_PREFIX = "Source down: "
 STATUS_URL = "https://ahmadodeh9000.github.io/HackWatch/status.json"
 
@@ -32,14 +33,67 @@ def update_streaks(current: dict, previous: Optional[dict], exempt: Iterable[str
     for row in (previous or {}).get("sources") or []:
         streak = row.get("zero_streak")
         before[row.get("source")] = int(streak) if streak is not None else (1 if is_zero(row) else 0)
+    before_parts = {row.get("source"): row.get("part_streaks") or {} for row in (previous or {}).get("sources") or []}
     for row in current.get("sources") or []:
         name = row.get("source")
+        _update_part_streaks(row, before_parts.get(name, {}))
         if name in exempt:
             row["zero_streak"] = 0
             row["may_be_empty"] = True
         else:
             row["zero_streak"] = before.get(name, 0) + 1 if is_zero(row) else 0
     return current
+
+
+def _update_part_streaks(row: dict, before: Dict[str, int]) -> None:
+    """part_streaks: failed runs in a row per chapter/page. Parts at the issue threshold that
+    work again go in recovered_parts. A run that failed as a whole says nothing about parts."""
+    if not row.get("ok"):
+        row["part_streaks"] = dict(before)
+        return
+    failed = {f["part"] for f in row.get("partial_failures") or []}
+    row["part_streaks"] = {part: int(before.get(part, 0)) + 1 for part in failed}
+    row["recovered_parts"] = sorted(p for p, n in before.items() if p not in failed and int(n) >= PART_RUNS_FOR_ISSUE)
+
+
+def part_issue_title(source: str, part: str) -> str:
+    return f"Source partly down: {source} ({part})"
+
+
+def sync_part_issues(row: dict, api, threshold: int = PART_RUNS_FOR_ISSUE, run_url: Optional[str] = None) -> List[str]:
+    """One issue per part that has failed `threshold` runs in a row; closed when it works again."""
+    actions = []
+    errors = {f["part"]: f.get("error") for f in row.get("partial_failures") or []}
+    for part, streak in (row.get("part_streaks") or {}).items():
+        if streak < threshold:
+            continue
+        title = part_issue_title(row["source"], part)
+        body = "\n".join([
+            f"**{part}** of the **{row['source']}** source has failed **{streak} runs in a row**. "
+            "The rest of the source keeps working.",
+            "",
+            f"Last error: `{str(errors.get(part) or 'the whole source failed in the latest run').replace('`', '')}`",
+            "",
+            "If it's gone for good, remove it from `sources.yaml` (or `calendars.yaml`).",
+            f"Latest report: {STATUS_URL}" + (f" · run: {run_url}" if run_url else ""),
+            "",
+            "_Updated by the daily deploy and closed automatically when it works again._",
+        ])
+        existing = api.find_open(title)
+        if existing:
+            api.update(existing["number"], body)
+            actions.append(f"updated #{existing['number']} {title}")
+        else:
+            created = api.create(title, body)
+            actions.append(f"opened #{created['number']} {title}")
+    for part in row.get("recovered_parts") or []:
+        title = part_issue_title(row["source"], part)
+        existing = api.find_open(title)
+        if existing:
+            api.comment(existing["number"], f"✅ **{part}** no longer fails in the latest run. Closing.")
+            api.close(existing["number"])
+            actions.append(f"closed #{existing['number']} {title}")
+    return actions
 
 
 def issue_body(row: dict, run_url: Optional[str]) -> str:
@@ -105,6 +159,7 @@ def sync_issues(status: dict, api, threshold: int = ZERO_RUNS_FOR_ISSUE,
     """Open/update issues for sources at the threshold, close them for recovered ones."""
     actions = []
     for row in status.get("sources") or []:
+        actions += sync_part_issues(row, api, run_url=run_url)
         if row.get("may_be_empty"):
             continue
         title = ISSUE_PREFIX + row["source"]

@@ -44,6 +44,7 @@ class FetchResult(NamedTuple):
     note: Optional[str] = None
     seconds: float = 0.0
     requests: tuple = ()   # the scraper's request log (dicts: url, status, seconds, error, hint)
+    partial: tuple = ()    # parts that failed while the rest worked (dicts: part, error)
 
     def summary(self) -> dict:
         """One row of the fetch report: what happened and, if empty, likely why."""
@@ -63,6 +64,7 @@ class FetchResult(NamedTuple):
             "request_errors": [r["error"] for r in self.requests if r.get("error")][:3],
             "error": self.error,
             "note": self.note,
+            "partial_failures": list(self.partial),
         }
 
 
@@ -90,6 +92,7 @@ def run_fetch(
             on_start(scraper.name)
         started = time.monotonic()
         scraper.request_log = []
+        scraper.partial_failures = []
         try:
             events = scraper.fetch()
             for event in events:
@@ -104,7 +107,8 @@ def run_fetch(
                 result = FetchResult(scraper.name, kept, len(events), removed=removed)
         except Exception as exc:
             result = FetchResult(scraper.name, 0, 0, error=f"{type(exc).__name__}: {exc}"[:500])
-        result = result._replace(seconds=time.monotonic() - started, requests=tuple(scraper.request_log))
+        result = result._replace(seconds=time.monotonic() - started, requests=tuple(scraper.request_log),
+                                 partial=tuple(scraper.partial_failures))
         results.append(result)
         if on_result:
             on_result(result)
@@ -121,7 +125,8 @@ def fetch_report_markdown(rows: List[dict]) -> str:
         if r["ok"] and r["note"]:
             result = "KEPT OLD"
         statuses = ", ".join(f"{code}×{n}" for code, n in sorted(r["http_status"].items())) or "-"
-        problem = r["error"] or r["note"] or "; ".join(r["block_hints"] + r["request_errors"]) or ""
+        skipped = "; ".join(f"skipped {p['part']}: {p['error']}" for p in r.get("partial_failures") or [])
+        problem = r["error"] or r["note"] or skipped or "; ".join(r["block_hints"] + r["request_errors"]) or ""
         lines.append(f"| {r['source']} | {result} | {r['kept']} / {r['fetched']} | {r['requests']} | "
                      f"{statuses} | {r['seconds']} s | {problem.replace('|', '/')[:300]} |")
     return "\n".join(lines)
@@ -382,6 +387,7 @@ def validate(
 def carry_over_command(
     previous: str = typer.Option(..., "--previous", help="URL or path of the previously deployed events.json"),
     min_events: int = typer.Option(MIN_PREVIOUS_EVENTS, "--min-events", help="Only for sources that had at least this many events"),
+    status: Optional[str] = typer.Option(None, "--status", help="This run's status.json, for sources where only some pages failed"),
     db_path: Path = typer.Option(db.DEFAULT_DB_PATH, "--db", help="Path to SQLite database"),
 ):
     """Keep the last deployed events of sources that returned nothing this run (marked stale)."""
@@ -392,13 +398,16 @@ def carry_over_command(
         typer.echo(f"Could not read the previous export at {previous}; nothing carried over.")
         return
     sources = [s.name for s in get_available_scrapers()]
-    restored = carry_over(conn, old, sources, min_events=min_events)
+    report = load_json(status) if status else None
+    partly = [r["source"] for r in (report or {}).get("sources") or [] if r.get("partial_failures")]
+    restored = carry_over(conn, old, sources, min_events=min_events, partly_failed=partly)
     lines = []
     for source, n in restored.items():
         had = sum(1 for r in old if r.get("source") == source)
         kept = (f"kept {n} upcoming events from the last deploy, marked stale." if n else
                 "its kept events are over 7 days stale or already over, so none were kept.")
-        lines.append(f"{source} returned no events this run (it had {had} in the last deploy); {kept}")
+        what = "had pages that failed" if source in partly else "returned no events"
+        lines.append(f"{source} {what} this run (it had {had} in the last deploy); {kept}")
     for line in lines:
         typer.echo(f"::warning title=Source returned nothing::{line}")
     summary_file = os.environ.get("GITHUB_STEP_SUMMARY")

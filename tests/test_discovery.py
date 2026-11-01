@@ -196,3 +196,15 @@ def test_open_pr_reports_when_the_page_has_no_date():
     note = tick.open_pr("aaa", "https://i.test/x", "5", sh)
     assert note.startswith("couldn't add:") and "no title or date" in note
     assert tick.DONE_RE.search(note)
+
+
+def test_a_page_crashing_never_stops_the_others():
+    class Crash(FakeFetcher):
+        def fetch(self, url):
+            if "bad" in url:
+                raise ValueError("boom")
+            return super().fetch(url)
+    api = FakeIssues()
+    pages = [{"name": "Bad", "url": "https://bad.test/"}, {"name": "U", "url": "https://u.test/events"}]
+    run(pages, [], api, Crash({"https://u.test/events": (PAGE, "ok")}), TODAY, env={}, log=lambda m: None)
+    assert "ValueError" in api.written[1] and "JITEX" in api.written[1]

@@ -55,6 +55,7 @@ class BaseScraper(abc.ABC):
 
     def __init__(self, delay_seconds: float = 2.0):
         self.request_log: List[dict] = []
+        self.partial_failures: List[dict] = []
         self.delay_seconds = delay_seconds
         self.last_request_time: float = 0.0
         self.session = requests.Session()
@@ -98,6 +99,16 @@ class BaseScraper(abc.ABC):
         self.request_log.append(entry)
         resp.raise_for_status()
         return resp
+
+    def note_failure(self, part: str, exc: Exception) -> None:
+        """One chapter/page/calendar failed: remember it and let the others carry on.
+
+        A multi-part source raises only when every part fails. Failures are reported in
+        status.json, its missing events are carried over, and health.py tracks each part.
+        """
+        error = f"{type(exc).__name__}: {exc}"[:200]
+        self.partial_failures.append({"part": str(part), "error": error})
+        print(f"{self.name}: skipped {part}: {error}", flush=True)
 
     def get(self, url: str, **kwargs) -> requests.Response:
         return self.request("GET", url, **kwargs)

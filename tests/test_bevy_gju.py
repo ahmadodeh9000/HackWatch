@@ -1,6 +1,9 @@
 """Bevy public pages (GDG, Startup Grind) and the GJU events calendar."""
 from datetime import date
 
+import pytest
+import requests
+
 from hackwatch.cli import apply_source_defaults
 from hackwatch.filters import is_relevant
 from hackwatch.scrapers import gju
@@ -105,3 +108,92 @@ def test_time_of_an_event_listed_in_another_zone_is_amman_time():
     # The Sudan event's own page: 23:00–00:45 at +02:00 is 00:00–01:45 in Amman the next day.
     assert (local_date("2027-03-24T23:00:00+02:00"), local_time("2027-03-24T23:00:00+02:00")) == ("2027-03-25", "00:00")
     assert local_time("2027-03-25T00:45:00+02:00") == "01:45"
+
+
+DEAD = "gdg-on-campus-al-hussein-technical-university-amman-jordan"
+
+
+def test_one_chapter_404_is_skipped_and_the_others_kept(replay):
+    # gdg_404: GDG Amman's real pages, and the chapter removed on GDG's side, recorded as a 404.
+    from hackwatch.scrapers.bevy import BevyScraper
+    replay("gdg_404")
+    scraper = BevyScraper("https://gdg.community.dev", [DEAD, "gdg-amman"], delay_seconds=0)
+    events = scraper.fetch()
+    assert [e.title for e in events] == ["DevFest Amman 2026"] and events[0].organizer == "GDG Amman"
+    assert [f["part"] for f in scraper.partial_failures] == [DEAD]
+    assert "404" in scraper.partial_failures[0]["error"]
+
+
+def test_all_chapters_failing_is_still_an_error(replay):
+    from hackwatch.scrapers.bevy import BevyScraper
+    replay("gdg_404")
+    with pytest.raises(RuntimeError, match="all 1 chapter pages failed"):
+        BevyScraper("https://gdg.community.dev", [DEAD], delay_seconds=0).fetch()
+
+
+def test_partial_failure_reaches_the_report_and_keeps_the_source_ok(replay, tmp_path):
+    from hackwatch import cli, db
+    from hackwatch.scrapers.bevy import BevyScraper
+    replay("gdg_404")
+    scraper = BevyScraper("https://gdg.community.dev", [DEAD, "gdg-amman"], delay_seconds=0)
+    scraper.name, scraper.default_scope = "gdg", "jordan"
+    conn = db.get_connection(tmp_path / "t.db")
+    db.init_db(conn)
+    _, (result,) = cli.run_fetch(conn, [scraper])
+    row = result.summary()
+    assert row["ok"] and row["kept"] == 1 and row["partial_failures"][0]["part"] == DEAD
+    assert f"skipped {DEAD}" in cli.fetch_report_markdown([row])
+
+
+def test_a_bad_event_page_only_loses_that_event(monkeypatch):
+    from hackwatch.scrapers.bevy import BevyScraper
+    base = "https://gdg.community.dev/"
+    good = base + "events/details/google-gdg-amman-presents-good/"
+    bad = base + "events/details/google-gdg-amman-presents-bad/"
+
+    class Page:
+        def __init__(self, text):
+            self.text = text
+
+    def get(url, **kw):
+        if url == bad:
+            raise requests.HTTPError("500")
+        return Page({base + "gdg-amman/": f'<a href="{good}"></a><a href="{bad}"></a>',
+                     good: '<script type="application/ld+json">{"@type":"Event","name":"Good","startDate":"2026-12-01T18:00:00+03:00"}</script>'}[url])
+    scraper = BevyScraper(base, ["gdg-amman"], delay_seconds=0)
+    monkeypatch.setattr(scraper, "get", get)
+    assert [e.title for e in scraper.fetch()] == ["Good"]
+    assert scraper.partial_failures[0]["part"] == "gdg-amman"
+
+
+def test_gju_failed_month_is_skipped_and_all_failing_is_an_error(monkeypatch):
+    scraper = gju.GJUScraper(delay_seconds=0)
+
+    class Page:
+        text = "<html></html>"
+
+    def one_bad(url, **kw):
+        if url.endswith("2026-12"):
+            raise requests.HTTPError("500")
+        return Page
+    monkeypatch.setattr(scraper, "get", one_bad)
+    assert scraper.fetch(date(2026, 11, 1)) == []
+    assert [f["part"] for f in scraper.partial_failures] == ["2026-12"]
+
+    scraper.partial_failures = []
+    monkeypatch.setattr(scraper, "get", lambda url, **kw: (_ for _ in ()).throw(requests.HTTPError("500")))
+    with pytest.raises(RuntimeError, match="all 3 months failed"):
+        scraper.fetch(date(2026, 11, 1))
+
+
+def test_gju_unreachable_site_fails_at_once(monkeypatch):
+    calls = []
+
+    def timeout(url, **kw):
+        calls.append(url)
+        raise requests.ConnectTimeout("no route")
+    scraper = gju.GJUScraper(delay_seconds=0)
+    monkeypatch.setattr(scraper, "get", timeout)
+    with pytest.raises(requests.ConnectTimeout):
+        scraper.fetch(date(2026, 11, 1))
+    assert len(calls) == 1
