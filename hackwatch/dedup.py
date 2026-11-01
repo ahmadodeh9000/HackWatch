@@ -102,7 +102,8 @@ def group_duplicates(events: List[Event]) -> List[List[Event]]:
 
 
 MERGED_FIELDS = ("organizer", "prize", "registration_deadline", "start_date", "end_date", "start_time", "end_time",
-                 "location", "country", "description", "cost", "open_to", "registration_url")
+                 "location", "country", "description", "cost", "open_to")
+# registration_url isn't merged: a manual correction must not inherit a closed form's link.
 
 
 def merge(group: List[Event]) -> Event:

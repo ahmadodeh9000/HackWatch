@@ -100,3 +100,21 @@ def test_registration_url_reaches_the_export_and_share_page(tmp_path):
     assert json.loads(out.read_text())[0]["registration_url"] == "https://ras-uj.site/f/w"
     assert 'href="https://ras-uj.site/f/w"' in render_page(event)
     assert "Register" not in render_page(Event(title="W", url="https://x/w", source="gdg", registration_url="javascript:alert(1)"))
+
+
+def test_manual_correction_wins_the_merge_without_the_closed_form():
+    # The club's list says 12 Nov; manual_events.yaml corrects it to 5 Nov (form closed).
+    from pathlib import Path
+    from hackwatch.dedup import deduplicate
+    from hackwatch.scrapers.manual import load_manual_events
+    scraped = build(starts_at="2026-11-12T09:30:00+00:00", link="/f/arduino-fundamentals-applied-robotics",
+                    venue="Fikr AI Hub & Study House")
+    scraped.url, scraped.source, scraped.scope = ARDUINO, "rasuj", "jordan"
+    manual, errors = load_manual_events(Path("manual_events.yaml"))
+    assert not errors
+    (fixed,) = [e for e in manual if e.url == ARDUINO]
+    fixed.scope = "jordan"
+    (merged,) = deduplicate([scraped, fixed])
+    assert merged.sources == ["manual", "rasuj"]
+    assert (merged.start_date, merged.end_date, merged.start_time, merged.end_time) == ("2026-11-05", "2026-11-05", "12:30", "14:30")
+    assert merged.registration_url is None and merged.cost == "free"

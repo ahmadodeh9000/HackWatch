@@ -1,3 +1,17 @@
 # Community-submitted events. Most are added by the bot after a maintainer approves a
 # "Submit an event" issue; see CONTRIBUTING.md for the format and an example entry.
 # Check this file with:  python -m hackwatch.cli validate
+# Correction: the club's events list says 12 Nov, their registration form says 5 Nov (and is closed).
+# Same URL as the scraped listing, so this wins the merge. Remove once the event is over.
+- title: اساسيات الاردوينو والروبوتات التطبيقية
+  url: https://ras-uj.site/e/2026-11-12-arduino-fundamentals-applied-robotics
+  start_date: 2026-11-05
+  end_date: 2026-11-05   # without it, the merge would take the scraped 12 Nov as the end
+  start_time: "12:30"
+  end_time: "14:30"
+  location: Fikr AI Hub & Study House, Amman, Jordan
+  organizer: IEEE RAS UJ
+  type: workshop
+  mode: in-person
+  tags: [robotics, embedded, ieee]
+  cost: free
