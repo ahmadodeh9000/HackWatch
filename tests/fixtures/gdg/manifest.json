@@ -55,12 +55,6 @@
   },
   {
     "method": "GET",
-    "url": "https://gdg.community.dev/gdg-on-campus-al-hussein-technical-university-amman-jordan/",
-    "status": 200,
-    "file": "009.html"
-  },
-  {
-    "method": "GET",
     "url": "https://gdg.community.dev/gdg-on-campus-al-zaytoonah-university-of-jordan-amman-jordan/",
     "status": 200,
     "file": "010.html"

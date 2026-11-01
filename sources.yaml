@@ -44,14 +44,14 @@ sources:
     options:
       # Public chapter pages (gdg.community.dev/<slug>/) and event pages; the /api/ path
       # is disallowed in robots.txt. Irbid and Zarqa have no city chapters. The list is every
-      # chapter with country Jordan on gdg.community.dev/chapters/ (checked 2026-10-30).
+      # chapter with country Jordan on gdg.community.dev/chapters/ (checked 2026-11-01; the
+      # Al-Hussein Technical University chapter was removed there and its page is a 404).
       base_url: https://gdg.community.dev
       chapters:
         - gdg-amman
         - gdg-on-campus-princess-sumaya-university-for-technology-amman-jordan
         - gdg-on-campus-zarqa-university-zarqa-jordan
         - gdg-on-campus-hashemite-university-zarqa-jordan
-        - gdg-on-campus-al-hussein-technical-university-amman-jordan
         - gdg-on-campus-al-zaytoonah-university-of-jordan-amman-jordan
         - gdg-on-campus-applied-science-private-university-amman-jordan
         - gdg-on-campus-al-balqa-applied-university-salt-jordan
