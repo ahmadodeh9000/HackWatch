@@ -1,608 +1,1580 @@
+# Census of everyone who runs tech and engineering events in Jordan, and what their site offers a
+# polite script. Probed on 2026-11-11 from a home connection (census/probe-home.json) and from a
+# GitHub runner (census/probe-runner.json) with scripts/census_probe.py.
+#
+# class:   api_feed | clean_html | js_endpoint | js_no_endpoint | runner_blocked | blocked |
+#          no_listing | social_only | dead        (explained in hackwatch/census.py)
+# verdict: covered (a source reads it) | build (worth a source) | candidates (news pages: finds go to
+#          the Candidate events issue for a human) | home_fetch (only reachable from home) |
+#          manual (add by hand when announced) | outreach (ask them to connect a calendar or use the form) | skip
+# reach:   ok | blocked | robots | down | missing, from each place, best of the organizer's pages
+# social:  links found on the organizer's own site. They are recorded, never fetched.
 organizers:
 - name: University of Jordan (UJ)
+  name_ar: الجامعة الأردنية
   kind: university
   city: Amman
+  class: blocked
+  verdict: outreach
   website: https://www.ju.edu.jo/
-  name_ar: الجامعة الأردنية
+  reach:
+    home: blocked
+    runner: blocked
+  finding: Every page answers 'Request Rejected' (WAF) to a script, from home and from the runner. Not worked around.
 - name: UJ School of Engineering
   kind: faculty
-  city: Amman
-  website: https://engineering.ju.edu.jo/
   parent: University of Jordan (UJ)
+  city: Amman
+  class: blocked
+  verdict: outreach
+  website: https://engineering.ju.edu.jo/
+  reach:
+    home: blocked
+    runner: blocked
+  finding: Same WAF as ju.edu.jo.
 - name: UJ King Abdullah II School of IT (KASIT)
   kind: faculty
-  city: Amman
-  website: https://computer.ju.edu.jo/
   parent: University of Jordan (UJ)
+  city: Amman
+  class: blocked
+  verdict: outreach
+  website: https://computer.ju.edu.jo/
+  reach:
+    home: blocked
+    runner: blocked
+  finding: Same WAF as ju.edu.jo. Announcements exist (computer.ju.edu.jo/Lists/Announcements) but can't be read by a script.
 - name: UJ Aqaba branch
   kind: university
-  city: Aqaba
-  website: https://aqaba.ju.edu.jo/
   parent: University of Jordan (UJ)
+  city: Aqaba
+  class: blocked
+  verdict: outreach
+  website: https://aqaba.ju.edu.jo/
+  reach:
+    home: blocked
+    runner: blocked
+  finding: Same WAF as ju.edu.jo. Its IEEE branch posts on vTools (covered).
 - name: Princess Sumaya University for Technology (PSUT)
+  name_ar: جامعة الأميرة سمية للتكنولوجيا
   kind: university
   city: Amman
+  class: clean_html
+  verdict: candidates
   website: https://www.psut.edu.jo/en
   pages:
   - https://www.psut.edu.jo/en/events
   - https://www.psut.edu.jo/en/news
   - https://www.psut.edu.jo/en/student-life-activities
-  name_ar: جامعة الأميرة سمية للتكنولوجيا
+  social:
+    facebook: https://www.facebook.com/PSUTOFFICIAL
+    instagram: https://www.instagram.com/psutofficial
+    linkedin: https://www.linkedin.com/school/princess-sumaya-university-for-technology
+    x: https://twitter.com/PSUTOFFICIAL
+    youtube: https://www.youtube.com/@PSUTofficial
+  reach:
+    home: ok
+    runner: ok
+  finding: /en/news is server-rendered with dated posts (competitions, CTFs, MoUs). /en/events is an empty list with no data request behind it. Club pages exist (/en/association-for-computing-machinery-student-chapter).
 - name: Jordan University of Science and Technology (JUST)
+  name_ar: جامعة العلوم والتكنولوجيا الأردنية
   kind: university
   city: Irbid
+  class: blocked
+  verdict: outreach
   website: https://www.just.edu.jo/
   pages:
   - https://www.just.edu.jo/calendar/Pages/default.aspx
-  name_ar: جامعة العلوم والتكنولوجيا الأردنية
+  reach:
+    home: blocked
+    runner: blocked
+  finding: '''Request Rejected'' (WAF) from home and runner on 2026-11-11 (the calendar loaded on 2026-10-30).'
 - name: German Jordanian University (GJU)
   kind: university
   city: Madaba
+  class: clean_html
+  verdict: covered
+  covered_by: gju
   website: https://www.gju.edu.jo/
   pages:
   - https://www.gju.edu.jo/gju-event
   - https://www.gju.edu.jo/rss.xml
-  covered_by: gju
+  feeds:
+  - https://www.gju.edu.jo/rss.xml
+  social:
+    facebook: http://www.facebook.com/2008
+    instagram: https://www.instagram.com/gjuniversity
+    linkedin: http://linkedin.com/company/german-jordanian-university
+    x: https://twitter.com/GJUniversity
+  reach:
+    home: ok
+    runner: down
+  finding: 'Events calendar in HTML (gju source) plus an RSS of news. The runner timed out on 2026-11-11, as it often does: a home-fetch candidate.'
 - name: Al Hussein Technical University (HTU)
   kind: university
   city: Amman
+  class: clean_html
+  verdict: candidates
   website: https://www.htu.edu.jo/
   pages:
   - https://www.htu.edu.jo/news
+  social:
+    facebook: https://www.facebook.com/HTUjo
+    instagram: https://www.instagram.com/htujo
+    linkedin: https://www.linkedin.com/school/al-hussein-technical-university-htu
+    x: https://x.com/htujo
+    youtube: https://www.youtube.com/channel/UC-DXAAHuMg7k7mss7uFskzQ
+  reach:
+    home: ok
+    runner: ok
+  finding: /news is server-rendered, dated (dd/mm/yyyy). No events list.
 - name: Yarmouk University (YU)
+  name_ar: جامعة اليرموك
   kind: university
   city: Irbid
+  class: api_feed
+  verdict: build
   website: https://www.yu.edu.jo/
   pages:
   - https://www.yu.edu.jo/index.php/events
   - https://www.yu.edu.jo/index.php?option=com_dpcalendar&task=ical.download&id=106
-  name_ar: جامعة اليرموك
+  feeds:
+  - https://www.yu.edu.jo/index.php?option=com_dpcalendar&task=ical.download&id=106
+  social:
+    facebook: https://www.facebook.com/Yarmouk.U
+    instagram: https://www.instagram.com/yarmouk.university
+    linkedin: https://www.linkedin.com/school/yarmoukuniversity
+    x: https://x.com/yarmoukuni76
+    youtube: https://www.youtube.com/@yarmoukuniversity-l2n
+  reach:
+    home: ok
+    runner: ok
+  finding: Joomla DPCalendar publishes an iCal feed (104 events, conferences and university days; 4 upcoming). Works from home and runner. Needs tech keywords.
 - name: YU Faculty of IT and Computer Sciences
   kind: faculty
+  parent: Yarmouk University (YU)
   city: Irbid
+  class: clean_html
+  verdict: candidates
   website: https://it.yu.edu.jo/
   pages:
   - https://it.yu.edu.jo/index.php/en/
-  parent: Yarmouk University (YU)
+  social:
+    x: https://twitter.com/ItYarmouk
+  reach:
+    home: ok
+    runner: ok
+  finding: 'Dated news in HTML: CTF results, YU Cryptera CTF, Pocket Gamer participation.'
 - name: YU Hijjawi Faculty for Engineering Technology
   kind: faculty
-  city: Irbid
-  website: https://hijjawi.yu.edu.jo/
   parent: Yarmouk University (YU)
+  city: Irbid
+  class: clean_html
+  verdict: candidates
+  website: https://hijjawi.yu.edu.jo/
+  social:
+    instagram: https://www.instagram.com/hijjawi_faculty.24
+    linkedin: https://www.linkedin.com/company/hijjawi-faculty
+    youtube: https://www.youtube.com/@Hijjawi-Faculty
+  reach:
+    home: ok
+    runner: ok
+  finding: Dated news in HTML (robotics team, engineering days).
 - name: Al-Balqa Applied University (BAU)
   kind: university
   city: Salt
+  class: no_listing
+  verdict: candidates
   website: https://www.bau.edu.jo/
   pages:
   - https://www.bau.edu.jo/Services/UpcomingEvents.aspx
+  social:
+    instagram: https://www.instagram.com/al_balqaapplieduniversity
+    linkedin: https://www.linkedin.com/in/al-balqa-applied-university-6a2383184
+    x: https://twitter.com/AlBalqaUni
+    youtube: https://www.youtube.com/@al-balqaapplieduniversity6951
+  reach:
+    home: ok
+    runner: ok
+  finding: Services/UpcomingEvents.aspx has no dated items in its HTML; the home page links conference sites (bau.edu.jo/conf/...). Events reach us through IEEE and
+    GDG chapters.
 - name: Hashemite University (HU)
   kind: university
   city: Zarqa
+  class: clean_html
+  verdict: candidates
   website: https://hu.edu.jo/
+  social:
+    facebook: https://www.facebook.com/TheHashemiteUniversity
+    linkedin: https://jo.linkedin.com/school/the-hashemite-university-students
+    x: https://twitter.com/UniversityHash
+  reach:
+    home: ok
+    runner: ok
+  finding: Home page lists dated news (dd-mm-yyyy). No events list found.
 - name: Zarqa University (ZU)
   kind: university
   city: Zarqa
+  class: clean_html
+  verdict: candidates
   website: https://www.zu.edu.jo/
   pages:
   - https://www.zu.edu.jo/en/index.aspx
+  social:
+    facebook: https://web.facebook.com/News.Zu
+    instagram: https://www.instagram.com/zarqauniversity1
+    linkedin: https://jo.linkedin.com/school/zarqa-university
+    x: https://x.com/News_Zu
+    youtube: https://www.youtube.com/channel/UCEzwC8Db-Zq5n2SEZczvN6w
+  reach:
+    home: ok
+    runner: ok
+  finding: Dated news on the home page; no events list.
 - name: Applied Science Private University (ASU)
   kind: university
   city: Amman
+  class: api_feed
+  verdict: candidates
   website: https://www.asu.edu.jo/en
   pages:
   - https://www.asu.edu.jo/en/events/
   - https://www.asu.edu.jo/en/events/feed/
   - https://www.asu.edu.jo/en/activities-events/
+  feeds:
+  - https://www.asu.edu.jo/en/events/feed/
+  - https://www.asu.edu.jo/feed/
+  social:
+    facebook: https://www.facebook.com/ASPUJordan
+    instagram: https://www.instagram.com/ASPUJORDAN
+    linkedin: https://www.linkedin.com/company/11866725
+    x: https://x.com/ASPUJORDAN
+    youtube: https://www.youtube.com/@ASPUJordan
+  reach:
+    home: ok
+    runner: ok
+  finding: 'WordPress with an events post type and its RSS (/en/events/feed/, 6 items: visits, not tech). /en/events/ shows placeholder text. Reachable from the runner
+    on 2026-11-11 (refused on 2026-10-30).'
 - name: Middle East University (MEU)
   kind: university
   city: Amman
+  class: api_feed
+  verdict: candidates
   website: https://www.meu.edu.jo/
   pages:
   - https://www.meu.edu.jo/feed/
+  feeds:
+  - https://www.meu.edu.jo/feed/
+  social:
+    facebook: https://www.facebook.com/meunijo
+    instagram: https://www.instagram.com/meujo
+    linkedin: https://www.linkedin.com/school/meu-jordanedu
+    x: https://twitter.com/meuedujo
+    youtube: https://www.youtube.com/channel/UCc9gJEHI7OMGOJNBYWjn3Sw
+  reach:
+    home: ok
+    runner: ok
+  finding: WordPress RSS of news (/feed/). The events API answers 401.
 - name: Amman Arab University (AAU)
   kind: university
   city: Amman
+  class: api_feed
+  verdict: candidates
   website: https://www.aau.edu.jo/
   pages:
   - https://www.aau.edu.jo/news-events
   - https://www.aau.edu.jo/ar/calendar
   - https://newsletter.aau.edu.jo/
+  feeds:
+  - https://newsletter.aau.edu.jo/feed/
+  social:
+    facebook: https://www.facebook.com/Codevz
+    x: https://twitter.com/codevz2
+    linkedin: https://www.linkedin.com/school/amman-arab-university
+    youtube: https://www.youtube.com/@Amman-Arab-University
+  reach:
+    home: ok
+    runner: ok
+  finding: News list in HTML (dated yyyy-mm-dd) and a WordPress RSS at newsletter.aau.edu.jo (robotics and AI competition, Cyber Future).
 - name: Al-Ahliyya Amman University
   kind: university
   city: Amman
+  class: clean_html
+  verdict: candidates
   website: https://www.ammanu.edu.jo/
   pages:
   - https://www.ammanu.edu.jo/events/
   - https://www.ammanu.edu.jo/news/
+  social:
+    facebook: https://web.facebook.com/AhliyyaAmmanUniv
+    instagram: https://www.instagram.com/ahliyyaammanuni
+    linkedin: https://www.linkedin.com/company/al-ahliyya-amman-university
+    x: https://twitter.com/AhliyyaAmmanUni
+    youtube: https://www.youtube.com/user/AhliyyaAmmanUni
+  reach:
+    home: ok
+    runner: ok
+  finding: /news/ is dated HTML (hosts NLFRC line-follower competition). /events/ is stale (last item Oct 2025).
 - name: Philadelphia University
   kind: university
   city: Amman
+  class: no_listing
+  verdict: skip
   website: https://www.philadelphia.edu.jo/
   pages:
   - https://www.philadelphia.edu.jo/events-conferences
+  social:
+    facebook: https://www.facebook.com/PhiladelphiaUniversity
+    instagram: https://www.instagram.com/Philadelphiauniversityjordan
+    x: https://twitter.com/Philadelphia_Jo
+    youtube: https://www.youtube.com/user/philadelphiaJo1
+  reach:
+    home: ok
+    runner: ok
+  finding: /events-conferences lists 2020-2021 conferences only. Events reach us through its IEEE branch.
 - name: Mutah University
   kind: university
   city: Karak
+  class: runner_blocked
+  verdict: home_fetch
   website: https://www.mutah.edu.jo/
   pages:
   - https://www.mutah.edu.jo/UpcomingEvents/EventsList.aspx
+  social:
+    facebook: https://www.facebook.com/mutah2019
+  reach:
+    home: ok
+    runner: down
+  finding: Home page has dated news; the conference list stops in 2022. Connection refused from the runner.
 - name: American University of Madaba (AUM)
   kind: university
   city: Madaba
+  class: clean_html
+  verdict: candidates
   website: https://aum.edu.jo/
   pages:
   - https://aum.edu.jo/news
+  social:
+    facebook: https://www.facebook.com/AUMMadaba
+    instagram: https://www.instagram.com/aummadaba
+    linkedin: https://www.linkedin.com/school/aummadaba
+    x: https://x.com/AUM_Madaba
+    youtube: https://www.youtube.com/@americanuniversityofmadaba
+  reach:
+    home: ok
+    runner: down
+  finding: 'Dated news in HTML. The server sends an incomplete certificate chain: browsers and curl on macOS accept it, Python and the runner don''t.'
 - name: University of Petra (UOP)
   kind: university
   city: Amman
+  class: js_no_endpoint
+  verdict: skip
   website: https://www.uop.edu.jo/
   pages:
   - https://www.uop.edu.jo/En/Pages/default.aspx
+  social:
+    facebook: https://www.facebook.com/uopface
+    instagram: https://www.instagram.com/petra.university
+    linkedin: https://www.linkedin.com/school/universityofpetra
+    x: https://twitter.com/petrauniversity
+    youtube: https://www.youtube.com/channel/UCcmWMT3PYpx-qpSswsHRiRg
+  reach:
+    home: ok
+    runner: ok
+  finding: SharePoint page built by scripts (about 500 characters of text). No endpoint looked for beyond the page.
 - name: Isra University
   kind: university
   city: Amman
+  class: no_listing
+  verdict: skip
   website: https://www.iu.edu.jo/
   pages:
   - https://www.iu.edu.jo/index.php/en/?format=feed&type=rss
+  social:
+    facebook: https://www.facebook.com/alisrauni
+    instagram: https://www.instagram.com/alisrauni
+    linkedin: https://www.linkedin.com/school/isra-university-jordan123
+    x: https://twitter.com/israuni
+    youtube: https://www.youtube.com/user/IsraUni1
+  reach:
+    home: ok
+    runner: ok
+  finding: RSS feed is empty; home page has announcements without dates.
 - name: Al-Zaytoonah University of Jordan (ZUJ)
   kind: university
   city: Amman
+  class: no_listing
+  verdict: skip
   website: https://www.zuj.edu.jo/
   pages:
   - https://www.zuj.edu.jo/news/
+  social:
+    facebook: https://www.facebook.com/AlZaytoonahUniversityOfficial
+    linkedin: https://jo.linkedin.com/company/alzaytoonahuniversityzuj
+    x: https://x.com/alZaytoonahUnv
+  reach:
+    home: ok
+    runner: ok
+  finding: /news/ returns a near-empty page to a script. Events reach us through its GDG chapter.
 - name: Tafila Technical University (TTU)
   kind: university
   city: Tafila
+  class: api_feed
+  verdict: candidates
   website: https://www.ttu.edu.jo/
   pages:
   - https://www.ttu.edu.jo/feed/
+  feeds:
+  - https://www.ttu.edu.jo/feed/
+  social:
+    facebook: https://www.facebook.com/tafila.technical.university
+    instagram: https://www.instagram.com/ttu.jo
+    x: https://x.com/ttujordan
+  reach:
+    home: ok
+    runner: ok
+  finding: WordPress RSS of news and announcements.
 - name: Al al-Bayt University (AABU)
   kind: university
   city: Mafraq
+  class: clean_html
+  verdict: candidates
   website: https://www.aabu.edu.jo/
   pages:
   - https://www.aabu.edu.jo/AR/Pages/AllEvents.aspx
+  social:
+    facebook: https://www.facebook.com/aabuniversity
+    instagram: https://www.instagram.com/Aabuniversity
+    linkedin: https://www.linkedin.com/company/%D8%A7%D9%84%D8%B5%D9%81%D8%AD%D8%A9-%D8%A7%D9%84%D8%B1%D8%B3%D9%85%D9%8A%D8%A9-%D9%84%D8%AC%D8%A7%D9%85%D8%B9%D8%A9-%D8%A2%D9%84-%D8%A7%D9%84%D8%A8%D9%8A%D8%AA
+    x: https://twitter.com/aabuniversity
+  reach:
+    home: ok
+    runner: ok
+  finding: Home page links dated events (EventDetails.aspx). AllEvents.aspx is filled by scripts.
 - name: Al-Hussein Bin Talal University (AHU)
   kind: university
   city: Ma'an
+  class: clean_html
+  verdict: candidates
   website: https://www.ahu.edu.jo/
+  social:
+    facebook: https://www.facebook.com/AHUOfficialPage
+    instagram: https://www.instagram.com/ahu_officialpage
+    x: https://twitter.com/ahuuniversity
+    youtube: https://www.youtube.com/@ahuofficialpage
+  reach:
+    home: ok
+    runner: ok
+  finding: Home page carries dated news (139 dates). No events list.
 - name: Aqaba University of Technology (AUT)
   kind: university
   city: Aqaba
+  class: no_listing
+  verdict: skip
   website: https://www.aut.edu.jo/
   pages:
   - https://www.aut.edu.jo/ar/calendar?view=list
+  social:
+    facebook: https://www.facebook.com/AqabaUni
+    instagram: https://www.instagram.com/aqabauniversityoftechnology
+    linkedin: https://www.linkedin.com/company/aqabauni
+    youtube: https://www.youtube.com/channel/UCVNesX0L2QBWJ2QfvaWedTg
+  reach:
+    home: ok
+    runner: ok
+  finding: The calendar is the academic calendar (registration, exams).
 - name: Jadara University
   kind: university
   city: Irbid
+  class: clean_html
+  verdict: candidates
   website: https://www.jadara.edu.jo/
   pages:
   - https://www.jadara.edu.jo/newscenter.php?type=mod_eventcenter&page=1
+  social:
+    facebook: https://www.facebook.com/JadaraUniversity
+    instagram: https://www.instagram.com/jadaraedu
+    linkedin: https://www.linkedin.com/company/jadara-university
+    x: https://twitter.com/JadaraUniversit
+    youtube: https://youtube.com/channel/UCjwVWXmAGaD71jCj7Qt4UIA
+  reach:
+    home: ok
+    runner: ok
+  finding: Events centre list in HTML with dates (announcements more than events).
 - name: Irbid National University (INU)
   kind: university
   city: Irbid
+  class: clean_html
+  verdict: candidates
   website: https://inu.edu.jo/
+  social:
+    facebook: https://www.facebook.com/irbidUniversity
+    instagram: https://www.instagram.com/irbiduniversity
+    x: https://x.com/i
+    youtube: https://www.youtube.com/@inu_university2011
+  reach:
+    home: ok
+    runner: ok
+  finding: Dated news on the home page.
 - name: Jerash University
   kind: university
   city: Jerash
+  class: js_no_endpoint
+  verdict: skip
   website: https://www.jpu.edu.jo/
+  reach:
+    home: ok
+    runner: ok
+  finding: Empty app shell (68 characters).
 - name: Ajloun National University (ANU)
   kind: university
   city: Ajloun
+  class: api_feed
+  verdict: candidates
   website: https://www.anu.edu.jo/
   pages:
   - https://www.anu.edu.jo/feed/
+  feeds:
+  - https://www.anu.edu.jo/feed/
+  social:
+    facebook: https://www.facebook.com/Ajloun.un
+    instagram: https://instagram.com/ajloununiversity
+    linkedin: http://linkedin.com/in/ajloun-national-university-3b2a44283
+  reach:
+    home: ok
+    runner: ok
+  finding: WordPress RSS of news.
 - name: World Islamic Sciences and Education University (WISE)
   kind: university
   city: Amman
+  class: api_feed
+  verdict: skip
   website: https://www.wise.edu.jo/
   pages:
   - https://www.wise.edu.jo/feed/
+  feeds:
+  - https://www.wise.edu.jo/feed/
+  social:
+    facebook: https://www.facebook.com/wise.univ
+    instagram: https://www.instagram.com/wise.univ
+    youtube: https://www.youtube.com/@relations-wise
+  reach:
+    home: ok
+    runner: ok
+  finding: WordPress RSS of news; little tech content. robots.txt answers 403.
 - name: Luminus Technical University College (LTUC)
   kind: university
   city: Amman
+  class: no_listing
+  verdict: skip
   website: https://ltuc.edu.jo/en
+  social:
+    instagram: https://www.instagram.com/luminus.jo
+    linkedin: https://www.linkedin.com/school/luminusjo
+    youtube: https://youtube.com/@ltucjo
+  reach:
+    home: ok
+    runner: ok
+  finding: No events list.
 - name: 42 Amman
   kind: university
   city: Amman
+  class: no_listing
+  verdict: outreach
   website: https://42amman.com/
+  feeds:
+  - https://42amman.com/feed/
+  social:
+    instagram: https://www.instagram.com/42amman
+    linkedin: https://www.linkedin.com/company/42amman
+    x: https://twitter.com/42Amman
+    youtube: https://www.youtube.com/@42Amman
+  reach:
+    home: ok
+    runner: ok
+  finding: WordPress site without an events list or posts.
   notes: 'Tuition-free coding school of the 42 network (search result: 42network.org blog).'
 - name: IEEE student branches and society chapters (Jordan Section R80079)
   kind: student_group
-  website: https://events.vtools.ieee.org/
+  class: api_feed
+  verdict: covered
   covered_by: ieee
-  notes: 'One source covers every branch: seen so far Yarmouk (SB, WIE, CIS, RAS, CS, AES), GJU (SB, WIE, RAS, PES, IES, IAS, EMBS, CTSoc, CS, AESS, TEMS), Philadelphia (SB, RAS, PES, CS, AESS), Mutah (SB,
-    WIE), Hashemite (PES/IAS, RAS, CS), BAU (CS) and Ajloun College, Zarqa (SB, WIE), UJ Aqaba, Jadara (RAS), TTU (SMC), Al-Ahliyya (CS). Only what a branch posts on vTools; many announce on Instagram alone.'
+  website: https://events.vtools.ieee.org/
+  reach:
+    home: ok
+    runner: ok
+  finding: vTools public API, filtered to section R80079 (ieee source).
+  notes: 'One source covers every branch: seen so far Yarmouk (SB, WIE, CIS, RAS, CS, AES), GJU (SB, WIE, RAS, PES, IES, IAS, EMBS, CTSoc, CS, AESS, TEMS), Philadelphia
+    (SB, RAS, PES, CS, AESS), Mutah (SB, WIE), Hashemite (PES/IAS, RAS, CS), BAU (CS) and Ajloun College, Zarqa (SB, WIE), UJ Aqaba, Jadara (RAS), TTU (SMC), Al-Ahliyya
+    (CS). Only what a branch posts on vTools; many announce on Instagram alone.'
 - name: IEEE RAS UJ
   kind: student_group
+  parent: University of Jordan (UJ)
   city: Amman
+  class: js_endpoint
+  verdict: covered
+  covered_by: rasuj
   website: https://ras-uj.site/
   pages:
   - https://ras-uj.site/sitemap.xml
-  parent: University of Jordan (UJ)
-  covered_by: rasuj
+  social:
+    instagram: https://www.instagram.com/ieeeras_uj
+  reach:
+    home: ok
+    runner: ok
+  finding: Sitemap plus prerendered event pages (rasuj source).
 - name: GDG on Campus chapters (9 universities)
   kind: student_group
-  website: https://gdg.community.dev/chapters/
+  class: clean_html
+  verdict: covered
   covered_by: gdg
+  website: https://gdg.community.dev/chapters/
+  reach:
+    home: ok
+    runner: ok
+  finding: Chapter and event pages with schema.org data (gdg source).
   notes: PSUT, Zarqa, Hashemite, Al-Zaytoonah, ASU, BAU, Amman Arab, GJU, MEU. HTU's chapter was removed by GDG (404 since 2026-11-01).
 - name: ACM Student Chapter JUST
   kind: student_group
+  parent: Jordan University of Science and Technology (JUST)
   city: Irbid
+  class: api_feed
+  verdict: candidates
   website: https://just.acm.org/
   pages:
   - https://just.acm.org/category/event/
   - https://just.acm.org/feed/
-  parent: Jordan University of Science and Technology (JUST)
+  feeds:
+  - https://just.acm.org/feed/
+  reach:
+    home: ok
+    runner: ok
+  finding: WordPress RSS; posts are announcements and reports, the last from January 2025.
 - name: ACM Student Chapter PSUT
   kind: student_group
+  parent: Princess Sumaya University for Technology (PSUT)
   city: Amman
+  class: no_listing
+  verdict: outreach
   website: https://psutsc.acm.org/
   pages:
   - https://www.psut.edu.jo/en/association-for-computing-machinery-student-chapter
-  parent: Princess Sumaya University for Technology (PSUT)
+  reach:
+    home: ok
+    runner: ok
+  finding: psutsc.acm.org is an old static site; PSUT has a club page without dates.
 - name: ACM Student Chapter Philadelphia University
   kind: student_group
-  city: Amman
-  website: https://phu.acm.org/
   parent: Philadelphia University
+  city: Amman
+  class: no_listing
+  verdict: outreach
+  website: https://phu.acm.org/
+  reach:
+    home: ok
+    runner: ok
+  finding: Static chapter site, no events list.
 - name: ACM Student Chapter Mutah
   kind: student_group
-  city: Karak
-  website: https://mutah.hosting.acm.org/
   parent: Mutah University
+  city: Karak
+  class: no_listing
+  verdict: outreach
+  website: https://mutah.hosting.acm.org/
+  reach:
+    home: ok
+    runner: ok
+  finding: Static chapter site, no events list.
 - name: PSUT Cyber Security Club
   kind: student_group
-  city: Amman
   parent: Princess Sumaya University for Technology (PSUT)
+  city: Amman
+  class: social_only
+  verdict: outreach
+  finding: No site.
   notes: Runs the national META CTF (aviation cybersecurity) with PSUT; known from PSUT news pages. No site of its own found; social handle not verified.
 - name: JordanSec CTF team
   kind: student_group
+  class: dead
+  verdict: skip
   website: https://jordansec.org/
+  reach:
+    home: down
+    runner: down
+  finding: jordansec.org answers 523 (origin unreachable).
   notes: Jordan-based CTF team with a CTFtime profile (ctftime.org/team/260705).
 - name: University robotics teams (no sites)
   kind: student_group
-  notes: 'Known only from university news: Philadelphia (RoboFight winners 2026), Al-Ahliyya ALTF team (FFEC 2026), Yarmouk Hijjawi robotics team, GJU AgriHexa, AHU wall-climbing robot team. Their competitions
-    are announced by the host university or an IEEE RAS chapter.'
+  class: social_only
+  verdict: outreach
+  finding: No sites.
+  notes: 'Known only from university news: Philadelphia (RoboFight winners 2026), Al-Ahliyya ALTF team (FFEC 2026), Yarmouk Hijjawi robotics team, GJU AgriHexa, AHU
+    wall-climbing robot team. Their competitions are announced by the host university or an IEEE RAS chapter.'
 - name: Hult Prize on-campus programs
   kind: student_group
+  class: social_only
+  verdict: outreach
   website: https://www.hultprize.org/
-  notes: Run each year by student campus directors (UJ, YU, ZUJ, GJU, PSUT in past years); announced on each team's Instagram. Hundreds of Jordanian students withdrew in 2025; current activity not confirmed.
+  reach:
+    home: ok
+    runner: ok
+  finding: hultprize.org has no per-campus listing.
+  notes: Run each year by student campus directors (UJ, YU, ZUJ, GJU, PSUT in past years); announced on each team's Instagram. Hundreds of Jordanian students withdrew
+    in 2025; current activity not confirmed.
 - name: Enactus teams
   kind: student_group
+  class: no_listing
+  verdict: skip
   website: https://enactus.org/
   pages:
   - https://enactus.org/wp-json/tribe/events/v1/events
+  feeds:
+  - https://enactus.org/feed/
+  - https://enactus.org/wp-json/tribe/events/v1/events
+  reach:
+    home: ok
+    runner: ok
+  finding: enactus.org's events API is empty and has nothing for Jordan.
   notes: No Enactus Jordan country organisation found (searched 2026-11-11).
 - name: GDG Amman
   kind: community
   city: Amman
-  website: https://gdg.community.dev/gdg-amman/
+  class: clean_html
+  verdict: covered
   covered_by: gdg
+  website: https://gdg.community.dev/gdg-amman/
+  reach:
+    home: ok
+    runner: ok
+  finding: gdg source.
 - name: GDG Aqaba
   kind: community
   city: Aqaba
-  website: https://gdg.community.dev/gdg-aqaba/
+  class: clean_html
+  verdict: covered
   covered_by: gdg
+  website: https://gdg.community.dev/gdg-aqaba/
+  reach:
+    home: ok
+    runner: ok
+  finding: gdg source.
 - name: Jordan Open Source Association (JOSA)
   kind: community
   city: Amman
+  class: clean_html
+  verdict: covered
+  covered_by: josa
   website: https://josa.ngo/
   pages:
   - https://josa.ngo/events
-  covered_by: josa
+  social:
+    facebook: https://www.facebook.com/jordanopensource
+    instagram: https://instagram.com/jordanopensource
+    x: https://x.com/jo_osa
+  reach:
+    home: ok
+    runner: ok
+  finding: josa source.
   notes: Also hosts DevOps and Data Science sub-communities.
 - name: Startup Grind Amman
   kind: community
   city: Amman
-  website: https://www.startupgrind.com/amman/
+  class: clean_html
+  verdict: covered
   covered_by: startupgrind
+  website: https://www.startupgrind.com/amman/
+  reach:
+    home: ok
+    runner: ok
+  finding: startupgrind source.
 - name: AWS Community Jordan (AWS user group)
   kind: community
   city: Amman
+  class: api_feed
+  verdict: build
   website: https://www.meetup.com/aws-jordan/
   pages:
   - https://www.meetup.com/aws-jordan/events/
   - https://www.meetup.com/aws-jordan/events/ical/
+  reach:
+    home: ok
+    runner: ok
+  finding: Meetup group iCal feed (/events/ical/), allowed by robots.txt; empty today (last meetups were virtual). One line in calendars.yaml.
 - name: GDG Amman on Meetup (mirror)
   kind: community
   city: Amman
+  class: api_feed
+  verdict: skip
   website: https://www.meetup.com/gdg-amman/
   pages:
   - https://www.meetup.com/gdg-amman/events/ical/
+  feeds:
+  - https://www.meetup.com/gdg-amman/events/ical/
+  reach:
+    home: ok
+    runner: ok
+  finding: Meetup iCal feed with 1 event; duplicates the GDG chapter page.
   notes: Mirror of the GDG chapter page.
 - name: OWASP Amman chapter
   kind: community
   city: Amman
+  class: no_listing
+  verdict: outreach
   website: https://owasp.org/www-chapter-amman/
+  reach:
+    home: ok
+    runner: ok
+  finding: Chapter page without events.
 - name: BSides Amman
   kind: community
   city: Amman
+  class: clean_html
+  verdict: manual
   website: https://bsidesamman.org/
+  reach:
+    home: ok
+    runner: ok
+  finding: One page per edition with the date in HTML (19 September 2026, past). Add by hand each year.
   notes: Yearly security conference; 2025 edition was 17 May at ASU.
 - name: DC962 (DEF CON group Jordan)
   kind: community
   city: Amman
+  class: dead
+  verdict: skip
   website: https://dc962.org/
+  reach:
+    home: down
+    runner: down
+  finding: dc962.org does not connect.
 - name: Jordan Gaming Lab
   kind: community
   city: Amman
+  class: social_only
+  verdict: outreach
   website: https://www.gaminglab.jo/
   pages:
   - https://kafd.jo/en/news.aspx
+  social:
+    facebook: https://www.facebook.com/KAFDJordan
+    instagram: https://www.instagram.com/kafdjordan
+    x: https://twitter.com/kafdjordan
+    youtube: https://www.youtube.com/user/KAFDJordan
+  reach:
+    home: ok
+    runner: ok
+  finding: gaminglab.jo says 'under construction'. Its jams and summit are announced on social media and in KAFD news (a script-built page).
   notes: KAFD project; branches in Amman, Irbid, Zarqa, Aqaba, Karak, Tafileh. Runs Global Game Jam sites, Nashama Game Jam, Jordan Gaming Summit.
 - name: Jordan Engineers Association (JEA)
+  name_ar: نقابة المهندسين الأردنيين
   kind: community
   city: Amman
+  class: clean_html
+  verdict: candidates
   website: https://www.jea.org.jo/
   pages:
   - https://www.jea.org.jo/AR/List/الدورات_والفعاليات
-  name_ar: نقابة المهندسين الأردنيين
+  social:
+    facebook: https://www.facebook.com/Jordan.Engineers.Association
+    instagram: https://www.instagram.com/jordan.engineers.association
+    linkedin: https://www.linkedin.com/company/jordan-engineers-association
+    x: https://x.com/JordanEngineers
+    youtube: https://www.youtube.com/user/Jordanianengineers
+  reach:
+    home: ok
+    runner: ok
+  finding: Home page has dated news (workshops by engineering societies). The courses-and-events list page has no dated items in its HTML.
 - name: Jordan Computer Society (JCS)
   kind: community
   city: Amman
+  class: dead
+  verdict: skip
   website: https://jcs.org.jo/
+  reach:
+    home: down
+    runner: down
+  finding: Certificate not accepted by any client.
 - name: IEEE Jordan Section
   kind: community
   city: Amman
+  class: clean_html
+  verdict: build
   website: https://jordan.ieee.org/
   pages:
   - https://jordan.ieee.org/events/
   - https://jordan.ieee.org/events/?ical=1
   - https://jordan.ieee.org/wp-json/tribe/events/v1/events
   - https://jordan.ieee.org/events-jo/
+  social:
+    facebook: https://www.facebook.com/IEEEJO
+    instagram: https://www.instagram.com/ieeejordansection
+    linkedin: https://www.linkedin.com/company/ieee-jordan-section
+    x: https://x.com/ieeejosection
+    youtube: https://www.youtube.com/@IEEEJordanSection
+  reach:
+    home: ok
+    runner: ok
+  finding: 'The Events Calendar (WordPress): list page in HTML with dates (section conferences). Its REST API is disallowed by robots.txt as read from home, so only
+    the page is used; the iCal export is empty. No upcoming events today.'
 - name: Women in tech (Women Techmakers Amman, Femi Tech Summit, Girls in Tech Jordan)
   kind: community
   city: Amman
-  notes: International Women's Day events run through GDG Amman (covered). Femi Tech Summit Jordan was 17 May 2026 at KHBP. Girls in Tech Jordan (2015) shows no recent activity; its subdomain is gone.
+  class: social_only
+  verdict: outreach
+  finding: No site.
+  notes: International Women's Day events run through GDG Amman (covered). Femi Tech Summit Jordan was 17 May 2026 at KHBP. Girls in Tech Jordan (2015) shows no recent
+    activity; its subdomain is gone.
 - name: Techween
   kind: community
   city: Amman
+  class: social_only
+  verdict: outreach
+  finding: No site found.
   notes: Coding community for students (The New Arab feature, May 2026). No site found; social handle not verified.
 - name: Amman Tech Tuesdays / UX Jordan
   kind: community
   city: Amman
+  class: dead
+  verdict: skip
+  finding: No current site or listing.
   notes: Named in older roundups; no current site or listing found.
 - name: int@j (ICT Association of Jordan)
   kind: ecosystem
   city: Amman
+  class: clean_html
+  verdict: build
   website: https://www.intaj.net/
   pages:
   - https://www.intaj.net/media-center/events
   - https://www.intaj.net/media-center/events/intaj
+  social:
+    facebook: https://www.facebook.com/intajICTJO
+    instagram: https://www.instagram.com/intajictjo
+    linkedin: https://www.linkedin.com/company/int-j
+    x: https://twitter.com/intajICTJO
+    youtube: https://www.youtube.com/channel/UCvPLeqlLXOoH-NN8sJbOfeg
+  reach:
+    home: ok
+    runner: ok
+  finding: 'Events list in HTML with dates (11 upcoming: REACH 2027, JITEX, AI conference; some abroad). The runner got it on 2026-11-11 but a Cloudflare 403 on 2026-10-30,
+    so it also belongs in home fetch.'
 - name: StartupsJo (Jordan startup portal)
   kind: ecosystem
   city: Amman
+  class: runner_blocked
+  verdict: home_fetch
   website: https://www.startupsjo.com/
   pages:
   - https://www.startupsjo.com/en/Pages/CustomPages/NewsAndEvents
+  reach:
+    home: ok
+    runner: down
+  finding: News and events list in HTML with dates (Pocket Gamer Connects, Startup Valley GJU, GITEX). The runner's connection timed out.
 - name: iPARK
   kind: ecosystem
   city: Amman
+  class: dead
+  verdict: outreach
   website: https://www.ipark.jo/
+  reach:
+    home: down
+    runner: down
+  finding: Expired certificate on ipark.jo; no client accepts it.
 - name: ZINC (Zain Innovation Campus)
   kind: ecosystem
   city: Amman
+  class: js_endpoint
+  verdict: build
   website: https://zinc.jo/
   pages:
   - https://zinc.jo/events
+  reach:
+    home: ok
+    runner: down
+  finding: 'React app over a public JSON endpoint (zinc.jo/ZincAPI/api/events/all?pageNumber=1&pageSize=10): workshops with date, time, location. No robots.txt (the
+    path returns the app). The server''s certificate chain is incomplete, so Python and the runner refuse it unless the missing intermediate certificate is supplied.'
   notes: Organised NASA Space Apps Amman (5th local edition, 2025).
 - name: Oasis500
   kind: ecosystem
   city: Amman
+  class: no_listing
+  verdict: skip
   website: https://oasis500.com/
+  social:
+    facebook: https://www.facebook.com/Oasis500
+    instagram: https://www.instagram.com/oasis500
+    linkedin: https://www.linkedin.com/company/oasis500
+  reach:
+    home: ok
+    runner: ok
+  finding: App shell, no events.
 - name: Shamal Start / Jordan Start
   kind: ecosystem
   city: Irbid
+  class: api_feed
+  verdict: build
   website: https://www.shamalstart.com/
   pages:
   - https://www.shamalstart.com/calendar/
   - https://www.shamalstart.com/calendar/?ical=1
   - https://www.shamalstart.com/wp-json/tribe/events/v1/events
+  feeds:
+  - https://www.shamalstart.com/wp-json/tribe/events/v1/events
+  social:
+    facebook: https://www.facebook.com/jordanstart.jo
+    instagram: https://www.instagram.com/jordanstart1
+    x: https://twitter.com/JordanStart1
+    youtube: https://www.youtube.com/channel/UCMxbRQR99sDlaSF0QEB77vg
+  reach:
+    home: ok
+    runner: ok
+  finding: The Events Calendar iCal feed and API, both empty since 2025. One line in calendars.yaml costs nothing.
 - name: The Tank (Umniah)
   kind: ecosystem
   city: Amman
+  class: no_listing
+  verdict: outreach
   website: https://www.umniah.com/explore-umniah/the-tank/
+  social:
+    facebook: https://facebook.com/Umniah
+    instagram: https://www.instagram.com/umniah
+    linkedin: https://www.linkedin.com/company/umniah
+    x: https://twitter.com/umniah
+  reach:
+    home: ok
+    runner: ok
+  finding: Programme page only.
 - name: Orange Jordan (Digital Village, Coding Academy)
   kind: ecosystem
   city: Amman
+  class: no_listing
+  verdict: outreach
   website: https://orange.jo/en
   pages:
   - https://orange.jo/en/corporate/media-center/events
   - https://www.orangedigitalcenters.com/country/JO/events
+  social:
+    facebook: https://www.facebook.com/OrangeJordan
+    instagram: https://www.instagram.com/orangejo
+    linkedin: https://www.linkedin.com/company/orange-jordan
+    x: https://twitter.com/orangeJo
+  reach:
+    home: ok
+    runner: ok
+  finding: Press releases about past events; orangedigitalcenters.com is a script-built page.
 - name: Crown Prince Foundation (CPF) and The Makerspace (ex-TechWorks)
   kind: ecosystem
   city: Amman
+  class: api_feed
+  verdict: candidates
   website: https://cpf.jo/
   pages:
   - https://cpf.jo/calendar/
   - https://cpf.jo/feed/
   - https://cpf.jo/en/programs/the-makerspace-en/
   - https://www.fablabs.io/labs/fablabjordan
+  feeds:
+  - https://cpf.jo/feed/
+  social:
+    facebook: https://www.facebook.com/CPFJO
+    instagram: https://www.instagram.com/cpfjo
+    x: https://twitter.com/cpfjo
+    youtube: https://www.youtube.com/c/CrownPrinceFoundation
+  reach:
+    home: ok
+    runner: ok
+  finding: WordPress RSS announces training programmes (Excel and AI, etc.). The calendar page still shows placeholder text.
 - name: Ministry of Digital Economy and Entrepreneurship (MoDEE)
   kind: ecosystem
   city: Amman
+  class: no_listing
+  verdict: skip
   website: https://www.modee.gov.jo/
+  social:
+    facebook: https://www.facebook.com/MoDEEJO
+    instagram: https://www.instagram.com/MoDEEJO
+    x: https://twitter.com/MoDEEJO
+    youtube: https://www.youtube.com/@ministryofdigitalentrepreneurs
+  reach:
+    home: ok
+    runner: ok
+  finding: News only.
 - name: Plug and Play
   kind: ecosystem
+  class: no_listing
+  verdict: skip
   website: https://www.plugandplaytechcenter.com/
   pages:
   - https://www.plugandplaytechcenter.com/all-events
+  reach:
+    home: ok
+    runner: ok
+  finding: Global events list in HTML; nothing in Jordan.
   notes: No Jordan office found; GCC run from Abu Dhabi.
 - name: Fikr AI Hub & Study House
   kind: ecosystem
   city: Amman
+  class: social_only
+  verdict: outreach
+  finding: No site found.
   notes: Venue of the RAS UJ workshop. No site or listing found by search; fikr.ai does not resolve.
 - name: Royal Scientific Society (RSS)
   kind: ecosystem
   city: Amman
+  class: no_listing
+  verdict: skip
   website: https://www.rss.jo/
+  social:
+    facebook: https://www.facebook.com/RSSJor
+    instagram: https://www.instagram.com/RSSJor
+    linkedin: https://www.linkedin.com/company/rssjor
+    x: https://x.com/RSSJor
+    youtube: https://www.youtube.com/channel/UCdr8nd5RcCI4ff_ZBt2zm-Q
+  reach:
+    home: ok
+    runner: ok
+  finding: News only.
 - name: Abdul Hameed Shoman Foundation
   kind: ecosystem
   city: Amman
+  class: clean_html
+  verdict: build
   website: https://shoman.org/
   pages:
   - https://shoman.org/events
+  social:
+    facebook: https://www.facebook.com/ShomanFDN
+    instagram: https://www.instagram.com/shomanfdn
+    linkedin: https://www.linkedin.com/company/shomanfdn
+    x: https://x.com/ShomanFDN
+    youtube: https://www.youtube.com/@AzraqPlatform
+  reach:
+    home: ok
+    runner: ok
+  finding: /events lists upcoming events in HTML with date, time and branch (5,459 in the archive). Mostly culture; science and digital-skills sessions need the tech-keyword
+    filter.
 - name: Higher Council for Science and Technology (HCST)
   kind: ecosystem
   city: Amman
+  class: api_feed
+  verdict: candidates
   website: https://hcst.gov.jo/en
   pages:
   - https://hcst.gov.jo/en/event-created
   - https://hcst.gov.jo/en/rss.xml
+  feeds:
+  - https://hcst.gov.jo/en/rss.xml
+  social:
+    facebook: https://www.facebook.com/Hcst-jo-161084354308889
+    x: https://twitter.com/HcstJo
+    youtube: https://www.youtube.com/channel/UCqXYNDV5XwqdKXMKjgpGAWg
+  reach:
+    home: ok
+    runner: ok
+  finding: Drupal RSS of news and award deadlines (/en/rss.xml), readable from home and runner; the home page itself failed to connect from the runner.
 - name: King Abdullah II Fund for Development (KAFD)
   kind: ecosystem
   city: Amman
+  class: js_no_endpoint
+  verdict: outreach
   website: https://www.kafd.jo/
   pages:
   - https://kafd.jo/en/news.aspx
+  social:
+    facebook: https://www.facebook.com/KAFDJordan
+    instagram: https://www.instagram.com/kafdjordan
+    x: https://twitter.com/kafdjordan
+    youtube: https://www.youtube.com/user/KAFDJordan
+  reach:
+    home: ok
+    runner: ok
+  finding: News page built by scripts.
 - name: Flat6Labs Amman
   kind: ecosystem
   city: Amman
+  class: no_listing
+  verdict: skip
   website: https://flat6labs.com/
+  feeds:
+  - https://flat6labs.com/feed/
+  reach:
+    home: ok
+    runner: ok
+  finding: Regional news RSS; nothing dated for Amman.
 - name: ISSF (Innovative Startups and SMEs Fund)
   kind: ecosystem
   city: Amman
+  class: no_listing
+  verdict: skip
   website: https://issfjo.com/
+  social:
+    facebook: https://www.facebook.com/ISSFJO
+    instagram: https://www.instagram.com/issfjo
+    linkedin: https://www.linkedin.com/company/issfjo
+    x: https://x.com/issfjo
+    youtube: https://www.youtube.com/channel/UCkc6qE1Fzgv0X9xT4iHxlaw
+  reach:
+    home: ok
+    runner: ok
+  finding: No events page (404).
 - name: DigiSkills Association
   kind: ecosystem
   city: Amman
+  class: no_listing
+  verdict: skip
   website: https://digiskills.jo/
+  social:
+    facebook: https://www.facebook.com/DigiSkillsJo
+    instagram: https://www.instagram.com/digiskillsjo
+    linkedin: https://www.linkedin.com/company/digiskills-jordan
+    x: https://x.com/digiskillsjo
+  reach:
+    home: ok
+    runner: ok
+  finding: No events list.
 - name: National Cyber Security Center (NCSC)
   kind: ecosystem
   city: Amman
+  class: clean_html
+  verdict: candidates
   website: https://ncsc.jo/
   pages:
   - https://ncsc.jo/Ar/List/upcoming_events_AR
+  social:
+    facebook: https://www.facebook.com/NCSCJO
+    instagram: https://www.instagram.com/ncscjordan
+    linkedin: https://www.linkedin.com/company/ncsc-jo
+    x: https://twitter.com/NCSCJO
+    youtube: https://www.youtube.com/@ncscjo3803
+  reach:
+    home: ok
+    runner: ok
+  finding: '''Upcoming events'' page in HTML, last filled for 2024 (Cyber Warriors CTF). Watch it for the next edition.'
 - name: INJAZ
   kind: ecosystem
   city: Amman
+  class: js_no_endpoint
+  verdict: skip
   website: https://injaz.org.jo/
+  reach:
+    home: ok
+    runner: ok
+  finding: Empty app shell.
 - name: Jubilee Institute / Jubilee Center for Excellence
   kind: ecosystem
   city: Amman
+  class: no_listing
+  verdict: manual
   website: https://jubilee.edu.jo/
   pages:
   - https://jubilee.edu.jo/feed/
+  feeds:
+  - https://jubilee.edu.jo/feed/
+  social:
+    facebook: https://www.facebook.com/JubileeInstitute
+    instagram: https://www.instagram.com/the_jubilee_institute
+    linkedin: https://www.linkedin.com/school/18233457
+    x: https://twitter.com/Jubilee_KHF
+  reach:
+    home: ok
+    runner: ok
+  finding: WordPress with one post in its feed. FLL Jordan is added by hand each March.
   notes: Runs FIRST LEGO League Jordan.
 - name: King Hussein Business Park (KHBP)
   kind: ecosystem
   city: Amman
+  class: dead
+  verdict: skip
   website: https://khbp.jo/
+  reach:
+    home: down
+    runner: down
+  finding: khbp.jo does not connect.
 - name: JEDCO
   kind: ecosystem
   city: Amman
+  class: no_listing
+  verdict: skip
   website: https://www.jedco.gov.jo/
   pages:
   - https://www.jedco.gov.jo/AR/Pages/events
+  social:
+    facebook: https://www.facebook.com/JEDCOJO
+    instagram: https://www.instagram.com/jedcojo
+    linkedin: https://www.linkedin.com/company/jedcojo
+    x: https://twitter.com/JEDCOJO
+    youtube: https://www.youtube.com/channel/UCuPGas5r4t9Jrj1jIQ53B-A
+  reach:
+    home: ok
+    runner: down
+  finding: Lists bazaars and exhibitions, not tech events. Times out from the runner.
 - name: Eventbrite (Jordan search)
   kind: platform
+  class: runner_blocked
+  verdict: home_fetch
   website: https://www.eventbrite.com/d/jordan/tech/
+  reach:
+    home: ok
+    runner: blocked
+  finding: 9 schema.org events from home; HTTP 405 and a captcha page from the runner. Scraper already written.
   notes: 'Scraper exists, disabled: blocked on the runner since 2026-10-26.'
 - name: Luma
   kind: platform
+  class: clean_html
+  verdict: build
   website: https://luma.com/amman
   pages:
   - https://luma.com/techstarsstartupweekend
+  reach:
+    home: ok
+    runner: ok
+  finding: No city page for Amman and no public search API. Each calendar page carries schema.org events and has an iCal feed, so Luma works per calendar, when an
+    organizer gives us theirs.
 - name: Meetup (search by place)
   kind: platform
+  class: blocked
+  verdict: skip
   website: https://www.meetup.com/find/?location=jo--Amman&source=EVENTS
+  reach:
+    home: robots
+    runner: ok
+  finding: Search pages are disallowed by robots.txt. Group pages and their iCal feeds are allowed (see AWS Community Jordan).
 - name: dev.events (Jordan)
   kind: platform
+  class: clean_html
+  verdict: build
   website: https://dev.events/AS/JO/tech
+  reach:
+    home: ok
+    runner: ok
+  finding: 'Aggregator page for Jordan with schema.org events; robots.txt allows all. Today: DevFest Amman 2026 (already listed) and two online masterclasses.'
 - name: Devpost (in-person, Jordan)
   kind: platform
-  website: https://devpost.com/api/hackathons?search=jordan
+  class: api_feed
+  verdict: covered
   covered_by: devpost
+  website: https://devpost.com/api/hackathons?search=jordan
+  reach:
+    home: ok
+    runner: ok
+  finding: devpost source; the same API takes a search term for in-person events.
 - name: CTFtime
   kind: platform
-  website: https://ctftime.org/api/v1/events/?limit=1
+  class: api_feed
+  verdict: covered
   covered_by: ctftime
+  website: https://ctftime.org/api/v1/events/?limit=1
+  reach:
+    home: ok
+    runner: ok
+  finding: ctftime source.
 - name: CyberTalents competitions
   kind: platform
+  class: clean_html
+  verdict: candidates
   website: https://cybertalents.com/competitions
+  reach:
+    home: ok
+    runner: ok
+  finding: Competitions list in HTML (hundreds of dated entries, region-wide). Hosts Jordan's national CTFs in some years.
 - name: Techstars Startup Weekend
   kind: platform
+  class: js_no_endpoint
+  verdict: skip
   website: https://www.techstars.com/communities/startup-weekend
   pages:
   - https://www.techstars.com/events
+  reach:
+    home: ok
+    runner: ok
+  finding: Events page is built by scripts; no Amman weekend found for 2026.
 - name: JCPC (Jordanian Collegiate Programming Contest)
   kind: annual_event
+  class: social_only
+  verdict: manual
   usual_month: September-October
-  notes: No site (jcpc.jo does not resolve). Announced by the host university and the Jordanian programmers' association; university qualifiers (GJU CPC was 2 Sep 2026) appear in university news.
+  finding: No site.
+  notes: No site (jcpc.jo does not resolve). Announced by the host university and the Jordanian programmers' association; university qualifiers (GJU CPC was 2 Sep
+    2026) appear in university news.
 - name: ICPC / ACPC (Arab Collegiate Programming Championship)
   kind: annual_event
+  class: api_feed
+  verdict: manual
   website: https://icpc.global/
   pages:
   - https://acpc.global/
   - https://acpc.global/wp-json/tribe/events/v1/events
+  feeds:
+  - https://acpc.global/feed/
+  - https://acpc.global/wp-json/tribe/events/v1/events
+  reach:
+    home: ok
+    runner: ok
   usual_month: November-December
+  finding: acpc.global has The Events Calendar feed and API (empty; last post 2017). icpc.global is a script app behind a captcha check.
 - name: IEEEXtreme
   kind: annual_event
+  class: api_feed
+  verdict: manual
   website: https://ieeextreme.org/
   pages:
   - https://ieeextreme.org/feed/
+  feeds:
+  - https://ieeextreme.org/feed/
+  reach:
+    home: ok
+    runner: ok
   usual_month: October
+  finding: WordPress RSS with a handful of posts; one date a year.
 - name: NASA Space Apps Challenge Amman
   kind: annual_event
   city: Amman
+  class: js_endpoint
+  verdict: manual
   website: https://www.spaceappschallenge.org/
   pages:
   - https://www.spaceappschallenge.org/2026/local-events/
+  reach:
+    home: ok
+    runner: down
   usual_month: 'October (2026: 14-15 November)'
+  finding: 'Local-event pages are built from a GraphQL endpoint (api.spaceappschallenge.org/graphql); the site''s certificate chain is incomplete for Python and the
+    runner. 2026 has five Jordan local events on 14-15 November: Amman, Irbid, Ar-Ramtha, Karak (in person) and Aqaba (virtual).'
   notes: 'Local lead in past years: ZINC.'
 - name: Global Game Jam (Jordan sites)
   kind: annual_event
+  class: runner_blocked
+  verdict: manual
   website: https://globalgamejam.org/
+  reach:
+    home: ok
+    runner: blocked
   usual_month: January
+  finding: Site in HTML from home; Cloudflare challenge (403) from the runner, and from home on the first try.
   notes: Jordan sites are hosted by Jordan Gaming Lab.
 - name: DevFest Amman
   kind: annual_event
   city: Amman
-  website: https://gdg.community.dev/gdg-amman/
-  usual_month: November-December
+  class: clean_html
+  verdict: covered
   covered_by: gdg
+  website: https://gdg.community.dev/gdg-amman/
+  reach:
+    home: ok
+    runner: ok
+  usual_month: November-December
+  finding: gdg source.
 - name: MENA ICT Forum
   kind: annual_event
   city: Amman
+  class: no_listing
+  verdict: manual
   website: https://www.menaictforum.com/
+  social:
+    facebook: https://www.facebook.com/MENAICT
+    instagram: https://www.instagram.com/menaict
+    x: https://twitter.com/MENAICT
+    youtube: https://www.youtube.com/channel/UCsTREkXpBpnJWbZXRYF0ucA
+  reach:
+    home: ok
+    runner: ok
   usual_month: November (every two years)
+  finding: One-page site per edition.
 - name: AEECT (IEEE Jordan conference)
   kind: annual_event
   city: Amman
+  class: runner_blocked
+  verdict: manual
   website: https://aeect.org/
   pages:
   - https://aeect.starchapter.com/meetinginfo.php
+  social:
+    facebook: https://www.facebook.com/AEECT
+    x: https://twitter.com/AEEofCT
+  reach:
+    home: ok
+    runner: blocked
   usual_month: varies (every two years)
+  finding: Conference site; Cloudflare challenge (403) from the runner.
 - name: IEEE Jordan Student Paper Contest and robotics competitions
   kind: annual_event
+  class: clean_html
+  verdict: manual
   website: https://jordan.ieee.org/
+  social:
+    facebook: https://www.facebook.com/IEEEJO
+    instagram: https://www.instagram.com/ieeejordansection
+    linkedin: https://www.linkedin.com/company/ieee-jordan-section
+    x: https://x.com/ieeejosection
+    youtube: https://www.youtube.com/@IEEEJordanSection
+  reach:
+    home: ok
+    runner: ok
   usual_month: spring
-  notes: Announced on jordan.ieee.org and vTools; RoboLeague (IEEE RAS Hashemite), RoboFight (ASU), NLFRC line follower (Al-Ahliyya), FFEC firefighting robots (HTU), IEEE Jordan AI Modeling Hackathon.
+  finding: Announced on jordan.ieee.org pages and vTools.
+  notes: Announced on jordan.ieee.org and vTools; RoboLeague (IEEE RAS Hashemite), RoboFight (ASU), NLFRC line follower (Al-Ahliyya), FFEC firefighting robots (HTU),
+    IEEE Jordan AI Modeling Hackathon.
 - name: WRO Jordan
   kind: annual_event
+  class: no_listing
+  verdict: skip
   website: https://wro-association.org/
+  feeds:
+  - https://wro-association.org/feed/
+  reach:
+    home: ok
+    runner: ok
   usual_month: unknown
+  finding: No national organiser.
   notes: No Jordanian national organiser found (checked 2026-10-27 and 2026-11-11).
 - name: FIRST LEGO League Jordan
   kind: annual_event
   city: Amman
+  class: no_listing
+  verdict: manual
   website: https://jubilee.edu.jo/
+  social:
+    facebook: https://www.facebook.com/JubileeInstitute
+    instagram: https://www.instagram.com/the_jubilee_institute
+    linkedin: https://www.linkedin.com/school/18233457
+    x: https://twitter.com/Jubilee_KHF
+  reach:
+    home: ok
+    runner: ok
   usual_month: March
+  finding: No listing; see Jubilee Institute.
 - name: National CTFs (Cyber Warriors, META CTF, YU Cryptera)
   kind: annual_event
+  class: no_listing
+  verdict: manual
   usual_month: spring (Cyber Warriors), October (META CTF)
+  finding: No site of their own; watch the pages named in the notes.
   notes: 'Cyber Warriors: NCSC + HTU, announced on intaj.net and ncsc.jo. META CTF: PSUT news. YU Cryptera CTF: it.yu.edu.jo news.'
 - name: Hult Prize national round
   kind: annual_event
+  class: no_listing
+  verdict: manual
   website: https://www.hultprize.org/
+  reach:
+    home: ok
+    runner: ok
   usual_month: March-May
+  finding: No public schedule for Jordan.
 - name: Huawei ICT Competition Jordan
   kind: annual_event
+  class: js_no_endpoint
+  verdict: manual
   website: https://e.huawei.com/en/talent/ict-academy/
+  reach:
+    home: ok
+    runner: ok
   usual_month: autumn
+  finding: Script-built page.
 - name: Jordan Gaming Summit / Nashama Game Jam
   kind: annual_event
   city: Amman
+  class: social_only
+  verdict: manual
   website: https://www.gaminglab.jo/
+  reach:
+    home: ok
+    runner: ok
   usual_month: November (summit), June (jam)
+  finding: See Jordan Gaming Lab.

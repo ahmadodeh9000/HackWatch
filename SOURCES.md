@@ -132,6 +132,37 @@ The deploy job publishes a per-source fetch report as
 
 Instagram and Facebook are also out of scope by project rule.
 
+## Organizer census (2026-11-11)
+
+[`organizers.yaml`](organizers.yaml) lists 110 organizers of tech and engineering events in Jordan
+(universities and faculties, student groups, communities, ecosystem bodies, platforms, annual events) with
+their pages, feeds, social links, a class and a verdict. Every page was fetched once from a home connection
+and once from a GitHub runner with `scripts/census_probe.py` (robots.txt and Crawl-delay obeyed, honest
+User-Agent); the raw results are in `census/`. Social links are the ones each organizer's own site shows;
+Instagram, Facebook, LinkedIn, X and Telegram are never fetched.
+
+| Class | Count | Organizers |
+|---|---|---|
+| API / feed | 18 | Yarmouk University (YU), Applied Science Private University, Middle East University (MEU), Amman Arab University (AAU), Tafila Technical University (TTU), Ajloun National University (ANU), World Islamic Sciences and Education University, IEEE student branches and society chapters, ACM Student Chapter JUST, AWS Community Jordan, GDG Amman on Meetup (mirror), Shamal Start / Jordan Start, Crown Prince Foundation, Higher Council for Science and Technology, Devpost (in-person, Jordan), CTFtime, ICPC / ACPC, IEEEXtreme |
+| Clean HTML | 29 | Princess Sumaya University for Technology, German Jordanian University (GJU), Al Hussein Technical University, YU Faculty of IT and Computer Sciences, YU Hijjawi Faculty for Engineering Technology, Hashemite University (HU), Zarqa University (ZU), Al-Ahliyya Amman University, American University of Madaba, Al al-Bayt University (AABU), Al-Hussein Bin Talal University, Jadara University, Irbid National University (INU), GDG on Campus chapters, GDG Amman, GDG Aqaba, Jordan Open Source Association, Startup Grind Amman, BSides Amman, Jordan Engineers Association (JEA), IEEE Jordan Section, int@j (ICT Association of Jordan), Abdul Hameed Shoman Foundation, National Cyber Security Center, Luma, dev.events (Jordan), CyberTalents competitions, DevFest Amman, IEEE Jordan Student Paper Contest and robotics competitions |
+| JS app with a public data endpoint | 3 | IEEE RAS UJ, ZINC (Zain Innovation Campus), NASA Space Apps Challenge Amman |
+| JS app, no endpoint found | 6 | University of Petra (UOP), Jerash University, King Abdullah II Fund for Development, INJAZ, Techstars Startup Weekend, Huawei ICT Competition Jordan |
+| Unreachable from the runner only | 5 | Mutah University, StartupsJo (Jordan startup portal), Eventbrite (Jordan search), Global Game Jam (Jordan sites), AEECT (IEEE Jordan conference) |
+| Blocked everywhere | 6 | University of Jordan (UJ), UJ School of Engineering, UJ King Abdullah II School of IT, UJ Aqaba branch, Jordan University of Science and Technology, Meetup (search by place) |
+| Working site, no events listing | 28 | Al-Balqa Applied University (BAU), Philadelphia University, Isra University, Al-Zaytoonah University of Jordan, Aqaba University of Technology, Luminus Technical University College, 42 Amman, ACM Student Chapter PSUT, ACM Student Chapter Philadelphia University, ACM Student Chapter Mutah, Enactus teams, OWASP Amman chapter, Oasis500, The Tank (Umniah), Orange Jordan, Ministry of Digital Economy and Entrepreneurship, Plug and Play, Royal Scientific Society (RSS), Flat6Labs Amman, ISSF, DigiSkills Association, Jubilee Institute / Jubilee Center for Excellence, JEDCO, MENA ICT Forum, WRO Jordan, FIRST LEGO League Jordan, National CTFs, Hult Prize national round |
+| Social-only | 9 | PSUT Cyber Security Club, University robotics teams, Hult Prize on-campus programs, Jordan Gaming Lab, Women in tech, Techween, Fikr AI Hub & Study House, JCPC, Jordan Gaming Summit / Nashama Game Jam |
+| Dead or broken site | 6 | JordanSec CTF team, DC962 (DEF CON group Jordan), Jordan Computer Society (JCS), Amman Tech Tuesdays / UX Jordan, iPARK, King Hussein Business Park (KHBP) |
+
+Verdicts: skip 27, candidates 24, outreach 21, manual 15, covered 11, build 9, home_fetch 3.
+
+Notes:
+- **Unreachable from the runner** covers a captcha page (Eventbrite), Cloudflare challenges (Global Game Jam,
+  AEECT) and plain connection timeouts or refusals (StartupsJo, Mutah). GJU, JEDCO and HCST's home page
+  also timed out from the runner in this run. int@j answered the runner this time (403 on 2026-10-30).
+- **Incomplete certificate chains:** zinc.jo, aum.edu.jo and spaceappschallenge.org leave out an intermediate
+  certificate. Browsers and curl on macOS fetch it themselves; Python and the runner refuse the connection.
+- University of Jordan (all subdomains) and JUST answer "Request Rejected" to a script from both places.
+
 ## Discovery queue (`discovery.yaml`), checked 2026-10-30
 
 | Page | From a home connection | From GitHub's runner |
