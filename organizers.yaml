@@ -1,0 +1,608 @@
+organizers:
+- name: University of Jordan (UJ)
+  kind: university
+  city: Amman
+  website: https://www.ju.edu.jo/
+  name_ar: الجامعة الأردنية
+- name: UJ School of Engineering
+  kind: faculty
+  city: Amman
+  website: https://engineering.ju.edu.jo/
+  parent: University of Jordan (UJ)
+- name: UJ King Abdullah II School of IT (KASIT)
+  kind: faculty
+  city: Amman
+  website: https://computer.ju.edu.jo/
+  parent: University of Jordan (UJ)
+- name: UJ Aqaba branch
+  kind: university
+  city: Aqaba
+  website: https://aqaba.ju.edu.jo/
+  parent: University of Jordan (UJ)
+- name: Princess Sumaya University for Technology (PSUT)
+  kind: university
+  city: Amman
+  website: https://www.psut.edu.jo/en
+  pages:
+  - https://www.psut.edu.jo/en/events
+  - https://www.psut.edu.jo/en/news
+  - https://www.psut.edu.jo/en/student-life-activities
+  name_ar: جامعة الأميرة سمية للتكنولوجيا
+- name: Jordan University of Science and Technology (JUST)
+  kind: university
+  city: Irbid
+  website: https://www.just.edu.jo/
+  pages:
+  - https://www.just.edu.jo/calendar/Pages/default.aspx
+  name_ar: جامعة العلوم والتكنولوجيا الأردنية
+- name: German Jordanian University (GJU)
+  kind: university
+  city: Madaba
+  website: https://www.gju.edu.jo/
+  pages:
+  - https://www.gju.edu.jo/gju-event
+  - https://www.gju.edu.jo/rss.xml
+  covered_by: gju
+- name: Al Hussein Technical University (HTU)
+  kind: university
+  city: Amman
+  website: https://www.htu.edu.jo/
+  pages:
+  - https://www.htu.edu.jo/news
+- name: Yarmouk University (YU)
+  kind: university
+  city: Irbid
+  website: https://www.yu.edu.jo/
+  pages:
+  - https://www.yu.edu.jo/index.php/events
+  - https://www.yu.edu.jo/index.php?option=com_dpcalendar&task=ical.download&id=106
+  name_ar: جامعة اليرموك
+- name: YU Faculty of IT and Computer Sciences
+  kind: faculty
+  city: Irbid
+  website: https://it.yu.edu.jo/
+  pages:
+  - https://it.yu.edu.jo/index.php/en/
+  parent: Yarmouk University (YU)
+- name: YU Hijjawi Faculty for Engineering Technology
+  kind: faculty
+  city: Irbid
+  website: https://hijjawi.yu.edu.jo/
+  parent: Yarmouk University (YU)
+- name: Al-Balqa Applied University (BAU)
+  kind: university
+  city: Salt
+  website: https://www.bau.edu.jo/
+  pages:
+  - https://www.bau.edu.jo/Services/UpcomingEvents.aspx
+- name: Hashemite University (HU)
+  kind: university
+  city: Zarqa
+  website: https://hu.edu.jo/
+- name: Zarqa University (ZU)
+  kind: university
+  city: Zarqa
+  website: https://www.zu.edu.jo/
+  pages:
+  - https://www.zu.edu.jo/en/index.aspx
+- name: Applied Science Private University (ASU)
+  kind: university
+  city: Amman
+  website: https://www.asu.edu.jo/en
+  pages:
+  - https://www.asu.edu.jo/en/events/
+  - https://www.asu.edu.jo/en/events/feed/
+  - https://www.asu.edu.jo/en/activities-events/
+- name: Middle East University (MEU)
+  kind: university
+  city: Amman
+  website: https://www.meu.edu.jo/
+  pages:
+  - https://www.meu.edu.jo/feed/
+- name: Amman Arab University (AAU)
+  kind: university
+  city: Amman
+  website: https://www.aau.edu.jo/
+  pages:
+  - https://www.aau.edu.jo/news-events
+  - https://www.aau.edu.jo/ar/calendar
+  - https://newsletter.aau.edu.jo/
+- name: Al-Ahliyya Amman University
+  kind: university
+  city: Amman
+  website: https://www.ammanu.edu.jo/
+  pages:
+  - https://www.ammanu.edu.jo/events/
+  - https://www.ammanu.edu.jo/news/
+- name: Philadelphia University
+  kind: university
+  city: Amman
+  website: https://www.philadelphia.edu.jo/
+  pages:
+  - https://www.philadelphia.edu.jo/events-conferences
+- name: Mutah University
+  kind: university
+  city: Karak
+  website: https://www.mutah.edu.jo/
+  pages:
+  - https://www.mutah.edu.jo/UpcomingEvents/EventsList.aspx
+- name: American University of Madaba (AUM)
+  kind: university
+  city: Madaba
+  website: https://aum.edu.jo/
+  pages:
+  - https://aum.edu.jo/news
+- name: University of Petra (UOP)
+  kind: university
+  city: Amman
+  website: https://www.uop.edu.jo/
+  pages:
+  - https://www.uop.edu.jo/En/Pages/default.aspx
+- name: Isra University
+  kind: university
+  city: Amman
+  website: https://www.iu.edu.jo/
+  pages:
+  - https://www.iu.edu.jo/index.php/en/?format=feed&type=rss
+- name: Al-Zaytoonah University of Jordan (ZUJ)
+  kind: university
+  city: Amman
+  website: https://www.zuj.edu.jo/
+  pages:
+  - https://www.zuj.edu.jo/news/
+- name: Tafila Technical University (TTU)
+  kind: university
+  city: Tafila
+  website: https://www.ttu.edu.jo/
+  pages:
+  - https://www.ttu.edu.jo/feed/
+- name: Al al-Bayt University (AABU)
+  kind: university
+  city: Mafraq
+  website: https://www.aabu.edu.jo/
+  pages:
+  - https://www.aabu.edu.jo/AR/Pages/AllEvents.aspx
+- name: Al-Hussein Bin Talal University (AHU)
+  kind: university
+  city: Ma'an
+  website: https://www.ahu.edu.jo/
+- name: Aqaba University of Technology (AUT)
+  kind: university
+  city: Aqaba
+  website: https://www.aut.edu.jo/
+  pages:
+  - https://www.aut.edu.jo/ar/calendar?view=list
+- name: Jadara University
+  kind: university
+  city: Irbid
+  website: https://www.jadara.edu.jo/
+  pages:
+  - https://www.jadara.edu.jo/newscenter.php?type=mod_eventcenter&page=1
+- name: Irbid National University (INU)
+  kind: university
+  city: Irbid
+  website: https://inu.edu.jo/
+- name: Jerash University
+  kind: university
+  city: Jerash
+  website: https://www.jpu.edu.jo/
+- name: Ajloun National University (ANU)
+  kind: university
+  city: Ajloun
+  website: https://www.anu.edu.jo/
+  pages:
+  - https://www.anu.edu.jo/feed/
+- name: World Islamic Sciences and Education University (WISE)
+  kind: university
+  city: Amman
+  website: https://www.wise.edu.jo/
+  pages:
+  - https://www.wise.edu.jo/feed/
+- name: Luminus Technical University College (LTUC)
+  kind: university
+  city: Amman
+  website: https://ltuc.edu.jo/en
+- name: 42 Amman
+  kind: university
+  city: Amman
+  website: https://42amman.com/
+  notes: 'Tuition-free coding school of the 42 network (search result: 42network.org blog).'
+- name: IEEE student branches and society chapters (Jordan Section R80079)
+  kind: student_group
+  website: https://events.vtools.ieee.org/
+  covered_by: ieee
+  notes: 'One source covers every branch: seen so far Yarmouk (SB, WIE, CIS, RAS, CS, AES), GJU (SB, WIE, RAS, PES, IES, IAS, EMBS, CTSoc, CS, AESS, TEMS), Philadelphia (SB, RAS, PES, CS, AESS), Mutah (SB,
+    WIE), Hashemite (PES/IAS, RAS, CS), BAU (CS) and Ajloun College, Zarqa (SB, WIE), UJ Aqaba, Jadara (RAS), TTU (SMC), Al-Ahliyya (CS). Only what a branch posts on vTools; many announce on Instagram alone.'
+- name: IEEE RAS UJ
+  kind: student_group
+  city: Amman
+  website: https://ras-uj.site/
+  pages:
+  - https://ras-uj.site/sitemap.xml
+  parent: University of Jordan (UJ)
+  covered_by: rasuj
+- name: GDG on Campus chapters (9 universities)
+  kind: student_group
+  website: https://gdg.community.dev/chapters/
+  covered_by: gdg
+  notes: PSUT, Zarqa, Hashemite, Al-Zaytoonah, ASU, BAU, Amman Arab, GJU, MEU. HTU's chapter was removed by GDG (404 since 2026-11-01).
+- name: ACM Student Chapter JUST
+  kind: student_group
+  city: Irbid
+  website: https://just.acm.org/
+  pages:
+  - https://just.acm.org/category/event/
+  - https://just.acm.org/feed/
+  parent: Jordan University of Science and Technology (JUST)
+- name: ACM Student Chapter PSUT
+  kind: student_group
+  city: Amman
+  website: https://psutsc.acm.org/
+  pages:
+  - https://www.psut.edu.jo/en/association-for-computing-machinery-student-chapter
+  parent: Princess Sumaya University for Technology (PSUT)
+- name: ACM Student Chapter Philadelphia University
+  kind: student_group
+  city: Amman
+  website: https://phu.acm.org/
+  parent: Philadelphia University
+- name: ACM Student Chapter Mutah
+  kind: student_group
+  city: Karak
+  website: https://mutah.hosting.acm.org/
+  parent: Mutah University
+- name: PSUT Cyber Security Club
+  kind: student_group
+  city: Amman
+  parent: Princess Sumaya University for Technology (PSUT)
+  notes: Runs the national META CTF (aviation cybersecurity) with PSUT; known from PSUT news pages. No site of its own found; social handle not verified.
+- name: JordanSec CTF team
+  kind: student_group
+  website: https://jordansec.org/
+  notes: Jordan-based CTF team with a CTFtime profile (ctftime.org/team/260705).
+- name: University robotics teams (no sites)
+  kind: student_group
+  notes: 'Known only from university news: Philadelphia (RoboFight winners 2026), Al-Ahliyya ALTF team (FFEC 2026), Yarmouk Hijjawi robotics team, GJU AgriHexa, AHU wall-climbing robot team. Their competitions
+    are announced by the host university or an IEEE RAS chapter.'
+- name: Hult Prize on-campus programs
+  kind: student_group
+  website: https://www.hultprize.org/
+  notes: Run each year by student campus directors (UJ, YU, ZUJ, GJU, PSUT in past years); announced on each team's Instagram. Hundreds of Jordanian students withdrew in 2025; current activity not confirmed.
+- name: Enactus teams
+  kind: student_group
+  website: https://enactus.org/
+  pages:
+  - https://enactus.org/wp-json/tribe/events/v1/events
+  notes: No Enactus Jordan country organisation found (searched 2026-11-11).
+- name: GDG Amman
+  kind: community
+  city: Amman
+  website: https://gdg.community.dev/gdg-amman/
+  covered_by: gdg
+- name: GDG Aqaba
+  kind: community
+  city: Aqaba
+  website: https://gdg.community.dev/gdg-aqaba/
+  covered_by: gdg
+- name: Jordan Open Source Association (JOSA)
+  kind: community
+  city: Amman
+  website: https://josa.ngo/
+  pages:
+  - https://josa.ngo/events
+  covered_by: josa
+  notes: Also hosts DevOps and Data Science sub-communities.
+- name: Startup Grind Amman
+  kind: community
+  city: Amman
+  website: https://www.startupgrind.com/amman/
+  covered_by: startupgrind
+- name: AWS Community Jordan (AWS user group)
+  kind: community
+  city: Amman
+  website: https://www.meetup.com/aws-jordan/
+  pages:
+  - https://www.meetup.com/aws-jordan/events/
+  - https://www.meetup.com/aws-jordan/events/ical/
+- name: GDG Amman on Meetup (mirror)
+  kind: community
+  city: Amman
+  website: https://www.meetup.com/gdg-amman/
+  pages:
+  - https://www.meetup.com/gdg-amman/events/ical/
+  notes: Mirror of the GDG chapter page.
+- name: OWASP Amman chapter
+  kind: community
+  city: Amman
+  website: https://owasp.org/www-chapter-amman/
+- name: BSides Amman
+  kind: community
+  city: Amman
+  website: https://bsidesamman.org/
+  notes: Yearly security conference; 2025 edition was 17 May at ASU.
+- name: DC962 (DEF CON group Jordan)
+  kind: community
+  city: Amman
+  website: https://dc962.org/
+- name: Jordan Gaming Lab
+  kind: community
+  city: Amman
+  website: https://www.gaminglab.jo/
+  pages:
+  - https://kafd.jo/en/news.aspx
+  notes: KAFD project; branches in Amman, Irbid, Zarqa, Aqaba, Karak, Tafileh. Runs Global Game Jam sites, Nashama Game Jam, Jordan Gaming Summit.
+- name: Jordan Engineers Association (JEA)
+  kind: community
+  city: Amman
+  website: https://www.jea.org.jo/
+  pages:
+  - https://www.jea.org.jo/AR/List/الدورات_والفعاليات
+  name_ar: نقابة المهندسين الأردنيين
+- name: Jordan Computer Society (JCS)
+  kind: community
+  city: Amman
+  website: https://jcs.org.jo/
+- name: IEEE Jordan Section
+  kind: community
+  city: Amman
+  website: https://jordan.ieee.org/
+  pages:
+  - https://jordan.ieee.org/events/
+  - https://jordan.ieee.org/events/?ical=1
+  - https://jordan.ieee.org/wp-json/tribe/events/v1/events
+  - https://jordan.ieee.org/events-jo/
+- name: Women in tech (Women Techmakers Amman, Femi Tech Summit, Girls in Tech Jordan)
+  kind: community
+  city: Amman
+  notes: International Women's Day events run through GDG Amman (covered). Femi Tech Summit Jordan was 17 May 2026 at KHBP. Girls in Tech Jordan (2015) shows no recent activity; its subdomain is gone.
+- name: Techween
+  kind: community
+  city: Amman
+  notes: Coding community for students (The New Arab feature, May 2026). No site found; social handle not verified.
+- name: Amman Tech Tuesdays / UX Jordan
+  kind: community
+  city: Amman
+  notes: Named in older roundups; no current site or listing found.
+- name: int@j (ICT Association of Jordan)
+  kind: ecosystem
+  city: Amman
+  website: https://www.intaj.net/
+  pages:
+  - https://www.intaj.net/media-center/events
+  - https://www.intaj.net/media-center/events/intaj
+- name: StartupsJo (Jordan startup portal)
+  kind: ecosystem
+  city: Amman
+  website: https://www.startupsjo.com/
+  pages:
+  - https://www.startupsjo.com/en/Pages/CustomPages/NewsAndEvents
+- name: iPARK
+  kind: ecosystem
+  city: Amman
+  website: https://www.ipark.jo/
+- name: ZINC (Zain Innovation Campus)
+  kind: ecosystem
+  city: Amman
+  website: https://zinc.jo/
+  pages:
+  - https://zinc.jo/events
+  notes: Organised NASA Space Apps Amman (5th local edition, 2025).
+- name: Oasis500
+  kind: ecosystem
+  city: Amman
+  website: https://oasis500.com/
+- name: Shamal Start / Jordan Start
+  kind: ecosystem
+  city: Irbid
+  website: https://www.shamalstart.com/
+  pages:
+  - https://www.shamalstart.com/calendar/
+  - https://www.shamalstart.com/calendar/?ical=1
+  - https://www.shamalstart.com/wp-json/tribe/events/v1/events
+- name: The Tank (Umniah)
+  kind: ecosystem
+  city: Amman
+  website: https://www.umniah.com/explore-umniah/the-tank/
+- name: Orange Jordan (Digital Village, Coding Academy)
+  kind: ecosystem
+  city: Amman
+  website: https://orange.jo/en
+  pages:
+  - https://orange.jo/en/corporate/media-center/events
+  - https://www.orangedigitalcenters.com/country/JO/events
+- name: Crown Prince Foundation (CPF) and The Makerspace (ex-TechWorks)
+  kind: ecosystem
+  city: Amman
+  website: https://cpf.jo/
+  pages:
+  - https://cpf.jo/calendar/
+  - https://cpf.jo/feed/
+  - https://cpf.jo/en/programs/the-makerspace-en/
+  - https://www.fablabs.io/labs/fablabjordan
+- name: Ministry of Digital Economy and Entrepreneurship (MoDEE)
+  kind: ecosystem
+  city: Amman
+  website: https://www.modee.gov.jo/
+- name: Plug and Play
+  kind: ecosystem
+  website: https://www.plugandplaytechcenter.com/
+  pages:
+  - https://www.plugandplaytechcenter.com/all-events
+  notes: No Jordan office found; GCC run from Abu Dhabi.
+- name: Fikr AI Hub & Study House
+  kind: ecosystem
+  city: Amman
+  notes: Venue of the RAS UJ workshop. No site or listing found by search; fikr.ai does not resolve.
+- name: Royal Scientific Society (RSS)
+  kind: ecosystem
+  city: Amman
+  website: https://www.rss.jo/
+- name: Abdul Hameed Shoman Foundation
+  kind: ecosystem
+  city: Amman
+  website: https://shoman.org/
+  pages:
+  - https://shoman.org/events
+- name: Higher Council for Science and Technology (HCST)
+  kind: ecosystem
+  city: Amman
+  website: https://hcst.gov.jo/en
+  pages:
+  - https://hcst.gov.jo/en/event-created
+  - https://hcst.gov.jo/en/rss.xml
+- name: King Abdullah II Fund for Development (KAFD)
+  kind: ecosystem
+  city: Amman
+  website: https://www.kafd.jo/
+  pages:
+  - https://kafd.jo/en/news.aspx
+- name: Flat6Labs Amman
+  kind: ecosystem
+  city: Amman
+  website: https://flat6labs.com/
+- name: ISSF (Innovative Startups and SMEs Fund)
+  kind: ecosystem
+  city: Amman
+  website: https://issfjo.com/
+- name: DigiSkills Association
+  kind: ecosystem
+  city: Amman
+  website: https://digiskills.jo/
+- name: National Cyber Security Center (NCSC)
+  kind: ecosystem
+  city: Amman
+  website: https://ncsc.jo/
+  pages:
+  - https://ncsc.jo/Ar/List/upcoming_events_AR
+- name: INJAZ
+  kind: ecosystem
+  city: Amman
+  website: https://injaz.org.jo/
+- name: Jubilee Institute / Jubilee Center for Excellence
+  kind: ecosystem
+  city: Amman
+  website: https://jubilee.edu.jo/
+  pages:
+  - https://jubilee.edu.jo/feed/
+  notes: Runs FIRST LEGO League Jordan.
+- name: King Hussein Business Park (KHBP)
+  kind: ecosystem
+  city: Amman
+  website: https://khbp.jo/
+- name: JEDCO
+  kind: ecosystem
+  city: Amman
+  website: https://www.jedco.gov.jo/
+  pages:
+  - https://www.jedco.gov.jo/AR/Pages/events
+- name: Eventbrite (Jordan search)
+  kind: platform
+  website: https://www.eventbrite.com/d/jordan/tech/
+  notes: 'Scraper exists, disabled: blocked on the runner since 2026-10-26.'
+- name: Luma
+  kind: platform
+  website: https://luma.com/amman
+  pages:
+  - https://luma.com/techstarsstartupweekend
+- name: Meetup (search by place)
+  kind: platform
+  website: https://www.meetup.com/find/?location=jo--Amman&source=EVENTS
+- name: dev.events (Jordan)
+  kind: platform
+  website: https://dev.events/AS/JO/tech
+- name: Devpost (in-person, Jordan)
+  kind: platform
+  website: https://devpost.com/api/hackathons?search=jordan
+  covered_by: devpost
+- name: CTFtime
+  kind: platform
+  website: https://ctftime.org/api/v1/events/?limit=1
+  covered_by: ctftime
+- name: CyberTalents competitions
+  kind: platform
+  website: https://cybertalents.com/competitions
+- name: Techstars Startup Weekend
+  kind: platform
+  website: https://www.techstars.com/communities/startup-weekend
+  pages:
+  - https://www.techstars.com/events
+- name: JCPC (Jordanian Collegiate Programming Contest)
+  kind: annual_event
+  usual_month: September-October
+  notes: No site (jcpc.jo does not resolve). Announced by the host university and the Jordanian programmers' association; university qualifiers (GJU CPC was 2 Sep 2026) appear in university news.
+- name: ICPC / ACPC (Arab Collegiate Programming Championship)
+  kind: annual_event
+  website: https://icpc.global/
+  pages:
+  - https://acpc.global/
+  - https://acpc.global/wp-json/tribe/events/v1/events
+  usual_month: November-December
+- name: IEEEXtreme
+  kind: annual_event
+  website: https://ieeextreme.org/
+  pages:
+  - https://ieeextreme.org/feed/
+  usual_month: October
+- name: NASA Space Apps Challenge Amman
+  kind: annual_event
+  city: Amman
+  website: https://www.spaceappschallenge.org/
+  pages:
+  - https://www.spaceappschallenge.org/2026/local-events/
+  usual_month: 'October (2026: 14-15 November)'
+  notes: 'Local lead in past years: ZINC.'
+- name: Global Game Jam (Jordan sites)
+  kind: annual_event
+  website: https://globalgamejam.org/
+  usual_month: January
+  notes: Jordan sites are hosted by Jordan Gaming Lab.
+- name: DevFest Amman
+  kind: annual_event
+  city: Amman
+  website: https://gdg.community.dev/gdg-amman/
+  usual_month: November-December
+  covered_by: gdg
+- name: MENA ICT Forum
+  kind: annual_event
+  city: Amman
+  website: https://www.menaictforum.com/
+  usual_month: November (every two years)
+- name: AEECT (IEEE Jordan conference)
+  kind: annual_event
+  city: Amman
+  website: https://aeect.org/
+  pages:
+  - https://aeect.starchapter.com/meetinginfo.php
+  usual_month: varies (every two years)
+- name: IEEE Jordan Student Paper Contest and robotics competitions
+  kind: annual_event
+  website: https://jordan.ieee.org/
+  usual_month: spring
+  notes: Announced on jordan.ieee.org and vTools; RoboLeague (IEEE RAS Hashemite), RoboFight (ASU), NLFRC line follower (Al-Ahliyya), FFEC firefighting robots (HTU), IEEE Jordan AI Modeling Hackathon.
+- name: WRO Jordan
+  kind: annual_event
+  website: https://wro-association.org/
+  usual_month: unknown
+  notes: No Jordanian national organiser found (checked 2026-10-27 and 2026-11-11).
+- name: FIRST LEGO League Jordan
+  kind: annual_event
+  city: Amman
+  website: https://jubilee.edu.jo/
+  usual_month: March
+- name: National CTFs (Cyber Warriors, META CTF, YU Cryptera)
+  kind: annual_event
+  usual_month: spring (Cyber Warriors), October (META CTF)
+  notes: 'Cyber Warriors: NCSC + HTU, announced on intaj.net and ncsc.jo. META CTF: PSUT news. YU Cryptera CTF: it.yu.edu.jo news.'
+- name: Hult Prize national round
+  kind: annual_event
+  website: https://www.hultprize.org/
+  usual_month: March-May
+- name: Huawei ICT Competition Jordan
+  kind: annual_event
+  website: https://e.huawei.com/en/talent/ict-academy/
+  usual_month: autumn
+- name: Jordan Gaming Summit / Nashama Game Jam
+  kind: annual_event
+  city: Amman
+  website: https://www.gaminglab.jo/
+  usual_month: November (summit), June (jam)

@@ -1,0 +1,35 @@
+name: Organizer census probe
+
+# Fetches every page named in organizers.yaml from a GitHub runner, once, politely
+# (robots.txt, Crawl-delay, honest User-Agent), so the census can say which sites
+# refuse datacenter traffic. Run by hand; the result is the "census-probe" artifact.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Probe
+        run: python scripts/census_probe.py --out census/probe-runner.json
+
+      - name: Upload the result
+        uses: actions/upload-artifact@v4
+        with:
+          name: census-probe
+          path: census/probe-runner.json
